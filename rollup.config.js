@@ -25,9 +25,9 @@ external.push('leaflet-vector-icon/dist/leaflet-vector-icon.css');
 export default {
   input: 'src/main.js',
   output: {
-    file: 'dist/phila-vue-leaflet.js',
+    file: 'dist/phila-vue-mapping.js',
     format: 'umd',
-    name: 'philaVueLeaflet',
+    name: 'philaVueMapping',
     // silence warning about multiple exports
     exports: 'named',
     // map imports to global names for using vue-leaflet-esri in the browser
