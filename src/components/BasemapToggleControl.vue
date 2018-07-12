@@ -10,7 +10,7 @@
 
 <script>
   import Control from '../leaflet/Control.vue';
-  
+
   const {props, methods} = Control;
 
   export default {
@@ -32,6 +32,7 @@
     },
     methods: Object.assign(methods, {
       handleImageryToggleButtonClick(e) {
+        document.getElementById('addressSearch').blur();
         const prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
         const nextShouldShowImagery = !prevShouldShowImagery;
         this.$store.commit('setShouldShowImagery', nextShouldShowImagery);

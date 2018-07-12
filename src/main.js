@@ -25,9 +25,22 @@ import CyclomediaButton from './cyclomedia/Button.vue';
 import CyclomediaRecordingCircle from './cyclomedia/RecordingCircle.vue';
 import CyclomediaRecordingsClient from './cyclomedia/recordings-client';
 import SvgViewConeMarker from './cyclomedia/SvgViewConeMarker.vue';
+import CyclomediaMixin from './cyclomedia/map-panel-mixin.js';
+import CyclomediaWidget from './cyclomedia/Widget.vue';
 
 import PictometryButton from './pictometry/Button.vue';
+import PictometryMixin from './pictometry/map-panel-mixin.js';
+import PictometryPngMarker from './pictometry/PngMarker.vue';
+import PictometryViewCone from './pictometry/ViewCone.vue';
+import PictometryWidget from './pictometry/Widget.vue';
+import PictometryLayer from './pictometry/Layer.vue';
 
+import PopUp from './leaflet/PopUp.vue';
+import PopUpContent from './leaflet/PopUpContent.vue';
+import Polygon_ from './leaflet/Polygon.vue';
+import Polyline_ from './leaflet/Polyline.vue';
+
+import ModalAbout from './components/ModalAbout.vue';
 
 
 
@@ -59,5 +72,19 @@ exports.CyclomediaButton =  CyclomediaButton;
 exports.CyclomediaRecordingCircle =  CyclomediaRecordingCircle;
 exports.CyclomediaRecordingsClient =  CyclomediaRecordingsClient;
 exports.SvgViewConeMarker =  SvgViewConeMarker;
+exports.CyclomediaMixin = CyclomediaMixin;
+exports.CyclomediaWidget = CyclomediaWidget;
 
 exports.PictometryButton =  PictometryButton;
+exports.PictometryMixin = PictometryMixin;
+exports.PictometryPngMarker = PictometryPngMarker;
+exports.PictometryViewCone = PictometryViewCone;
+exports.PictometryWidget = PictometryWidget;
+exports.PictometryLayer = PictometryLayer;
+
+exports.PopUp = PopUp;
+exports.PopUpContent = PopUpContent;
+exports.Polygon_ = Polygon_;
+exports.Polyline_ = Polyline_;
+
+exports.ModalAbout = ModalAbout;

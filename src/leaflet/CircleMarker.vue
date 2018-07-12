@@ -11,20 +11,20 @@
       'weight',
       'opacity',
       'fillOpacity',
-      'data'
+      'data',
+      'pane'
     ],
-    // computed: {
-    //   activeFeature() {
-    //     return this.$store.state.activeFeature;
-    //   }
-    // },
-    // watch: {
-    //   activeFeature(nextActiveFeature) {
-    //     console.log('watch', nextActiveFeature);
-    //     this.bringCircleMarkerToFront();
-    //     //console.log(this.circleMarkers);
-    //   }
-    // },
+    watch: {
+      latlng(nextLatlng) {
+        // alert('watch circleMarker props latlng is running nextLatlng:', nextLatlng);
+        this.$leafletElement._map.removeLayer(this.$leafletElement);
+        const leafletElement = this.$leafletElement = this.createLeafletElement();
+        const map = this.$store.state.map.map;
+        if (map) {
+          leafletElement.addTo(map);
+        }
+      }
+    },
     mounted() {
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
@@ -52,26 +52,12 @@
           ...options
         } = props;
         const newCircleMarker = new CircleMarker(latlng, options);
-        //this.$store.commit('setCircleMarkers', newCircleMarker);
         return newCircleMarker;
       },
       parentMounted(parent) {
         const map = parent.$leafletElement;
         this.$leafletElement.addTo(map);
       },
-      // bringCircleMarkerToFront() {
-      // // bringCircleMarkerToFront(circleMarker) {
-      //   console.log('bringCircleMarkerToFront');
-      //   // put marker on top
-      //   // const el = circleMarker._path;
-      //   //
-      //   // // remove from parent
-      //   // const group = circleMarker._renderer._rootGroup;
-      //   // group.removeChild(el);
-      //   //
-      //   // // append to end (which brings it to the front)
-      //   // group.appendChild(el);
-      // },
     }
   };
 </script>

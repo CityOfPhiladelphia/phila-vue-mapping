@@ -18,6 +18,7 @@
       if (map) {
         leafletElement.addTo(map);
         map.attributionControl.removeAttribution('overwrite');
+        map.attributionControl.removeAttribution('<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:1385px;"></span>');
       }
     },
     destroyed() {
@@ -38,6 +39,8 @@
       parentMounted(parent) {
         const map = parent.$leafletElement;
         this.$leafletElement.addTo(map);
+        map.attributionControl.removeAttribution('overwrite');
+        map.attributionControl.removeAttribution('<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:1385px;"></span>');
       }
     }
   };

@@ -10,7 +10,7 @@
 
 <script>
   import Control from '../leaflet/Control.vue';
-  import * as L from 'leaflet';
+  import L from 'leaflet';
 
   const {props, methods} = Control;
 
@@ -18,9 +18,16 @@
     props: [
       'position'
     ],
+    data() {
+      return {
+        locationOn: false
+      }
+    },
     methods: Object.assign(methods, {
 
       handleLocationButtonClick(e) {
+        document.getElementById('addressSearch').blur()
+        // alert('handleLocationButtonClick is running');
         const watchPositionOn = this.$store.state.map.watchPositionOn;
         // console.log('watchPositionOn', watchPositionOn);
         if (!watchPositionOn) {
@@ -38,7 +45,10 @@
         }
         this.$store.commit('setLocation', payload);
         // console.log('latitude', payload.lat, 'longitude', payload.lng);
-        this.moveToPosition();
+        if (!this.locationOn) {
+          this.moveToPosition();
+          this.locationOn = true;
+        }
       },
       moveToPosition() {
         // console.log('moveToPosition is running');

@@ -3,7 +3,10 @@
   -->
   <div class="map-container">
     <!-- the leaflet map -->
-    <div class="map" ref="map" />
+    <div class="map"
+         ref="map"
+         id="map"
+    />
       <!-- container for vue elements wrapping leaflet elements. these aren't
            actually rendered, they just allow us to make the map reactive.
       -->
@@ -17,7 +20,8 @@
 <script>
   import {
     Map,
-    LatLng
+    LatLng,
+    LatLngBounds
   } from 'leaflet';
   import bindEvents from './util/bind-events';
 
@@ -29,31 +33,6 @@
       'minZoom',
       'maxZoom',
     ],
-    computed: {
-      fullScreenMapEnabled() {
-        return this.$store.state.fullScreenMapEnabled;
-      },
-      mapBounds() {
-        return this.$store.state.map.bounds;
-      }
-    },
-    watch: {
-      center(nextCenter) {
-        this.setMapView(nextCenter);
-      },
-      zoom(nextZoom) {
-        if (!nextZoom) return;
-
-        this.$leafletElement.setZoom(nextZoom);
-      },
-      mapBounds(nextBounds) {
-        this.setMapBounds(nextBounds)
-      },
-      fullScreenMapEnabled() {
-        console.log('Map.vue fullScreenMapEnabled watch is firing');
-        this.$leafletElement.invalidateSize();
-      }
-    },
     mounted() {
       const map = this.$leafletElement = this.createLeafletElement();
 
@@ -120,15 +99,31 @@
       // TODO warn if trying to bind an event that doesn't exist
       bindEvents(this, this.$leafletElement, this._events);
     },
-    // updated(next, prev) {
-    //   const markers = this.getMarkers();
-    //   if (markers.length === 0) return;
-    //   const latlngs = markers.map(marker => marker.getLatLng());
-    //   console.log('updated', markers);
-    //   const latLngBounds = new LatLngBounds(latlngs);
-    //   console.log('llb', latLngBounds);
-    //   this.$leafletElement.fitBounds(latLngBounds);
-    // },
+    watch: {
+      center(nextCenter) {
+        this.setMapView(nextCenter);
+      },
+      zoom(nextZoom) {
+        if (!nextZoom) return;
+
+        this.$leafletElement.setZoom(nextZoom);
+      },
+      mapBounds(nextBounds) {
+        this.setMapBounds(nextBounds)
+      },
+      fullScreenMapEnabled() {
+        console.log('Map.vue fullScreenMapEnabled watch is firing');
+        this.$leafletElement.invalidateSize();
+      }
+    },
+    computed: {
+      fullScreenMapEnabled() {
+        return this.$store.state.fullScreenMapEnabled;
+      },
+      mapBounds() {
+        return this.$store.state.map.bounds;
+      }
+    },
     methods: {
       createLeafletElement() {
         const { zoomControlPosition, ...options } = this.$props;
@@ -153,28 +148,70 @@
           console.log('MAP.VUE SETMAPBOUNDS IS RUNNING:', bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng);
           this.$leafletElement.fitBounds(bounds);
         }
+      },
+
+
+      // for OpenMaps
+      // nearly the same function is in WebMapLayer.Vue
+      // this one is used when the click is NOT on a point
+      clickHandler(e) {
+        const map = this.$leafletElement
+        const clickBounds = L.latLngBounds(e.latlng, e.latlng);
+        // console.log('clickHandler in Map is starting, e:', e, 'clickBounds:', clickBounds);
+        // console.log('map._layers', map._layers);
+        let intersectingFeatures = [];
+        let geometry;
+        for (let layer in map._layers) {
+          var overlay = map._layers[layer];
+          // console.log('layer:', layer, 'overlay:', overlay);
+          if (overlay._layers) {
+            for (let oLayer in overlay._layers) {
+              const feature = overlay._layers[oLayer];
+              // console.log('feature:', feature);
+              if (feature.feature) {
+                geometry = feature.feature.geometry.type;
+                // console.log('clickHandler LAYER:', layer, 'FEATURE:', feature, 'GEOMETRY:', geometry);
+                let bounds;
+                if (geometry === 'Polygon' || geometry === 'MultiPolygon') {
+                  // console.log('polygon or multipolygon');
+                  if (feature.contains(e.latlng)) {
+                    // console.log('about to run checkForDuplicates')
+                    this.checkForDuplicates(layer, feature, intersectingFeatures);
+                  }
+                }
+                else if (geometry === 'LineString') {
+                  // console.log('Line');
+                  bounds = feature.getBounds();
+                  if (bounds && clickBounds.intersects(bounds)) {
+                    this.checkForDuplicates(layer, feature, intersectingFeatures);
+                  }
+                } else if (geometry === 'Point') {
+                  // console.log('Point');
+                  bounds = L.latLngBounds(feature._latlng, feature._latlng);
+                  if (bounds && clickBounds.intersects(bounds)) {
+                    this.checkForDuplicates(layer, feature, intersectingFeatures);
+                  }
+                }
+              }
+            }
+          }
+        }
+        this.$store.commit('setPopupCoords', e.latlng);
+        this.$store.commit('setIntersectingFeatures', intersectingFeatures);
+      },
+      checkForDuplicates(layer, feature, intersectingFeatures) {
+        // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
+        let ids = []
+        for (let i = 0; i < intersectingFeatures.length; i++) {
+          ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
+        }
+        // console.log('layer:', layer, 'feature.feature.id:', feature.feature.id);
+        if (!ids.includes(layer + '_' + feature.feature.id)) {
+          // console.log('checkForDuplicates going to push to intersectingFeatures:', layer, feature.feature.id);
+          intersectingFeatures.push(feature);
+        }
       }
-      // getMarkers() {
-      //   const children = this.$children;
-      //   const MARKER_CLASSES = [
-      //     '<Geojson>',
-      //     '<VectorMarker>',
-      //   ];
-      //   const markers = children.filter(child => {
-      //     const name = child._name;
-      //     return MARKER_CLASSES.includes(name);
-      //   });
-      //   return markers.map(marker => marker.$leafletElement);
-      // },
-      // refit() {
-      //   const markers = this.getMarkers();
-      //   if (markers.length === 0) return;
-      //   const latlngs = markers.map(marker => marker.getLatLng());
-      //   console.log('updated', markers);
-      //   const latLngBounds = new LatLngBounds(latlngs);
-      //   console.log('llb', latLngBounds);
-      //   this.$leafletElement.fitBounds(latLngBounds);
-      // }
+
     }
   };
 </script>
