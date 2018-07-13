@@ -32,7 +32,7 @@
     },
     methods: Object.assign(methods, {
       handleImageryToggleButtonClick(e) {
-        document.getElementById('addressSearch').blur();
+        // document.getElementById('addressSearch').blur();
         const prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
         const nextShouldShowImagery = !prevShouldShowImagery;
         this.$store.commit('setShouldShowImagery', nextShouldShowImagery);

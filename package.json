@@ -10,6 +10,8 @@
   "main": "./dist/phila-vue-mapping.js",
   "dependencies": {
     "@turf/turf": "^5.1.6",
+    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#5849bfa6248a886d8675eeff98fa9dff4949f12a",
+    "Leaflet.vector-markers": "^0.0.6",
     "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
     "esri-leaflet": "2.1.4",
