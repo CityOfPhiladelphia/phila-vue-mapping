@@ -4,7 +4,7 @@
   >
     <ul>
       <li v-for="(candidate, i) in candidates">
-        <a :href="'#/' + candidate + '/' + activeTopic"
+        <a :href="createLink(candidate)"
            @click="closeAddressCandidateList(candidate)"
            class="list-group-item"
            tabindex="-1"
@@ -28,10 +28,10 @@
         return this.$store.state.map.map;
       },
       candidates() {
-        return this.$store.state.map.candidates;
+        return this.$store.state.candidates;
       },
       shouldShowAddressCandidateList() {
-        return this.$store.state.map.shouldShowAddressCandidateList;
+        return this.$store.state.shouldShowAddressCandidateList;
       },
       activeTopic() {
         return this.$store.state.activeTopic;
@@ -65,13 +65,20 @@
     },
     watch: {
       shouldShowAddressCandidateList(nextValue) {
-        console.log('AddressCandidateList.vue watch shouldShowAddressCandidateList is running, nextValue:', nextValue);
+        // console.log('AddressCandidateList.vue watch shouldShowAddressCandidateList is running, nextValue:', nextValue);
         if (nextValue === true) {
           this.createControl();
         }
       },
     },
     methods: {
+      createLink(candidate) {
+        if (this.$store.state.activeTopic) {
+          return '#/' + candidate + '/' + this.activeTopic;
+        } else {
+          return '#/' + candidate;
+        }
+      },
       createLeafletElement(L) {
         // console.log('AddressCandidateList.vue createLeafletElement is running')
         // subclass Control to accept an el which gets mounted to the map
@@ -130,7 +137,7 @@
       },
       closeAddressCandidateList(addressCandidate) {
         // console.log('closeAddressCandidateList, addressCandidate:', addressCandidate);
-        this.$controller.handleSearchFormSubmit(addressCandidate);
+        // this.$controller.handleSearchFormSubmit(addressCandidate);
         this.$store.commit('setAddressEntered', addressCandidate);
         this.$store.commit('setShouldShowAddressCandidateList', false);
       },

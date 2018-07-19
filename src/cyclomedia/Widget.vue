@@ -30,6 +30,7 @@
         'popoutPosition': 0,
       }
     },
+    props: ['screenPercent'],
     computed: {
       isMobileOrTablet() {
         return this.$store.state.isMobileOrTablet;
@@ -177,13 +178,14 @@
         if (this.fullScreenMapEnabled) {
           answer = docWidth - divWidth + 'px';
         } else {
-          answer = docWidth - (docWidth/2 + divWidth) + 'px';
+          answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
         }
+        console.log('setDivWidth, answer:', answer);
         this.popoutPosition = answer;
         // return width;
       },
       setNewLocation(coords) {
-        console.log('cyclomedia setNewLocation is running using', coords);
+        // console.log('cyclomedia setNewLocation is running using', coords);
         const viewerType = StreetSmartApi.ViewerType.PANORAMA;
         const coords2272 = proj4(this.projection4326, this.projection2272, [coords[1], coords[0]]);
         // StreetSmartApi.open(center.lng + ',' + center.lat, {

@@ -51,9 +51,9 @@
         }
       },
       moveToPosition() {
-        // console.log('moveToPosition is running');
         const map = this.$store.state.map.map;
         const location = this.$store.state.map.location;
+        // console.log('LocationControl.vue moveToPosition is running, location:', location);
         map.setView([location.lat, location.lng], 19);
       },
       geofindError() {

@@ -3,11 +3,11 @@
     <form @submit.prevent="handleSearchFormSubmit"
           autocomplete="off"
           id="search-form"
-          class="mb-search-control-form"
+          class="pvm-search-control-form"
     >
       <!-- <div class="form-group"> -->
         <input :class="this.inputClass"
-               id="mb-search-control-input"
+               id="pvm-search-control-input"
                placeholder="Search the map"
                :value="this.addressEntered"
                tabindex="0"
@@ -22,7 +22,7 @@
       <i class="fa fa-times fa-lg"></i>
     </button>
     <button :class="this.buttonClass"
-            name="mb-search-control-button"
+            name="pvm-search-control-button"
             tabindex="-1"
             @click="this.handleSearchFormSubmit"
     >
@@ -43,43 +43,43 @@
         return this.$store.state.map.map;
       },
       addressEntered() {
-        return this.$store.state.map.addressEntered;
+        return this.$store.state.addressEntered;
       },
       containerClass() {
         if (this.isMobileOrTablet) {
-          return 'mb-search-control-container-mobile';
+          return 'pvm-search-control-container-mobile';
         } else {
-          return 'mb-search-control-container';
+          return 'pvm-search-control-container';
         }
       },
       inputClass() {
         if (this.isMobileOrTablet) {
           if (this.addressAutocompleteEnabled) {
             if (this.addressEntered === '' || this.addressEntered === null) {
-              return 'mb-search-control-input-mobile';
+              return 'pvm-search-control-input-mobile';
             } else {
-              return 'mb-search-control-input-mobile-full';
+              return 'pvm-search-control-input-mobile-full';
             }
           } else {
-            return 'mb-search-control-input-mobile';
+            return 'pvm-search-control-input-mobile';
           }
         } else {
           if (this.addressAutocompleteEnabled) {
             if (this.addressEntered === '' || this.addressEntered === null) {
-              return 'mb-search-control-input';
+              return 'pvm-search-control-input';
             } else {
-              return 'mb-search-control-input-full';
+              return 'pvm-search-control-input-full';
             }
           } else {
-            return 'mb-search-control-input';
+            return 'pvm-search-control-input';
           }
         }
       },
       buttonClass() {
         if (this.isMobileOrTablet) {
-          return 'mb-search-control-button-mobile'
+          return 'pvm-search-control-button-mobile'
         } else {
-          return 'mb-search-control-button'
+          return 'pvm-search-control-button'
         }
       },
       addressAutocompleteEnabled() {
@@ -126,10 +126,10 @@
         const map = this.map;
         leafletElement.addTo(map);
       },
-      didType: _.debounce(function (e) {
-          console.log('debounce is running');
+      didType: debounce(function (e) {
+          // console.log('debounce is running');
           if (this.addressAutocompleteEnabled) {
-            console.log('debounce is running, e:', e, 'this:', this);
+            // console.log('debounce is running, e:', e, 'this:', this);
             if (e.key === "ArrowDown") {
               document.getElementById('address-candidate-list-0').focus();
               return;
@@ -165,17 +165,19 @@
       },
       handleFormX() {
         this.$store.commit('setAddressEntered', '');
+        this.$store.commit('setShouldShowAddressCandidateList', false);
+        this.$store.commit('setCandidates', []);
       },
       handleSearchFormSubmit() {
         // const value = e.target[0].value;
         // const value = this.addressEntered;
         let value;
         if (this.addressAutocompleteEnabled){
-          value = this.$store.state.map.addressEntered;
+          value = this.$store.state.addressEntered;
         } else {
-          value = $('#mb-search-control-input').val();
+          value = $('#pvm-search-control-input').val();
         }
-        console.log('handleSearchFormSubmit is running, value:', value);
+        console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
         // console.log('handleSearchFormSubmit value:', value);
         this.$controller.handleSearchFormSubmit(value);
         this.$store.commit('setAddressEntered', value);
@@ -187,23 +189,23 @@
 
 <style scoped>
 
-.mb-search-control-container {
+.pvm-search-control-container {
   height: 48px;
   border-radius: 2px;
   box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 }
 
-.mb-search-control-container-mobile {
+.pvm-search-control-container-mobile {
   height: 38px;
   border-radius: 2px;
   box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
 }
 
-.mb-search-control-form {
+.pvm-search-control-form {
   display: inline-block;
 }
 
-/* .mb-search-clear-button {
+/* .pvm-search-clear-button {
   display: inline-block;
   color: #fff;
   width: 50px;
@@ -212,7 +214,7 @@
   padding: 0px;
 } */
 
-.mb-search-control-button {
+.pvm-search-control-button {
   display: inline-block;
   color: #fff;
   width: 50px;
@@ -221,7 +223,7 @@
   padding: 0px;
 }
 
-.mb-search-control-button-mobile {
+.pvm-search-control-button-mobile {
   display: inline-block;
   color: #fff;
   width: 38px;
@@ -232,7 +234,7 @@
   padding-top: 1px;
 }
 
-.mb-search-control-input {
+.pvm-search-control-input {
   display: inline-block;
   border: 0;
   padding: 15px;
@@ -241,7 +243,7 @@
   width: 250px;
 }
 
-.mb-search-control-input-full {
+.pvm-search-control-input-full {
   border: 0;
   padding: 15px;
   font-family: 'Montserrat', 'Tahoma', sans-serif;
@@ -249,7 +251,7 @@
   width: 197px;
 }
 
-.mb-search-control-input-mobile {
+.pvm-search-control-input-mobile {
   display: inline-block;
   border: 0;
   padding: 15px;
@@ -259,7 +261,7 @@
   height: 38px;
 }
 
-.mb-search-control-input-mobile-full {
+.pvm-search-control-input-mobile-full {
   border: 0;
   padding: 15px;
   font-family: 'Montserrat', 'Tahoma', sans-serif;
@@ -270,19 +272,19 @@
 
 /*small*/
 @media screen and (max-width: 39.9375em) {
-  .mb-search-control-input {
+  .pvm-search-control-input {
     width: 200px;
   }
 
-  .mb-search-control-input-mobile {
+  .pvm-search-control-input-mobile {
     width: 200px;
   }
 
-  .mb-search-control-input-full {
+  .pvm-search-control-input-full {
     width: 147px;
   }
 
-  .mb-search-control-input-mobile-full {
+  .pvm-search-control-input-mobile-full {
     width: 158px;
   }
 

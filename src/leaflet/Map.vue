@@ -1,15 +1,10 @@
 <template>
-  <!-- we need a container because this component can only contain one root div
-  -->
-  <div class="map-container">
+  <div :class="this.mapContainerClass">
     <!-- the leaflet map -->
     <div class="map"
          ref="map"
          id="map"
     />
-      <!-- container for vue elements wrapping leaflet elements. these aren't
-           actually rendered, they just allow us to make the map reactive.
-      -->
       <div>
         <slot />
       </div>
@@ -40,7 +35,6 @@
       map.zoomControl.setPosition(this.$props.zoomControlPosition);
 
       // put in state
-      // REVIEW do we want to do this? is it serializable?
       this.$store.commit('setMap', { map });
 
       this.setMapView(this.center);
@@ -98,6 +92,9 @@
 
       // TODO warn if trying to bind an event that doesn't exist
       bindEvents(this, this.$leafletElement, this._events);
+      if (this.$config.map.clickToIdentifyFeatures) {
+        map.on('click', this.identifyFeatures);
+      }
     },
     watch: {
       center(nextCenter) {
@@ -105,23 +102,48 @@
       },
       zoom(nextZoom) {
         if (!nextZoom) return;
-
         this.$leafletElement.setZoom(nextZoom);
       },
       mapBounds(nextBounds) {
         this.setMapBounds(nextBounds)
       },
       fullScreenMapEnabled() {
-        console.log('Map.vue fullScreenMapEnabled watch is firing');
+        // console.log('Map.vue fullScreenMapEnabled watch is firing');
         this.$leafletElement.invalidateSize();
-      }
+      },
+      webMapDisplayedLayers(nextWebMapDisplayedLayers) {
+        let intersectingLayers = [];
+        for (let feature of this.intersectingFeatures) {
+          intersectingLayers.push(feature.feature.layerName);
+        }
+        console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
+        for (let layer of intersectingLayers) {
+          if (!nextWebMapDisplayedLayers.includes(layer)) {
+            this.$store.commit('setIntersectingFeatures', []);
+            return;
+          }
+        }
+      },
     },
     computed: {
+      mapContainerClass() {
+        if (this.$config.map.containerClass) {
+          return this.$config.map.containerClass
+        } else {
+          return 'map-container'
+        }
+      },
       fullScreenMapEnabled() {
         return this.$store.state.fullScreenMapEnabled;
       },
       mapBounds() {
         return this.$store.state.map.bounds;
+      },
+      webMapDisplayedLayers() {
+        return this.$store.state.map.webMapDisplayedLayers;
+      },
+      intersectingFeatures() {
+        return this.$store.state.map.intersectingFeatures;
       }
     },
     methods: {
@@ -150,11 +172,8 @@
         }
       },
 
-
-      // for OpenMaps
-      // nearly the same function is in WebMapLayer.Vue
-      // this one is used when the click is NOT on a point
-      clickHandler(e) {
+      // this is used when the click should identify features
+      identifyFeatures(e) {
         const map = this.$leafletElement
         const clickBounds = L.latLngBounds(e.latlng, e.latlng);
         // console.log('clickHandler in Map is starting, e:', e, 'clickBounds:', clickBounds);
@@ -211,7 +230,6 @@
           intersectingFeatures.push(feature);
         }
       }
-
     }
   };
 </script>
@@ -220,12 +238,25 @@
   .map-container {
     height: 100%;
   }
+
+  .map-container-type2 {
+    height: calc(100vh - 109px);
+  }
+
   .map {
     height: 100%;
   }
+
   @media (max-width: 749px) {
-    .map {
+    .map-container {
       height: 300px;
+    }
+  }
+
+  /* @media screen and (max-width: 40em) { */
+  @media screen and (max-width: 750px) {
+    .map-container-type2 {
+      height: calc(100vh - 141px);
     }
   }
 </style>
