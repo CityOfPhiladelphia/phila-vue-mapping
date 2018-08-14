@@ -61,7 +61,15 @@
             return 'list-group';
           }
         }
-      }
+      },
+      addressAutocompleteEnabled() {
+        // TODO this is temporarily disabled
+        if (this.$config.addressInput.autocompleteEnabled === true) {
+          return true;
+        } else {
+          return false;
+        }
+      },
     },
     watch: {
       shouldShowAddressCandidateList(nextValue) {
