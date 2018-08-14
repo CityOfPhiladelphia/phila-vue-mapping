@@ -105,6 +105,7 @@
         this.$leafletElement.setZoom(nextZoom);
       },
       mapBounds(nextBounds) {
+        console.log('this.$leafletElement:', this.$leafletElement);
         this.setMapBounds(nextBounds)
       },
       fullScreenMapEnabled() {
@@ -167,8 +168,15 @@
       },
       setMapBounds(bounds) {
         if (bounds._northEast) {
-          console.log('MAP.VUE SETMAPBOUNDS IS RUNNING:', bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng);
-          this.$leafletElement.fitBounds(bounds);
+          // console.log('MAP.VUE SETMAPBOUNDS IS RUNNING:', bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng);
+          const corner1 = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
+          const corner2 = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
+          const bounds2 = L.latLngBounds(corner1, corner2);
+          console.log('bounds2:', bounds2, bounds2.isValid())
+          // this.$leafletElement.fitBounds(bounds);
+          const map = this.$leafletElement;
+          console.log('bounds:', bounds, 'this.$leafletElement:', this.$leafletElement, 'map:', map);
+          map.fitBounds(bounds2);
         }
       },
 
