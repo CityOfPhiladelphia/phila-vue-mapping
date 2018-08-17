@@ -180,7 +180,7 @@
         } else {
           answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
         }
-        console.log('setDivWidth, answer:', answer);
+        // console.log('setDivWidth, answer:', answer);
         this.popoutPosition = answer;
         // return width;
       },

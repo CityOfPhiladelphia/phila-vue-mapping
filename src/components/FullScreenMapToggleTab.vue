@@ -27,6 +27,9 @@
       fullScreenMapEnabled() {
         return this.$store.state.fullScreenMapEnabled;
       },
+      fullScreenTopicsEnabled() {
+        return this.$store.state.fullScreenTopicsEnabled;
+      },
       isMobileOrTablet() {
         return this.$store.state.isMobileOrTablet;
       },
@@ -53,19 +56,22 @@
     },
     watch: {
       picOrCycloActive(value) {
+        // console.log('FullScreenMapToggleTab watch picOrCycloActive, value:', value);
         this.setDivHeight();
         // this.$nextTick(() => {
         //   this.$store.state.map.map.invalidateSize();
         // })
+      },
+      fullScreenTopicsEnabled() {
+        this.setDivHeight();
       }
     },
     methods: {
       setDivHeight() {
+        // console.log('FullScreenMapToggleTab setDivHeight is running');
         const el = document.getElementById('map-tag');
         const divStyle = window.getComputedStyle(el);
         const divHeight = parseFloat(divStyle.getPropertyValue('height').replace('px', ''));
-        this.divHeight = divHeight;
-        // console.log('setDivHeight is running, divHeight:', divHeight);
         this.buttonPosition = (divHeight-48)/2 + 'px';
       },
       handleFullScreenMapToggleButtonClick(e) {
@@ -107,13 +113,15 @@
       position: absolute;
       left: 0px;
       border-width: 1.3px;
+      border-style: solid;
       border-color: #CAC9C9;
       height: 48px;
-      line-height: 58px;
+      line-height: 56px;
       width:24px;
       background-color: white;
       display: inline-block;
       z-index: 500;
+      opacity: 0.7;
       /* border-left-style: solid; */
       /* box-shadow: 2px 2px 7px grey; */
     }

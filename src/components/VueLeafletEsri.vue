@@ -165,11 +165,11 @@
         }
       }
     },
-    watch: {
-      pictometryShowAddressMarker(nextValue) {
-        console.log('watch pictometryShowAddressMarker', nextValue);
-      }
-    },
+    // watch: {
+    //   pictometryShowAddressMarker(nextValue) {
+    //     console.log('watch pictometryShowAddressMarker', nextValue);
+    //   }
+    // },
     methods: {
       closeAddressCandidateList() {
         this.$store.state.map.shouldShowAddressCandidateList = false;
