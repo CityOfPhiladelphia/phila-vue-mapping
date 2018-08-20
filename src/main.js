@@ -1,3 +1,5 @@
+console.log('phila-vue-mapping main.js');
+
 // Leaflet
 import Map_ from './leaflet/Map.vue';
 import Control from './leaflet/Control.vue';
