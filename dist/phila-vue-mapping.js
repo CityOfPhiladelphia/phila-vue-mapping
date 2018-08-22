@@ -1003,9 +1003,12 @@
       'fillColor',
       'fillOpacity',
       'weight',
-      'style_' ],
+      'style_',
+      'markerType',
+      'radius' ],
     created: function created() {
       var leafletElement = this.$leafletElement = this.createLeafletElement();
+      console.log('leafletElement:', leafletElement);
       var map = this.$store.state.map.map;
       // REVIEW kind of hacky/not reactive?
       if (map) {
@@ -1024,10 +1027,30 @@
       createLeafletElement: function createLeafletElement() {
         var props = Object.assign({}, this.$props);
 
+        var map = this.$store.state.map.map;
+        var layerName = props.layerName;
+        if (!map.getPane(layerName)) {
+          map.createPane(layerName);
+        }
+
         // remove underscore from style_ prop. `style` is a vue reserved word.
         var style_ = props.style_;
         delete props.style_;
         props.style = style_;
+
+        if (props.markerType === 'circleMarker') {
+          var pointToLayer = function (geojson, latlng) {
+            return L$1.circleMarker(latlng, {
+              pane: layerName,
+              color: props.color,
+              fillColor: props.fillColor,
+              fillOpacity: props.fillOpacity,
+              weight: props.weight,
+              radius: props.radius,
+            });
+          };
+          props.pointToLayer = pointToLayer;
+        }
 
         return new esriLeaflet.featureLayer(props);
       },
@@ -3752,7 +3775,7 @@
     }
   };
 
-  console.log('phila-vue-mapping main.js');
+  // Leaflet
 
 
   // Exports
