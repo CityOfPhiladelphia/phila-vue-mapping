@@ -22,6 +22,7 @@
       'style_',
       'markerType',
       'radius',
+      'interactive',
     ],
     created() {
       const leafletElement = this.$leafletElement = this.createLeafletElement();
@@ -64,6 +65,7 @@
               fillOpacity: props.fillOpacity,
               weight: props.weight,
               radius: props.radius,
+              interactive: props.interactive,
             });
           }
           props.pointToLayer = pointToLayer;
