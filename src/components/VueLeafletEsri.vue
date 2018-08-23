@@ -172,7 +172,7 @@
     // },
     methods: {
       closeAddressCandidateList() {
-        this.$store.state.map.shouldShowAddressCandidateList = false;
+        this.$store.state.shouldShowAddressCandidateList = false;
       },
       handleWindowResize() {
         // this only actually affects the size if it is set to "plugin mode"
