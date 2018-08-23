@@ -103,6 +103,7 @@
       zoom(nextZoom) {
         if (!nextZoom) return;
         this.$leafletElement.setZoom(nextZoom);
+        this.$store.commit('setMapZoom', nextZoom);
       },
       mapBounds(nextBounds) {
         console.log('this.$leafletElement:', this.$leafletElement);

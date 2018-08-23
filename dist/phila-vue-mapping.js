@@ -124,6 +124,7 @@
       zoom: function zoom(nextZoom) {
         if (!nextZoom) { return; }
         this.$leafletElement.setZoom(nextZoom);
+        this.$store.commit('setMapZoom', nextZoom);
       },
       mapBounds: function mapBounds(nextBounds) {
         console.log('this.$leafletElement:', this.$leafletElement);
