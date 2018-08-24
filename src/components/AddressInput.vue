@@ -8,7 +8,7 @@
       <!-- <div class="form-group"> -->
         <input :class="this.inputClass"
                id="pvm-search-control-input"
-               placeholder="Search the map"
+               :placeholder="this.$props.placeholder || 'Search the map'"
                :value="this.addressEntered"
                tabindex="0"
                @keyup="didType"
@@ -38,7 +38,10 @@
   import axios from 'axios';
 
   export default {
-    props: ['position'],
+    props: [
+      'position',
+      'placeholder',
+    ],
     computed: {
       map() {
         return this.$store.state.map.map;
@@ -85,8 +88,12 @@
       },
       addressAutocompleteEnabled() {
         // TODO this is temporarily disabled
-        if (this.$config.addressInput.autocompleteEnabled === true) {
-          return true;
+        if (this.$config.addressInput) {
+          if (this.$config.addressInput.autocompleteEnabled === true) {
+            return true;
+          } else {
+            return false;
+          }
         } else {
           return false;
         }
