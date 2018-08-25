@@ -9,11 +9,6 @@
           {{ basemap.label }}
         </option>
       </optgroup>
-      <!-- <optgroup label="Historic">
-        <option v-for="historicYear in historicYears">
-          {{historicYear}}
-        </option>
-      </optgroup> -->
     </select>
   </div>
 </template>
@@ -32,6 +27,16 @@
       },
       imageryTypes() {
         return this.$config.map.imageryTypes;
+      },
+      currentImagery() {
+        return this.$store.state.map.imagery;
+      },
+    },
+    watch: {
+      currentImagery(nextCurrentImagery) {
+        const nextYear = nextCurrentImagery.replace(/\D/g,'');
+        const el = document.getElementById('year-select');
+        el.value = nextYear;
       }
     },
     methods: Object.assign(methods, {
@@ -61,7 +66,6 @@
             })
           }
         }
-
         return basemaps;
       }
     })
