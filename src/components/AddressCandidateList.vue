@@ -64,8 +64,12 @@
       },
       addressAutocompleteEnabled() {
         // TODO this is temporarily disabled
-        if (this.$config.addressInput.autocompleteEnabled === true) {
-          return true;
+        if (this.$config.addressInput) {
+          if (this.$config.addressInput.autocompleteEnabled === true) {
+            return true;
+          } else {
+            return false;
+          }
         } else {
           return false;
         }
