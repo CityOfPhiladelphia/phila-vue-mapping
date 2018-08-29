@@ -7,6 +7,7 @@ import analyzer from 'rollup-analyzer-plugin';
 import builtins from 'rollup-plugin-node-builtins';
 import globals from 'rollup-plugin-node-globals';
 import replace from 'rollup-plugin-replace';
+import copy from 'rollup-plugin-copy';
 
 // check if we're in development mode (i.e. rollup is running with watch)
 const dev = !!process.env.ROLLUP_WATCH || process.env.NODE_ENV === 'development';
@@ -81,6 +82,10 @@ export default {
     // !dev && uglify(),
     // analyze if dev
     dev && analyzer(),
+    copy({
+      'src/assets': 'dist/assets',
+      verbose: true,
+    }),
 
     replace({
       'process.env.NODE_ENV': JSON.stringify( 'production' )

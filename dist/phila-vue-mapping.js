@@ -1963,10 +1963,20 @@
         var shouldShowImagery = this.$store.state.map.shouldShowImagery;
         var src;
         if (shouldShowImagery) {
-          src = "../../src/assets/basemap_small.png";
+          // if (this.$config.projectName) {
+            src = "/src/assets/basemap_small.png";
+          //   // src = "../" + this.$config.projectName + "/src/assets/basemap_small.png"
+          // } else {
+          //   src = "../../src/assets/basemap_small.png"
+          // }
         }
         else {
-          src = "../../src/assets/imagery_small.png";
+          // if (this.$config.projectName) {
+            src = "/src/assets/imagery_small.png";
+          //   // src = "../" + this.$config.projectName + "/src/assets/imagery_small.png"
+          // } else {
+          //   src = "../../src/assets/imagery_small.png"
+          // }
         }
         return src;
       },
