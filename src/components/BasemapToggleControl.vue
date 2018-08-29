@@ -22,10 +22,10 @@
         const shouldShowImagery = this.$store.state.map.shouldShowImagery;
         let src;
         if (shouldShowImagery) {
-          src = "../../src/assets/basemap_small.png"
+          src = "../src/assets/basemap_small.png"
         }
         else {
-          src = "../../src/assets/imagery_small.png"
+          src = "../src/assets/imagery_small.png"
         }
         return src;
       },
