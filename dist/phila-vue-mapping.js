@@ -1964,14 +1964,16 @@
         var src;
         if (shouldShowImagery) {
           if (this.$config.projectName) {
-            src = "../" + this.$config.projectName + "/src/assets/basemap_small.png";
+            src = "/src/assets/basemap_small.png";
+            // src = "../" + this.$config.projectName + "/src/assets/basemap_small.png"
           } else {
             src = "../../src/assets/basemap_small.png";
           }
         }
         else {
           if (this.$config.projectName) {
-            src = "../" + this.$config.projectName + "/src/assets/imagery_small.png";
+            src = "/src/assets/imagery_small.png";
+            // src = "../" + this.$config.projectName + "/src/assets/imagery_small.png"
           } else {
             src = "../../src/assets/imagery_small.png";
           }
