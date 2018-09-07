@@ -30,8 +30,12 @@
 
         axios.get(esriUrl, { params }).then(response => {
           const restData = response.data;
-          const webMap = this.$webMap = LEsriWebMap.webMap(this.webmapId, { map: map });
-          // const webMap = this.$webMap = L.esri.webMap(this.webmapId, { map: map });
+          let webMap;
+          if (this.$config.bundled) {
+            webMap = this.$webMap = LEsriWebMap.webMap(this.webmapId, { map: map });
+          } else {
+            webMap = this.$webMap = L.esri.webMap(this.webmapId, { map: map });
+          }
 
           // console.log('WEBMAP', webMap, 'restData', restData);
           self.$store.commit('setWebMap', webMap);

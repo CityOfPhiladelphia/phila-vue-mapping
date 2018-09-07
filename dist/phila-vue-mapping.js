@@ -1093,8 +1093,12 @@
 
         axios.get(esriUrl, { params: params }).then(function (response) {
           var restData = response.data;
-          var webMap = this$1.$webMap = LEsriWebMap.webMap(this$1.webmapId, { map: map });
-          // const webMap = this.$webMap = L.esri.webMap(this.webmapId, { map: map });
+          var webMap;
+          if (this$1.$config.bundled) {
+            webMap = this$1.$webMap = LEsriWebMap.webMap(this$1.webmapId, { map: map });
+          } else {
+            webMap = this$1.$webMap = L.esri.webMap(this$1.webmapId, { map: map });
+          }
 
           // console.log('WEBMAP', webMap, 'restData', restData);
           self.$store.commit('setWebMap', webMap);
