@@ -16,9 +16,10 @@
       <!-- </div> -->
     </form>
     <button :class="this.buttonClass"
-            v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null"
+            v-if="this.addressEntered != '' && this.addressEntered != null"
             @click="handleFormX"
     >
+    <!-- v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null" -->
       <i class="fa fa-times fa-lg"></i>
     </button>
     <button :class="this.buttonClass"
@@ -58,25 +59,25 @@
       },
       inputClass() {
         if (this.isMobileOrTablet) {
-          if (this.addressAutocompleteEnabled) {
+          // if (this.addressAutocompleteEnabled) {
             if (this.addressEntered === '' || this.addressEntered === null) {
               return 'pvm-search-control-input-mobile';
             } else {
               return 'pvm-search-control-input-mobile-full';
             }
-          } else {
-            return 'pvm-search-control-input-mobile';
-          }
+          // } else {
+          //   return 'pvm-search-control-input-mobile';
+          // }
         } else {
-          if (this.addressAutocompleteEnabled) {
+          // if (this.addressAutocompleteEnabled) {
             if (this.addressEntered === '' || this.addressEntered === null) {
               return 'pvm-search-control-input';
             } else {
               return 'pvm-search-control-input-full';
             }
-          } else {
-            return 'pvm-search-control-input';
-          }
+          // } else {
+          //   return 'pvm-search-control-input';
+          // }
         }
       },
       buttonClass() {
@@ -136,15 +137,17 @@
       },
       didType: _.debounce(function (e) {
           // console.log('debounce is running');
+          const { value } = e.target;
+          this.$store.commit('setAddressEntered', value);
           if (this.addressAutocompleteEnabled) {
             // console.log('debounce is running, e:', e, 'this:', this);
             if (e.key === "ArrowDown") {
               document.getElementById('address-candidate-list-0').focus();
               return;
             }
-            const { value } = e.target;
+            // const { value } = e.target;
             this.getCandidates(value);
-            this.$store.commit('setAddressEntered', value);
+            // this.$store.commit('setAddressEntered', value);
             if (e.key !== "Enter") {
               this.$store.commit('setShouldShowAddressCandidateList', true);
             }
