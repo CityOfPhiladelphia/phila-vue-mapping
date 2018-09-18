@@ -3380,7 +3380,7 @@
           markerImageWidth: this.$props.width,
           markerOffsetX: this.$props.offsetX,
           markerOffsetY: this.$props.offsetY,
-          markerImage: this.constructLocalUrl(host, '/src/assets/', this.$props.icon),
+          markerImage: this.constructLocalUrl(host, '/', this.$props.icon),
           onShapeClick: 'true'
         };
         this.ipa.addShapes([pngMarker], this.didAddShapes);
