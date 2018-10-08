@@ -48,6 +48,8 @@ import PictometryViewCone from './pictometry/ViewCone.vue';
 import PictometryWidget from './pictometry/Widget.vue';
 import PictometryLayer from './pictometry/Layer.vue';
 
+import pvmStore from './store.js';
+
 
 // Exports
 // Leaflet
@@ -99,3 +101,7 @@ exports.PictometryPngMarker = PictometryPngMarker;
 exports.PictometryViewCone = PictometryViewCone;
 exports.PictometryWidget = PictometryWidget;
 exports.PictometryLayer = PictometryLayer;
+
+exports.pvmStore = pvmStore;
+
+export default exports;

@@ -3803,6 +3803,166 @@
     }
   };
 
+  // some default values, which get overwritten by the app importing
+  // these could be put in the object instead of this roundabout way
+  // but this is to remind me that mapboard store redefines these values
+  var config = {
+    map: {
+      center:[-75.163471, 39.953338],
+      zoom: 18,
+    },
+    // pictometry: {
+    //   enabled: '',
+    // },
+    // cyclomedia: {
+    //   enabled: '',
+    // }
+  };
+
+  var initialState = {
+    activeTopic: '',
+    shouldShowAddressCandidateList: false,
+
+    // the leaflet map object
+    map: {
+      location: {
+        lat: null,
+        lng: null
+      },
+      center: config.map.center,
+      bounds: {
+        northEast: null,
+        southWest: null,
+      },
+      zoom: config.map.zoom,
+      boundsBasedOnShape: null,
+      map: null,
+      // this gets set to the parcel layer for the default topic by
+      // DataManager.resetGeocode; see note above for activeTopic and
+      basemap: '',
+      imagery: 'imagery2017',
+      shouldShowImagery: false,
+      // this is the key for the active overlay image (eg regmap)
+      imageOverlay: null,
+      imageOverlayOpacity: null,
+      filters: [],
+      watchPositionOn: false,
+    },
+
+    cyclomedia: {
+      initialized: false,
+      navBarOpen: false,
+      // surfaceCursorOn: true,
+      latLngFromMap: null,
+      orientation: {
+        yaw: null,
+        hFov: null,
+        xyz: null,
+      },
+      active: false,
+      recordings: [],
+    },
+    // we need this to know whether or not to force an update on the first show
+    pictometry: {
+      ipa: null,
+      active: false,
+      shapeIds: [],
+      pngMarkerIds: [],
+      zoom: null,
+      // this is the state of the main leaflet map. when these values change
+      // the pictometry widget should react. the reason these are duplicated
+      // here is to avoid an infinite loop in the Map component when the
+      // viewport changes.
+      map: {
+        center: config.map.center,
+        zoom: config.map.zoom
+      }
+    },
+  };
+
+  var pvmStore = {
+    state: initialState,
+    mutations: {
+      setActiveTopic: function setActiveTopic(state, payload) {
+        state.activeTopic = payload;
+      },
+      setMapZoom: function setMapZoom(state, payload) {
+        state.map.zoom = payload;
+      },
+      setImagery: function setImagery(state, payload) {
+        state.map.imagery = payload;
+      },
+      setShouldShowImagery: function setShouldShowImagery(state, payload) {
+        state.map.shouldShowImagery = payload;
+      },
+      setShouldShowAddressCandidateList: function setShouldShowAddressCandidateList(state, payload) {
+        state.shouldShowAddressCandidateList = payload;
+      },
+
+
+      setCyclomediaInitialized: function setCyclomediaInitialized(state, payload) {
+        state.cyclomedia.initialized = payload;
+      },
+      setPictometryActive: function setPictometryActive(state, payload) {
+        // if (!config.pictometry.enabled) {
+        //   return;
+        // }
+        state.pictometry.active = payload;
+      },
+      setCyclomediaActive: function setCyclomediaActive(state, payload) {
+        // console.log('setCyclomediaActive is running, config:', config);
+        // if (!config.cyclomedia.enabled) {
+        //   return;
+        // }
+        state.cyclomedia.active = payload;
+      },
+      setCyclomediaYaw: function setCyclomediaYaw(state, payload) {
+        state.cyclomedia.orientation.yaw = payload;
+      },
+      setCyclomediaHFov: function setCyclomediaHFov(state, payload) {
+        state.cyclomedia.orientation.hFov = payload;
+      },
+      setCyclomediaXyz: function setCyclomediaXyz(state, payload) {
+        state.cyclomedia.orientation.xyz = payload;
+      },
+      setCyclomediaRecordings: function setCyclomediaRecordings(state, payload) {
+        state.cyclomedia.recordings = payload;
+      },
+      setCyclomediaLatLngFromMap: function setCyclomediaLatLngFromMap(state, payload) {
+        state.cyclomedia.latLngFromMap = payload;
+        // const { lat, lng } = payload || {};
+        // state.cyclomedia.latLngFromMap[0] = lat;
+        // state.cyclomedia.latLngFromMap[1] = lng;
+      },
+      setCyclomediaNavBarOpen: function setCyclomediaNavBarOpen(state, payload) {
+        state.cyclomedia.navBarOpen = payload;
+      },
+      // setCyclomediaSurfaceCursorOn(state, payload) {
+      //   state.cyclomedia.surfaceCursorOn = payload;
+      // },
+
+      setPictometryIpa: function setPictometryIpa(state, payload) {
+        state.pictometry.ipa = payload;
+      },
+      setPictometryShapeIds: function setPictometryShapeIds(state, payload) {
+        state.pictometry.shapeIds = payload;
+      },
+      setPictometryPngMarkerIds: function setPictometryPngMarkerIds(state, payload) {
+        state.pictometry.pngMarkerIds = payload;
+      },
+      // this is the leaflet map center updated when the map is moved
+      setPictometryMapCenter: function setPictometryMapCenter(state, payload) {
+        state.pictometry.map.center = payload;
+      },
+      setPictometryMapZoom: function setPictometryMapZoom(state, payload) {
+        state.pictometry.map.zoom = payload;
+      },
+      setPictometryZoom: function setPictometryZoom(state, payload) {
+        state.pictometry.zoom = payload;
+      },
+    }
+  };
+
   // Leaflet
 
 
@@ -3856,6 +4016,10 @@
   exports.PictometryViewCone = PictometryViewCone;
   exports.PictometryWidget = PictometryWidget;
   exports.PictometryLayer = PictometryLayer;
+
+  exports.pvmStore = pvmStore;
+
+  exports.default = exports;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
