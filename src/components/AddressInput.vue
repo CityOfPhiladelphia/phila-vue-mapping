@@ -20,14 +20,14 @@
             @click="handleFormX"
     >
     <!-- v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null" -->
-      <i class="fa fa-times fa-lg"></i>
+      <font-awesome-icon icon="times" class="fa-lg" />
     </button>
     <button :class="this.buttonClass"
             name="pvm-search-control-button"
             tabindex="-1"
             @click="this.handleSearchFormSubmit"
     >
-      <i class="fa fa-search fa-lg"></i>
+      <font-awesome-icon icon="search" class="fa-lg" />
     </button>
   </div>
 </template>
