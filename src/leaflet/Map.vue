@@ -106,7 +106,7 @@
         this.$store.commit('setMapZoom', nextZoom);
       },
       mapBounds(nextBounds) {
-        console.log('this.$leafletElement:', this.$leafletElement);
+        console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
         this.setMapBounds(nextBounds)
       },
       fullScreenMapEnabled() {
@@ -168,16 +168,18 @@
         })
       },
       setMapBounds(bounds) {
+        // console.log('setMapBounds is running, bounds:', bounds, bounds.isValid(), 'this.$leafletElement:', this.$leafletElement);
         if (bounds._northEast) {
           // console.log('MAP.VUE SETMAPBOUNDS IS RUNNING:', bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng);
-          const corner1 = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
-          const corner2 = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
-          const bounds2 = L.latLngBounds(corner1, corner2);
-          console.log('bounds2:', bounds2, bounds2.isValid())
+          // const corner1 = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
+          // const corner2 = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
+          // const bounds2 = L.latLngBounds(corner2, corner1);
+          // console.log('bounds2:', bounds2, bounds2.isValid())
           // this.$leafletElement.fitBounds(bounds);
           const map = this.$leafletElement;
-          console.log('bounds:', bounds, 'this.$leafletElement:', this.$leafletElement, 'map:', map);
-          map.fitBounds(bounds2);
+          // console.log('bounds:', bounds, 'this.$leafletElement:', this.$leafletElement, 'map:', map);
+          // map.fitBounds(bounds2);
+          map.fitBounds([[bounds._northEast.lat, bounds._northEast.lng],[bounds._southWest.lat, bounds._southWest.lng]]);
         }
       },
 

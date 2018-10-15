@@ -26,9 +26,19 @@ const initialState = {
     },
     center: config.map.center,
     bounds: {
-      northEast: null,
-      southWest: null,
+      _northEast: {
+        lat: null,
+        lng: null,
+      },
+      _southWest: {
+        lat: null,
+        lng: null,
+      },
     },
+    // bounds: {
+    //   _northEast: null,
+    //   _southWest: null,
+    // },
     zoom: config.map.zoom,
     boundsBasedOnShape: null,
     map: null,
