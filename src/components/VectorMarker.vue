@@ -51,3 +51,11 @@
     },
   };
 </script>
+
+<style scoped>
+
+/* .fa-lg {
+  vertical-align: -10%;
+} */
+
+</style>

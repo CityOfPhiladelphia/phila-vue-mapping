@@ -127,7 +127,7 @@
         this.$store.commit('setMapZoom', nextZoom);
       },
       mapBounds: function mapBounds(nextBounds) {
-        console.log('this.$leafletElement:', this.$leafletElement);
+        console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
         this.setMapBounds(nextBounds);
       },
       fullScreenMapEnabled: function fullScreenMapEnabled() {
@@ -203,16 +203,18 @@
         });
       },
       setMapBounds: function setMapBounds(bounds) {
+        // console.log('setMapBounds is running, bounds:', bounds, bounds.isValid(), 'this.$leafletElement:', this.$leafletElement);
         if (bounds._northEast) {
           // console.log('MAP.VUE SETMAPBOUNDS IS RUNNING:', bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng);
-          var corner1 = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
-          var corner2 = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
-          var bounds2 = L.latLngBounds(corner1, corner2);
-          console.log('bounds2:', bounds2, bounds2.isValid());
+          // const corner1 = L.latLng(bounds._northEast.lat, bounds._northEast.lng);
+          // const corner2 = L.latLng(bounds._southWest.lat, bounds._southWest.lng);
+          // const bounds2 = L.latLngBounds(corner2, corner1);
+          // console.log('bounds2:', bounds2, bounds2.isValid())
           // this.$leafletElement.fitBounds(bounds);
           var map = this.$leafletElement;
-          console.log('bounds:', bounds, 'this.$leafletElement:', this.$leafletElement, 'map:', map);
-          map.fitBounds(bounds2);
+          // console.log('bounds:', bounds, 'this.$leafletElement:', this.$leafletElement, 'map:', map);
+          // map.fitBounds(bounds2);
+          map.fitBounds([[bounds._northEast.lat, bounds._northEast.lng],[bounds._southWest.lat, bounds._southWest.lng]]);
         }
       },
 
@@ -1467,7 +1469,7 @@
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .pvm-search-control-container[data-v-6340ff46] { height: 48px; border-radius: 2px; box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02); } .pvm-search-control-container-mobile[data-v-6340ff46] { height: 38px; border-radius: 2px; box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02); } .pvm-search-control-form[data-v-6340ff46] { display: inline-block; } /* .pvm-search-clear-button { display: inline-block; color: #fff; width: 50px; background: #2176d2; line-height: 48px; padding: 0px; } */ .pvm-search-control-button[data-v-6340ff46] { display: inline-block; color: #fff; width: 50px; background: #2176d2; line-height: 48px; padding: 0px; } .pvm-search-control-button-mobile[data-v-6340ff46] { display: inline-block; color: #fff; width: 38px; height: 38px; background: #2176d2; line-height: 38px; padding: 0px; padding-top: 1px; } .pvm-search-control-input[data-v-6340ff46] { display: inline-block; border: 0; padding: 15px; font-family: 'Montserrat', 'Tahoma', sans-serif; font-size: 16px; width: 250px; } .pvm-search-control-input-full[data-v-6340ff46] { border: 0; padding: 15px; font-family: 'Montserrat', 'Tahoma', sans-serif; font-size: 16px; width: 197px; } .pvm-search-control-input-mobile[data-v-6340ff46] { display: inline-block; border: 0; padding: 15px; font-family: 'Montserrat', 'Tahoma', sans-serif; font-size: 16px; width: 250px; height: 38px; } .pvm-search-control-input-mobile-full[data-v-6340ff46] { border: 0; padding: 15px; font-family: 'Montserrat', 'Tahoma', sans-serif; font-size: 16px; width: 209px; height: 38px; } /*small*/ @media screen and (max-width: 39.9375em) { .pvm-search-control-input[data-v-6340ff46] { width: 200px; } .pvm-search-control-input-mobile[data-v-6340ff46] { width: 200px; } .pvm-search-control-input-full[data-v-6340ff46] { width: 147px; } .pvm-search-control-input-mobile-full[data-v-6340ff46] { width: 158px; } } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-  var AddressInput = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.containerClass},[_c('form',{staticClass:"pvm-search-control-form",attrs:{"autocomplete":"off","id":"search-form"},on:{"submit":function($event){$event.preventDefault();return _vm.handleSearchFormSubmit($event)}}},[_c('input',{class:this.inputClass,attrs:{"id":"pvm-search-control-input","placeholder":this.$props.placeholder || 'Search the map',"tabindex":"0"},domProps:{"value":this.addressEntered},on:{"keyup":_vm.didType}})]),_vm._v(" "),(this.addressEntered != '' && this.addressEntered != null)?_c('button',{class:this.buttonClass,on:{"click":_vm.handleFormX}},[_c('i',{staticClass:"fa fa-times fa-lg"})]):_vm._e(),_vm._v(" "),_c('button',{class:this.buttonClass,attrs:{"name":"pvm-search-control-button","tabindex":"-1"},on:{"click":this.handleSearchFormSubmit}},[_c('i',{staticClass:"fa fa-search fa-lg"})])])},staticRenderFns: [],_scopeId: 'data-v-6340ff46',
+  var AddressInput = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.containerClass},[_c('form',{staticClass:"pvm-search-control-form",attrs:{"autocomplete":"off","id":"search-form"},on:{"submit":function($event){$event.preventDefault();return _vm.handleSearchFormSubmit($event)}}},[_c('input',{class:this.inputClass,attrs:{"id":"pvm-search-control-input","placeholder":this.$props.placeholder || 'Search the map',"tabindex":"0"},domProps:{"value":this.addressEntered},on:{"keyup":_vm.didType}})]),_vm._v(" "),(this.addressEntered != '' && this.addressEntered != null)?_c('button',{class:this.buttonClass,on:{"click":_vm.handleFormX}},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":"times"}})],1):_vm._e(),_vm._v(" "),_c('button',{class:this.buttonClass,attrs:{"name":"pvm-search-control-button","tabindex":"-1"},on:{"click":this.handleSearchFormSubmit}},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":"search"}})],1)])},staticRenderFns: [],_scopeId: 'data-v-6340ff46',
     props: [
       'position',
       'placeholder' ],
@@ -1776,9 +1778,9 @@
     }
   };
 
-  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /* .fa-lg { vertical-align: -10%; } */ "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-  var VectorMarker = {
+  var VectorMarker = {_scopeId: 'data-v-106712ed',
     props: [
       'latlng',
       'markerColor',
@@ -2059,7 +2061,7 @@
 
 
 
-  var FullScreenMapToggleTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!this.isMobileOrTablet)?_c('div',{staticClass:"toggle-tab",style:({ top: _vm.buttonPosition }),attrs:{"id":"toggle-tab"},on:{"click":_vm.handleFullScreenMapToggleButtonClick}},[_c('span',{staticClass:"align-span"},[_c('i',{class:this.currentIcon})])]):_vm._e()},staticRenderFns: [],_scopeId: 'data-v-10e5c930',
+  var FullScreenMapToggleTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!this.isMobileOrTablet)?_c('div',{staticClass:"toggle-tab",style:({ top: _vm.buttonPosition }),attrs:{"id":"toggle-tab"},on:{"click":_vm.handleFullScreenMapToggleButtonClick}},[_c('span',{staticClass:"align-span"},[_c('font-awesome-icon',{staticClass:"fa-2x",attrs:{"icon":this.currentIcon}})],1)]):_vm._e()},staticRenderFns: [],_scopeId: 'data-v-10e5c930',
     data: function data() {
       return {
         'divHeight': 0,
@@ -2095,9 +2097,9 @@
       },
       currentIcon: function currentIcon() {
         if (this.fullScreenMapEnabled) {
-          return 'fa fa-caret-right fa-2x'
+          return 'caret-right'
         } else {
-          return 'fa fa-caret-left fa-2x'
+          return 'caret-left'
         }
       }
     },
@@ -2129,10 +2131,10 @@
     }
   };
 
-  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .fa-lg[data-v-15e73008] { vertical-align: -10%; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=LocationControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
   var methods$2 = Control.methods;
 
-  var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_vm._m(0)])])},staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('i',{staticClass:"fa fa-dot-circle-o fa-lg",attrs:{"aria-hidden":"true"}})])}],_scopeId: 'data-v-15e73008',
+  var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":['far', 'dot-circle']}})],1)])])},staticRenderFns: [],_scopeId: 'data-v-15e73008',
     props: [
       'position'
     ],
@@ -2397,9 +2399,6 @@
 
 
 
-
-
-
   // import {mapState} from 'vuex'
   // import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
   /**
@@ -2409,7 +2408,7 @@
    *
    * @since 0.6.22
    */
-  var ModalAbout = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{directives:[{name:"show",rawName:"v-show",value:(_vm.modals.help.open),expression:"modals.help.open"}],class:['openmaps-about' ,'openmaps-modal']},[_c('div',{staticClass:"openmaps-modal-close",on:{"click":_vm.closeModal}},[_vm._m(0)]),_vm._v(" "),_vm._m(1),_vm._v(" "),_c('div',{staticClass:"openmaps-modal-content"},[_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_vm._m(2),_vm._v(" "),_vm._m(3)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_vm._m(4),_vm._v(" "),_vm._m(5)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_vm._m(6),_vm._v(" "),_vm._m(7)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_vm._m(8),_vm._v(" "),_vm._m(9)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_vm._m(10),_vm._v(" "),_vm._m(11)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('img',{staticClass:"street-view-image",attrs:{"src":'../../src/assets/cyclomedia_blue.png'}})])]),_vm._v(" "),_vm._m(12)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_vm._m(13),_vm._v(" "),_vm._m(14)])])])},staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('i',{staticClass:"fa fa-times fa-lg",attrs:{"aria-hidden":"true"}})])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h2',{staticClass:"text-center"},[_c('b',[_vm._v("How to use OpenMaps")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-div"},[_c('span',[_c('i',{staticClass:"fa fa-filter fa-3x",attrs:{"aria-hidden":"true"}})])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Filter the list of layers available in the left panel.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Type in the box for the first filter to filter by text. Select a category from the second filter to filter by category.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-div"},[_c('span',[_c('i',{staticClass:"fa fa-check-square fa-3x",attrs:{"aria-hidden":"true"}})])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Toggle on and off map layers by clicking on the checkboxes in the layer panel.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("You can toggle on as many layers as you want, and they will all show on the map.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-div"},[_c('span',[_c('i',{staticClass:"fa fa-square-o fa-3x",attrs:{"aria-hidden":"true"}})])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("If a checkbox is grayed out, zoom in further on the map and it will become active.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Many of the layers will not show when the map is zoomed out too far.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-div"},[_c('span',[_c('i',{staticClass:"fa fa-map-marker fa-3x",attrs:{"aria-hidden":"true"}})])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Click on any feature that appears on the map to get a popup with that feature's info.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("If you have turned on overlapping layers, you will be able to click through multiple popups of info.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-div"},[_c('span',[_c('i',{staticClass:"fa fa-search fa-3x",attrs:{"aria-hidden":"true"}})])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Search for an address or intersection.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("The map will move to the location that you have searched")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Toggle on and off street view")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Half of the map panel will be taken up by the street view. If you are zoomed in far enough, circles will appear along the streets in the map. Click on a circle to change the street view location to that point.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"icon-div"},[_c('span',[_c('i',{staticClass:"fa fa-info-circle fa-3x",attrs:{"aria-hidden":"true"}})])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Learn more about and download data.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Click this icon to be linked to the metadata page for any dataset.")])])}],_scopeId: 'data-v-0ccfd0f0',
+  var ModalAbout = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{directives:[{name:"show",rawName:"v-show",value:(_vm.modals.open === 'help'),expression:"modals.open === 'help'"}],class:['openmaps-about' ,'openmaps-modal']},[_c('div',{staticClass:"openmaps-modal-close",on:{"click":_vm.closeModal}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":"times","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('div',{staticClass:"openmaps-modal-content"},[_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"filter","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(1)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"check-square","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(2)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":['fal', 'square'],"aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(3)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"map-marker-alt","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(4)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"search","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(5)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('img',{staticClass:"street-view-image",attrs:{"src":'images/cyclomedia_blue.png'}})])]),_vm._v(" "),_vm._m(6)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"info-circle","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(7)])])])},staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h2',{staticClass:"text-center"},[_c('b',[_vm._v("How to use OpenMaps")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Filter the list of layers available in the left panel.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Type in the box for the first filter to filter by text. Select a category from the second filter to filter by category.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Toggle on and off map layers by clicking on the checkboxes in the layer panel.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("You can toggle on as many layers as you want, and they will all show on the map.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("If a checkbox is grayed out, zoom in further on the map and it will become active.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Many of the layers will not show when the map is zoomed out too far.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Click on any feature that appears on the map to get a popup with that feature's info.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("If you have turned on overlapping layers, you will be able to click through multiple popups of info.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Search for an address or intersection.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("The map will move to the location that you have searched")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Toggle on and off street view")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Half of the map panel will be taken up by the street view. If you are zoomed in far enough, circles will appear along the streets in the map. Click on a circle to change the street view location to that point.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Learn more about and download data.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Click this icon to be linked to the metadata page for any dataset.")])])}],_scopeId: 'data-v-0ccfd0f0',
 
     name: 'Modal-About',
     // components: {FontAwesomeIcon},
@@ -3014,7 +3013,7 @@
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" #cyclo-container { padding: 0px; height: 50%; display: none; } @media screen and (min-width: 46.875em) { #cyclo-container { display: block; } } #inCycloDiv { /* position: absolute; */ position: absolute; /* top: 0px; */ right: 0px; /* float: right; */ background-color: white; border: 0px solid; width: 30px; height: 30px; cursor:pointer; z-index: 10; } .popout-icon { margin-top: 8.5px; font-size: 15px; margin-left: 8.5px; } .panoramaViewerWindow { display: block; width: 100%; height:100%; } @media screen and (max-width: 46.875em) { .cyclo-container { display: none; } } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-  var CyclomediaWidget = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.cycloContainerClass,attrs:{"id":"cyclo-container"}},[(this.isMobileOrTablet === false && this.popoutAble === true)?_c('div',{style:({ right: _vm.popoutPosition }),attrs:{"id":"inCycloDiv"},on:{"click":this.popoutClicked}},[_c('i',{staticClass:"fa fa-external-link fa popout-icon"})]):_vm._e(),_vm._v(" "),_c('div',{ref:"cycloviewer",staticClass:"panoramaViewerWindow",attrs:{"id":"cycloviewer"}})])},staticRenderFns: [],
+  var CyclomediaWidget = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.cycloContainerClass,attrs:{"id":"cyclo-container"}},[(this.isMobileOrTablet === false && this.popoutAble === true)?_c('div',{style:({ right: _vm.popoutPosition }),attrs:{"id":"inCycloDiv"},on:{"click":this.popoutClicked}},[_c('font-awesome-icon',{staticClass:"popout-icon",attrs:{"icon":"external-link"}})],1):_vm._e(),_vm._v(" "),_c('div',{ref:"cycloviewer",staticClass:"panoramaViewerWindow",attrs:{"id":"cycloviewer"}})])},staticRenderFns: [],
     data: function data() {
       return {
         'docWidth': 0,
@@ -3532,7 +3531,7 @@
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" header.site-header > .row[data-v-b47b60a8]:last-of-type { background: #2176d2; } #in-pict-div[data-v-b47b60a8] { position: absolute; top: 0px; right: 0px; background-color: white; border: 0px solid; width: 30px; height: 30px; cursor:pointer; /* float: right; */ /*display:none;*/ /*z-index: 2000000;*/ /*position: relative; top: 0px; right: 0px;*/ } .popout-icon[data-v-b47b60a8] { margin-top: 8.5px; font-size: 15px; margin-left: 8.5px; } #pict-container[data-v-b47b60a8] { padding: 0px; height: 50%; position: relative; display: none; } @media screen and (min-width: 46.875em) { #pict-container[data-v-b47b60a8] { display: block; } } /*#iframe-div { }*/ #pictometry-ipa[data-v-b47b60a8] { height: 100%; width: 100%; border: 0px; } #search-container[data-v-b47b60a8] { float: right; } #search-input[data-v-b47b60a8] { float: left; width: 400px; } #search-button[data-v-b47b60a8] { height: 2.78571rem; } #data-panel[data-v-b47b60a8] { background: #fff; padding-left: 12px; padding-right: 12px; height: 100%; } #data-panel > h1[data-v-b47b60a8] { color: #666; } #data-row-list > a[data-v-b47b60a8] { background: #f5f5f5; border: 1px solid #ddd; display: block; font-size: 18px; font-weight: normal; height: 70px; line-height: 45px; /*margin-left: 10px;*/ /*margin-right: 10px;*/ padding: 10px; /*vertical-align: middle;*/ /*text-align: middle;*/ box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); margin-bottom: 8px; } #data-row-list > a[data-v-b47b60a8]:hover { background: #fff; color: inherit; } #data-row-list .data-row-link-icon[data-v-b47b60a8] { padding-right: 30px; } .data-row[data-v-b47b60a8] { padding: 10px; margin-bottom: 10px; display: none; } .data-row table th[data-v-b47b60a8], .data-row table td[data-v-b47b60a8] { font-size: 15px; margin-left: 8.5px; } #pict-container[data-v-b47b60a8] { padding: 0px; height: 50%; position: relative; } /*#iframe-div { }*/ "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-  var PictometryWidget = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.pictContainerClass,attrs:{"id":"pict-container"}},[(this.isMobileOrTablet === false)?_c('div',{attrs:{"id":"in-pict-div"},on:{"click":this.popoutClicked}},[_c('i',{staticClass:"fa fa-external-link fa popout-icon"})]):_vm._e(),_vm._v(" "),_c('iframe',{ref:"pictometryIpa",attrs:{"id":"pictometry-ipa","src":"#"}}),_vm._v(" "),_c('div',[_vm._t("default")],2)])},staticRenderFns: [],_scopeId: 'data-v-b47b60a8',
+  var PictometryWidget = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.pictContainerClass,attrs:{"id":"pict-container"}},[(this.isMobileOrTablet === false)?_c('div',{attrs:{"id":"in-pict-div"},on:{"click":this.popoutClicked}},[_c('font-awesome-icon',{staticClass:"popout-icon",attrs:{"icon":"external-link"}})],1):_vm._e(),_vm._v(" "),_c('iframe',{ref:"pictometryIpa",attrs:{"id":"pictometry-ipa","src":"#"}}),_vm._v(" "),_c('div',[_vm._t("default")],2)])},staticRenderFns: [],_scopeId: 'data-v-b47b60a8',
     props: [
       'apiKey',
       'secretKey' ],
@@ -3803,6 +3802,176 @@
     }
   };
 
+  // some default values, which get overwritten by the app importing
+  // these could be put in the object instead of this roundabout way
+  // but this is to remind me that mapboard store redefines these values
+  var config = {
+    map: {
+      center:[-75.163471, 39.953338],
+      zoom: 18,
+    },
+    // pictometry: {
+    //   enabled: '',
+    // },
+    // cyclomedia: {
+    //   enabled: '',
+    // }
+  };
+
+  var initialState = {
+    activeTopic: '',
+    shouldShowAddressCandidateList: false,
+
+    // the leaflet map object
+    map: {
+      location: {
+        lat: null,
+        lng: null
+      },
+      center: config.map.center,
+      bounds: {
+        _northEast: {
+          lat: null,
+          lng: null,
+        },
+        _southWest: {
+          lat: null,
+          lng: null,
+        },
+      },
+      // bounds: {
+      //   _northEast: null,
+      //   _southWest: null,
+      // },
+      zoom: config.map.zoom,
+      boundsBasedOnShape: null,
+      map: null,
+      // this gets set to the parcel layer for the default topic by
+      // DataManager.resetGeocode; see note above for activeTopic and
+      basemap: '',
+      imagery: 'imagery2017',
+      shouldShowImagery: false,
+      // this is the key for the active overlay image (eg regmap)
+      imageOverlay: null,
+      imageOverlayOpacity: null,
+      filters: [],
+      watchPositionOn: false,
+    },
+
+    cyclomedia: {
+      initialized: false,
+      navBarOpen: false,
+      // surfaceCursorOn: true,
+      latLngFromMap: null,
+      orientation: {
+        yaw: null,
+        hFov: null,
+        xyz: null,
+      },
+      active: false,
+      recordings: [],
+    },
+    // we need this to know whether or not to force an update on the first show
+    pictometry: {
+      ipa: null,
+      active: false,
+      shapeIds: [],
+      pngMarkerIds: [],
+      zoom: null,
+      // this is the state of the main leaflet map. when these values change
+      // the pictometry widget should react. the reason these are duplicated
+      // here is to avoid an infinite loop in the Map component when the
+      // viewport changes.
+      map: {
+        center: config.map.center,
+        zoom: config.map.zoom
+      }
+    },
+  };
+
+  var pvmStore = {
+    state: initialState,
+    mutations: {
+      setActiveTopic: function setActiveTopic(state, payload) {
+        state.activeTopic = payload;
+      },
+      setMapZoom: function setMapZoom(state, payload) {
+        state.map.zoom = payload;
+      },
+      setImagery: function setImagery(state, payload) {
+        state.map.imagery = payload;
+      },
+      setShouldShowImagery: function setShouldShowImagery(state, payload) {
+        state.map.shouldShowImagery = payload;
+      },
+      setShouldShowAddressCandidateList: function setShouldShowAddressCandidateList(state, payload) {
+        state.shouldShowAddressCandidateList = payload;
+      },
+
+
+      setCyclomediaInitialized: function setCyclomediaInitialized(state, payload) {
+        state.cyclomedia.initialized = payload;
+      },
+      setPictometryActive: function setPictometryActive(state, payload) {
+        // if (!config.pictometry.enabled) {
+        //   return;
+        // }
+        state.pictometry.active = payload;
+      },
+      setCyclomediaActive: function setCyclomediaActive(state, payload) {
+        // console.log('setCyclomediaActive is running, config:', config);
+        // if (!config.cyclomedia.enabled) {
+        //   return;
+        // }
+        state.cyclomedia.active = payload;
+      },
+      setCyclomediaYaw: function setCyclomediaYaw(state, payload) {
+        state.cyclomedia.orientation.yaw = payload;
+      },
+      setCyclomediaHFov: function setCyclomediaHFov(state, payload) {
+        state.cyclomedia.orientation.hFov = payload;
+      },
+      setCyclomediaXyz: function setCyclomediaXyz(state, payload) {
+        state.cyclomedia.orientation.xyz = payload;
+      },
+      setCyclomediaRecordings: function setCyclomediaRecordings(state, payload) {
+        state.cyclomedia.recordings = payload;
+      },
+      setCyclomediaLatLngFromMap: function setCyclomediaLatLngFromMap(state, payload) {
+        state.cyclomedia.latLngFromMap = payload;
+        // const { lat, lng } = payload || {};
+        // state.cyclomedia.latLngFromMap[0] = lat;
+        // state.cyclomedia.latLngFromMap[1] = lng;
+      },
+      setCyclomediaNavBarOpen: function setCyclomediaNavBarOpen(state, payload) {
+        state.cyclomedia.navBarOpen = payload;
+      },
+      // setCyclomediaSurfaceCursorOn(state, payload) {
+      //   state.cyclomedia.surfaceCursorOn = payload;
+      // },
+
+      setPictometryIpa: function setPictometryIpa(state, payload) {
+        state.pictometry.ipa = payload;
+      },
+      setPictometryShapeIds: function setPictometryShapeIds(state, payload) {
+        state.pictometry.shapeIds = payload;
+      },
+      setPictometryPngMarkerIds: function setPictometryPngMarkerIds(state, payload) {
+        state.pictometry.pngMarkerIds = payload;
+      },
+      // this is the leaflet map center updated when the map is moved
+      setPictometryMapCenter: function setPictometryMapCenter(state, payload) {
+        state.pictometry.map.center = payload;
+      },
+      setPictometryMapZoom: function setPictometryMapZoom(state, payload) {
+        state.pictometry.map.zoom = payload;
+      },
+      setPictometryZoom: function setPictometryZoom(state, payload) {
+        state.pictometry.zoom = payload;
+      },
+    }
+  };
+
   // Leaflet
 
 
@@ -3856,6 +4025,10 @@
   exports.PictometryViewCone = PictometryViewCone;
   exports.PictometryWidget = PictometryWidget;
   exports.PictometryLayer = PictometryLayer;
+
+  exports.pvmStore = pvmStore;
+
+  exports.default = exports;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 

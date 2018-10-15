@@ -2,7 +2,7 @@
   <div class="leaflet-bar easy-button-container leaflet-control">
     <button @click="handleLocationButtonClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <i class="fa fa-dot-circle-o fa-lg" aria-hidden="true"></i>
+        <font-awesome-icon :icon="['far', 'dot-circle']" class="fa-lg" />
       </span>
     </button>
   </div>
@@ -64,9 +64,5 @@
 </script>
 
 <style scoped>
-
-  .fa-lg {
-    vertical-align: -10%;
-  }
 
 </style>

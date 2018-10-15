@@ -6,7 +6,7 @@
        v-if="!this.isMobileOrTablet"
   >
     <span class="align-span">
-      <i :class='this.currentIcon'></i>
+      <font-awesome-icon :icon="this.currentIcon" class="fa-2x" />
     </span>
   </div>
 </template>
@@ -48,9 +48,9 @@
       },
       currentIcon() {
         if (this.fullScreenMapEnabled) {
-          return 'fa fa-caret-right fa-2x'
+          return 'caret-right'
         } else {
-          return 'fa fa-caret-left fa-2x'
+          return 'caret-left'
         }
       }
     },

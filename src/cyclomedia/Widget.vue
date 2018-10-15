@@ -8,7 +8,7 @@
          :style="{ right: popoutPosition }"
          v-if="this.isMobileOrTablet === false && this.popoutAble === true"
     >
-      <i class="fa fa-external-link fa popout-icon"></i>
+      <font-awesome-icon icon="external-link" class="popout-icon" />
     </div>
     <div id="cycloviewer"
          ref="cycloviewer"
