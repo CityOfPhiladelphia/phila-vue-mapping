@@ -34,7 +34,7 @@
 
 <script>
   import * as L from 'leaflet';
-  import _ from 'lodash';
+  // import _ from 'lodash';
   import debounce from 'lodash.debounce';
   import axios from 'axios';
 
@@ -135,8 +135,8 @@
         const map = this.map;
         leafletElement.addTo(map);
       },
-      didType: _.debounce(function (e) {
-          // console.log('debounce is running');
+      didType: debounce(function (e) {
+          console.log('debounce is running');
           const { value } = e.target;
           this.$store.commit('setAddressEntered', value);
           if (this.addressAutocompleteEnabled) {
