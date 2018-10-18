@@ -35,17 +35,13 @@ const initialState = {
         lng: null,
       },
     },
-    // bounds: {
-    //   _northEast: null,
-    //   _southWest: null,
-    // },
     zoom: config.map.zoom,
     boundsBasedOnShape: null,
     map: null,
     // this gets set to the parcel layer for the default topic by
     // DataManager.resetGeocode; see note above for activeTopic and
     basemap: '',
-    imagery: 'imagery2017',
+    imagery: 'imagery2018',
     shouldShowImagery: false,
     // this is the key for the active overlay image (eg regmap)
     imageOverlay: null,

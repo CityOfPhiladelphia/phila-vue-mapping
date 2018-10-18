@@ -1571,7 +1571,7 @@
         leafletElement.addTo(map);
       },
       didType: debounce(function (e) {
-          console.log('debounce is running');
+          // console.log('debounce is running');
           var ref = e.target;
           var value = ref.value;
           this.$store.commit('setAddressEntered', value);
@@ -1625,7 +1625,7 @@
         } else {
           value = $('#pvm-search-control-input').val();
         }
-        console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
+        // console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
         // console.log('handleSearchFormSubmit value:', value);
         this.$controller.handleSearchFormSubmit(value);
         this.$store.commit('setAddressEntered', value);
@@ -3838,17 +3838,13 @@
           lng: null,
         },
       },
-      // bounds: {
-      //   _northEast: null,
-      //   _southWest: null,
-      // },
       zoom: config.map.zoom,
       boundsBasedOnShape: null,
       map: null,
       // this gets set to the parcel layer for the default topic by
       // DataManager.resetGeocode; see note above for activeTopic and
       basemap: '',
-      imagery: 'imagery2017',
+      imagery: 'imagery2018',
       shouldShowImagery: false,
       // this is the key for the active overlay image (eg regmap)
       imageOverlay: null,

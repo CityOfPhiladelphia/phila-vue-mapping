@@ -34,7 +34,6 @@
 
 <script>
   import * as L from 'leaflet';
-  // import _ from 'lodash';
   import debounce from 'lodash.debounce';
   import axios from 'axios';
 
@@ -136,7 +135,7 @@
         leafletElement.addTo(map);
       },
       didType: debounce(function (e) {
-          console.log('debounce is running');
+          // console.log('debounce is running');
           const { value } = e.target;
           this.$store.commit('setAddressEntered', value);
           if (this.addressAutocompleteEnabled) {
@@ -188,7 +187,7 @@
         } else {
           value = $('#pvm-search-control-input').val();
         }
-        console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
+        // console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
         // console.log('handleSearchFormSubmit value:', value);
         this.$controller.handleSearchFormSubmit(value);
         this.$store.commit('setAddressEntered', value);
