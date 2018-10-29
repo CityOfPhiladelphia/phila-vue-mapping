@@ -1,3 +1,15 @@
+<!-- <template>
+  <div class="slider-wrapper">
+    <input class="slider"
+           type="range"
+           min="1"
+           max="100"
+           step="1"
+           v-model="opa"
+    >
+  </div>
+</template> -->
+
 <script>
   import * as L from 'leaflet';
 

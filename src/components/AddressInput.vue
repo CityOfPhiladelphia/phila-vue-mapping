@@ -185,7 +185,7 @@
         if (this.addressAutocompleteEnabled){
           value = this.$store.state.addressEntered;
         } else {
-          value = $('#pvm-search-control-input').val();
+          value = document.querySelector('#pvm-search-control-input').value;
         }
         // console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
         // console.log('handleSearchFormSubmit value:', value);

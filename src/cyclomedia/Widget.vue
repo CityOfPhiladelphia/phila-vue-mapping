@@ -89,9 +89,6 @@
       // surfaceCursorOn() {
       //   return this.$store.state.cyclomedia.surfaceCursorOn;
       // }
-      // docWidthComp() {
-      //   return $(document).width();
-      // }
     },
     watch: {
       fullScreenMapEnabled() {
@@ -167,7 +164,7 @@
     },
     methods: {
       setDivWidth() {
-        const docWidth = $(document).width();
+        const docWidth = document.body.clientWidth;
         this.docWidth = docWidth;
         const el = document.getElementById('cyclo-container');
         const divStyle = window.getComputedStyle(el);

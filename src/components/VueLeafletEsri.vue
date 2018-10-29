@@ -176,7 +176,7 @@
       },
       handleWindowResize() {
         // this only actually affects the size if it is set to "plugin mode"
-        if ($(window).width() >= 750) {
+        if (window.innerWidth >= 750) {
           this.styleObject.height = '600px'
         } else {
           this.styleObject.height = 'auto';
