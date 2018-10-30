@@ -163,9 +163,10 @@
 
         // we used "setView" here because when you refreshed the app with an address in the url,
         // "panTo" was getting stepped on by "setZoom" and it was not happening
-        this.$nextTick(() => {
-          this.$leafletElement.setView(latLng, zoom);
-        })
+        // this.$nextTick(() => {
+        // console.log('Map.vue this.$leafletElement.setView is running, latLng:', latLng);
+        this.$leafletElement.setView(latLng, zoom);
+        // })
       },
       setMapBounds(bounds) {
         // console.log('setMapBounds is running, bounds:', bounds, bounds.isValid(), 'this.$leafletElement:', this.$leafletElement);
