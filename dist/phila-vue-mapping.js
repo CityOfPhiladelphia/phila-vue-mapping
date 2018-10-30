@@ -181,7 +181,6 @@
         child.addTo(this.$leafletElement);
       },
       setMapView: function setMapView(xy, zoom) {
-        var this$1 = this;
         if ( xy === void 0 ) xy = [];
         if ( zoom === void 0 ) zoom = this.zoom;
 
@@ -192,9 +191,10 @@
 
         // we used "setView" here because when you refreshed the app with an address in the url,
         // "panTo" was getting stepped on by "setZoom" and it was not happening
-        this.$nextTick(function () {
-          this$1.$leafletElement.setView(latLng, zoom);
-        });
+        // this.$nextTick(() => {
+        // console.log('Map.vue this.$leafletElement.setView is running, latLng:', latLng);
+        this.$leafletElement.setView(latLng, zoom);
+        // })
       },
       setMapBounds: function setMapBounds(bounds) {
         // console.log('setMapBounds is running, bounds:', bounds, bounds.isValid(), 'this.$leafletElement:', this.$leafletElement);
