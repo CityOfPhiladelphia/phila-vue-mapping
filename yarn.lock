@@ -6,10 +6,6 @@
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@esri/arcgis-to-geojson-utils/-/arcgis-to-geojson-utils-1.3.0.tgz#79ab65bf3e40c039dbdebceff4b3b0ec088b189c"
 
-"@fortawesome/fontawesome-pro@^5.4.0":
-  version "5.4.1"
-  resolved "https://npm.fontawesome.com/@fortawesome/fontawesome-pro/-/fontawesome-pro-5.4.1.tgz#b27d3cdf7c00112d7b0513e3330b19655d7653fe"
-
 "@turf/along@5.1.x":
   version "5.1.5"
   resolved "https://registry.yarnpkg.com/@turf/along/-/along-5.1.5.tgz#61d6e6a6584acddab56ac5584e07bf8cbe5f8beb"
@@ -3070,11 +3066,9 @@ leaflet-shape-markers@^1.0.4:
   dependencies:
     leaflet "^1.0.0"
 
-"leaflet-vector-icon@https://github.com/CityOfPhiladelphia/leaflet-vector-icon#1836076bc5ede54ae2618f1e5f6d9df10769a001":
+"leaflet-vector-icon@https://github.com/CityOfPhiladelphia/leaflet-vector-icon#6b725dea04013925bdfb1f3709a8b4a57f36323b":
   version "1.0.0"
-  resolved "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#1836076bc5ede54ae2618f1e5f6d9df10769a001"
-  dependencies:
-    "@fortawesome/fontawesome-pro" "^5.4.0"
+  resolved "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#6b725dea04013925bdfb1f3709a8b4a57f36323b"
 
 leaflet-vectoricon@^0.1.0:
   version "0.1.0"
