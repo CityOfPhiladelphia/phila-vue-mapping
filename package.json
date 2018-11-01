@@ -19,7 +19,7 @@
     "leaflet-easybutton": "^2.2.2",
     "leaflet-measure": "https://github.com/CityOfPhiladelphia/leaflet-measure#b70886af342f19597dc2937d79d64bad6bab07c6",
     "leaflet-rotatedmarker": "^0.2.0",
-    "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#6b725dea04013925bdfb1f3709a8b4a57f36323b",
+    "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#74a56f048bceccef9c945f752bbd0379ae9dc77c",
     "lodash.debounce": "^4.0.8",
     "moment": "^2.21.0",
     "phila-standards": "^1.0.0",
