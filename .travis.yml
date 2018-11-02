@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - node
 before_install:
-  - echo "//npm.fontawesome.com/:_authToken=\${FA_AUTH_TOKEN}" > .npmrc
+  # - echo "//npm.fontawesome.com/:_authToken=\${FA_AUTH_TOKEN}" > .npmrc
+  - printf "@fortawesome:registry=https://npm.fontawesome.com/\n//npm.fontawesome.com/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
 script: npm run build
 before_deploy:
   - rm -rf node_modules
