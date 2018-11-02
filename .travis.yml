@@ -10,14 +10,6 @@ before_deploy:
   - S3_BUCKET=$(get_s3_bucket)
   - echo "Will push to S3 bucket $S3_BUCKET."
 deploy:
-  - provider: s3
-    access_key_id: $AWS_ACCESS_KEY_ID
-    secret_access_key: $AWS_SECRET_ACCESS_KEY
-    bucket: $S3_BUCKET
-    skip_cleanup: true
-    on:
-      branch: develop
-      # TODO add a condition to make sure the bucket exists using `aws s3 ls`
   - provider: npm
     email: "maps@phila.gov"
     api_key: $NPM_AUTH_TOKEN
@@ -25,7 +17,3 @@ deploy:
     on:
       tags: true
 env:
-  # REVIEW move these into travis in-app config so repo is more forkable?
-  global:
-    - AWS_ACCESS_KEY_ID=AKIAJNRGPA63RIQAACBA
-    - secure: d1flG11m+2qkxY5bFXDEd2KnFC1t5rZ9phXdzRRnRt3VNPaHjGo9yihAXIMJwQEq+ATsegimpb1AJ4RWOKmAhxwD/fcYwlA8jcHpnZp2WjztaKuvj67DRoVWWl5315sTaA68vFmO8q4Stx1C1i/+atSGM58uQgtqrl/IuMNDZRNwxodz2yIBndDIuGlfqSGGemqA9lgFWsSuGVumpHjnqia3sZFLAIdgrCm7K0LlX0Q3eZK9Q5azSD2fTEv6DcUY8qoySE3/XZDvjIh9tBNxX1WZPQRTWu4dz78n9n4WNlSSHH81RyWn/bQiF7kFKl2Ss+vkgthyVmP7dOa6kymLAkPgrLfMrehPKtPp/wIm1WSH3WS5i7GXBJeIDJ/vnI0iRUfAqYIL9O56Bv7Vcgnsm7vAyA+omHvt0IDGmMEVumFo0C+S7fC0E6iHafmnfDkqrfH38m2VyWFy7rERqIcPOqlsGrmOke4krvfBycp0lEygGPqFHJGeUSCtKSZOJt/WLZnPWYit8qIIMP11oLMLC+DyEOJ8/j2mhV1yc8hJv1YrUfy5jyNwVPb6wMTiHzoWOG31bZYy+2dcPZGfPa2EYDvYKEWOsE84FxKbWCZ/vvZfgMIjr77399IkIR7vxDElO9HkHWMSvHLdvPXendIwbVFJ5tuW0YXJ2z40hByVom8=
