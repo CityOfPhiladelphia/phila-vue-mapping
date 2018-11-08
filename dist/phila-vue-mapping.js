@@ -14312,6 +14312,17 @@
       setPictometryZoom: function setPictometryZoom(state, payload) {
         state.pictometry.zoom = payload;
       },
+
+
+      setMap: function setMap(state, payload) {
+        state.map.map = payload.map;
+      },
+
+
+
+
+
+
     }
   };
 
