@@ -1,34 +1,35 @@
 <template>
-  <div :class="this.containerClass">
+  <div :class="'pvm-search-control-container ' + this.containerClass"
+       :style="this.containerStyle"
+  >
     <form @submit.prevent="handleSearchFormSubmit"
           autocomplete="off"
           id="search-form"
           class="pvm-search-control-form"
     >
-      <!-- <div class="form-group"> -->
-        <input :class="this.inputClass"
-               id="pvm-search-control-input"
-               :placeholder="this.$props.placeholder || 'Search the map'"
-               :value="this.addressEntered"
-               tabindex="0"
-               @keyup="didType"
-        />
-      <!-- </div> -->
+      <input :class="'pvm-search-control-input ' + this.inputClass"
+             :id="inputID"
+             :style="this.inputStyle"
+             :placeholder="this.$props.placeholder || 'Search the map'"
+             :value="this.addressEntered"
+             tabindex="0"
+             @keyup="didType"
+      />
     </form>
-    <button :class="this.buttonClass"
+    <button :class="'pvm-search-control-button ' + this.buttonClass"
             v-if="this.addressEntered != '' && this.addressEntered != null"
             @click="handleFormX"
     >
     <!-- v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null" -->
-      <font-awesome-icon icon="times" class="fa-lg" />
+      <font-awesome-icon icon="times" />
     </button>
-    <button :class="this.buttonClass"
-            name="pvm-search-control-button"
+    <button :class="'pvm-search-control-button ' + this.buttonClass"
             tabindex="-1"
             @click="this.handleSearchFormSubmit"
     >
-      <font-awesome-icon icon="search" class="fa-lg" />
+      <font-awesome-icon icon="search" />
     </button>
+    <slot name="address-candidates-slot">
   </div>
 </template>
 
@@ -36,54 +37,73 @@
   import * as L from 'leaflet';
   import debounce from 'lodash.debounce';
   import axios from 'axios';
+  import generateUniqueId from '../util/unique-id';
 
   export default {
     props: [
       'position',
+      'widthFromConfig',
       'placeholder',
     ],
+    data() {
+      const data = {
+        containerStyle: {
+          'width': '305px',
+        },
+        inputStyle: {
+          'width': '250px',
+        },
+        inputID: generateUniqueId(),
+        addressEntered: null,
+      }
+      return data;
+    },
+    created() {
+      window.addEventListener('resize', this.handleWindowResize);
+      this.handleWindowResize();
+    },
+    watch: {
+      addressEntered(nextValue) {
+        this.handleWindowResize();
+      }
+    },
     computed: {
       map() {
         return this.$store.state.map.map;
       },
-      addressEntered() {
-        return this.$store.state.addressEntered;
-      },
-      containerClass() {
-        if (this.isMobileOrTablet) {
-          return 'pvm-search-control-container-mobile';
-        } else {
-          return 'pvm-search-control-container';
-        }
+      // addressEntered() {
+      //   return this.$store.state.addressEntered;
+      // },
+      inputWidth() {
+        // if (this.addressAutocompleteEnabled) {
+          if (this.addressEntered === '' || this.addressEntered === null) {
+            return this.$props.widthFromConfig - 55;
+          } else {
+            return this.$props.widthFromConfig - 108;
+          }
+        // } else {
+        //   return this.$props.widthFromConfig - 55;
+        // }
       },
       inputClass() {
         if (this.isMobileOrTablet) {
-          // if (this.addressAutocompleteEnabled) {
-            if (this.addressEntered === '' || this.addressEntered === null) {
-              return 'pvm-search-control-input-mobile';
-            } else {
-              return 'pvm-search-control-input-mobile-full';
-            }
-          // } else {
-          //   return 'pvm-search-control-input-mobile';
-          // }
+          return 'pvm-input-mobile';
         } else {
-          // if (this.addressAutocompleteEnabled) {
-            if (this.addressEntered === '' || this.addressEntered === null) {
-              return 'pvm-search-control-input';
-            } else {
-              return 'pvm-search-control-input-full';
-            }
-          // } else {
-          //   return 'pvm-search-control-input';
-          // }
+          return 'pvm-input-non-mobile';
+        }
+      },
+      containerClass() {
+        if (this.isMobileOrTablet) {
+          return 'pvm-container-mobile';
+        } else {
+          return 'pvm-container-non-mobile';
         }
       },
       buttonClass() {
         if (this.isMobileOrTablet) {
-          return 'pvm-search-control-button-mobile'
+          return 'pvm-button-mobile'
         } else {
-          return 'pvm-search-control-button'
+          return 'pvm-button-non-mobile'
         }
       },
       addressAutocompleteEnabled() {
@@ -137,7 +157,9 @@
       didType: debounce(function (e) {
           // console.log('debounce is running');
           const { value } = e.target;
-          this.$store.commit('setAddressEntered', value);
+          this.$data.addressEntered = value;
+          // this.$store.commit('setAddressEntered', value);
+
           if (this.addressAutocompleteEnabled) {
             // console.log('debounce is running, e:', e, 'this:', this);
             if (e.key === "ArrowDown") {
@@ -148,6 +170,7 @@
             this.getCandidates(value);
             // this.$store.commit('setAddressEntered', value);
             if (e.key !== "Enter") {
+              // console.log('AddressInput.vue didType is running, e.key !== "Enter"');
               this.$store.commit('setShouldShowAddressCandidateList', true);
             }
           }
@@ -174,75 +197,86 @@
         this.$store.commit('setCandidates', []);
       },
       handleFormX() {
-        this.$store.commit('setAddressEntered', '');
+        console.log('handleFormX is running');
+        this.$data.addressEntered = '';
+        // this.$store.commit('setAddressEntered', '');
         this.$store.commit('setShouldShowAddressCandidateList', false);
         this.$store.commit('setCandidates', []);
       },
       handleSearchFormSubmit() {
-        // const value = e.target[0].value;
-        // const value = this.addressEntered;
+        console.log('handleSearchFormSubmit is running');
         let value;
         if (this.addressAutocompleteEnabled){
-          value = this.$store.state.addressEntered;
+          value = addressEntered
+          // value = this.$store.state.addressEntered;
         } else {
-          value = document.querySelector('#pvm-search-control-input').value;
+          // if (document.querySelector('#' + inputID)) {
+          value = document.querySelector('#' + this.$data.inputID.toString()).value;
+          // } else if (document.querySelector('#pvm-search-control-input')) {
+          //   value = document.querySelector('#pvm-search-control-input')
+          // } else {
+          //   return;
+          // }
         }
-        // console.log('AddressInput.vue handleSearchFormSubmit is running, value:', value);
-        // console.log('handleSearchFormSubmit value:', value);
+        // console.log('phila-vue-comps AddressInput.vue, handleSearchFormSubmit is running, value:', value);
         this.$controller.handleSearchFormSubmit(value);
-        this.$store.commit('setAddressEntered', value);
-        // this.$store.commit('setShouldShowAddressCandidateList', false);
+        // this.$store.commit('setAddressEntered', value);
       },
+      handleWindowResize() {
+        const addressEntered = this.addressEntered;
+        // console.log('AddressInput.vue handleWindowResize is running', window.innerWidth, 'addressEntered:', addressEntered);
+        if (window.innerWidth >= 850) {
+          this.containerStyle.width = this.$props.widthFromConfig + 'px';
+          if (addressEntered === '' || addressEntered === null) {
+            this.inputStyle.width = this.$props.widthFromConfig - 55 + 'px';
+          } else {
+            this.inputStyle.width = this.$props.widthFromConfig - 108 + 'px';
+          }
+        } else if (window.innerWidth >= 750) {
+          this.containerStyle.width = this.$props.widthFromConfig - 100 + 'px';
+          if (addressEntered === '' || addressEntered === null) {
+            this.inputStyle.width = this.$props.widthFromConfig - 155 + 'px';
+          } else {
+            this.inputStyle.width = this.$props.widthFromConfig - 208 + 'px';
+          }
+        } else {
+          this.containerStyle.width = '300px';
+          if (addressEntered === '' || addressEntered === null) {
+            this.inputStyle.width = '245px';
+          } else {
+            this.inputStyle.width = '192px';
+          }
+        }
+      }
     }
   };
 </script>
 
 <style scoped>
 
-.pvm-search-control-container {
-  height: 48px;
-  border-radius: 2px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-}
-
-.pvm-search-control-container-mobile {
-  height: 38px;
-  border-radius: 2px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
-}
-
 .pvm-search-control-form {
   display: inline-block;
 }
 
-/* .pvm-search-clear-button {
-  display: inline-block;
-  color: #fff;
-  width: 50px;
-  background: #2176d2;
-  line-height: 48px;
-  padding: 0px;
-} */
+/* Container */
 
-.pvm-search-control-button {
+.pvm-search-control-container {
   display: inline-block;
-  color: #fff;
-  width: 50px;
-  background: #2176d2;
-  line-height: 48px;
-  padding: 0px;
+  border-radius: 2px;
+  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
+  width: 305px;
 }
 
-.pvm-search-control-button-mobile {
-  display: inline-block;
-  color: #fff;
-  width: 38px;
+.pvm-container-non-mobile {
+  height: 48px;
+}
+
+.pvm-container-mobile {
   height: 38px;
-  background: #2176d2;
-  line-height: 38px;
-  padding: 0px;
-  padding-top: 1px;
 }
+
+
+/* Input */
 
 .pvm-search-control-input {
   display: inline-block;
@@ -253,51 +287,35 @@
   width: 250px;
 }
 
-.pvm-search-control-input-full {
-  border: 0;
-  padding: 15px;
-  font-family: 'Montserrat', 'Tahoma', sans-serif;
-  font-size: 16px;
-  width: 197px;
+.pvm-input-non-mobile {
+  height: 48px;
 }
 
-.pvm-search-control-input-mobile {
+.pvm-input-mobile {
+  height: 38px;
+}
+
+
+/* Button */
+
+.pvm-search-control-button {
   display: inline-block;
-  border: 0;
-  padding: 15px;
-  font-family: 'Montserrat', 'Tahoma', sans-serif;
-  font-size: 16px;
-  width: 250px;
+  color: #fff;
+  background: #2176d2;
+  padding: 0px;
+  width: 50px;
+}
+
+.pvm-button-non-mobile {
+  height: 48px;
+  line-height: 48px;
+}
+
+.pvm-button-mobile {
   height: 38px;
+  line-height: 38px;
+  padding-top: 1px;
 }
 
-.pvm-search-control-input-mobile-full {
-  border: 0;
-  padding: 15px;
-  font-family: 'Montserrat', 'Tahoma', sans-serif;
-  font-size: 16px;
-  width: 209px;
-  height: 38px;
-}
-
-/*small*/
-@media screen and (max-width: 39.9375em) {
-  .pvm-search-control-input {
-    width: 200px;
-  }
-
-  .pvm-search-control-input-mobile {
-    width: 200px;
-  }
-
-  .pvm-search-control-input-full {
-    width: 147px;
-  }
-
-  .pvm-search-control-input-mobile-full {
-    width: 158px;
-  }
-
-}
 
 </style>
