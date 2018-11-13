@@ -2170,6 +2170,82 @@
     }
   };
 
+  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .toggle-tab[data-v-78e67c74] { display: none; } .align-span[data-v-78e67c74] { margin-left: 14px; } @media screen and (min-width: 46.875em) { .toggle-tab[data-v-78e67c74] { position: absolute; bottom: 0px; border-width: 1.3px; border-style: solid; border-color: #CAC9C9; height: 24px; line-height: 16px; width:48px; background-color: white; display: inline-block; z-index: 500; opacity: 0.7; /* border-left-style: solid; */ /* box-shadow: 2px 2px 7px grey; */ } } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+  var FullScreenMapToggleTabVertical = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!this.isMobileOrTablet)?_c('div',{staticClass:"toggle-tab",style:({ left: _vm.buttonPosition }),attrs:{"id":"toggle-tab"},on:{"click":_vm.handleFullScreenMapToggleButtonClick}},[_c('span',{staticClass:"align-span"},[_c('font-awesome-icon',{staticClass:"fa-2x",attrs:{"icon":this.currentIcon}})],1)]):_vm._e()},staticRenderFns: [],_scopeId: 'data-v-78e67c74',
+    data: function data() {
+      return {
+        'divWidth': 0,
+        'buttonPosition': 0,
+      }
+    },
+    mounted: function mounted() {
+      window.addEventListener('resize', this.setDivWidth);
+      this.setDivWidth();
+    },
+    computed: {
+      fullScreenMapEnabled: function fullScreenMapEnabled() {
+        return this.$store.state.fullScreenMapEnabled;
+      },
+      fullScreenTopicsEnabled: function fullScreenTopicsEnabled() {
+        return this.$store.state.fullScreenTopicsEnabled;
+      },
+      isMobileOrTablet: function isMobileOrTablet() {
+        return this.$store.state.isMobileOrTablet;
+      },
+      cyclomediaActive: function cyclomediaActive() {
+        return this.$store.state.cyclomedia.active;
+      },
+      pictometryActive: function pictometryActive() {
+        return this.$store.state.pictometry.active;
+      },
+      picOrCycloActive: function picOrCycloActive() {
+        if (this.cyclomediaActive || this.pictometryActive) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      currentIcon: function currentIcon() {
+        if (this.fullScreenMapEnabled) {
+          return 'caret-up'
+        } else {
+          return 'caret-down'
+        }
+      }
+    },
+    watch: {
+      fullScreenTopicsEnabled: function fullScreenTopicsEnabled() {
+        this.setDivWidth();
+      }
+    },
+    methods: {
+      setDivWidth: function setDivWidth() {
+        var el = document.getElementById('map-tag');
+        var divStyle = window.getComputedStyle(el);
+        var divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
+        this.buttonPosition = (divWidth-48)/2 + 'px';
+      },
+      handleFullScreenMapToggleButtonClick: function handleFullScreenMapToggleButtonClick(e) {
+        var prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
+        var nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
+        this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
+      },
+    }
+  };
+
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=LocationControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
   var methods$2 = Control.methods;
 
@@ -14400,6 +14476,7 @@
   exports.BasemapToggleControl =  BasemapToggleControl;
   exports.BasemapSelectControl =  BasemapSelectControl;
   exports.FullScreenMapToggleTab =  FullScreenMapToggleTab;
+  exports.FullScreenMapToggleTabVertical =  FullScreenMapToggleTabVertical;
   exports.LocationControl =  LocationControl;
   exports.MeasureControl =  MeasureControl$1;
   exports.LegendControl =  LegendControl;
