@@ -14364,6 +14364,13 @@
   var pvmStore = {
     state: initialState,
     mutations: {
+      setWatchPositionOn: function setWatchPositionOn(state, payload) {
+        state.map.watchPositionOn = payload;
+      },
+      setLocation: function setLocation(state, payload) {
+        state.map.location.lat = payload.lat;
+        state.map.location.lng = payload.lng;
+      },
       setActiveTopic: function setActiveTopic(state, payload) {
         state.activeTopic = payload;
       },
@@ -14441,6 +14448,17 @@
       setPictometryZoom: function setPictometryZoom(state, payload) {
         state.pictometry.zoom = payload;
       },
+
+
+      setMap: function setMap(state, payload) {
+        state.map.map = payload.map;
+      },
+
+
+
+
+
+
     }
   };
 
