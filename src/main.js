@@ -31,6 +31,7 @@ import LocationControl from './components/LocationControl.vue';
 import MeasureControl from './components/MeasureControl.vue';
 import LegendControl from './components/LegendControl.vue';
 import BasemapTooltip from './components/BasemapTooltip.vue';
+import DrawControl from './components/DrawControl.vue';
 import ModalAbout from './components/ModalAbout.vue';
 
 // Cyclomedia
@@ -86,6 +87,7 @@ exports.LocationControl =  LocationControl;
 exports.MeasureControl =  MeasureControl;
 exports.LegendControl =  LegendControl;
 exports.BasemapTooltip =  BasemapTooltip;
+exports.DrawControl = DrawControl;
 exports.ModalAbout = ModalAbout;
 
 // Cyclomedia

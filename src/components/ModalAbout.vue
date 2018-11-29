@@ -108,7 +108,7 @@
  *
  * @since 0.6.22
  */
-export default {
+ export default {
 
   name: 'Modal-About',
   // components: {FontAwesomeIcon},
