@@ -24,6 +24,7 @@
       <font-awesome-icon icon="times" />
     </button>
     <button :class="'pvm-search-control-button ' + this.buttonClass"
+            name="pvm-search-control-button"
             tabindex="-1"
             @click="this.handleSearchFormSubmit"
     >
