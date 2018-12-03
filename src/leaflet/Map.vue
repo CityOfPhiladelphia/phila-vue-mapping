@@ -27,6 +27,7 @@
       'zoomControlPosition',
       'minZoom',
       'maxZoom',
+      'drawControl',
     ],
     mounted() {
       const map = this.$leafletElement = this.createLeafletElement();

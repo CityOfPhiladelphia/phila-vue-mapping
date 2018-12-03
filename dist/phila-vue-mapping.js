@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('leaflet'), require('esri-leaflet'), require('axios'), require('L-esri-WebMap'), require('lodash.debounce'), require('leaflet-vector-icon'), require('leaflet-measure'), require('leaflet-draw'), require('proj4'), require('blueimp-md5')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'leaflet', 'esri-leaflet', 'axios', 'L-esri-WebMap', 'lodash.debounce', 'leaflet-vector-icon', 'leaflet-measure', 'leaflet-draw', 'proj4', 'blueimp-md5'], factory) :
-  (factory((global.philaVueMapping = {}),global.L,global.L.esri,global.axios,global.LEsriWebMap,global.debounce,global.leafletVectorIcon,global.L.Control.Measure,global.leafletDraw,global.proj4,global.md5));
-}(this, (function (exports,L$1,esriLeaflet,axios,LEsriWebMap,debounce,VectorIcon,MeasureControl,leafletDraw,proj4,md5) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('leaflet'), require('esri-leaflet'), require('axios'), require('L-esri-WebMap'), require('sdleafletdraw'), require('lodash.debounce'), require('leaflet-vector-icon'), require('leaflet-measure'), require('proj4'), require('blueimp-md5')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'leaflet', 'esri-leaflet', 'axios', 'L-esri-WebMap', 'sdleafletdraw', 'lodash.debounce', 'leaflet-vector-icon', 'leaflet-measure', 'proj4', 'blueimp-md5'], factory) :
+  (factory((global.philaVueMapping = {}),global.L,global.L.esri,global.axios,global.LEsriWebMap,null,global.debounce,global.leafletVectorIcon,global.L.Control.Measure,global.proj4,global.md5));
+}(this, (function (exports,L$1,esriLeaflet,axios,LEsriWebMap,sdleafletdraw,debounce,VectorIcon,MeasureControl,proj4,md5) { 'use strict';
 
   var L$1__default = L$1['default'];
   axios = axios && axios.hasOwnProperty('default') ? axios['default'] : axios;
@@ -42,7 +42,8 @@
       'zoom',
       'zoomControlPosition',
       'minZoom',
-      'maxZoom' ],
+      'maxZoom',
+      'drawControl' ],
     mounted: function mounted() {
       var map = this.$leafletElement = this.createLeafletElement();
 
@@ -1453,6 +1454,47 @@
     }
   };
 
+  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=DrawControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+
+  var DrawControl = {
+    props: [
+      'position',
+      'draw',
+      'control'
+    ],
+
+    mounted: function mounted() {
+      var leafletElement = this.$leafletElement = this.createLeafletElement();
+    },
+    destroyed: function destroyed() {
+      this.$leafletElement._map.removeControl(this.$leafletElement);
+    },
+
+    methods: {
+      createLeafletElement: function createLeafletElement() {
+        var ref = this.$props;
+        var position = ref.position;
+
+        var drawControl = new L$1.Control.Draw({
+          draw: {
+            polyline: polyline,
+            polygon: polygon,
+            circle: circle,
+            marker: marker,
+            rectangle: rectangle,
+          },
+        });
+
+        return drawControl
+
+      },
+      parentMounted: function parentMounted(parent) {
+        var map = parent.$leafletElement;
+        map.addControl(this.$leafletElement);
+      }
+    }
+  };
+
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .pvm-search-control-form[data-v-6340ff46] { display: inline-block; } /* Container */ .pvm-search-control-container[data-v-6340ff46] { display: inline-block; border-radius: 2px; box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02); width: 305px; } .pvm-container-non-mobile[data-v-6340ff46] { height: 48px; } .pvm-container-mobile[data-v-6340ff46] { height: 38px; } /* Input */ .pvm-search-control-input[data-v-6340ff46] { display: inline-block; border: 0; padding: 15px; font-family: 'Montserrat', 'Tahoma', sans-serif; font-size: 16px; width: 250px; } .pvm-input-non-mobile[data-v-6340ff46] { height: 48px; } .pvm-input-mobile[data-v-6340ff46] { height: 38px; } /* Button */ .pvm-search-control-button[data-v-6340ff46] { display: inline-block; color: #fff; background: #2176d2; padding: 0px; width: 50px; } .pvm-button-non-mobile[data-v-6340ff46] { height: 48px; line-height: 48px; } .pvm-button-mobile[data-v-6340ff46] { height: 38px; line-height: 38px; padding-top: 1px; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
   var AddressInput = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:'pvm-search-control-container ' + this.containerClass,style:(this.containerStyle)},[_c('form',{staticClass:"pvm-search-control-form",attrs:{"autocomplete":"off","id":"search-form"},on:{"submit":function($event){$event.preventDefault();return _vm.handleSearchFormSubmit($event)}}},[_c('input',{class:'pvm-search-control-input ' + this.inputClass,style:(this.inputStyle),attrs:{"id":_vm.inputID,"placeholder":this.$props.placeholder || 'Search the map',"tabindex":"0"},domProps:{"value":this.addressEntered},on:{"keyup":_vm.didType}})]),_vm._v(" "),(this.addressEntered != '' && this.addressEntered != null)?_c('button',{class:'pvm-search-control-button ' + this.buttonClass,on:{"click":_vm.handleFormX}},[_c('font-awesome-icon',{attrs:{"icon":"times"}})],1):_vm._e(),_vm._v(" "),_c('button',{class:'pvm-search-control-button ' + this.buttonClass,attrs:{"tabindex":"-1"},on:{"click":this.handleSearchFormSubmit}},[_c('font-awesome-icon',{attrs:{"icon":"search"}})],1),_vm._v(" "),_vm._t("address-candidates-slot")],2)},staticRenderFns: [],_scopeId: 'data-v-6340ff46',
@@ -1999,7 +2041,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .button-image[data-v-24c2c164] { vertical-align: top; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods = Control.methods;
+  var methods$1 = Control.methods;
 
   var BasemapToggleControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleImageryToggleButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('img',{staticClass:"button-image",attrs:{"src":_vm.toggleButtonImgSrc}})])])])},staticRenderFns: [],_scopeId: 'data-v-24c2c164',
     props: [
@@ -2018,7 +2060,7 @@
         return src;
       },
     },
-    methods: Object.assign(methods, {
+    methods: Object.assign(methods$1, {
       handleImageryToggleButtonClick: function handleImageryToggleButtonClick(e) {
         // document.getElementById('addressSearch').blur();
         var prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
@@ -2029,7 +2071,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=BasemapSelectControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$1 = Control.methods;
+  var methods$2 = Control.methods;
 
   var BasemapSelectControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowImagery),expression:"shouldShowImagery"}]},[_c('select',{attrs:{"id":"year-select"},on:{"change":_vm.handleImageryChange}},_vm._l((_vm.imageryTypes),function(imageryTypeDef,imageryType){return _c('optgroup',{attrs:{"label":imageryTypeDef.label}},_vm._l((_vm.basemapsForImageryType(imageryType)),function(basemap){return _c('option',{attrs:{"data-key":basemap.key}},[_vm._v(" "+_vm._s(basemap.label)+" ")])}))}))])},staticRenderFns: [],_scopeId: 'data-v-48c5e6b4',
     props: [
@@ -2052,7 +2094,7 @@
         el.value = nextYear;
       }
     },
-    methods: Object.assign(methods$1, {
+    methods: Object.assign(methods$2, {
       handleImageryChange: function handleImageryChange() {
         var el = document.getElementById('year-select');
         var group = el.options[el.selectedIndex].parentElement.label;
@@ -2247,7 +2289,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=LocationControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$2 = Control.methods;
+  var methods$3 = Control.methods;
 
   var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":['far', 'dot-circle']}})],1)])])},staticRenderFns: [],_scopeId: 'data-v-15e73008',
     props: [
@@ -2258,7 +2300,7 @@
         locationOn: false
       }
     },
-    methods: Object.assign(methods$2, {
+    methods: Object.assign(methods$3, {
 
       handleLocationButtonClick: function handleLocationButtonClick(e) {
         // document.getElementById('addressSearch').blur()
@@ -2330,7 +2372,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .legend { display: inline-block; padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; line-height: 18px; color: #555; } .legend-box { display: inline-block; width: 18px; height: 18px; opacity: 1; vertical-align: middle; margin-right: 4px; } .list-text { display: inline-block; vertical-align: middle; } .legend-list { list-style: none; padding-top: 2px; padding-left: 2px; margin-left: 0px; /*override standards*/ margin-bottom: 0; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$3 = Control.methods;
+  var methods$4 = Control.methods;
 
   var LegendControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(this.shouldShowLegend),expression:"this.shouldShowLegend"}]},[_c('div',{staticClass:"legend"},[_c('ul',{staticClass:"legend-list"},_vm._l((this.keys),function(key){return _c('li',{staticClass:"legend-listitem",style:("font-size:"+_vm.items[key]["font-size"]+";")},[_c('div',{staticClass:"legend-box",style:("background-color:"+_vm.items[key]["background-color"]+
              "; border-color:"+_vm.items[key]["border-color"]+
@@ -2372,11 +2414,11 @@
       //   return string
       // }
     },
-    methods: Object.assign(methods$3)
+    methods: Object.assign(methods$4)
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .basetooltip { width: 32px; height: 32px; padding: 5px 13px; font: 20px/22px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .basetooltip2 { float: right; width: 80%; height: 32px; padding: 3px 10px; padding-right: 40px; font: 12px/14px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .basetooltip a { color: black } .basetooltip2 a { color: black } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$4 = Control.methods;
+  var methods$5 = Control.methods;
 
   var BasemapTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{class:this.basemap === 'none' ? 'basetooltip': 'basetooltip2',on:{"mouseover":_vm.onMouseover,"mouseout":_vm.onMouseout}},[(this.basemap === 'pwd')?_c('div',[_vm._v(" The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Boundaries are generalized for ease of visualization. Source: Philadelphia Water ")]):(this.basemap === 'dor')?_c('div',[_vm._v(" The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Dimension lengths are calculated using the GIS feature. Source: Department of Records. ")]):_c('div',[_vm._v(" i ")])])])},staticRenderFns: [],
     props: [
@@ -2394,7 +2436,7 @@
         return this.$store.state.activeTopic;
       }
     },
-    methods: Object.assign(methods$4, {
+    methods: Object.assign(methods$5, {
       onMouseover: function onMouseover() {
         var stateBasemap = this.activeBasemap;
         var finalBasemap = stateBasemap;
@@ -2411,41 +2453,6 @@
         this.basemap = 'none';
       }
     })
-  };
-
-  (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=DrawControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-
-  var DrawControl = {
-    props: ['position'],
-    mounted: function mounted() {
-      var leafletElement = this.$leafletElement = this.createLeafletElement();
-    },
-    destroyed: function destroyed() {
-      this.$leafletElement._map.removeControl(this.$leafletElement);
-    },
-    render: function render(h) {
-      return;
-    },
-    methods: {
-      createLeafletElement: function createLeafletElement() {
-        var ref = this.$props;
-        var position = ref.position;
-
-        return new L$1.Control.Draw({
-          draw: {
-            polyline: false,
-            polygon: false,
-            circle: false,
-            marker: false,
-            rectangle: true,
-          },
-        });
-      },
-      parentMounted: function parentMounted(parent) {
-        var map = parent.$leafletElement;
-        map.addControl(this.$leafletElement);
-      }
-    }
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /* <style lang=\"scss\" scoped> */ .icon-div[data-v-0ccfd0f0] { margin: 10px; } .text-div[data-v-0ccfd0f0] { } .street-view-image[data-v-0ccfd0f0] { height: 40px; width: 73px; color: blue; } .openmaps-modal[data-v-0ccfd0f0] { color: rgb(15, 77, 144); width: 97%; height: 80%; padding: 20px; overflow: hidden; position: absolute; top: 70px; left: 10px; background: white; z-index:1000; opacity: 0.85; } /* .modal-content { overflow-y: auto; } */ .openmaps-modal.openmaps-modal--open[data-v-0ccfd0f0]{ z-index:1000; /* border-left: 3px solid color(ghost-gray); */ opacity: 1; } .openmaps-modal-content[data-v-0ccfd0f0]{ width: 95%; height: 85%; margin: 20px auto; overflow-y: auto; } .openmaps-modal-close[data-v-0ccfd0f0]{ position: absolute; top:15px; left:15px; background: white; height: 30px; width: 30px; } /* @include breakpoint(medium down) { .openmaps-modal{ position:fixed; width: 100%; height:calc(100vh - #{$header-height-mobile}); left:0; top: $header-height-mobile; background: $white; padding:10%; } .openmaps-modal-content{ width: 100%; } .openmaps-modal-close{ position: absolute; top:15px; left:15px; } } */ "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
@@ -14521,6 +14528,7 @@
   exports.WebMapLayer = WebMapLayer;
 
   // our components
+  exports.DrawControl = DrawControl;
   exports.AddressInput =  AddressInput;
   exports.AddressCandidateList =  AddressCandidateList;
   exports.OpacitySlider =  OpacitySlider;
@@ -14534,7 +14542,6 @@
   exports.MeasureControl =  MeasureControl$1;
   exports.LegendControl =  LegendControl;
   exports.BasemapTooltip =  BasemapTooltip;
-  exports.DrawControl = DrawControl;
   exports.ModalAbout = ModalAbout;
 
   // Cyclomedia

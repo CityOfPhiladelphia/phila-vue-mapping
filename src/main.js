@@ -18,6 +18,7 @@ import WebMap from './esri-leaflet/WebMap.vue';
 import WebMapLayer from './esri-leaflet/WebMapLayer.vue';
 
 // our components
+import DrawControl from './components/DrawControl.vue';
 import AddressInput from './components/AddressInput.vue';
 import AddressCandidateList from './components/AddressCandidateList.vue';
 import OpacitySlider from './components/OpacitySlider.vue';
@@ -31,7 +32,6 @@ import LocationControl from './components/LocationControl.vue';
 import MeasureControl from './components/MeasureControl.vue';
 import LegendControl from './components/LegendControl.vue';
 import BasemapTooltip from './components/BasemapTooltip.vue';
-import DrawControl from './components/DrawControl.vue';
 import ModalAbout from './components/ModalAbout.vue';
 
 // Cyclomedia
@@ -74,6 +74,7 @@ exports.WebMap = WebMap;
 exports.WebMapLayer = WebMapLayer;
 
 // our components
+exports.DrawControl = DrawControl;
 exports.AddressInput =  AddressInput;
 exports.AddressCandidateList =  AddressCandidateList;
 exports.OpacitySlider =  OpacitySlider;
@@ -87,7 +88,6 @@ exports.LocationControl =  LocationControl;
 exports.MeasureControl =  MeasureControl;
 exports.LegendControl =  LegendControl;
 exports.BasemapTooltip =  BasemapTooltip;
-exports.DrawControl = DrawControl;
 exports.ModalAbout = ModalAbout;
 
 // Cyclomedia

@@ -3033,10 +3033,6 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-leaflet-draw@1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/leaflet-draw/-/leaflet-draw-1.0.4.tgz#45be92f378ed253e7202fdeda1fcc71885198d46"
-
 leaflet-easybutton@^2.2.2:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/leaflet-easybutton/-/leaflet-easybutton-2.3.0.tgz#135a57c3ddba8814c24b9153919a5bf5b7acfdfc"
@@ -4703,6 +4699,12 @@ scss-tokenizer@^0.2.3:
   dependencies:
     js-base64 "^2.1.8"
     source-map "^0.4.2"
+
+sdleafletdraw@1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/sdleafletdraw/-/sdleafletdraw-1.3.0.tgz#6098142733db6869fc92d9ec47be2d33d1711151"
+  dependencies:
+    leaflet "^1.3.1"
 
 "semver@2 || 3 || 4 || 5":
   version "5.6.0"
