@@ -1,15 +1,15 @@
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('leaflet'), require('esri-leaflet'), require('axios'), require('L-esri-WebMap'), require('lodash.debounce'), require('leaflet-vector-icon'), require('leaflet-measure'), require('jquery'), require('proj4'), require('blueimp-md5'), require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/vue-fontawesome')) :
-	typeof define === 'function' && define.amd ? define(['exports', 'leaflet', 'esri-leaflet', 'axios', 'L-esri-WebMap', 'lodash.debounce', 'leaflet-vector-icon', 'leaflet-measure', 'jquery', 'proj4', 'blueimp-md5', '@fortawesome/fontawesome-svg-core', '@fortawesome/vue-fontawesome'], factory) :
-	(factory((global.philaVueMapping = {}),global.L,global.L.esri,global.axios,global.LEsriWebMap,global.debounce,global.leafletVectorIcon,global.L.Control.Measure,global.$,global.proj4,global.md5,global.fontawesomeSvgCore,global.vueFontAwesome));
-}(this, (function (exports,L$1,esriLeaflet,axios,LEsriWebMap,debounce,VectorIcon,MeasureControl,$$1,proj4,md5,fontawesomeSvgCore,vueFontawesome) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/vue-fontawesome'), require('esri-leaflet'), require('L-esri-WebMap'), require('lodash.debounce'), require('leaflet-vector-icon'), require('leaflet-measure'), require('axios'), require('leaflet'), require('proj4'), require('jquery'), require('blueimp-md5')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@fortawesome/fontawesome-svg-core', '@fortawesome/vue-fontawesome', 'esri-leaflet', 'L-esri-WebMap', 'lodash.debounce', 'leaflet-vector-icon', 'leaflet-measure', 'axios', 'leaflet', 'proj4', 'jquery', 'blueimp-md5'], factory) :
+	(factory((global.philaVueMapping = {}),global.fontawesomeSvgCore,global.vueFontAwesome,global.L.esri,global.LEsriWebMap,global.debounce,global.leafletVectorIcon,global.L.Control.Measure,global.axios,global.L,global.proj4,global.$,global.md5));
+}(this, (function (exports,fontawesomeSvgCore,vueFontawesome,esriLeaflet,LEsriWebMap,debounce,VectorIcon,MeasureControl,axios,L$1,proj4,$$1,md5) { 'use strict';
 
-	axios = axios && axios.hasOwnProperty('default') ? axios['default'] : axios;
 	debounce = debounce && debounce.hasOwnProperty('default') ? debounce['default'] : debounce;
 	VectorIcon = VectorIcon && VectorIcon.hasOwnProperty('default') ? VectorIcon['default'] : VectorIcon;
 	MeasureControl = MeasureControl && MeasureControl.hasOwnProperty('default') ? MeasureControl['default'] : MeasureControl;
-	$$1 = $$1 && $$1.hasOwnProperty('default') ? $$1['default'] : $$1;
+	axios = axios && axios.hasOwnProperty('default') ? axios['default'] : axios;
 	proj4 = proj4 && proj4.hasOwnProperty('default') ? proj4['default'] : proj4;
+	$$1 = $$1 && $$1.hasOwnProperty('default') ? $$1['default'] : $$1;
 	md5 = md5 && md5.hasOwnProperty('default') ? md5['default'] : md5;
 
 	function unwrapExports (x) {
@@ -1377,8 +1377,6 @@
 	                } else if (layer.layer._layers){
 	                  // console.log('bad1, then good', title, layer.layer._layers[Object.keys(layer.layer._layers)[0]].service.options.url.replace('https://', '').replace('http://', '').replace(/\/$/, "").toLowerCase());
 	                  layerUrls[curLayer]=layer.layer._layers[Object.keys(layer.layer._layers)[0]].service.options.url.replace('https://', '').replace('http://', '').replace(/\/$/, "").toLowerCase();
-	                } else {
-	                  // console.log('still bad', title, layer);
 	                }
 	              }
 	            }
@@ -2832,7 +2830,7 @@
 	      // el.classList.remove('tour-highlight')
 	    }
 	  }
-	}
+	};
 
 	var RecordingsClient = function RecordingsClient(baseUrl, username, password, srid, proxy) {
 		if ( srid === void 0 ) srid = 3857;
