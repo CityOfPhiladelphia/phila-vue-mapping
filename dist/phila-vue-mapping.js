@@ -1456,10 +1456,14 @@
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=DrawControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
-  var DrawControl = {
+  // Include the css files
+  require('sdleafletdraw/dist/leaflet.draw.css');
+
+
+
+  var DrawControl = {_scopeId: 'data-v-4b02e719',
     props: [
       'position',
-      'draw',
       'control'
     ],
 
@@ -1469,20 +1473,27 @@
     destroyed: function destroyed() {
       this.$leafletElement._map.removeControl(this.$leafletElement);
     },
+    render: function render(h) {
+      return;
+    },
 
     methods: {
       createLeafletElement: function createLeafletElement() {
         var ref = this.$props;
         var position = ref.position;
+        var ref$1 = this.$props;
+        var control = ref$1.control;
 
         var drawControl = new L$1.Control.Draw({
           draw: {
-            polyline: polyline,
-            polygon: polygon,
-            circle: circle,
-            marker: marker,
-            rectangle: rectangle,
+            polyline: false,
+            polygon: true,
+            circle: false,
+            marker: false,
+            rectangle: false,
           },
+          control: control,
+          position: position
         });
 
         return drawControl
@@ -2041,7 +2052,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .button-image[data-v-24c2c164] { vertical-align: top; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$1 = Control.methods;
+  var methods = Control.methods;
 
   var BasemapToggleControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleImageryToggleButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('img',{staticClass:"button-image",attrs:{"src":_vm.toggleButtonImgSrc}})])])])},staticRenderFns: [],_scopeId: 'data-v-24c2c164',
     props: [
@@ -2060,7 +2071,7 @@
         return src;
       },
     },
-    methods: Object.assign(methods$1, {
+    methods: Object.assign(methods, {
       handleImageryToggleButtonClick: function handleImageryToggleButtonClick(e) {
         // document.getElementById('addressSearch').blur();
         var prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
@@ -2071,7 +2082,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=BasemapSelectControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$2 = Control.methods;
+  var methods$1 = Control.methods;
 
   var BasemapSelectControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowImagery),expression:"shouldShowImagery"}]},[_c('select',{attrs:{"id":"year-select"},on:{"change":_vm.handleImageryChange}},_vm._l((_vm.imageryTypes),function(imageryTypeDef,imageryType){return _c('optgroup',{attrs:{"label":imageryTypeDef.label}},_vm._l((_vm.basemapsForImageryType(imageryType)),function(basemap){return _c('option',{attrs:{"data-key":basemap.key}},[_vm._v(" "+_vm._s(basemap.label)+" ")])}))}))])},staticRenderFns: [],_scopeId: 'data-v-48c5e6b4',
     props: [
@@ -2094,7 +2105,7 @@
         el.value = nextYear;
       }
     },
-    methods: Object.assign(methods$2, {
+    methods: Object.assign(methods$1, {
       handleImageryChange: function handleImageryChange() {
         var el = document.getElementById('year-select');
         var group = el.options[el.selectedIndex].parentElement.label;
@@ -2289,7 +2300,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=LocationControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$3 = Control.methods;
+  var methods$2 = Control.methods;
 
   var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":['far', 'dot-circle']}})],1)])])},staticRenderFns: [],_scopeId: 'data-v-15e73008',
     props: [
@@ -2300,7 +2311,7 @@
         locationOn: false
       }
     },
-    methods: Object.assign(methods$3, {
+    methods: Object.assign(methods$2, {
 
       handleLocationButtonClick: function handleLocationButtonClick(e) {
         // document.getElementById('addressSearch').blur()
@@ -2372,7 +2383,7 @@
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .legend { display: inline-block; padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; line-height: 18px; color: #555; } .legend-box { display: inline-block; width: 18px; height: 18px; opacity: 1; vertical-align: middle; margin-right: 4px; } .list-text { display: inline-block; vertical-align: middle; } .legend-list { list-style: none; padding-top: 2px; padding-left: 2px; margin-left: 0px; /*override standards*/ margin-bottom: 0; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$4 = Control.methods;
+  var methods$3 = Control.methods;
 
   var LegendControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(this.shouldShowLegend),expression:"this.shouldShowLegend"}]},[_c('div',{staticClass:"legend"},[_c('ul',{staticClass:"legend-list"},_vm._l((this.keys),function(key){return _c('li',{staticClass:"legend-listitem",style:("font-size:"+_vm.items[key]["font-size"]+";")},[_c('div',{staticClass:"legend-box",style:("background-color:"+_vm.items[key]["background-color"]+
              "; border-color:"+_vm.items[key]["border-color"]+
@@ -2414,11 +2425,11 @@
       //   return string
       // }
     },
-    methods: Object.assign(methods$4)
+    methods: Object.assign(methods$3)
   };
 
   (function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .basetooltip { width: 32px; height: 32px; padding: 5px 13px; font: 20px/22px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .basetooltip2 { float: right; width: 80%; height: 32px; padding: 3px 10px; padding-right: 40px; font: 12px/14px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .basetooltip a { color: black } .basetooltip2 a { color: black } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-  var methods$5 = Control.methods;
+  var methods$4 = Control.methods;
 
   var BasemapTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{class:this.basemap === 'none' ? 'basetooltip': 'basetooltip2',on:{"mouseover":_vm.onMouseover,"mouseout":_vm.onMouseout}},[(this.basemap === 'pwd')?_c('div',[_vm._v(" The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Boundaries are generalized for ease of visualization. Source: Philadelphia Water ")]):(this.basemap === 'dor')?_c('div',[_vm._v(" The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Dimension lengths are calculated using the GIS feature. Source: Department of Records. ")]):_c('div',[_vm._v(" i ")])])])},staticRenderFns: [],
     props: [
@@ -2436,7 +2447,7 @@
         return this.$store.state.activeTopic;
       }
     },
-    methods: Object.assign(methods$5, {
+    methods: Object.assign(methods$4, {
       onMouseover: function onMouseover() {
         var stateBasemap = this.activeBasemap;
         var finalBasemap = stateBasemap;

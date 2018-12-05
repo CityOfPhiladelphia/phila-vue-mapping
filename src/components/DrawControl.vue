@@ -2,15 +2,15 @@
   import Control from '../leaflet/Control.vue';
   import * as L from 'leaflet';
   import 'sdleafletdraw';
-  // Include the css files
-  // import './sdleafletdraw/dist/leaflet.draw.css';
 
-  const {props, methods} = Control;
+  // Include the css files
+  require('sdleafletdraw/dist/leaflet.draw.css');
+
+
 
   export default {
     props: [
       'position',
-      'draw',
       'control'
     ],
 
@@ -20,19 +20,25 @@
     destroyed() {
       this.$leafletElement._map.removeControl(this.$leafletElement);
     },
+    render(h) {
+      return;
+    },
 
     methods: {
       createLeafletElement() {
         const { position } = this.$props;
+        const { control } = this.$props;
 
         const drawControl = new L.Control.Draw({
           draw: {
-            polyline,
-            polygon,
-            circle,
-            marker,
-            rectangle,
+            polyline: false,
+            polygon: true,
+            circle: false,
+            marker: false,
+            rectangle: false,
           },
+          control,
+          position
         });
 
         return drawControl
@@ -46,5 +52,6 @@
   };
 </script>
 
-<style>
+<style scoped>
+
 </style>
