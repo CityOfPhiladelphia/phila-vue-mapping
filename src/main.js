@@ -70,56 +70,59 @@ import pvmStore from './store.js';
 
 // Exports
 // Leaflet
-exports.Map_ = Map_;
-exports.Control = Control;
-exports.Geojson = Geojson;
-exports.CircleMarker =  CircleMarker;
-exports.ControlCorner =  ControlCorner;
-exports.PopUp = PopUp;
-exports.PopUpContent = PopUpContent;
-exports.Polygon_ = Polygon_;
-exports.Polyline_ = Polyline_;
+// exports.Map_ = Map_;
+// exports.Control = Control;
+// exports.Geojson = Geojson;
+// exports.CircleMarker =  CircleMarker;
+// exports.ControlCorner =  ControlCorner;
+// exports.PopUp = PopUp;
+// exports.PopUpContent = PopUpContent;
+// exports.Polygon_ = Polygon_;
+// exports.Polyline_ = Polyline_;
+//
+// // Esri-Leaflet
+// exports.EsriTiledMapLayer =  EsriTiledMapLayer;
+// exports.EsriTiledOverlay =  EsriTiledOverlay;
+// exports.EsriDynamicMapLayer =  EsriDynamicMapLayer;
+// exports.EsriFeatureLayer =  EsriFeatureLayer;
+// exports.WebMap = WebMap;
+// exports.WebMapLayer = WebMapLayer;
+//
+// // our components
+// exports.AddressInput =  AddressInput;
+// exports.AddressCandidateList =  AddressCandidateList;
+// exports.OpacitySlider =  OpacitySlider;
+// exports.VectorMarker =  VectorMarker;
+// exports.PngMarker =  PngMarker;
+// exports.BasemapToggleControl =  BasemapToggleControl;
+// exports.BasemapSelectControl =  BasemapSelectControl;
+// exports.FullScreenMapToggleTab =  FullScreenMapToggleTab;
+// exports.FullScreenMapToggleTabVertical =  FullScreenMapToggleTabVertical;
+// exports.LocationControl =  LocationControl;
+// exports.MeasureControl =  MeasureControl;
+// exports.LegendControl =  LegendControl;
+// exports.BasemapTooltip =  BasemapTooltip;
+// exports.ModalAbout = ModalAbout;
+//
+// // Cyclomedia
+// exports.CyclomediaButton =  CyclomediaButton;
+// exports.CyclomediaRecordingCircle =  CyclomediaRecordingCircle;
+// exports.CyclomediaRecordingsClient =  CyclomediaRecordingsClient;
+// exports.SvgViewConeMarker =  SvgViewConeMarker;
+// exports.CyclomediaMixin = CyclomediaMixin;
+// exports.CyclomediaWidget = CyclomediaWidget;
+//
+// // Pictometry
+// exports.PictometryButton =  PictometryButton;
+// exports.PictometryMixin = PictometryMixin;
+// exports.PictometryPngMarker = PictometryPngMarker;
+// exports.PictometryViewCone = PictometryViewCone;
+// exports.PictometryWidget = PictometryWidget;
+// exports.PictometryLayer = PictometryLayer;
+//
+// exports.pvmStore = pvmStore;
 
-// Esri-Leaflet
-exports.EsriTiledMapLayer =  EsriTiledMapLayer;
-exports.EsriTiledOverlay =  EsriTiledOverlay;
-exports.EsriDynamicMapLayer =  EsriDynamicMapLayer;
-exports.EsriFeatureLayer =  EsriFeatureLayer;
-exports.WebMap = WebMap;
-exports.WebMapLayer = WebMapLayer;
-
-// our components
-exports.AddressInput =  AddressInput;
-exports.AddressCandidateList =  AddressCandidateList;
-exports.OpacitySlider =  OpacitySlider;
-exports.VectorMarker =  VectorMarker;
-exports.PngMarker =  PngMarker;
-exports.BasemapToggleControl =  BasemapToggleControl;
-exports.BasemapSelectControl =  BasemapSelectControl;
-exports.FullScreenMapToggleTab =  FullScreenMapToggleTab;
-exports.FullScreenMapToggleTabVertical =  FullScreenMapToggleTabVertical;
-exports.LocationControl =  LocationControl;
-exports.MeasureControl =  MeasureControl;
-exports.LegendControl =  LegendControl;
-exports.BasemapTooltip =  BasemapTooltip;
-exports.ModalAbout = ModalAbout;
-
-// Cyclomedia
-exports.CyclomediaButton =  CyclomediaButton;
-exports.CyclomediaRecordingCircle =  CyclomediaRecordingCircle;
-exports.CyclomediaRecordingsClient =  CyclomediaRecordingsClient;
-exports.SvgViewConeMarker =  SvgViewConeMarker;
-exports.CyclomediaMixin = CyclomediaMixin;
-exports.CyclomediaWidget = CyclomediaWidget;
-
-// Pictometry
-exports.PictometryButton =  PictometryButton;
-exports.PictometryMixin = PictometryMixin;
-exports.PictometryPngMarker = PictometryPngMarker;
-exports.PictometryViewCone = PictometryViewCone;
-exports.PictometryWidget = PictometryWidget;
-exports.PictometryLayer = PictometryLayer;
-
-exports.pvmStore = pvmStore;
-
-export default exports;
+// export exports;
+export {
+  Map_,
+}
