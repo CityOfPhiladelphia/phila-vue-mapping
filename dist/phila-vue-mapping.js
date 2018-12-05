@@ -113,6 +113,23 @@
       if (this.$config.map.clickToIdentifyFeatures) {
         map.on('click', this.identifyFeatures);
       }
+
+      map.on('draw:drawstart', this.drawStartChange
+      );
+      map.on('draw:drawstop', this.drawStopChange
+      );
+
+
+      var editableLayers = new L.FeatureGroup();
+
+      map.on('draw:created', function (event) {
+          map.addLayer(editableLayers);
+          var layerType = event.layerType;
+          var layer = event.layer;
+          console.log("Draw Created");
+          return editableLayers.addLayer(layer);
+      });
+
     },
     watch: {
       center: function center(nextCenter) {
@@ -150,6 +167,9 @@
       },
     },
     computed: {
+      drawStart: function drawStart() {
+        return this.$store.state.drawStart;
+      },
       mapContainerClass: function mapContainerClass() {
         if (this.$config.map.containerClass) {
           return this.$config.map.containerClass
@@ -171,6 +191,14 @@
       }
     },
     methods: {
+      drawStartChange: function drawStartChange() {
+        // console.log("DrawStart is working");
+        this.$store.commit('setDrawStartEnabled', 'start');
+      },
+      drawStopChange: function drawStopChange() {
+        // console.log("DrawStart is working");
+        this.$store.commit('setDrawStartEnabled', null);
+      },
       createLeafletElement: function createLeafletElement() {
         var ref = this.$props;
         var zoomControlPosition = ref.zoomControlPosition;
@@ -1464,7 +1492,8 @@
   var DrawControl = {_scopeId: 'data-v-4b02e719',
     props: [
       'position',
-      'control'
+      'control',
+      'edit'
     ],
 
     mounted: function mounted() {
@@ -1483,6 +1512,7 @@
         var position = ref.position;
         var ref$1 = this.$props;
         var control = ref$1.control;
+        var editableLayers = new L$1.FeatureGroup();
 
         var drawControl = new L$1.Control.Draw({
           draw: {
@@ -1493,12 +1523,14 @@
             rectangle: false,
           },
           control: control,
-          position: position
+          position: position,
+          edit: {
+            featureGroup: editableLayers,  // A leaflet featureGroup
+          }
         });
-
         return drawControl
-
       },
+
       parentMounted: function parentMounted(parent) {
         var map = parent.$leafletElement;
         map.addControl(this.$leafletElement);
@@ -14350,6 +14382,7 @@
   var initialState = {
     activeTopic: '',
     shouldShowAddressCandidateList: false,
+    drawStart: null,
 
     // the leaflet map object
     map: {
@@ -14417,6 +14450,9 @@
   var pvmStore = {
     state: initialState,
     mutations: {
+      setDrawStartEnabled: function setDrawStartEnabled(state, payload) {
+        state.drawStart = payload;
+      },
       setWatchPositionOn: function setWatchPositionOn(state, payload) {
         state.map.watchPositionOn = payload;
       },

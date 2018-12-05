@@ -96,6 +96,22 @@
       if (this.$config.map.clickToIdentifyFeatures) {
         map.on('click', this.identifyFeatures);
       }
+
+      map.on('draw:drawstart', this.drawStartChange
+      );
+      map.on('draw:drawstop', this.drawStopChange
+      );
+
+
+      const editableLayers = new L.FeatureGroup();
+
+      map.on('draw:created', (event) => {
+          map.addLayer(editableLayers);
+          const { layerType, layer } = event;
+          console.log("Draw Created")
+          return editableLayers.addLayer(layer);
+      });
+
     },
     watch: {
       center(nextCenter) {
@@ -129,6 +145,9 @@
       },
     },
     computed: {
+      drawStart() {
+        return this.$store.state.drawStart;
+      },
       mapContainerClass() {
         if (this.$config.map.containerClass) {
           return this.$config.map.containerClass
@@ -150,6 +169,14 @@
       }
     },
     methods: {
+      drawStartChange() {
+        // console.log("DrawStart is working");
+        this.$store.commit('setDrawStartEnabled', 'start');
+      },
+      drawStopChange() {
+        // console.log("DrawStart is working");
+        this.$store.commit('setDrawStartEnabled', null);
+      },
       createLeafletElement() {
         const { zoomControlPosition, ...options } = this.$props;
         return new Map(this.$refs.map, options);

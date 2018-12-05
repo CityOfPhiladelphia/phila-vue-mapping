@@ -17,6 +17,7 @@ let config = {
 const initialState = {
   activeTopic: '',
   shouldShowAddressCandidateList: false,
+  drawStart: null,
 
   // the leaflet map object
   map: {
@@ -84,6 +85,9 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setDrawStartEnabled(state, payload) {
+      state.drawStart = payload;
+    },
     setWatchPositionOn(state, payload) {
       state.map.watchPositionOn = payload;
     },

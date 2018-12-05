@@ -11,7 +11,8 @@
   export default {
     props: [
       'position',
-      'control'
+      'control',
+      'edit'
     ],
 
     mounted() {
@@ -28,6 +29,7 @@
       createLeafletElement() {
         const { position } = this.$props;
         const { control } = this.$props;
+        const editableLayers = new L.FeatureGroup();
 
         const drawControl = new L.Control.Draw({
           draw: {
@@ -38,12 +40,14 @@
             rectangle: false,
           },
           control,
-          position
+          position,
+          edit: {
+            featureGroup: editableLayers,  // A leaflet featureGroup
+          }
         });
-
         return drawControl
-
       },
+
       parentMounted(parent) {
         const map = parent.$leafletElement;
         map.addControl(this.$leafletElement);
