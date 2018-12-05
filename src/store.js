@@ -168,17 +168,9 @@ const pvmStore = {
     setPictometryZoom(state, payload) {
       state.pictometry.zoom = payload;
     },
-
-
     setMap(state, payload) {
       state.map.map = payload.map;
     },
-
-
-
-
-
-
   }
 }
 
