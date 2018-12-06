@@ -107,6 +107,8 @@ export {
   PictometryPngMarker,
   PictometryViewCone,
   PictometryWidget,
-  PictometryLayer,
+  PictometryLayer
+}
+export {
   pvmStore
 }
