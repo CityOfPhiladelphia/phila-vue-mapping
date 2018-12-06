@@ -13,6 +13,7 @@
   const {props, methods} = Control;
 
   export default {
+    name: 'LocationControl',
     props: [
       'position'
     ],

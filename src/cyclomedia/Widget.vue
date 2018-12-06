@@ -23,6 +23,7 @@
   import proj4 from 'proj4';
 
   export default {
+    name: 'CyclomediaWidget',
     data() {
       return {
         'docWidth': 0,

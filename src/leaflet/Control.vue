@@ -17,6 +17,7 @@ isn't there?
   import * as L from 'leaflet';
 
   export default {
+    name: 'Control',
     props: ['position'],
     methods: {
       createLeafletElement(L) {

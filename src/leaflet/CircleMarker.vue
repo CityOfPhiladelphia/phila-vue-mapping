@@ -3,6 +3,7 @@
   import bindEvents from './util/bind-events';
 
   export default {
+    name: 'CircleMarker',
     props: [
       'latlng',
       'radius',

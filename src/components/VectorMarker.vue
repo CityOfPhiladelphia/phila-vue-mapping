@@ -3,6 +3,7 @@
   import VectorIcon from 'leaflet-vector-icon';
 
   export default {
+    name: 'VectorMarker',
     props: [
       'latlng',
       'markerColor',

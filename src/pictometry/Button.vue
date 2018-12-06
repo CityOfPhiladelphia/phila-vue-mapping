@@ -15,6 +15,7 @@
   import Control from '../leaflet/Control.vue';
 
   export default {
+    name: 'PictometryButton',
     extends: Control,
     // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
     // props: Object.assign(props, {

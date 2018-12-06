@@ -3,6 +3,7 @@
   // import 'leaflet-measure/dist/leaflet-measure.css';
 
   export default {
+    name: 'MeasureControl',
     props: ['position'],
     mounted() {
       const leafletElement = this.$leafletElement = this.createLeafletElement();

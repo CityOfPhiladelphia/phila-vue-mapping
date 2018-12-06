@@ -53,6 +53,7 @@
 </template>
 <script>
   export default {
+    name: 'PopUpContent',
     data() {
       return {
         'currentPopup': 0

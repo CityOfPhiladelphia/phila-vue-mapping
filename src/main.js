@@ -13,7 +13,6 @@ import { faCaretRight } from '@fortawesome/pro-solid-svg-icons/faCaretRight';
 library.add(faSearch, faTimes, faMapMarkerAlt, faDotCircle, faCaretLeft, faCaretRight);
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-
 // Leaflet
 import Map_ from './leaflet/Map.vue';
 import Control from './leaflet/Control.vue';
@@ -34,8 +33,8 @@ import WebMap from './esri-leaflet/WebMap.vue';
 import WebMapLayer from './esri-leaflet/WebMapLayer.vue';
 
 // our components
-import AddressInput from './components/AddressInput.vue';
-import AddressCandidateList from './components/AddressCandidateList.vue';
+import MapAddressInput from './components/MapAddressInput.vue';
+import MapAddressCandidateList from './components/MapAddressCandidateList.vue';
 import OpacitySlider from './components/OpacitySlider.vue';
 import VectorMarker from './components/VectorMarker.vue';
 import PngMarker from './components/PngMarker.vue';
@@ -54,12 +53,12 @@ import CyclomediaButton from './cyclomedia/Button.vue';
 import CyclomediaRecordingCircle from './cyclomedia/RecordingCircle.vue';
 import CyclomediaRecordingsClient from './cyclomedia/recordings-client';
 import SvgViewConeMarker from './cyclomedia/SvgViewConeMarker.vue';
-import CyclomediaMixin from './cyclomedia/map-panel-mixin.js';
+import cyclomediaMixin from './cyclomedia/map-panel-mixin.js';
 import CyclomediaWidget from './cyclomedia/Widget.vue';
 
 // Pictometry
 import PictometryButton from './pictometry/Button.vue';
-import PictometryMixin from './pictometry/map-panel-mixin.js';
+import pictometryMixin from './pictometry/map-panel-mixin.js';
 import PictometryPngMarker from './pictometry/PngMarker.vue';
 import PictometryViewCone from './pictometry/ViewCone.vue';
 import PictometryWidget from './pictometry/Widget.vue';
@@ -67,13 +66,6 @@ import PictometryLayer from './pictometry/Layer.vue';
 
 import pvmStore from './store.js';
 
-
-// Exports
-// Leaflet
-// exports.Map_ = Map_;
-
-
-// export exports;
 export {
   Map_,
   Control,
@@ -90,8 +82,8 @@ export {
   EsriFeatureLayer,
   WebMap,
   WebMapLayer,
-  AddressInput,
-  AddressCandidateList,
+  MapAddressInput,
+  MapAddressCandidateList,
   OpacitySlider,
   VectorMarker,
   PngMarker,
@@ -108,10 +100,10 @@ export {
   CyclomediaRecordingCircle,
   CyclomediaRecordingsClient,
   SvgViewConeMarker,
-  CyclomediaMixin,
+  cyclomediaMixin,
   CyclomediaWidget,
   PictometryButton,
-  PictometryMixin,
+  pictometryMixin,
   PictometryPngMarker,
   PictometryViewCone,
   PictometryWidget,

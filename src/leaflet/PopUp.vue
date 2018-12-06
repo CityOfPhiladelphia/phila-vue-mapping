@@ -7,6 +7,7 @@
 <script>
   import * as L from 'leaflet';
   export default {
+    name: 'PopUp',
     mounted() {
       // console.log('popup mounted is running');
       const leafletElement = this.$leafletElement = this.createLeafletElement();

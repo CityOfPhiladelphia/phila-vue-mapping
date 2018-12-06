@@ -6,6 +6,7 @@
   const GeoJson = geoJSON;
 
   export default {
+    name: 'Geojson',
     props: [
       'geojson',
       'fillColor',

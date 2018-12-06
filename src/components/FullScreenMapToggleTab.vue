@@ -13,6 +13,7 @@
 
 <script>
   export default {
+    name: 'FullScreenMapToggleTab',
     data() {
       return {
         'divHeight': 0,

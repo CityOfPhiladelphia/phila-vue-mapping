@@ -1,4 +1,5 @@
 export default {
+  name: 'cyclomediaMixin',
   computed: {
     cyclomediaActive() {
       return this.$store.state.cyclomedia.active;

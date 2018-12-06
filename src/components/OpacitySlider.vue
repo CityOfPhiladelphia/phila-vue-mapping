@@ -22,6 +22,7 @@
   let opacity_layer;
 
   export default {
+    name: 'OpacitySlider',
     props: [
       'layer',
       'position',

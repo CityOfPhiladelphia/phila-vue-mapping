@@ -21,6 +21,7 @@
   import bindEvents from './util/bind-events';
 
   export default {
+    name: 'Map_',
     props: [
       'center',
       'zoom',

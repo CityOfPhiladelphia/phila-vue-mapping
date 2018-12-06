@@ -9,6 +9,7 @@
 
   // min and max zooms are not handled by esri leaflet, but are handled by vue
   export default {
+    name: 'EsriFeatureLayer',
     props: [
       'url',
       'minZoom',

@@ -41,6 +41,7 @@
   import generateUniqueId from '../util/unique-id';
 
   export default {
+    name: 'MapAddressInput',
     props: [
       'position',
       'widthFromConfig',

@@ -18,6 +18,7 @@
   const {props, methods} = Control;
 
   export default {
+    name: 'BasemapSelectControl',
     props: [
       'position',
     ],

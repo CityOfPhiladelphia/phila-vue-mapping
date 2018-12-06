@@ -15,6 +15,7 @@ slider in a slot? -->
   import OpacitySlider from '../components/OpacitySlider.vue';
 
   export default {
+    name: 'EsriTiledOverlay',
     components: {
       OpacitySlider
     },

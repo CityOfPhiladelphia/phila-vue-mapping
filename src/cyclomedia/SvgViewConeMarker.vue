@@ -9,6 +9,7 @@
   import TriangleIcon from '../util/triangle-icon';
 
   export default {
+    name: 'SvgViewConeMarker',
     props: [
       'latlng',
       'rotationAngle',

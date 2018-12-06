@@ -13,6 +13,7 @@
 
 <script>
   export default {
+    name: 'FullScreenMapToggleTabVertical',
     data() {
       return {
         'divWidth': 0,
