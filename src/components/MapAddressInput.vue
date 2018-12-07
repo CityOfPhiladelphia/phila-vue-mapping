@@ -30,7 +30,7 @@
     >
       <font-awesome-icon icon="search" />
     </button>
-    <slot name="address-candidates-slot">
+    <slot name="address-candidates-slot" />
   </div>
 </template>
 
