@@ -45,6 +45,8 @@
       'maxZoom',
       'drawControl' ],
     mounted: function mounted() {
+      var this$1 = this;
+
       var map = this.$leafletElement = this.createLeafletElement();
 
       // move zoom control
@@ -114,20 +116,18 @@
         map.on('click', this.identifyFeatures);
       }
 
-      map.on('draw:drawstart', this.drawStartChange
-      );
-      map.on('draw:drawstop', this.drawStopChange
-      );
 
 
-      var editableLayers = new L.FeatureGroup();
+      var editableLayers = this.$store.state.editableLayers;
+      map.addLayer(editableLayers);
 
-      map.on('draw:created', function (event) {
-          map.addLayer(editableLayers);
-          var layerType = event.layerType;
-          var layer = event.layer;
-          console.log("Draw Created");
-          return editableLayers.addLayer(layer);
+      map.on('draw:drawstart', function () {this$1.$store.state.editableLayers.clearLayers();});
+      map.on('draw:drawstop', this.drawStopChange);
+      map.on('draw:created', this.drawShapeChange);
+      map.on('draw:created', function(e){
+          var layer = e.layer;
+          // console.log("draw:created editableLayers ", editableLayers);
+          editableLayers.addLayer(layer);
       });
 
     },
@@ -170,6 +170,9 @@
       drawStart: function drawStart() {
         return this.$store.state.drawStart;
       },
+      drawShape: function drawShape() {
+        return this.$store.state.drawShape;
+      },
       mapContainerClass: function mapContainerClass() {
         if (this.$config.map.containerClass) {
           return this.$config.map.containerClass
@@ -191,6 +194,10 @@
       }
     },
     methods: {
+      drawShapeChange: function drawShapeChange(shape) {
+        // console.log("drawShapeChange:", shape.layer);
+        this.$store.commit('setDrawShape', shape.layer);
+      },
       drawStartChange: function drawStartChange() {
         // console.log("DrawStart is working");
         this.$store.commit('setDrawStartEnabled', 'start');
@@ -199,6 +206,7 @@
         // console.log("DrawStart is working");
         this.$store.commit('setDrawStartEnabled', null);
       },
+
       createLeafletElement: function createLeafletElement() {
         var ref = this.$props;
         var zoomControlPosition = ref.zoomControlPosition;
@@ -1505,14 +1513,23 @@
     render: function render(h) {
       return;
     },
-
+    computed: {
+      editableLayers: function editableLayers() {
+        return this.$store.state.editableLayers;
+      }
+    },
     methods: {
+      editableLayersChange: function editableLayersChange(editableLayers) {
+        console.log("editableLayersChange is working", editableLayers);
+        this.$store.commit('setEditableLayers', editableLayers);
+      },
       createLeafletElement: function createLeafletElement() {
         var ref = this.$props;
         var position = ref.position;
         var ref$1 = this.$props;
         var control = ref$1.control;
         var editableLayers = new L$1.FeatureGroup();
+        this.editableLayersChange(editableLayers);
 
         var drawControl = new L$1.Control.Draw({
           draw: {
@@ -1524,9 +1541,7 @@
           },
           control: control,
           position: position,
-          edit: {
-            featureGroup: editableLayers,  // A leaflet featureGroup
-          }
+          edit: false,
         });
         return drawControl
       },
@@ -14383,6 +14398,8 @@
     activeTopic: '',
     shouldShowAddressCandidateList: false,
     drawStart: null,
+    drawShape: null,
+    editableLayers: null,
 
     // the leaflet map object
     map: {
@@ -14452,6 +14469,12 @@
     mutations: {
       setDrawStartEnabled: function setDrawStartEnabled(state, payload) {
         state.drawStart = payload;
+      },
+      setDrawShape: function setDrawShape(state, payload) {
+        state.drawShape = payload;
+      },
+      setEditableLayers: function setEditableLayers(state, payload) {
+        state.editableLayers = payload;
       },
       setWatchPositionOn: function setWatchPositionOn(state, payload) {
         state.map.watchPositionOn = payload;
@@ -14537,17 +14560,9 @@
       setPictometryZoom: function setPictometryZoom(state, payload) {
         state.pictometry.zoom = payload;
       },
-
-
       setMap: function setMap(state, payload) {
         state.map.map = payload.map;
       },
-
-
-
-
-
-
     }
   };
 
