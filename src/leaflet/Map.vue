@@ -97,19 +97,18 @@
         map.on('click', this.identifyFeatures);
       }
 
-      map.on('draw:drawstart', this.drawStartChange
-      );
-      map.on('draw:drawstop', this.drawStopChange
-      );
 
 
-      const editableLayers = new L.FeatureGroup();
+      const editableLayers = this.$store.state.editableLayers;
+      map.addLayer(editableLayers);
 
-      map.on('draw:created', (event) => {
-          map.addLayer(editableLayers);
-          const { layerType, layer } = event;
-          console.log("Draw Created")
-          return editableLayers.addLayer(layer);
+      map.on('draw:drawstart', this.$store.state.editableLayers.clearLayers());
+      map.on('draw:drawstop', this.drawStopChange);
+      map.on('draw:created', this.drawShapeChange);
+      map.on('draw:created', function(e){
+          let layer = e.layer;
+          console.log("draw:created editableLayers ", editableLayers);
+          editableLayers.addLayer(layer);
       });
 
     },
@@ -148,6 +147,10 @@
       drawStart() {
         return this.$store.state.drawStart;
       },
+      drawShape() {
+        // console.log("Draw shape")
+        return this.$store.state.drawShape;
+      },
       mapContainerClass() {
         if (this.$config.map.containerClass) {
           return this.$config.map.containerClass
@@ -169,6 +172,10 @@
       }
     },
     methods: {
+      drawShapeChange(shape) {
+        // console.log("drawShapeChange:", shape.layer);
+        this.$store.commit('setDrawShape', shape.layer);
+      },
       drawStartChange() {
         // console.log("DrawStart is working");
         this.$store.commit('setDrawStartEnabled', 'start');

@@ -18,6 +18,8 @@ const initialState = {
   activeTopic: '',
   shouldShowAddressCandidateList: false,
   drawStart: null,
+  drawShape: null,
+  editableLayers: null,
 
   // the leaflet map object
   map: {
@@ -87,6 +89,12 @@ const pvmStore = {
   mutations: {
     setDrawStartEnabled(state, payload) {
       state.drawStart = payload;
+    },
+    setDrawShape(state, payload) {
+      state.drawShape = payload;
+    },
+    setEditableLayers(state, payload) {
+      state.editableLayers = payload;
     },
     setWatchPositionOn(state, payload) {
       state.map.watchPositionOn = payload;
@@ -172,17 +180,9 @@ const pvmStore = {
     setPictometryZoom(state, payload) {
       state.pictometry.zoom = payload;
     },
-
-
     setMap(state, payload) {
       state.map.map = payload.map;
     },
-
-
-
-
-
-
   }
 }
 

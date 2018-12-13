@@ -24,12 +24,21 @@
     render(h) {
       return;
     },
-
+    computed: {
+      editableLayers() {
+        return this.$store.state.editableLayers;
+      }
+    },
     methods: {
+      editableLayersChange(editableLayers) {
+        console.log("editableLayersChange is working", editableLayers);
+        this.$store.commit('setEditableLayers', editableLayers);
+      },
       createLeafletElement() {
         const { position } = this.$props;
         const { control } = this.$props;
         const editableLayers = new L.FeatureGroup();
+        this.editableLayersChange(editableLayers);
 
         const drawControl = new L.Control.Draw({
           draw: {
@@ -41,9 +50,7 @@
           },
           control,
           position,
-          edit: {
-            featureGroup: editableLayers,  // A leaflet featureGroup
-          }
+          edit: false,
         });
         return drawControl
       },
