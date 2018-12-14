@@ -102,15 +102,13 @@
       const editableLayers = this.$store.state.editableLayers;
       map.addLayer(editableLayers);
 
-      map.on('draw:drawstart', () => {this.$store.state.editableLayers.clearLayers()});
+      map.on('draw:drawstart', () => {
+        this.$store.state.editableLayers.clearLayers();
+        this.drawStartChange();
+      });
       map.on('draw:drawstop', this.drawStopChange);
       map.on('draw:created', this.drawShapeChange);
-      map.on('draw:created', function(e){
-          let layer = e.layer;
-          // console.log("draw:created editableLayers ", editableLayers);
-          editableLayers.addLayer(layer);
-      });
-
+      map.on('draw:created', (e) => {editableLayers.addLayer(e.layer);});
     },
     watch: {
       center(nextCenter) {
