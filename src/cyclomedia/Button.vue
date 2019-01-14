@@ -16,6 +16,7 @@
   import CyclomediaRecordingsClient from './recordings-client';
 
   export default {
+    name: 'CyclomediaButton',
     extends: Control,
     // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
     // props: Object.assign(props, {

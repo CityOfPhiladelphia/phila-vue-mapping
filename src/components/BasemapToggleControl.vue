@@ -14,6 +14,7 @@
   const {props, methods} = Control;
 
   export default {
+    name: 'BasemapToggleControl',
     props: [
       'position'
     ],

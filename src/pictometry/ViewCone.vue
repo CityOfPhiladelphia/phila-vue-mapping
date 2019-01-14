@@ -1,5 +1,6 @@
 <script>
   export default {
+    name: 'PictometryViewCone',
     props: [
       'latlng',
       'rotationAngle',

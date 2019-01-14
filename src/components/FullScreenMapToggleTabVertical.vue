@@ -1,7 +1,7 @@
 <template>
   <div id="toggle-tab"
        class="toggle-tab"
-       :style="{ top: buttonPosition }"
+       :style="{ left: buttonPosition }"
        @click="handleFullScreenMapToggleButtonClick"
        v-if="!this.isMobileOrTablet"
   >
@@ -13,16 +13,16 @@
 
 <script>
   export default {
-    name: 'FullScreenMapToggleTab',
+    name: 'FullScreenMapToggleTabVertical',
     data() {
       return {
-        'divHeight': 0,
+        'divWidth': 0,
         'buttonPosition': 0,
       }
     },
     mounted() {
-      window.addEventListener('resize', this.setDivHeight);
-      this.setDivHeight();
+      window.addEventListener('resize', this.setDivWidth);
+      this.setDivWidth();
     },
     computed: {
       fullScreenMapEnabled() {
@@ -49,31 +49,23 @@
       },
       currentIcon() {
         if (this.fullScreenMapEnabled) {
-          return 'caret-right'
+          return 'caret-up'
         } else {
-          return 'caret-left'
+          return 'caret-down'
         }
       }
     },
     watch: {
-      picOrCycloActive(value) {
-        // console.log('FullScreenMapToggleTab watch picOrCycloActive, value:', value);
-        this.setDivHeight();
-        // this.$nextTick(() => {
-        //   this.$store.state.map.map.invalidateSize();
-        // })
-      },
       fullScreenTopicsEnabled() {
-        this.setDivHeight();
+        this.setDivWidth();
       }
     },
     methods: {
-      setDivHeight() {
-        // console.log('FullScreenMapToggleTab setDivHeight is running');
+      setDivWidth() {
         const el = document.getElementById('map-tag');
         const divStyle = window.getComputedStyle(el);
-        const divHeight = parseFloat(divStyle.getPropertyValue('height').replace('px', ''));
-        this.buttonPosition = (divHeight-48)/2 + 'px';
+        const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
+        this.buttonPosition = (divWidth-48)/2 + 'px';
       },
       handleFullScreenMapToggleButtonClick(e) {
         const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
@@ -86,39 +78,24 @@
 
 <style scoped>
 
-  /* .toggle-tab {
-    position: absolute;
-    left: 0px;
-    border-width: 1.3px;
-    border-color: #CAC9C9;
-    height: 48px;
-    line-height: 58px;
-    width:24px;
-    background-color: white;
-    display: inline-block;
-    z-index: 500; */
-    /* border-left-style: solid; */
-    /* box-shadow: 2px 2px 7px grey; */
-  /* } */
-
   .toggle-tab {
     display: none;
   }
 
   .align-span {
-    margin-left: 6px;
+    margin-left: 14px;
   }
 
   @media screen and (min-width: 46.875em) {
     .toggle-tab {
       position: absolute;
-      left: 0px;
+      bottom: 0px;
       border-width: 1.3px;
       border-style: solid;
       border-color: #CAC9C9;
-      height: 48px;
-      line-height: 56px;
-      width:24px;
+      height: 24px;
+      line-height: 16px;
+      width:48px;
       background-color: white;
       display: inline-block;
       z-index: 500;

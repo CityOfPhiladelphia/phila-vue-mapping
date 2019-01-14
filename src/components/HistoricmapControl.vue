@@ -31,6 +31,7 @@
   const {props, methods} = Control;
 
   export default {
+    name: 'HistoricmapControl',
     // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
     // props: Object.assign(props, {
     // }),

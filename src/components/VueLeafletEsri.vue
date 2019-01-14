@@ -50,6 +50,7 @@
   import ViewCone from '../pictometry/ViewCone.vue';
 
   export default {
+    name: 'VueLeafletEsri',
     components: {
       MapPanel,
       CyclomediaWidget,

@@ -1,5 +1,6 @@
 <script>
   export default {
+    name: 'WebMapLayer',
     props: [
       'layer',
       'layerName',

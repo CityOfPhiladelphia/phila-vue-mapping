@@ -22,6 +22,7 @@
   const {props, methods} = Control;
 
   export default {
+    name: 'BasemapTooltip',
     props: [
       'position',
     ],

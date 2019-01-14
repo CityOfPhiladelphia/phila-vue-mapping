@@ -1,5 +1,6 @@
 <script>
   export default {
+    name: 'PictometryPngMarker',
     props: [
       'icon',
       'latlng',
@@ -49,7 +50,7 @@
         return url
       },
       placeMarker(nextLatlng) {
-        // console.log('starting placeMarker', nextLatlng, this.$props.icon);
+        // console.log('starting placeMarker', nextLatlng, this.$props.icon, 'this.ipa:', this.ipa);
         const port = window.location.port;
         let host;
         if (port != '') {

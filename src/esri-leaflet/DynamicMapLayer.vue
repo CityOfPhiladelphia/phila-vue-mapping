@@ -12,6 +12,7 @@
   import OpacitySlider from '../components/OpacitySlider.vue';
 
   export default {
+    name: 'EsriDynamicMapLayer',
     components: {
       OpacitySlider
     },

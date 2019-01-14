@@ -10,6 +10,7 @@
   import * as LEsriWebMap from 'L-esri-WebMap'
 
   export default {
+    name: 'WebMap',
     computed: {
       webmapId() {
         // console.log('config', this.$config);

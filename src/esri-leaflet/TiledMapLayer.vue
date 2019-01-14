@@ -3,6 +3,7 @@
   import { tiledMapLayer as TiledMapLayer } from 'esri-leaflet';
 
   export default {
+    name: 'EsriTiledMapLayer',
     props: [
       'url',
       'minZoom',

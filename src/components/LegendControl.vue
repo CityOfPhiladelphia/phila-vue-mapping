@@ -28,6 +28,7 @@
   const {props, methods} = Control;
 
   export default {
+    name: 'LegendControl',
     props: [
       'position',
       'options',

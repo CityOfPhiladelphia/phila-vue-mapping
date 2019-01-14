@@ -2,6 +2,7 @@
   import { Polyline } from 'leaflet';
 
   export default {
+    name: 'Polyline',
     props: [
       'latlngs',
       'color',

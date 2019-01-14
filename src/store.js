@@ -84,6 +84,13 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setWatchPositionOn(state, payload) {
+      state.map.watchPositionOn = payload;
+    },
+    setLocation(state, payload) {
+      state.map.location.lat = payload.lat;
+      state.map.location.lng = payload.lng;
+    },
     setActiveTopic(state, payload) {
       state.activeTopic = payload;
     },
@@ -160,6 +167,9 @@ const pvmStore = {
     },
     setPictometryZoom(state, payload) {
       state.pictometry.zoom = payload;
+    },
+    setMap(state, payload) {
+      state.map.map = payload.map;
     },
   }
 }

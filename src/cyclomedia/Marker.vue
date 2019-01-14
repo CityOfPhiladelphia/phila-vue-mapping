@@ -3,6 +3,7 @@
   import VectorMarker from '../components/VectorMarker.vue';
 
   export default {
+    name: 'CyclomediaMarker',
     extends: VectorMarker,
     props: [
       'fov',

@@ -1,3 +1,18 @@
+
+// Font Awesome Icons
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { dom } from '@fortawesome/fontawesome-svg-core'
+dom.watch() // This will kick of the initial replacement of i to svg tags and configure a MutationObserver
+
+import { faDotCircle } from '@fortawesome/pro-regular-svg-icons/faDotCircle';
+import { faSearch } from '@fortawesome/pro-solid-svg-icons/faSearch';
+import { faTimes } from '@fortawesome/pro-solid-svg-icons/faTimes';
+import { faMapMarkerAlt } from '@fortawesome/pro-solid-svg-icons/faMapMarkerAlt';
+import { faCaretLeft } from '@fortawesome/pro-solid-svg-icons/faCaretLeft';
+import { faCaretRight } from '@fortawesome/pro-solid-svg-icons/faCaretRight';
+library.add(faSearch, faTimes, faMapMarkerAlt, faDotCircle, faCaretLeft, faCaretRight);
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 // Leaflet
 import Map_ from './leaflet/Map.vue';
 import Control from './leaflet/Control.vue';
@@ -14,18 +29,24 @@ import EsriTiledMapLayer from './esri-leaflet/TiledMapLayer.vue';
 import EsriTiledOverlay from './esri-leaflet/TiledOverlay.vue';
 import EsriDynamicMapLayer from './esri-leaflet/DynamicMapLayer.vue';
 import EsriFeatureLayer from './esri-leaflet/FeatureLayer.vue';
-import WebMap from './esri-leaflet/WebMap.vue';
-import WebMapLayer from './esri-leaflet/WebMapLayer.vue';
+import EsriWebMap from './esri-leaflet/EsriWebMap.vue';
+import EsriWebMapLayer from './esri-leaflet/EsriWebMapLayer.vue';
+import Checkbox from './esri-leaflet/Checkbox.vue';
+import LegendBox from './esri-leaflet/LegendBox.vue';
+import Slider from './esri-leaflet/Slider.vue';
+import TopicComponent from './esri-leaflet/TopicComponent.vue';
+
 
 // our components
-import AddressInput from './components/AddressInput.vue';
-import AddressCandidateList from './components/AddressCandidateList.vue';
+import MapAddressInput from './components/MapAddressInput.vue';
+import MapAddressCandidateList from './components/MapAddressCandidateList.vue';
 import OpacitySlider from './components/OpacitySlider.vue';
 import VectorMarker from './components/VectorMarker.vue';
 import PngMarker from './components/PngMarker.vue';
 import BasemapToggleControl from './components/BasemapToggleControl.vue';
 import BasemapSelectControl from './components/BasemapSelectControl.vue';
 import FullScreenMapToggleTab from './components/FullScreenMapToggleTab.vue';
+import FullScreenMapToggleTabVertical from './components/FullScreenMapToggleTabVertical.vue';
 import LocationControl from './components/LocationControl.vue';
 import MeasureControl from './components/MeasureControl.vue';
 import LegendControl from './components/LegendControl.vue';
@@ -37,12 +58,12 @@ import CyclomediaButton from './cyclomedia/Button.vue';
 import CyclomediaRecordingCircle from './cyclomedia/RecordingCircle.vue';
 import CyclomediaRecordingsClient from './cyclomedia/recordings-client';
 import SvgViewConeMarker from './cyclomedia/SvgViewConeMarker.vue';
-import CyclomediaMixin from './cyclomedia/map-panel-mixin.js';
+import cyclomediaMixin from './cyclomedia/map-panel-mixin.js';
 import CyclomediaWidget from './cyclomedia/Widget.vue';
 
 // Pictometry
 import PictometryButton from './pictometry/Button.vue';
-import PictometryMixin from './pictometry/map-panel-mixin.js';
+import pictometryMixin from './pictometry/map-panel-mixin.js';
 import PictometryPngMarker from './pictometry/PngMarker.vue';
 import PictometryViewCone from './pictometry/ViewCone.vue';
 import PictometryWidget from './pictometry/Widget.vue';
@@ -50,58 +71,55 @@ import PictometryLayer from './pictometry/Layer.vue';
 
 import pvmStore from './store.js';
 
+console.log('EsriWebMap:', EsriWebMap);
 
-// Exports
-// Leaflet
-exports.Map_ = Map_;
-exports.Control = Control;
-exports.Geojson = Geojson;
-exports.CircleMarker =  CircleMarker;
-exports.ControlCorner =  ControlCorner;
-exports.PopUp = PopUp;
-exports.PopUpContent = PopUpContent;
-exports.Polygon_ = Polygon_;
-exports.Polyline_ = Polyline_;
-
-// Esri-Leaflet
-exports.EsriTiledMapLayer =  EsriTiledMapLayer;
-exports.EsriTiledOverlay =  EsriTiledOverlay;
-exports.EsriDynamicMapLayer =  EsriDynamicMapLayer;
-exports.EsriFeatureLayer =  EsriFeatureLayer;
-exports.WebMap = WebMap;
-exports.WebMapLayer = WebMapLayer;
-
-// our components
-exports.AddressInput =  AddressInput;
-exports.AddressCandidateList =  AddressCandidateList;
-exports.OpacitySlider =  OpacitySlider;
-exports.VectorMarker =  VectorMarker;
-exports.PngMarker =  PngMarker;
-exports.BasemapToggleControl =  BasemapToggleControl;
-exports.BasemapSelectControl =  BasemapSelectControl;
-exports.FullScreenMapToggleTab =  FullScreenMapToggleTab;
-exports.LocationControl =  LocationControl;
-exports.MeasureControl =  MeasureControl;
-exports.LegendControl =  LegendControl;
-exports.BasemapTooltip =  BasemapTooltip;
-exports.ModalAbout = ModalAbout;
-
-// Cyclomedia
-exports.CyclomediaButton =  CyclomediaButton;
-exports.CyclomediaRecordingCircle =  CyclomediaRecordingCircle;
-exports.CyclomediaRecordingsClient =  CyclomediaRecordingsClient;
-exports.SvgViewConeMarker =  SvgViewConeMarker;
-exports.CyclomediaMixin = CyclomediaMixin;
-exports.CyclomediaWidget = CyclomediaWidget;
-
-// Pictometry
-exports.PictometryButton =  PictometryButton;
-exports.PictometryMixin = PictometryMixin;
-exports.PictometryPngMarker = PictometryPngMarker;
-exports.PictometryViewCone = PictometryViewCone;
-exports.PictometryWidget = PictometryWidget;
-exports.PictometryLayer = PictometryLayer;
-
-exports.pvmStore = pvmStore;
-
-export default exports;
+export {
+  Map_,
+  Control,
+  Geojson,
+  CircleMarker,
+  ControlCorner,
+  PopUp,
+  PopUpContent,
+  Polygon_,
+  Polyline_,
+  EsriTiledMapLayer,
+  EsriTiledOverlay,
+  EsriDynamicMapLayer,
+  EsriFeatureLayer,
+  EsriWebMap,
+  EsriWebMapLayer,
+  Checkbox,
+  LegendBox,
+  Slider,
+  TopicComponent,
+  MapAddressInput,
+  MapAddressCandidateList,
+  OpacitySlider,
+  VectorMarker,
+  PngMarker,
+  BasemapToggleControl,
+  BasemapSelectControl,
+  FullScreenMapToggleTab,
+  FullScreenMapToggleTabVertical,
+  LocationControl,
+  MeasureControl,
+  LegendControl,
+  BasemapTooltip,
+  ModalAbout,
+  CyclomediaButton,
+  CyclomediaRecordingCircle,
+  CyclomediaRecordingsClient,
+  SvgViewConeMarker,
+  cyclomediaMixin,
+  CyclomediaWidget,
+  PictometryButton,
+  pictometryMixin,
+  PictometryPngMarker,
+  PictometryViewCone,
+  PictometryWidget,
+  PictometryLayer
+}
+export {
+  pvmStore
+}

@@ -110,7 +110,7 @@
  */
 export default {
 
-  name: 'Modal-About',
+  name: 'ModalAbout',
   // components: {FontAwesomeIcon},
   computed: {
     // route() {

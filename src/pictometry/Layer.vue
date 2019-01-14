@@ -1,5 +1,6 @@
 <script>
   export default {
+    name: 'PictometryLayer',
     render(h) {
       return;
     },

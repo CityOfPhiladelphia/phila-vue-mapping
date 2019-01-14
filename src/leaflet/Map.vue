@@ -21,6 +21,7 @@
   import bindEvents from './util/bind-events';
 
   export default {
+    name: 'Map_',
     props: [
       'center',
       'zoom',
@@ -187,7 +188,7 @@
       // this is used when the click should identify features
       identifyFeatures(e) {
         const map = this.$leafletElement
-        const clickBounds = L.latLngBounds(e.latlng, e.latlng);
+        const clickBounds = LatLngBounds(e.latlng, e.latlng);
         // console.log('clickHandler in Map is starting, e:', e, 'clickBounds:', clickBounds);
         // console.log('map._layers', map._layers);
         let intersectingFeatures = [];
@@ -218,7 +219,7 @@
                   }
                 } else if (geometry === 'Point') {
                   // console.log('Point');
-                  bounds = L.latLngBounds(feature._latlng, feature._latlng);
+                  bounds = LatLngBounds(feature._latlng, feature._latlng);
                   if (bounds && clickBounds.intersects(bounds)) {
                     this.checkForDuplicates(layer, feature, intersectingFeatures);
                   }

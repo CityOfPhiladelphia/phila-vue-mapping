@@ -1,6 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import vue from 'rollup-plugin-vue';
-import buble from 'rollup-plugin-buble';
+// import buble from 'rollup-plugin-buble';
 import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
 import analyzer from 'rollup-analyzer-plugin';
@@ -34,18 +34,22 @@ export default {
     // map imports to global names for using vue-leaflet-esri in the browser
     globals: {
       leaflet: 'L',
-      'esri-leaflet': 'L.esri',
-      moment: 'moment',
-      'leaflet-measure': 'L.Control.Measure',
-      'leaflet-vector-icon': 'leafletVectorIcon',
+      jquery: '$',
       axios: 'axios',
       vue: 'Vue',
       vuex: 'Vuex',
       proj4: 'proj4',
+      'L-esri-WebMap': 'LEsriWebMap',
+      'esri-leaflet': 'L.esri',
+      'leaflet-measure': 'L.Control.Measure',
+      'leaflet-vector-icon': 'leafletVectorIcon',
+      'lodash.debounce': 'debounce',
       'blueimp-md5': 'md5',
       '@turf/helpers': 'turf',
       '@turf/distance': 'turf.distance',
       '@turf/area': 'turf.area',
+      '@fortawesome/vue-fontawesome':'vueFontAwesome',
+      '@fortawesome/fontawesome-svg-core': 'fontawesomeSvgCore'
     },
     sourcemap: true,
   },
@@ -69,11 +73,11 @@ export default {
       css: true,
     }),
     // downgrade es6
-    buble({
-      transforms: {
-        dangerousForOf: true,
-      },
-    }),
+    // buble({
+    //   transforms: {
+    //     dangerousForOf: true,
+    //   },
+    // }),
     // handle commonjs modules, e.g. leaflet
     // REVIEW is this needed?
     commonjs(),

@@ -25,6 +25,7 @@
   import md5 from 'blueimp-md5';
 
   export default {
+    name: 'PictometryWidget',
     props: [
       'apiKey',
       'secretKey',
@@ -88,7 +89,7 @@
       },
       cyclomediaActive(nextStatus) {
         if (nextStatus) {
-          // console.log('pict: cyclo on');
+          // console.log('pictometry widget cyclomediaActive, this.$ipa:', this.$ipa);
           this.$ipa.showDashboard({
             zoom: false,
             imageFilter: false,
@@ -167,6 +168,7 @@
 
         // create pictometry host
         const ipa = this.$ipa = new PictometryHost(iframeId, 'https://pol.pictometry.com/ipa/v1/load.php');
+        // console.log('PictometryWidget init ipa:', ipa);
         this.$store.commit('setPictometryIpa', ipa);
         ipa.ready = this.ipaReady;
       },

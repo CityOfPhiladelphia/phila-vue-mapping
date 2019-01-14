@@ -10,11 +10,10 @@
 
 <script>
   import Control from '../leaflet/Control.vue';
-  import L from 'leaflet';
-
   const {props, methods} = Control;
 
   export default {
+    name: 'LocationControl',
     props: [
       'position'
     ],
@@ -22,6 +21,9 @@
       return {
         locationOn: false
       }
+    },
+    mounted() {
+      console.log('location control mounted')
     },
     methods: Object.assign(methods, {
 

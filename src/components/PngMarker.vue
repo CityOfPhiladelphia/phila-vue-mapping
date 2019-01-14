@@ -7,6 +7,7 @@
   import * as L from 'leaflet';
 
   export default {
+    name: 'PngMarker',
     props: [
       'icon',
       'latlng',
