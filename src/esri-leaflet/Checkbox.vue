@@ -28,7 +28,7 @@
              :class="{ disabled: shouldBeDisabled, 'label-text': true }"
       >
         <div class="layer-name">{{ layerName }}</div>
-        <div class="tag-title"
+        <!-- <div class="tag-title"
              v-if="matchingTags.length > 0"
         >
           Matching Tags:
@@ -38,7 +38,7 @@
              v-for="matchingTag in matchingTags"
         >
           {{ matchingTag }}
-        </div>
+        </div> -->
       </label>
       <!-- <div class="layer-name">{{layerName}}</div> -->
     </div>
