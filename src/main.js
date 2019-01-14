@@ -29,8 +29,8 @@ import EsriTiledMapLayer from './esri-leaflet/TiledMapLayer.vue';
 import EsriTiledOverlay from './esri-leaflet/TiledOverlay.vue';
 import EsriDynamicMapLayer from './esri-leaflet/DynamicMapLayer.vue';
 import EsriFeatureLayer from './esri-leaflet/FeatureLayer.vue';
-import WebMap from './esri-leaflet/WebMap.vue';
-import WebMapLayer from './esri-leaflet/WebMapLayer.vue';
+import EsriWebMap from './esri-leaflet/EsriWebMap.vue';
+import EsriWebMapLayer from './esri-leaflet/EsriWebMapLayer.vue';
 import Checkbox from './esri-leaflet/Checkbox.vue';
 import LegendBox from './esri-leaflet/LegendBox.vue';
 import Slider from './esri-leaflet/Slider.vue';
@@ -71,6 +71,8 @@ import PictometryLayer from './pictometry/Layer.vue';
 
 import pvmStore from './store.js';
 
+console.log('EsriWebMap:', EsriWebMap);
+
 export {
   Map_,
   Control,
@@ -85,8 +87,8 @@ export {
   EsriTiledOverlay,
   EsriDynamicMapLayer,
   EsriFeatureLayer,
-  WebMap,
-  WebMapLayer,
+  EsriWebMap,
+  EsriWebMapLayer,
   Checkbox,
   LegendBox,
   Slider,

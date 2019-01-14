@@ -80,7 +80,9 @@
       },
       isCurrent(index) {
         if (index === this.currentPopup) {
-          return 'current'
+          return 'current inline-div'
+        } else {
+          return 'inline-div'
         }
       },
     },
@@ -136,10 +138,16 @@
 
   .inline-div {
     display: inline-block;
+    padding: 3px;
+  }
+
+  .current {
+    font-weight: bold;
   }
 
   .popup-div {
     font-size: 14px;
+    display: inline-block;
   }
 
 </style>
