@@ -29,8 +29,8 @@
     "leaflet-rotatedmarker": "^0.2.0",
     "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#74a56f048bceccef9c945f752bbd0379ae9dc77c",
     "lodash.debounce": "^4.0.8",
-    "phila-standards": "^1.0.0",
-    "proj4": "^2.4.4",
+    "phila-standards": "^1.0.2",
+    "proj4": "^2.5.0",
     "vue": "^2.5.22",
     "vuex": "^3.0.1"
   },
