@@ -31,6 +31,11 @@ import EsriDynamicMapLayer from './esri-leaflet/DynamicMapLayer.vue';
 import EsriFeatureLayer from './esri-leaflet/FeatureLayer.vue';
 import WebMap from './esri-leaflet/WebMap.vue';
 import WebMapLayer from './esri-leaflet/WebMapLayer.vue';
+import Checkbox from './esri-leaflet/Checkbox.vue';
+import LegendBox from './esri-leaflet/LegendBox.vue';
+import Slider from './esri-leaflet/Slider.vue';
+import TopicComponent from './esri-leaflet/TopicComponent.vue';
+
 
 // our components
 import MapAddressInput from './components/MapAddressInput.vue';
@@ -82,6 +87,10 @@ export {
   EsriFeatureLayer,
   WebMap,
   WebMapLayer,
+  Checkbox,
+  LegendBox,
+  Slider,
+  TopicComponent,
   MapAddressInput,
   MapAddressCandidateList,
   OpacitySlider,
