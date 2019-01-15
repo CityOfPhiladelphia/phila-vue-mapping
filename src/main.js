@@ -71,8 +71,6 @@ import PictometryLayer from './pictometry/Layer.vue';
 
 import pvmStore from './store.js';
 
-console.log('EsriWebMap:', EsriWebMap);
-
 export {
   Map_,
   Control,
