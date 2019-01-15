@@ -460,8 +460,7 @@
 	    // this is used when the click should identify features
 	    identifyFeatures(e) {
 	      const map = this.$leafletElement;
-	      const clickBounds = L$1.LatLngBounds(e.latlng, e.latlng);
-	      // console.log('clickHandler in Map is starting, e:', e, 'clickBounds:', clickBounds);
+	      const clickBounds = new L$1.LatLngBounds(e.latlng, e.latlng);
 	      // console.log('map._layers', map._layers);
 	      let intersectingFeatures = [];
 	      let geometry;
@@ -491,7 +490,7 @@
 	                }
 	              } else if (geometry === 'Point') {
 	                // console.log('Point');
-	                bounds = L$1.LatLngBounds(feature._latlng, feature._latlng);
+	                bounds = new L$1.LatLngBounds(feature._latlng, feature._latlng);
 	                if (bounds && clickBounds.intersects(bounds)) {
 	                  this.checkForDuplicates(layer, feature, intersectingFeatures);
 	                }
@@ -934,7 +933,7 @@
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 	var Polyline = {
-	  name: 'Polyline',
+	  name: 'Polyline_',
 	  props: [
 	    'latlngs',
 	    'color',
@@ -942,11 +941,11 @@
 	    'pane'
 	  ],
 	  mounted() {
-	    console.log('polyline mounted is firing');
+	    // console.log('polyline mounted is firing');
 	    const leafletElement = this.$leafletElement = this.createLeafletElement();
 	    const map = this.$store.state.map.map;
 	    if (map) {
-	      console.log('polyline adding to map, element:', leafletElement);
+	      // console.log('polyline adding to map, element:', leafletElement);
 	      leafletElement.addTo(map);
 	    }
 	  },
@@ -958,19 +957,19 @@
 	  },
 	  watch: {
 	    latlngs(nextLatLngs) {
-	      console.log('polyline latlngs changed');
+	      // console.log('polyline latlngs changed');
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
 	      const leafletElement = this.$leafletElement = this.createLeafletElement();
 	      const map = this.$store.state.map.map;
 	      if (map) {
-	        console.log('on update, polyline adding to map, element:', leafletElement);
+	        // console.log('on update, polyline adding to map, element:', leafletElement);
 	        leafletElement.addTo(map);
 	      }
 	    }
 	  },
 	  methods: {
 	    createLeafletElement() {
-	      console.log('polyline createLeafletElement is firing, latlngs:', this.$props.latlngs);
+	      // console.log('polyline createLeafletElement is firing, latlngs:', this.$props.latlngs);
 	      return new L$1.Polyline(this.$props.latlngs, {
 	        color: this.$props.color,
 	        weight: this.$props.weight,
@@ -979,7 +978,7 @@
 	      });
 	    },
 	    parentMounted(parent) {
-	      console.log('polyline parentMounted is firing, this.$leafletElement:', this.$leafletElement);
+	      // console.log('polyline parentMounted is firing, this.$leafletElement:', this.$leafletElement);
 	      const map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
@@ -1504,6 +1503,7 @@
 	}; // end of export
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+
 	var EsriWebMapLayer = {
 	  name: 'WebMapLayer',
 	  props: [
@@ -1636,7 +1636,7 @@
 	    // this one is used when the click is ON a point
 	    clickHandler(e) {
 	      const map = this.$store.state.map.map;
-	      const clickBounds = L.latLngBounds(e.layer._latlng, e.layer._latlng);
+	      const clickBounds = new L$1.LatLngBounds(e.layer._latlng, e.layer._latlng);
 	      // console.log('clickHandler in WebMapLayer is starting, e:', e, 'e.layer._latlng', e.layer._latlng);
 	      // console.log('map._layers', map._layers);
 	      let intersectingFeatures = [];
@@ -1666,7 +1666,7 @@
 	                  this.checkForDuplicates(layer, feature, intersectingFeatures);
 	                }
 	              } else if (geometry === 'Point') {
-	                bounds = L.latLngBounds(feature._latlng, feature._latlng);
+	                bounds = new L$1.LatLngBounds(feature._latlng, feature._latlng);
 	                // console.log('Point, bounds:', bounds, 'clickBounds:', clickBounds);
 	                if (bounds && clickBounds.intersects(bounds)) {
 	                  // console.log('Winner - feature:', feature, 'bounds:', bounds, 'clickBounds:', clickBounds);
@@ -2939,9 +2939,6 @@
 	    return {
 	      locationOn: false
 	    }
-	  },
-	  mounted() {
-	    console.log('location control mounted');
 	  },
 	  methods: Object.assign(methods$2, {
 
@@ -4797,8 +4794,6 @@
 
 	fontawesomeSvgCore.dom.watch(); // This will kick of the initial replacement of i to svg tags and configure a MutationObserver
 	fontawesomeSvgCore.library.add(faSearch_2, faTimes_2, faMapMarkerAlt_2, faDotCircle_2, faCaretLeft_2, faCaretRight_2);
-
-	console.log('EsriWebMap:', EsriWebMap);
 
 	exports.Map_ = _Map;
 	exports.Control = Control;

@@ -1,4 +1,10 @@
+
+
 <script>
+  import {
+    LatLngBounds
+  } from 'leaflet';
+
   export default {
     name: 'WebMapLayer',
     props: [
@@ -131,7 +137,7 @@
       // this one is used when the click is ON a point
       clickHandler(e) {
         const map = this.$store.state.map.map;
-        const clickBounds = L.latLngBounds(e.layer._latlng, e.layer._latlng);
+        const clickBounds = new LatLngBounds(e.layer._latlng, e.layer._latlng);
         // console.log('clickHandler in WebMapLayer is starting, e:', e, 'e.layer._latlng', e.layer._latlng);
         // console.log('map._layers', map._layers);
         let intersectingFeatures = [];
@@ -161,7 +167,7 @@
                     this.checkForDuplicates(layer, feature, intersectingFeatures);
                   }
                 } else if (geometry === 'Point') {
-                  bounds = L.latLngBounds(feature._latlng, feature._latlng);
+                  bounds = new LatLngBounds(feature._latlng, feature._latlng);
                   // console.log('Point, bounds:', bounds, 'clickBounds:', clickBounds);
                   if (bounds && clickBounds.intersects(bounds)) {
                     // console.log('Winner - feature:', feature, 'bounds:', bounds, 'clickBounds:', clickBounds);

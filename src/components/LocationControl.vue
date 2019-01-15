@@ -22,9 +22,6 @@
         locationOn: false
       }
     },
-    mounted() {
-      console.log('location control mounted')
-    },
     methods: Object.assign(methods, {
 
       handleLocationButtonClick(e) {
