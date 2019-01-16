@@ -103,7 +103,9 @@
       map.addLayer(editableLayers);
 
       map.on('draw:drawstart', () => {
-        this.$store.state.editableLayers.clearLayers();
+        if(this.$store.state.editableLayers !== null){
+          this.$store.state.editableLayers.clearLayers();
+        }
         this.drawStartChange();
       });
       map.on('draw:drawstop', this.drawStopChange);

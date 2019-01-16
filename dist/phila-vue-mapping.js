@@ -123,7 +123,9 @@
       map.addLayer(editableLayers);
 
       map.on('draw:drawstart', function () {
-        this$1.$store.state.editableLayers.clearLayers();
+        if(this$1.$store.state.editableLayers !== null){
+          this$1.$store.state.editableLayers.clearLayers();
+        }
         this$1.drawStartChange();
       });
       map.on('draw:drawstop', this.drawStopChange);
@@ -1519,7 +1521,7 @@
     },
     methods: {
       editableLayersChange: function editableLayersChange(editableLayers) {
-        console.log("editableLayersChange is working", editableLayers);
+        // console.log("editableLayersChange is working", editableLayers);
         this.$store.commit('setEditableLayers', editableLayers);
       },
       createLeafletElement: function createLeafletElement() {
@@ -1544,7 +1546,6 @@
         });
         return drawControl
       },
-
       parentMounted: function parentMounted(parent) {
         var map = parent.$leafletElement;
         map.addControl(this.$leafletElement);

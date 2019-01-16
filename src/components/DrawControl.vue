@@ -31,7 +31,7 @@
     },
     methods: {
       editableLayersChange(editableLayers) {
-        console.log("editableLayersChange is working", editableLayers);
+        // console.log("editableLayersChange is working", editableLayers);
         this.$store.commit('setEditableLayers', editableLayers);
       },
       createLeafletElement() {
@@ -54,7 +54,6 @@
         });
         return drawControl
       },
-
       parentMounted(parent) {
         const map = parent.$leafletElement;
         map.addControl(this.$leafletElement);
