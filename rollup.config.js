@@ -1,6 +1,6 @@
 import resolve from 'rollup-plugin-node-resolve';
 import vue from 'rollup-plugin-vue';
-// import buble from 'rollup-plugin-buble';
+import buble from 'rollup-plugin-buble';
 import commonjs from 'rollup-plugin-commonjs';
 import uglify from 'rollup-plugin-uglify';
 import analyzer from 'rollup-analyzer-plugin';
@@ -73,11 +73,11 @@ export default {
       css: true,
     }),
     // downgrade es6
-    // buble({
-    //   transforms: {
-    //     dangerousForOf: true,
-    //   },
-    // }),
+    buble({
+      transforms: {
+        dangerousForOf: true,
+      },
+    }),
     // handle commonjs modules, e.g. leaflet
     // REVIEW is this needed?
     commonjs(),

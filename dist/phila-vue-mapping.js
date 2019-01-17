@@ -276,20 +276,25 @@
 	// inspired by https://github.com/KoRiGaN/Vue2Leaflet/blob/master/src/utils/eventsBinder.js
 	function bindEvents(vue, leafletElement, events) {
 	  // get just leaflet events
-	  const leafletEvents = Object.keys(events)
-	                              .filter(eventName => {
+	  var leafletEvents = Object.keys(events)
+	                              .filter(function (eventName) {
 	                                return eventName.startsWith('l-');
 	                              })
-	                              .map(eventName => eventName.slice(2));
+	                              .map(function (eventName) { return eventName.slice(2); });
 
-	  for (let leafletEvent of leafletEvents) {
-	    const vueEvent = 'l-' + leafletEvent;
-	    leafletElement.on(leafletEvent, (e) => {
+	  var loop = function () {
+	    var leafletEvent = list[i];
+
+	    var vueEvent = 'l-' + leafletEvent;
+	    leafletElement.on(leafletEvent, function (e) {
 	      vue.$emit(vueEvent, e);
 	    });
-	  }
+	  };
+
+	  for (var i = 0, list = leafletEvents; i < list.length; i += 1) loop();
 	}
 
+	function objectWithoutProperties (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .map-container { height: 100%; } .map-container-type2 { height: calc(100vh - 109px); } .map { height: 100%; } @media (max-width: 749px) { .map-container { height: 300px; } } /* @media screen and (max-width: 40em) { */ @media screen and (max-width: 750px) { .map-container-type2 { height: calc(100vh - 141px); } } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 	var _Map = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.mapContainerClass},[_c('div',{ref:"map",staticClass:"map",attrs:{"id":"map"}}),_vm._v(" "),_c('div',[_vm._t("default")],2)])},staticRenderFns: [],
@@ -299,27 +304,28 @@
 	    'zoom',
 	    'zoomControlPosition',
 	    'minZoom',
-	    'maxZoom',
-	  ],
-	  mounted() {
-	    const map = this.$leafletElement = this.createLeafletElement();
+	    'maxZoom' ],
+	  mounted: function mounted() {
+	    var map = this.$leafletElement = this.createLeafletElement();
 
 	    // move zoom control
 	    map.zoomControl.setPosition(this.$props.zoomControlPosition);
 
 	    // put in state
-	    this.$store.commit('setMap', { map });
+	    this.$store.commit('setMap', { map: map });
 
 	    this.setMapView(this.center);
 
-	    this.$nextTick(() => {
+	    this.$nextTick(function () {
 	      map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
 	    });
 
 	    // signal children to mount
-	    for (let child of this.$children) {
+	    for (var i = 0, list = this.$children; i < list.length; i += 1) {
 	      // REVIEW it seems weird to pass children their own props. trying to
 	      // remember why this was necessary... binding issue?
+	      var child = list[i];
+
 	      child.parentMounted(this, child.$props);
 	    }
 
@@ -370,29 +376,33 @@
 	    }
 	  },
 	  watch: {
-	    center(nextCenter) {
+	    center: function center(nextCenter) {
 	      this.setMapView(nextCenter);
 	    },
-	    zoom(nextZoom) {
-	      if (!nextZoom) return;
+	    zoom: function zoom(nextZoom) {
+	      if (!nextZoom) { return; }
 	      this.$leafletElement.setZoom(nextZoom);
 	      this.$store.commit('setMapZoom', nextZoom);
 	    },
-	    mapBounds(nextBounds) {
+	    mapBounds: function mapBounds(nextBounds) {
 	      console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
 	      this.setMapBounds(nextBounds);
 	    },
-	    fullScreenMapEnabled() {
+	    fullScreenMapEnabled: function fullScreenMapEnabled() {
 	      // console.log('Map.vue fullScreenMapEnabled watch is firing');
 	      this.$leafletElement.invalidateSize();
 	    },
-	    webMapDisplayedLayers(nextWebMapDisplayedLayers) {
-	      let intersectingLayers = [];
-	      for (let feature of this.intersectingFeatures) {
+	    webMapDisplayedLayers: function webMapDisplayedLayers(nextWebMapDisplayedLayers) {
+	      var intersectingLayers = [];
+	      for (var i = 0, list = this.intersectingFeatures; i < list.length; i += 1) {
+	        var feature = list[i];
+
 	        intersectingLayers.push(feature.feature.layerName);
 	      }
 	      console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
-	      for (let layer of intersectingLayers) {
+	      for (var i$1 = 0, list$1 = intersectingLayers; i$1 < list$1.length; i$1 += 1) {
+	        var layer = list$1[i$1];
+
 	        if (!nextWebMapDisplayedLayers.includes(layer)) {
 	          this.$store.commit('setIntersectingFeatures', []);
 	          return;
@@ -401,38 +411,45 @@
 	    },
 	  },
 	  computed: {
-	    mapContainerClass() {
+	    mapContainerClass: function mapContainerClass() {
 	      if (this.$config.map.containerClass) {
 	        return this.$config.map.containerClass
 	      } else {
 	        return 'map-container'
 	      }
 	    },
-	    fullScreenMapEnabled() {
+	    fullScreenMapEnabled: function fullScreenMapEnabled() {
 	      return this.$store.state.fullScreenMapEnabled;
 	    },
-	    mapBounds() {
+	    mapBounds: function mapBounds() {
 	      return this.$store.state.map.bounds;
 	    },
-	    webMapDisplayedLayers() {
+	    webMapDisplayedLayers: function webMapDisplayedLayers() {
 	      return this.$store.state.map.webMapDisplayedLayers;
 	    },
-	    intersectingFeatures() {
+	    intersectingFeatures: function intersectingFeatures() {
 	      return this.$store.state.map.intersectingFeatures;
 	    }
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const { zoomControlPosition, ...options } = this.$props;
+	    createLeafletElement: function createLeafletElement() {
+	      var ref = this.$props;
+	      var zoomControlPosition = ref.zoomControlPosition;
+	      var rest = objectWithoutProperties( ref, ["zoomControlPosition"] );
+	      var options = rest;
 	      return new L$1.Map(this.$refs.map, options);
 	    },
-	    childDidMount(child) {
+	    childDidMount: function childDidMount(child) {
 	      child.addTo(this.$leafletElement);
 	    },
-	    setMapView(xy = [], zoom = this.zoom) {
-	      if (xy.length === 0) return;
-	      const [ lng, lat ] = xy;
-	      const latLng = new L$1.LatLng(lat, lng);
+	    setMapView: function setMapView(xy, zoom) {
+	      if ( xy === void 0 ) xy = [];
+	      if ( zoom === void 0 ) zoom = this.zoom;
+
+	      if (xy.length === 0) { return; }
+	      var lng = xy[0];
+	      var lat = xy[1];
+	      var latLng = new L$1.LatLng(lat, lng);
 
 	      // we used "setView" here because when you refreshed the app with an address in the url,
 	      // "panTo" was getting stepped on by "setZoom" and it was not happening
@@ -441,7 +458,7 @@
 	      this.$leafletElement.setView(latLng, zoom);
 	      // })
 	    },
-	    setMapBounds(bounds) {
+	    setMapBounds: function setMapBounds(bounds) {
 	      // console.log('setMapBounds is running, bounds:', bounds, bounds.isValid(), 'this.$leafletElement:', this.$leafletElement);
 	      if (bounds._northEast) {
 	        // console.log('MAP.VUE SETMAPBOUNDS IS RUNNING:', bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng);
@@ -450,7 +467,7 @@
 	        // const bounds2 = L.latLngBounds(corner2, corner1);
 	        // console.log('bounds2:', bounds2, bounds2.isValid())
 	        // this.$leafletElement.fitBounds(bounds);
-	        const map = this.$leafletElement;
+	        var map = this.$leafletElement;
 	        // console.log('bounds:', bounds, 'this.$leafletElement:', this.$leafletElement, 'map:', map);
 	        // map.fitBounds(bounds2);
 	        map.fitBounds([[bounds._northEast.lat, bounds._northEast.lng],[bounds._southWest.lat, bounds._southWest.lng]]);
@@ -458,23 +475,23 @@
 	    },
 
 	    // this is used when the click should identify features
-	    identifyFeatures(e) {
-	      const map = this.$leafletElement;
-	      const clickBounds = new L$1.LatLngBounds(e.latlng, e.latlng);
+	    identifyFeatures: function identifyFeatures(e) {
+	      var map = this.$leafletElement;
+	      var clickBounds = new L$1.LatLngBounds(e.latlng, e.latlng);
 	      // console.log('map._layers', map._layers);
-	      let intersectingFeatures = [];
-	      let geometry;
-	      for (let layer in map._layers) {
+	      var intersectingFeatures = [];
+	      var geometry;
+	      for (var layer in map._layers) {
 	        var overlay = map._layers[layer];
 	        // console.log('layer:', layer, 'overlay:', overlay);
 	        if (overlay._layers) {
-	          for (let oLayer in overlay._layers) {
-	            const feature = overlay._layers[oLayer];
+	          for (var oLayer in overlay._layers) {
+	            var feature = overlay._layers[oLayer];
 	            // console.log('feature:', feature);
 	            if (feature.feature) {
 	              geometry = feature.feature.geometry.type;
 	              // console.log('clickHandler LAYER:', layer, 'FEATURE:', feature, 'GEOMETRY:', geometry);
-	              let bounds;
+	              var bounds = (void 0);
 	              if (geometry === 'Polygon' || geometry === 'MultiPolygon') {
 	                // console.log('polygon or multipolygon');
 	                if (feature.contains(e.latlng)) {
@@ -502,10 +519,10 @@
 	      this.$store.commit('setPopupCoords', e.latlng);
 	      this.$store.commit('setIntersectingFeatures', intersectingFeatures);
 	    },
-	    checkForDuplicates(layer, feature, intersectingFeatures) {
+	    checkForDuplicates: function checkForDuplicates(layer, feature, intersectingFeatures) {
 	      // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
-	      let ids = [];
-	      for (let i = 0; i < intersectingFeatures.length; i++) {
+	      var ids = [];
+	      for (var i = 0; i < intersectingFeatures.length; i++) {
 	        ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
 	      }
 	      // console.log('layer:', layer, 'feature.feature.id:', feature.feature.id);
@@ -523,46 +540,53 @@
 	  name: 'Control',
 	  props: ['position'],
 	  methods: {
-	    createLeafletElement(L) {
+	    createLeafletElement: function createLeafletElement(L) {
 	      // console.log('Control.vue createLeafletElement is running')
 	      // subclass Control to accept an el which gets mounted to the map
-	      class ControlParent extends L.Control {
-	        constructor(el, options) {
-	          super(options);
+	      var ControlParent = /*@__PURE__*/(function (superclass) {
+	        function ControlParent(el, options) {
+	          superclass.call(this, options);
 	          this.el = el;
 	        }
-	        onAdd() {
-	          const el = this.el;
+
+	        if ( superclass ) ControlParent.__proto__ = superclass;
+	        ControlParent.prototype = Object.create( superclass && superclass.prototype );
+	        ControlParent.prototype.constructor = ControlParent;
+	        ControlParent.prototype.onAdd = function onAdd () {
+	          var el = this.el;
 
 	          // keep clicks from hitting the map
 	          L.DomEvent.disableClickPropagation(el);
 	          L.DomEvent.disableScrollPropagation(el);
 
 	          return el;
-	        }
-	      }
+	        };
 
-	      const el = this.$el;
+	        return ControlParent;
+	      }(L.Control));
+
+	      var el = this.$el;
 	      // console.log('Control.vue el:', el);
 	      return new ControlParent(el, {
 	        position: this.position
 	      });
 	    },
-	    parentMounted(parent, props) {
+	    parentMounted: function parentMounted(parent, props) {
 	      // console.log('Control.vue parentMounted is running, parent:', parent, 'props:', props);
-	      const leafletElement = this.createLeafletElement(L$1);
+	      var leafletElement = this.createLeafletElement(L$1);
 	      this.$leafletElement = leafletElement;
-	      const map = parent.$leafletElement;
+	      var map = parent.$leafletElement;
 	      // console.log('Control.vue parentMounted is calling addTo(map)');
 	      leafletElement.addTo(map);
 	    }
 	  }
 	};
 
+	function objectWithoutProperties$1 (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 	// pascal case
-	const GeoJson = L$1.geoJSON;
+	var GeoJson = L$1.geoJSON;
 
 	var Geojson = {
 	  name: 'Geojson',
@@ -575,9 +599,9 @@
 	    'fillOpacity',
 	    'data'
 	  ],
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
@@ -585,24 +609,23 @@
 
 	    bindEvents(this, this.$leafletElement, this._events);
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
 	  // or a render function
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const props = this.$props;
-	      const {
-	        geojson,
-	        ...options
-	      } = props;
+	    createLeafletElement: function createLeafletElement() {
+	      var props = this.$props;
+	      var geojson = props.geojson;
+	      var rest = objectWithoutProperties$1( props, ["geojson"] );
+	      var options = rest;
 
 	      // console.log('geojson', geojson)
-	      const newGeojson = new GeoJson(geojson, options);
+	      var newGeojson = new GeoJson(geojson, options);
 	      //this.$store.commit('setCircleMarkers', newCircleMarker);
 	      return newGeojson;
 	      // if the geoJSON feature is a point, it needs to be styled through "pointToLayer"
@@ -616,13 +639,14 @@
 	      //   // }
 	      // });
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    }
 	  }
 	};
 
+	function objectWithoutProperties$2 (obj, exclude) { var target = {}; for (var k in obj) if (Object.prototype.hasOwnProperty.call(obj, k) && exclude.indexOf(k) === -1) target[k] = obj[k]; return target; }
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 	var CircleMarker = {
@@ -639,19 +663,19 @@
 	    'pane'
 	  ],
 	  watch: {
-	    latlng(nextLatlng) {
+	    latlng: function latlng(nextLatlng) {
 	      // alert('watch circleMarker props latlng is running nextLatlng:', nextLatlng);
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 	      if (map) {
 	        leafletElement.addTo(map);
 	      }
 	    }
 	  },
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
@@ -660,26 +684,25 @@
 	    // TODO warn if trying to bind an event that doesn't exist
 	    bindEvents(this, this.$leafletElement, this._events);
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
 	  // or a render function
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const props = this.$props;
-	      const {
-	        latlng,
-	        ...options
-	      } = props;
-	      const newCircleMarker = new L$1.CircleMarker(latlng, options);
+	    createLeafletElement: function createLeafletElement() {
+	      var props = this.$props;
+	      var latlng = props.latlng;
+	      var rest = objectWithoutProperties$2( props, ["latlng"] );
+	      var options = rest;
+	      var newCircleMarker = new L$1.CircleMarker(latlng, options);
 	      return newCircleMarker;
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
 	  }
@@ -693,12 +716,12 @@
 	    'vSide',
 	    'hSide'
 	  ],
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      map._controlCorners[this.vSide + this.hSide] = L$1.DomUtil.create('div', 'leaflet-'+this.vSide+' leaflet-'+this.hSide, map._controlContainer);
 	    }
 	  }
@@ -707,42 +730,42 @@
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 	var PopUp = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._t("default")],2)},staticRenderFns: [],
 	  name: 'PopUp',
-	  mounted() {
+	  mounted: function mounted() {
 	    // console.log('popup mounted is running');
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
 	    // leafletElement.addTo(this._map);
 	    leafletElement.on('remove', this.removePopup);
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    // console.log('pop-up destroyed is running')
 	    this.$leafletElement.removeFrom(this._map);
 	  },
 	  watch: {
-	    intersectingFeatures(nextIntersectingFeatures) {
+	    intersectingFeatures: function intersectingFeatures(nextIntersectingFeatures) {
 	      // console.log('Popup WATCH intersectingFeatures is firing');
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
 	      // leafletElement.addTo(this._map);
 	      leafletElement.on('remove', this.removePopup);
 	    }
 	  },
 	  computed: {
-	    _map() {
+	    _map: function _map() {
 	      return this.$store.state.map.map;
 	    },
-	    intersectingFeatures() {
+	    intersectingFeatures: function intersectingFeatures() {
 	      return this.$store.state.map.intersectingFeatures;
 	    },
-	    popupCoords() {
+	    popupCoords: function popupCoords() {
 	      return this.$store.state.map.popupCoords;
 	    }
 	  },
 	  methods: {
-	    removePopup() {
+	    removePopup: function removePopup() {
 	      // console.log('closed Popup, this:', this);
 	      this.$store.commit('setIntersectingFeatures', []);
 	    },
-	    createLeafletElement() {
-	      const popup = L$1.popup({
+	    createLeafletElement: function createLeafletElement() {
+	      var popup = L$1.popup({
 	        minWidth: 300,
 	        offset: L$1.point(0, -24)
 	      }).setLatLng(this.popupCoords)
@@ -810,31 +833,31 @@
 
 	var PopUpContent = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[(this.popupHtmlArray.length > 1)?_c('div',{staticClass:"text-center"},[_c('ul',{staticClass:"pagination text-center"},[_c('li',{class:this.previousIsDisabled},[(this.previousIsDisabled !== 'pagination-previous')?_c('span',[_vm._v(" Previous ")]):_vm._e(),_vm._v(" "),(this.previousIsDisabled === 'pagination-previous')?_c('a',{on:{"click":function($event){_vm.changePopup(_vm.currentPopup-1);}}},[_vm._v(" Previous ")]):_vm._e()]),_vm._v(" "),(this.popupHtmlArrayLength <= 9)?_c('div',{staticClass:"inline-div"},_vm._l((this.popupHtmlArray),function(popup,index){return _c('li',{class:_vm.isCurrent(index)},[(_vm.isCurrent(index) === 'current')?_c('span',[_vm._v(" "+_vm._s(index + 1)+" ")]):_vm._e(),_vm._v(" "),(_vm.isCurrent(index) !== 'current')?_c('a',{on:{"click":function($event){_vm.changePopup(index);}}},[_vm._v(" "+_vm._s(index + 1)+" ")]):_vm._e()])}),0):_vm._e(),_vm._v(" "),(this.popupHtmlArrayLength >= 10)?_c('div',{staticClass:"inline-div popup-div"},[_vm._v(" "+_vm._s(_vm.currentPopup + 1)+" of "+_vm._s(this.popupHtmlArrayLength)+" ")]):_vm._e(),_vm._v(" "),_c('li',{class:this.nextIsDisabled},[(this.nextIsDisabled !== 'pagination-next')?_c('span',[_vm._v(" Next ")]):_vm._e(),_vm._v(" "),(this.nextIsDisabled === 'pagination-next')?_c('a',{on:{"click":function($event){_vm.changePopup(_vm.currentPopup+1);}}},[_vm._v(" Next ")]):_vm._e()])])]):_vm._e(),_vm._v(" "),_c('div',{domProps:{"innerHTML":_vm._s(this.popupHtmlArray[this.currentPopup])}})])},staticRenderFns: [],
 	  name: 'PopUpContent',
-	  data() {
+	  data: function data() {
 	    return {
 	      'currentPopup': 0
 	    }
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    // console.log('POPUPCONTENT MOUNTED')
 	    this.$store.commit('setSelectedPopupLayer', this.intersectingFeatures[0]);
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    // console.log('PopupContent destroyed')
 	    this.$store.commit('setSelectedPopupLayer', null);
 	  },
 	  watch: {
-	    popupHtmlArray(nextPopupHtmlArray) {
+	    popupHtmlArray: function popupHtmlArray(nextPopupHtmlArray) {
 	      this.currentPopup = 0;
 	      this.$store.commit('setSelectedPopupLayer', this.intersectingFeatures[0]);
 	    }
 	  },
 	  methods: {
-	    changePopup(index) {
+	    changePopup: function changePopup(index) {
 	      this.currentPopup = index;
 	      this.$store.commit('setSelectedPopupLayer', this.intersectingFeatures[index]);
 	    },
-	    isCurrent(index) {
+	    isCurrent: function isCurrent(index) {
 	      if (index === this.currentPopup) {
 	        return 'current inline-div'
 	      } else {
@@ -843,31 +866,31 @@
 	    },
 	  },
 	  computed: {
-	    previousIsDisabled() {
+	    previousIsDisabled: function previousIsDisabled() {
 	      if (this.currentPopup === 0) {
 	        return 'pagination-previous disabled'
 	      } else {
 	        return 'pagination-previous'
 	      }
 	    },
-	    nextIsDisabled() {
+	    nextIsDisabled: function nextIsDisabled() {
 	      if (this.currentPopup === this.popupHtmlArray.length - 1) {
 	        return 'pagination-next disabled'
 	      } else {
 	        return 'pagination-next'
 	      }
 	    },
-	    intersectingFeatures() {
+	    intersectingFeatures: function intersectingFeatures() {
 	      return this.$store.state.map.intersectingFeatures;
 	    },
-	    popupHtmlArray() {
-	      let htmlArray = [];
-	      for (let feature in this.$store.state.map.intersectingFeatures) {
+	    popupHtmlArray: function popupHtmlArray() {
+	      var htmlArray = [];
+	      for (var feature in this.$store.state.map.intersectingFeatures) {
 	        htmlArray.push(this.$store.state.map.intersectingFeatures[feature].feature.popupHtml);
 	      }
 	      return htmlArray;
 	    },
-	    popupHtmlArrayLength() {
+	    popupHtmlArrayLength: function popupHtmlArrayLength() {
 	      return this.popupHtmlArray.length;
 	    }
 	  }
@@ -884,27 +907,27 @@
 	    'fill',
 	    'pane'
 	  ],
-	  mounted() {
+	  mounted: function mounted() {
 	    // console.log('Polygon mounted is firing');
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 	    if (map) {
 	      // console.log('Polygon adding to map, element:', leafletElement);
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  watch: {
-	    latlngs(nextLatLngs) {
+	    latlngs: function latlngs(nextLatLngs) {
 	      // console.log('polygon latlngs changed');
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 	      if (map) {
 	        // console.log('on update, polygon adding to map, element:', leafletElement);
 	        leafletElement.addTo(map);
@@ -912,7 +935,7 @@
 	    }
 	  },
 	  methods: {
-	    createLeafletElement() {
+	    createLeafletElement: function createLeafletElement() {
 	      // console.log('Polygon createLeafletElement is firing', this.$props.latlngs);
 	      return new L$1.Polygon(this.$props.latlngs, {
 	        color: this.$props.color,
@@ -922,9 +945,9 @@
 	        'z-index': 9999,
 	      });
 	    },
-	    parentMounted(parent) {
+	    parentMounted: function parentMounted(parent) {
 	      // console.log('Polygon parentMounted is firing, this.$leafletElement:', this.$leafletElement);
-	      const map = parent.$leafletElement;
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
 	  }
@@ -940,27 +963,27 @@
 	    'weight',
 	    'pane'
 	  ],
-	  mounted() {
+	  mounted: function mounted() {
 	    // console.log('polyline mounted is firing');
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 	    if (map) {
 	      // console.log('polyline adding to map, element:', leafletElement);
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  watch: {
-	    latlngs(nextLatLngs) {
+	    latlngs: function latlngs(nextLatLngs) {
 	      // console.log('polyline latlngs changed');
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 	      if (map) {
 	        // console.log('on update, polyline adding to map, element:', leafletElement);
 	        leafletElement.addTo(map);
@@ -968,7 +991,7 @@
 	    }
 	  },
 	  methods: {
-	    createLeafletElement() {
+	    createLeafletElement: function createLeafletElement() {
 	      // console.log('polyline createLeafletElement is firing, latlngs:', this.$props.latlngs);
 	      return new L$1.Polyline(this.$props.latlngs, {
 	        color: this.$props.color,
@@ -977,9 +1000,9 @@
 	        'z-index': 10000,
 	      });
 	    },
-	    parentMounted(parent) {
+	    parentMounted: function parentMounted(parent) {
 	      // console.log('polyline parentMounted is firing, this.$leafletElement:', this.$leafletElement);
-	      const map = parent.$leafletElement;
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
 	  }
@@ -996,9 +1019,9 @@
 	    'zIndex',
 	    'attribution'
 	  ],
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
@@ -1007,23 +1030,23 @@
 	      map.attributionControl.removeAttribution('<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:1385px;"></span>');
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
 	  // or a render function
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const props = Object.assign({}, this.$props);
-	      const mapLayer = new esriLeaflet.tiledMapLayer(props);
+	    createLeafletElement: function createLeafletElement() {
+	      var props = Object.assign({}, this.$props);
+	      var mapLayer = new esriLeaflet.tiledMapLayer(props);
 	      return mapLayer;
 
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	      map.attributionControl.removeAttribution('overwrite');
 	      map.attributionControl.removeAttribution('<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:1385px;"></span>');
@@ -1039,7 +1062,7 @@
 	// // REVIEW is there a better way to extend a vue component?
 	// const {props, methods} = Control;
 
-	let opacity_layer;
+	var opacity_layer;
 
 	var OpacitySlider = {
 	  name: 'OpacitySlider',
@@ -1048,8 +1071,8 @@
 	    'position',
 	    'initialOpacity'
 	  ],
-	  created() {
-	    let opacityValue = this.$props.initialOpacity * 100;
+	  created: function created() {
+	    var opacityValue = this.$props.initialOpacity * 100;
 	    // console.log("opacityValue", opacityValue);
 
 	    L$1.Control.opacitySlider = L$1.Control.extend({
@@ -1091,34 +1114,34 @@
 	      }
 	    });
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map;
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map;
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
-	      this.$nextTick(() => {
+	      this.$nextTick(function () {
 	        leafletElement.addTo(map.map);
 	      });
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeControl(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
 	  // or a render function
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const OpacitySlider = new L$1.Control.opacitySlider;
+	    createLeafletElement: function createLeafletElement() {
+	      var OpacitySlider = new L$1.Control.opacitySlider;
 	      OpacitySlider.setPosition(this.$props.position);
 	      OpacitySlider.setOpacityLayer(this.$props.layer);
 	      return OpacitySlider;
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      map.addControl(this.$leafletElement);
 	    }
 	  }
@@ -1129,7 +1152,7 @@
 	var TiledOverlay = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('opacity-slider',{attrs:{"layer":this.$leafletElement,"position":'topleft',"initialOpacity":_vm.opacity}})},staticRenderFns: [],
 	  name: 'EsriTiledOverlay',
 	  components: {
-	    OpacitySlider
+	    OpacitySlider: OpacitySlider
 	  },
 	  props: [
 	    'url',
@@ -1139,9 +1162,9 @@
 	    'attribution',
 	    'opacity'
 	  ],
-	  created() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  created: function created() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
@@ -1149,7 +1172,7 @@
 	      map.attributionControl.removeAttribution('overwrite');
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
@@ -1158,13 +1181,13 @@
 	  //   return;
 	  // },
 	  methods: {
-	    createLeafletElement() {
-	      const props = Object.assign({}, this.$props);
-	      const mapLayer = new esriLeaflet.tiledMapLayer(props);
+	    createLeafletElement: function createLeafletElement() {
+	      var props = Object.assign({}, this.$props);
+	      var mapLayer = new esriLeaflet.tiledMapLayer(props);
 	      return mapLayer;
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    }
 	  }
@@ -1175,7 +1198,7 @@
 	var DynamicMapLayer = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('opacity-slider',{attrs:{"layer":this.$leafletElement,"position":'topleft',"initialOpacity":_vm.opacity}})},staticRenderFns: [],
 	  name: 'EsriDynamicMapLayer',
 	  components: {
-	    OpacitySlider
+	    OpacitySlider: OpacitySlider
 	  },
 	  props: {
 	    url: {
@@ -1203,15 +1226,15 @@
 
 	    },
 	  },
-	  created() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  created: function created() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
@@ -1223,12 +1246,12 @@
 
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const props = Object.assign({}, this.$props);
+	    createLeafletElement: function createLeafletElement() {
+	      var props = Object.assign({}, this.$props);
 	      return new esriLeaflet.dynamicMapLayer(props);
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    }
 	  }
@@ -1252,42 +1275,41 @@
 	    'style_',
 	    'markerType',
 	    'radius',
-	    'interactive',
-	  ],
-	  created() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
+	    'interactive' ],
+	  created: function created() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
 	    console.log('leafletElement:', leafletElement);
-	    const map = this.$store.state.map.map;
+	    var map = this.$store.state.map.map;
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
 	  // or a render function
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const props = Object.assign({}, this.$props);
+	    createLeafletElement: function createLeafletElement() {
+	      var props = Object.assign({}, this.$props);
 
-	      const map = this.$store.state.map.map;
-	      const layerName = props.layerName;
+	      var map = this.$store.state.map.map;
+	      var layerName = props.layerName;
 	      if (!map.getPane(layerName)) {
 	        map.createPane(layerName);
 	      }
 
 	      // remove underscore from style_ prop. `style` is a vue reserved word.
-	      const { style_ } = props;
+	      var style_ = props.style_;
 	      delete props.style_;
 	      props.style = style_;
 
 	      if (props.markerType === 'circleMarker') {
-	        let pointToLayer = function (geojson, latlng) {
+	        var pointToLayer = function (geojson, latlng) {
 	          return L$1.circleMarker(latlng, {
 	            pane: layerName,
 	            color: props.color,
@@ -1303,8 +1325,8 @@
 
 	      return new esriLeaflet.featureLayer(props);
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    }
 	  }
@@ -1319,30 +1341,32 @@
 	var EsriWebMap = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_vm._t("default")],2)},staticRenderFns: [],
 	  name: 'WebMap',
 	  computed: {
-	    webmapId() {
+	    webmapId: function webmapId() {
 	      // console.log('config', this.$config);
 	      return this.$config.webmapId;
 	    }
 	  },
 	  methods: {
-	    parentMounted(parent) {
-	      const self = this;
-	      const map = this.$store.state.map.map;
+	    parentMounted: function parentMounted(parent) {
+	      var this$1 = this;
 
-	      const esriUrl = "https://www.arcgis.com/sharing/rest/content/items/"+ this.webmapId +"/data";
-	      const params = {
+	      var self = this;
+	      var map = this.$store.state.map.map;
+
+	      var esriUrl = "https://www.arcgis.com/sharing/rest/content/items/"+ this.webmapId +"/data";
+	      var params = {
 	        dataType: 'json',
 	        webmapId: this.webmapId
 	      };
-	      let webMapLayersAndRest = [];
+	      var webMapLayersAndRest = [];
 
-	      axios.get(esriUrl, { params }).then(response => {
-	        const restData = response.data;
-	        let webMap;
-	        if (this.$config.bundled) {
-	          webMap = this.$webMap = LEsriWebMap.webMap(this.webmapId, { map: map });
+	      axios.get(esriUrl, { params: params }).then(function (response) {
+	        var restData = response.data;
+	        var webMap;
+	        if (this$1.$config.bundled) {
+	          webMap = this$1.$webMap = LEsriWebMap.webMap(this$1.webmapId, { map: map });
 	        } else {
-	          webMap = this.$webMap = L.esri.webMap(this.webmapId, { map: map });
+	          webMap = this$1.$webMap = L.esri.webMap(this$1.webmapId, { map: map });
 	        }
 
 	        // console.log('WEBMAP', webMap, 'restData', restData);
@@ -1352,16 +1376,18 @@
 
 	          map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
 
-	          const ignore = ["CityBasemap", "CityBasemap_Labels"];
+	          var ignore = ["CityBasemap", "CityBasemap_Labels"];
 
 	          // create layerUrls - object mapping layerName to url
-	          let layerUrls = {};
-	          for (let layer of webMap.layers) {
+	          var layerUrls = {};
+	          for (var i = 0, list = webMap.layers; i < list.length; i += 1) {
 	            // console.log('layer.title:', layer.title);
-	            const title = layer.title;
+	            var layer = list[i];
+
+	            var title = layer.title;
 	            if (!ignore.includes(title)) {
 	              if (title.includes('_')) {
-	                const curLayer = title.split('_')[1];
+	                var curLayer = title.split('_')[1];
 	                if (layer.layer.service) {
 	                  // console.log('good', title, layer.layer.service.options.url.replace('https://', '').replace('http://', '').replace(/\/$/, "").toLowerCase());
 	                  layerUrls[curLayer]=layer.layer.service.options.url.replace('https://', '').replace('http://', '').replace(/\/$/, "").toLowerCase();
@@ -1376,40 +1402,44 @@
 
 	          // create webMapLayersAndRest
 	          // let webMapLayersAndRest = []
-	          const opLayers = restData.operationalLayers;
+	          var opLayers = restData.operationalLayers;
 
 	          // start of for loop
-	          for (let layer of webMap.layers) {
+	          var loop = function () {
 	          // for (let [index, layer] of webMap.layers.splice(1).entries()) {
-	            if (layer.title === 'CityBasemap') {
-	              continue;
+	            var layer$1 = list$2[i$2];
+
+	            if (layer$1.title === 'CityBasemap') {
+	              return;
 	            }
-	            let curOpLayer;
-	            for (let opLayer of opLayers) {
-	              if (opLayer.title === layer.title) {
+	            var curOpLayer = (void 0);
+	            for (var i$1 = 0, list$1 = opLayers; i$1 < list$1.length; i$1 += 1) {
+	              var opLayer = list$1[i$1];
+
+	              if (opLayer.title === layer$1.title) {
 	                curOpLayer = opLayer;
 	              }
 	            }
 
-	            const webmapMetaDataRequestUrl = 'https://www.arcgis.com/sharing/rest/content/items/' + curOpLayer.itemId;
-	            const id = generateUniqueId();
-	            let layerObj = {
-	              'category': layer.title.split('_')[0],
-	              'title': layer.title.split('_')[1],
-	              'layer': layer.layer,
+	            var webmapMetaDataRequestUrl = 'https://www.arcgis.com/sharing/rest/content/items/' + curOpLayer.itemId;
+	            var id = generateUniqueId();
+	            var layerObj = {
+	              'category': layer$1.title.split('_')[0],
+	              'title': layer$1.title.split('_')[1],
+	              'layer': layer$1.layer,
 	              'id': id,
 	              'serviceItemId': null,
 	              // 'serviceItemId': curOpLayer.itemId,
 	              'rest': curOpLayer,
 	              'opacity': curOpLayer.opacity,
 	              'type': curOpLayer.layerType,
-	              'type2': layer.type,
+	              'type2': layer$1.type,
 	              'legend': null,
 	              'tags': null,
 	              'tagsString': null,
 	            };
 
-	            const params2 = {};
+	            var params2 = {};
 
 	            if (curOpLayer.itemId){
 
@@ -1418,29 +1448,29 @@
 	                  // console.log('L.esri.request ERROR:', error, 'webmapMetaDataRequestUrl:', webmapMetaDataRequestUrl, 'layerObj:', layerObj);
 	                  webMapLayersAndRest.push(layerObj);
 	                  webMapLayersAndRest.sort(function(a, b) {
-	                    const titleA = a.title.toLowerCase();
-	                    const titleB=b.title.toLowerCase();
+	                    var titleA = a.title.toLowerCase();
+	                    var titleB=b.title.toLowerCase();
 	                    if (titleA < titleB) //sort string ascending
-	                    return -1
+	                    { return -1 }
 	                    if (titleA > titleB)
-	                    return 1
+	                    { return 1 }
 	                    return 0 //default return value (no sorting)
 	                  });
 
 	                } else {
 	                  // console.log('WebMap MetaData:', response);
-	                  const tags = response.tags.map(x => typeof x === 'string' ? x.toLowerCase() : x);
-	                  const filteredTags =  Array.from(new Set(tags));
+	                  var tags = response.tags.map(function (x) { return typeof x === 'string' ? x.toLowerCase() : x; });
+	                  var filteredTags =  Array.from(new Set(tags));
 	                  layerObj.tags = filteredTags;
 	                  layerObj.tagsString = response.tags.join();
 	                  webMapLayersAndRest.push(layerObj);
 	                  webMapLayersAndRest.sort(function(a, b) {
-	                    const titleA = a.title.toLowerCase();
-	                    const titleB=b.title.toLowerCase();
+	                    var titleA = a.title.toLowerCase();
+	                    var titleB=b.title.toLowerCase();
 	                    if (titleA < titleB) //sort string ascending
-	                    return -1
+	                    { return -1 }
 	                    if (titleA > titleB)
-	                    return 1
+	                    { return 1 }
 	                    return 0 //default return value (no sorting)
 	                  });
 	                } // end of if/else error
@@ -1449,17 +1479,19 @@
 	            } else {
 	              webMapLayersAndRest.push(layerObj);
 	              webMapLayersAndRest.sort(function(a, b) {
-	                const titleA = a.title.toLowerCase();
-	                const titleB=b.title.toLowerCase();
+	                var titleA = a.title.toLowerCase();
+	                var titleB=b.title.toLowerCase();
 	                if (titleA < titleB) //sort string ascending
-	                return -1
+	                { return -1 }
 	                if (titleA > titleB)
-	                return 1
+	                { return 1 }
 	                return 0 //default return value (no sorting)
 	              });
 	            } // end of if/else curOpLayer.itemId
 
-	          } // end of for loop
+	          };
+
+	          for (var i$2 = 0, list$2 = webMap.layers; i$2 < list$2.length; i$2 += 1) loop(); // end of for loop
 
 	          // webMapLayersAndRest.sort(function(a, b) {
 	          //   const titleA = a.title.toLowerCase()
@@ -1471,20 +1503,22 @@
 	          //   return 0 //default return value (no sorting)
 	          // })
 
-	          const categories = [''];
-	          for (let layer of webMapLayersAndRest) {
-	            if (!categories.includes(layer.category)) {
-	              categories.push(layer.category);
+	          var categories = [''];
+	          for (var i$3 = 0, list$3 = webMapLayersAndRest; i$3 < list$3.length; i$3 += 1) {
+	            var layer$2 = list$3[i$3];
+
+	            if (!categories.includes(layer$2.category)) {
+	              categories.push(layer$2.category);
 	            }
 	          }
 
 	          categories.sort(function(a, b) {
-	            const titleA = a.toLowerCase();
-	            const titleB=b.toLowerCase();
+	            var titleA = a.toLowerCase();
+	            var titleB=b.toLowerCase();
 	            if (titleA < titleB) //sort string ascending
-	                return -1
+	                { return -1 }
 	            if (titleA > titleB)
-	                return 1
+	                { return 1 }
 	            return 0 //default return value (no sorting)
 	          });
 
@@ -1492,7 +1526,7 @@
 	          self.$store.commit('setCategories', categories);
 	          map.createPane('highlightOverlay');
 	        }); // end of webmap onload
-	      }, response => {
+	      }, function (response) {
 	        console.log('AXIOS ERROR WebMap.vue');
 	      }); // end of axios
 
@@ -1512,18 +1546,17 @@
 	    // minScale, maxScale, and drawingInfo are stored in layerDefinition
 	    'layerDefinition',
 	    'opacity',
-	    'type',
-	  ],
-	  data() {
+	    'type' ],
+	  data: function data() {
 	    return {
 	      'geometryType': null
 	    }
 	  },
 	  watch: {
-	    opacity(nextOpacity) {
+	    opacity: function opacity(nextOpacity) {
 	      this.changeOpacity(nextOpacity);
 	    },
-	    geometryType(nextGeometryType) {
+	    geometryType: function geometryType(nextGeometryType) {
 	      // console.log('WATCH GEO TYPE:', nextGeometryType);
 	      if (nextGeometryType === 'esriGeometryPoint') {
 	        // console.log('GEOMETRY TYPE IS POINT!');
@@ -1534,9 +1567,13 @@
 	          this.$leafletElement.on('click', this.clickHandler);
 	        } else if (this.$leafletElement._layers[Object.keys(this.$leafletElement._layers)[0]].metadata) {
 	          // console.log('watch leafletelement._layers');
-	          for (let layer of Object.keys(this.$leafletElement._layers)) {
+	          for (var i$1 = 0, list$1 = Object.keys(this.$leafletElement._layers); i$1 < list$1.length; i$1 += 1) {
 	            // console.log('OBJECT KEYS', Object.keys(this.$leafletElement._layers[layer]._layers));
-	            for (let innerLayer of Object.keys(this.$leafletElement._layers[layer]._layers)) {
+	            var layer = list$1[i$1];
+
+	            for (var i = 0, list = Object.keys(this.$leafletElement._layers[layer]._layers); i < list.length; i += 1) {
+	              var innerLayer = list[i];
+
 	              this.$leafletElement._layers[layer]._layers[innerLayer].options.bubblingMouseEvents = false;
 	              // console.log('!!!!THIS', this.$leafletElement._layers[layer]._layers[innerLayer]);
 	            }
@@ -1552,12 +1589,12 @@
 	    }
 	  },
 	  computed: {
-	    scale() {
+	    scale: function scale() {
 	      return this.$store.state.map.scale;
 	    },
 	  },
-	  created() {
-	    const leafletElement = this.$leafletElement = this.layer;
+	  created: function created() {
+	    var leafletElement = this.$leafletElement = this.layer;
 	    if (this.layer.metadata) {
 	      this.layer.metadata(function(error, metadata) {
 	        // console.log('metadata', metadata);
@@ -1570,27 +1607,27 @@
 	      }, this);
 	    }
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    // console.log('THE LAYER:', this.$leafletElement, 'THE GEO TYPE:', this.geometryType);
-	    const map = this.$store.state.map.map;
+	    var map = this.$store.state.map.map;
 	    if (map) {
 	      this.$leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
-	    changeOpacity(nextOpacity) {
+	    changeOpacity: function changeOpacity(nextOpacity) {
 	      // console.log('webMapLayer changeOpacity is running, nextOpacity:', nextOpacity, 'LEAFLET ELEMENT:', this.$leafletElement);
-	      let element;
+	      var element;
 	      // sometimes you have to dig into the leafletElement to get to the objects being shown
 	      // one way to know whether you have to do that is whether the leafletElement has a "legend" function
 	      if (!this.$leafletElement.legend) {
@@ -1607,9 +1644,9 @@
 	          // console.log('LAYER', layer);
 	          if (layer._icon) {
 	            // console.log('LAYER icon', layer);
-	            const style = layer._icon.attributes.style.nodeValue;
-	            const styleSlice = style.slice(0, style.indexOf('; opacity'));
-	            const styleConcat = styleSlice.concat('; opacity:', nextOpacity, '; fill-opacity:', nextOpacity, ';');
+	            var style = layer._icon.attributes.style.nodeValue;
+	            var styleSlice = style.slice(0, style.indexOf('; opacity'));
+	            var styleConcat = styleSlice.concat('; opacity:', nextOpacity, '; fill-opacity:', nextOpacity, ';');
 	            layer._icon.attributes.style.nodeValue = styleConcat;
 	          } else if (layer._path) {
 	            // console.log('LAYER path', layer);
@@ -1634,25 +1671,25 @@
 
 	    // nearly the same function is in Map.vue
 	    // this one is used when the click is ON a point
-	    clickHandler(e) {
-	      const map = this.$store.state.map.map;
-	      const clickBounds = new L$1.LatLngBounds(e.layer._latlng, e.layer._latlng);
+	    clickHandler: function clickHandler(e) {
+	      var map = this.$store.state.map.map;
+	      var clickBounds = new L$1.LatLngBounds(e.layer._latlng, e.layer._latlng);
 	      // console.log('clickHandler in WebMapLayer is starting, e:', e, 'e.layer._latlng', e.layer._latlng);
 	      // console.log('map._layers', map._layers);
-	      let intersectingFeatures = [];
-	      let geometry;
-	      for (let layer in map._layers) {
-	        const overlay = map._layers[layer];
+	      var intersectingFeatures = [];
+	      var geometry;
+	      for (var layer in map._layers) {
+	        var overlay = map._layers[layer];
 	        if (overlay._layers) {
 	          // console.log('IF overlay._layers');
-	          for (let oLayer in overlay._layers) {
-	            let feature = overlay._layers[oLayer];
+	          for (var oLayer in overlay._layers) {
+	            var feature = overlay._layers[oLayer];
 	            // feature.layerName = this.$props.layerName;
 
 	            if (feature.feature) {
 	              geometry = feature.feature.geometry.type;
 	              // console.log('clickHandler LAYER:', layer, 'FEATURE:', feature, 'GEOMETRY:', geometry);
-	              let bounds;
+	              var bounds = (void 0);
 	              if (geometry === 'Polygon' || geometry === 'MultiPolygon') {
 	                // console.log('polygon or multipolygon');
 	                if (feature.contains(e.latlng)) {
@@ -1680,10 +1717,10 @@
 	      this.$store.commit('setPopupCoords', e.latlng);
 	      this.$store.commit('setIntersectingFeatures', intersectingFeatures);
 	    },
-	    checkForDuplicates(layer, feature, intersectingFeatures) {
+	    checkForDuplicates: function checkForDuplicates(layer, feature, intersectingFeatures) {
 	      // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
-	      let ids = [];
-	      for (let i = 0; i < intersectingFeatures.length; i++) {
+	      var ids = [];
+	      for (var i = 0; i < intersectingFeatures.length; i++) {
 	        ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
 	      }
 	      if (!ids.includes(layer + '_' + feature.feature.id)) {
@@ -1710,41 +1747,45 @@
 	      default: function() { return {} }
 	    },
 	  },
-	  beforeCreate() {
+	  beforeCreate: function beforeCreate() {
 	    // console.log('TopicComponent.vue beforeCreate is running, this:', this);
 	  },
-	  created() {
+	  created: function created() {
 	    // console.log('TopicComponent.vue created is running, this.$props.slots:', this.$props.slots);
 	  },
 	  computed: {
-	    nullValue() {
-	      const options = this.options || {};
+	    nullValue: function nullValue() {
+	      var options = this.options || {};
 	      return options.nullValue;
 	    },
 	  },
 	  methods: {
-	    evaluateSlot(valOrGetter, transforms = [], nullValue = '') {
+	    evaluateSlot: function evaluateSlot(valOrGetter, transforms, nullValue) {
+	      var this$1 = this;
+	      if ( transforms === void 0 ) transforms = [];
+	      if ( nullValue === void 0 ) nullValue = '';
+
 	      // console.log('evaluateSlot is running, valOrGetter:', valOrGetter);
 	      // check for null val/getter
 	      if (!valOrGetter) {
 	        return valOrGetter;
 	      }
 
-	      const valOrGetterType = typeof valOrGetter;
-	      let val;
+	      var valOrGetterType = typeof valOrGetter;
+	      var val;
 
 	      // fn
 	      if (valOrGetterType === 'function') {
-	        const state = this.$store.state;
-	        const controller = this.$controller;
-	        const getter = valOrGetter;
+	        var state = this.$store.state;
+	        var controller = this.$controller;
+	        var getter = valOrGetter;
 
 	        // const getterText = String(getter);
 	        // const depsRe = /state(\.\w+)+/g;
 	        // const depsText = getterText.match(depsRe);
 	        // const deps = depsText.map(eval);
 
-	        const item = this.item;
+	        var item = this.item;
 	        // console.log('in evaluateSlot, item:', item);
 
 	        // if this comp is associated with an "item" (generally some object
@@ -1767,24 +1808,28 @@
 	      }
 
 	      // apply transforms
-	      for (let transformKey of transforms) {
+	      var loop = function () {
 	        // get transform definition from config by name
-	        const transform = this.$config.transforms[transformKey];
+	        var transformKey = list[i];
+
+	        var transform = this$1.$config.transforms[transformKey];
 	        // make object of (relevant) globals by filtering window object
-	        let globals;
-	        const globalKeys = transform.globals;
+	        var globals = (void 0);
+	        var globalKeys = transform.globals;
 	        if (globalKeys) {
 	          globals = Object.keys(window)
-	                        .filter(key => globalKeys.includes(key))
-	                        .reduce((obj, key) => {
+	                        .filter(function (key) { return globalKeys.includes(key); })
+	                        .reduce(function (obj, key) {
 	                            obj[key] = window[key];
 	                            return obj;
 	                        }, {});
 	        }
 	        // run transform
-	        const fn = transform.transform;
+	        var fn = transform.transform;
 	        val = fn(val, globals);
-	      }
+	      };
+
+	      for (var i = 0, list = transforms; i < list.length; i += 1) loop();
 
 	      return val;
 	    },
@@ -1816,7 +1861,7 @@
 	          'legend',
 	          'scales'
 	  ],
-	  data() {
+	  data: function data() {
 	    return {
 	      legendHtml: '',
 	      options: {
@@ -1830,50 +1875,52 @@
 	      },
 	    }
 	  },
-	  created() {
+	  created: function created() {
 	    this.initialize();
 	  },
 	  watch: {
-	    scale(nextScale) {
+	    scale: function scale(nextScale) {
 	      this.createLegend(nextScale);
 	    },
-	    legend() {
+	    legend: function legend() {
 	      console.log('watch legend fired');
 	      this.createLegend(this.scale);
 	    }
 	  },
 	  computed: {
-	    scale() {
-	      const zoom = this.$store.state.map.zoom;
-	      const zoomPlus = zoom + 1;
-	      const scale = this.$props.scales[zoomPlus];
+	    scale: function scale() {
+	      var zoom = this.$store.state.map.zoom;
+	      var zoomPlus = zoom + 1;
+	      var scale = this.$props.scales[zoomPlus];
 	      return scale;
 	    },
 	  },
 	  methods: {
-	    initialize() {
-	      let drawingInfo;
+	    initialize: function initialize() {
+	      var drawingInfo;
 	      if (this.$props.layerDefinition) {
 	        drawingInfo = this.$props.layerDefinition.drawingInfo;
 	      }
-	      const opts = {
+	      var opts = {
 	        layerName: this.$props.layerName,
 	        layerId: this.$props.layerId,
 	        store: this.$store,
-	        drawingInfo
+	        drawingInfo: drawingInfo
 	      };
 	      console.log('LegendBox initialize is running:', this.$props.layer, opts);
-	      const legend = L$1__default.esri.legendControl(this.$props.layer, opts);
+	      var legend = L$1__default.esri.legendControl(this.$props.layer, opts);
 	    },
-	    createLegend(scale) {
-	      const legend = this.$props.legend;
+	    createLegend: function createLegend(scale) {
+	      var legend = this.$props.legend;
 	      console.log('METHOD createLegend running', scale, legend);
-	      let layersHtml = '';
+	      var layersHtml = '';
 	      if (legend.layers.length === 1) {
-	        const layer = legend.layers[0];
-	        let legendsHtml = '';
-	        for (let layerLegend of layer.legend) {
-	          const layerLegendJSON = JSON.parse(JSON.stringify(layerLegend));
+	        var layer = legend.layers[0];
+	        var legendsHtml = '';
+	        for (var i = 0, list = layer.legend; i < list.length; i += 1) {
+	          var layerLegend = list[i];
+
+	          var layerLegendJSON = JSON.parse(JSON.stringify(layerLegend));
 	          // console.log('layerLegendJSON', layerLegendJSON);
 	          if (!layerLegendJSON.label) {
 	            layerLegendJSON.label = '';
@@ -1885,24 +1932,28 @@
 	          legends: legendsHtml
 	        });
 	      } else {
-	        for (let layer of legend.layers) {
+	        for (var i$2 = 0, list$2 = legend.layers; i$2 < list$2.length; i$2 += 1) {
 	          // console.log('max:', layer.maxScale, 'scale:', scale, 'min:', layer.minScale);
-	          let legendsHtml = '';
-	          if (parseFloat(scale) > parseFloat(layer.maxScale) && parseFloat(scale) < parseFloat(layer.minScale)) {
+	          var layer$1 = list$2[i$2];
+
+	          var legendsHtml$1 = '';
+	          if (parseFloat(scale) > parseFloat(layer$1.maxScale) && parseFloat(scale) < parseFloat(layer$1.minScale)) {
 	            // console.log('correct!', layer.layerId);
-	            for (let layerLegend of layer.legend) {
-	              const layerLegendJSON = JSON.parse(JSON.stringify(layerLegend));
-	              legendsHtml += L$1__default.Util.template(this.options.listRowTemplate, layerLegendJSON);
+	            for (var i$1 = 0, list$1 = layer$1.legend; i$1 < list$1.length; i$1 += 1) {
+	              var layerLegend$1 = list$1[i$1];
+
+	              var layerLegendJSON$1 = JSON.parse(JSON.stringify(layerLegend$1));
+	              legendsHtml$1 += L$1__default.Util.template(this.options.listRowTemplate, layerLegendJSON$1);
 	            }
 	          }
 	          layersHtml += L$1__default.Util.template(this.options.layerTemplate, {
-	            layerName: layer.layerName,
-	            legends: legendsHtml
+	            layerName: layer$1.layerName,
+	            legends: legendsHtml$1
 	          });
 	        }
 	      }
 
-	      const legendHtml = L$1__default.Util.template(this.options.listTemplate, {
+	      var legendHtml = L$1__default.Util.template(this.options.listTemplate, {
 	        layers: layersHtml
 	      });
 
@@ -1920,14 +1971,14 @@
 	          'layerId',
 	          'opacity'
 	  ],
-	  data() {
+	  data: function data() {
 	    return {
 	      opa: this.$props.opacity * 100
 	    }
 	  },
 	  watch: {
-	    opa(nextOpacity) {
-	      const payload = {
+	    opa: function opa(nextOpacity) {
+	      var payload = {
 	                        layerName: this.$props.layerName,
 	                        opa: nextOpacity/100
 	                      };
@@ -1935,7 +1986,7 @@
 	      this.$store.commit('setWebMapLayersOpacity', payload);
 	    }
 	  },
-	  created() {
+	  created: function created() {
 	    // this.initialize();
 	  },
 	  computed: {
@@ -1950,8 +2001,8 @@
 
 	var Checkbox = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{staticClass:"div-row"},[(_vm.bennyId)?_c('a',{attrs:{"href":'http://metadata.phila.gov/#home/representationdetails/' + this.bennyId,"target":"_blank"}},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-2x",attrs:{"icon":"info-circle"}})],1)]):_vm._e(),_vm._v(" "),_c('input',{class:{ disabled: _vm.shouldBeDisabled },attrs:{"id":'checkbox-'+_vm.layerName,"type":"checkbox","layerid":_vm.layerId},domProps:{"checked":_vm.webMapActiveLayers.includes(_vm.layerName)},on:{"click":_vm.checkboxToggle}}),_vm._v(" "),_c('label',{class:{ disabled: _vm.shouldBeDisabled, 'label-text': true },attrs:{"for":'checkbox-'+_vm.layerName}},[_c('div',{staticClass:"layer-name"},[_vm._v(_vm._s(_vm.layerName))])])]),_vm._v(" "),(this.$store.state.map.webMapActiveLayers.includes(_vm.layerName))?_c('legend-box',{attrs:{"layer":_vm.layer,"layerName":_vm.layerName,"layerId":_vm.layerId,"layerDefinition":_vm.layerDefinition,"legend":_vm.legend,"scales":this.$config.map.scales}}):_vm._e(),_vm._v(" "),(this.$store.state.map.webMapActiveLayers.includes(_vm.layerName))?_c('slider',{attrs:{"layer":_vm.layer,"layerName":_vm.layerName,"layerId":_vm.layerId,"opacity":_vm.opacity}}):_vm._e()],1)},staticRenderFns: [],_scopeId: 'data-v-0e8eedb4',
 	  components: {
-	    LegendBox,
-	    Slider
+	    LegendBox: LegendBox,
+	    Slider: Slider
 	  },
 	  props: ['layer',
 	          'layerName',
@@ -1962,21 +2013,21 @@
 	          'legend',
 	          'tags'
 	  ],
-	  data() {
+	  data: function data() {
 	    return {
 	      opa: this.$props.opacity * 100
 	    }
 	  },
 	  watch: {
-	    opa(nextOpacity) {
-	      const payload = {
+	    opa: function opa(nextOpacity) {
+	      var payload = {
 	                        layerName: this.$props.layerName,
 	                        opa: nextOpacity/100
 	                      };
 	      // console.log('OPACITY CHANGED', payload);
 	      this.$store.commit('setWebMapLayersOpacity', payload);
 	    },
-	    shouldBeDisabled(nextShouldBeDisabled) {
+	    shouldBeDisabled: function shouldBeDisabled(nextShouldBeDisabled) {
 	      // console.log('watch shouldBeDisabled is firing:', this.$props.layerName, nextShouldBeDisabled);
 	      if (this.webMapActiveLayers.includes(this.$props.layerName) && nextShouldBeDisabled === true) {
 	        this.removeFromWebMapDisplayedLayers();
@@ -1989,10 +2040,12 @@
 	    // },
 	  },
 	  computed: {
-	    matchingTags() {
-	      let matches = [];
+	    matchingTags: function matchingTags() {
+	      var matches = [];
 	      if (this.$props.tags !== null && this.inputTagsFilter !== '') {
-	        for (let tag of this.$props.tags) {
+	        for (var i = 0, list = this.$props.tags; i < list.length; i += 1) {
+	          var tag = list[i];
+
 	          if (tag.toLowerCase().includes(this.inputTagsFilter.toLowerCase())) {
 	            matches.push(tag);
 	          }
@@ -2000,14 +2053,14 @@
 	      }
 	      return matches;
 	    },
-	    inputTagsFilter() {
+	    inputTagsFilter: function inputTagsFilter() {
 	      return this.$store.state.layers.inputTagsFilter;
 	    },
-	    scale() {
+	    scale: function scale() {
 	      return this.$store.state.map.scale;
 	    },
-	    shouldBeDisabled() {
-	      const def = this.$props.layerDefinition;
+	    shouldBeDisabled: function shouldBeDisabled() {
+	      var def = this.$props.layerDefinition;
 	      if (def) {
 	        if (def.minScale) {
 	          if (this.scale > def.minScale) {
@@ -2020,34 +2073,34 @@
 	        return false;
 	      }
 	    },
-	    layerUrls() {
+	    layerUrls: function layerUrls() {
 	      return this.$store.state.layers.layerUrls;
 	    },
-	    bennyEndpoints() {
+	    bennyEndpoints: function bennyEndpoints() {
 	      return this.$store.state.bennyEndpoints;
 	    },
-	    url() {
+	    url: function url() {
 	      return this.layerUrls[this.$props.layerName];
 	    },
-	    bennyId() {
+	    bennyId: function bennyId() {
 	      if (Object.keys(this.bennyEndpoints).length > 0) {
-	        const id = this.bennyEndpoints[this.url];
+	        var id = this.bennyEndpoints[this.url];
 	        // const id = this.bennyEndpoints[this.url]['Metadata'];
 	        return id;
 	      } else {
 	        return ' ';
 	      }
 	    },
-	    webMapUrlLayer() {
+	    webMapUrlLayer: function webMapUrlLayer() {
 	      return this.$store.state.map.webMapUrlLayer;
 	    },
-	    webMapActiveLayers() {
+	    webMapActiveLayers: function webMapActiveLayers() {
 	      return this.$store.state.map.webMapActiveLayers;
 	    },
-	    webMapDisplayedLayers() {
+	    webMapDisplayedLayers: function webMapDisplayedLayers() {
 	      return this.$store.state.map.webMapDisplayedLayers;
 	    },
-	    webMapGeoJson() {
+	    webMapGeoJson: function webMapGeoJson() {
 	      return this.$store.state.map.webMapGeoJson;
 	    }
 	  },
@@ -2055,7 +2108,7 @@
 	    // findCurrentTags(inputTagsFilter) {
 	    //
 	    // },
-	    trim(s) {
+	    trim: function trim(s) {
 	      return ( s || '' ).replace( /^\s+|\s+$/g, '' );
 	    },
 	    // getGeoJson(layer) {
@@ -2080,13 +2133,13 @@
 	    //   obj[layer] = response;
 	    //   this.$store.commit('setWebMapGeoJson', obj);
 	    // },
-	    checkboxToggle(e) {
+	    checkboxToggle: function checkboxToggle(e) {
 	      console.log('checkboxToggle', e.target, e.target.id, e.target.checked);
-	      const urlLayer = this.webMapUrlLayer;
-	      const activeLayers = this.webMapActiveLayers;
-	      const displayedLayers = this.webMapDisplayedLayers;
+	      var urlLayer = this.webMapUrlLayer;
+	      var activeLayers = this.webMapActiveLayers;
+	      var displayedLayers = this.webMapDisplayedLayers;
 	      // const splitArray = e.target.id.split('-').splice(0, 1);
-	      const targetReplace = e.target.id.replace('checkbox-', '');
+	      var targetReplace = e.target.id.replace('checkbox-', '');
 	      if (e.target.checked) {
 	        console.log('target checked, targetReplace:', targetReplace);
 	        activeLayers.push(targetReplace);
@@ -2102,12 +2155,12 @@
 	        // }
 	      } else {
 	        console.log('target not checked');
-	        const activeIndex = activeLayers.indexOf(targetReplace);
+	        var activeIndex = activeLayers.indexOf(targetReplace);
 	        // const activeIndex = activeLayers.indexOf(e.target.id.split('-')[1]);
 	        if (activeIndex >= 0) {
 	          activeLayers.splice(activeIndex, 1);
 	        }
-	        const displayedIndex = displayedLayers.indexOf(targetReplace);
+	        var displayedIndex = displayedLayers.indexOf(targetReplace);
 	        // const displayedIndex = displayedLayers.indexOf(e.target.id.split('-')[1]);
 	        if (displayedIndex >= 0) {
 	          displayedLayers.splice(displayedIndex, 1);
@@ -2121,18 +2174,18 @@
 	      this.$store.commit('setWebMapActiveLayers', activeLayers);
 	      this.$store.commit('setWebMapDisplayedLayers', displayedLayers);
 	    },
-	    removeFromWebMapDisplayedLayers() {
-	      const displayedLayers = this.webMapDisplayedLayers;
-	      const index = displayedLayers.indexOf(this.$props.layerName);
+	    removeFromWebMapDisplayedLayers: function removeFromWebMapDisplayedLayers() {
+	      var displayedLayers = this.webMapDisplayedLayers;
+	      var index = displayedLayers.indexOf(this.$props.layerName);
 	      // console.log('layer', this.$props.layerName, 'is active, but now should not be displayed, index:', index);
 	      if (index >= 0) {
 	        displayedLayers.splice(index, 1);
 	      }
 	      this.$store.commit('setWebMapDisplayedLayers', displayedLayers);
 	    },
-	    addToWebMapDisplayedLayers() {
+	    addToWebMapDisplayedLayers: function addToWebMapDisplayedLayers() {
 	      // console.log('layer', this.$props.layerName, 'is active, and now should be displayed');
-	      const displayedLayers = this.webMapDisplayedLayers;
+	      var displayedLayers = this.webMapDisplayedLayers;
 	      displayedLayers.push(this.$props.layerName);
 	      this.$store.commit('setWebMapDisplayedLayers', displayedLayers);
 	    }
@@ -2146,10 +2199,9 @@
 	  props: [
 	    'position',
 	    'widthFromConfig',
-	    'placeholder',
-	  ],
-	  data() {
-	    const data = {
+	    'placeholder' ],
+	  data: function data() {
+	    var data = {
 	      containerStyle: {
 	        'width': '305px',
 	      },
@@ -2161,23 +2213,23 @@
 	    };
 	    return data;
 	  },
-	  created() {
+	  created: function created() {
 	    window.addEventListener('resize', this.handleWindowResize);
 	    this.handleWindowResize();
 	  },
 	  watch: {
-	    addressEntered(nextValue) {
+	    addressEntered: function addressEntered(nextValue) {
 	      this.handleWindowResize();
 	    }
 	  },
 	  computed: {
-	    map() {
+	    map: function map() {
 	      return this.$store.state.map.map;
 	    },
 	    // addressEntered() {
 	    //   return this.$store.state.addressEntered;
 	    // },
-	    inputWidth() {
+	    inputWidth: function inputWidth() {
 	      // if (this.addressAutocompleteEnabled) {
 	        if (this.addressEntered === '' || this.addressEntered === null) {
 	          return this.$props.widthFromConfig - 55;
@@ -2188,28 +2240,28 @@
 	      //   return this.$props.widthFromConfig - 55;
 	      // }
 	    },
-	    inputClass() {
+	    inputClass: function inputClass() {
 	      if (this.isMobileOrTablet) {
 	        return 'pvm-input-mobile';
 	      } else {
 	        return 'pvm-input-non-mobile';
 	      }
 	    },
-	    containerClass() {
+	    containerClass: function containerClass() {
 	      if (this.isMobileOrTablet) {
 	        return 'pvm-container-mobile';
 	      } else {
 	        return 'pvm-container-non-mobile';
 	      }
 	    },
-	    buttonClass() {
+	    buttonClass: function buttonClass() {
 	      if (this.isMobileOrTablet) {
 	        return 'pvm-button-mobile'
 	      } else {
 	        return 'pvm-button-non-mobile'
 	      }
 	    },
-	    addressAutocompleteEnabled() {
+	    addressAutocompleteEnabled: function addressAutocompleteEnabled() {
 	      // TODO this is temporarily disabled
 	      if (this.$config.addressInput) {
 	        if (this.$config.addressInput.autocompleteEnabled === true) {
@@ -2221,45 +2273,52 @@
 	        return false;
 	      }
 	    },
-	    isMobileOrTablet() {
+	    isMobileOrTablet: function isMobileOrTablet() {
 	      return this.$store.state.isMobileOrTablet;
 	    },
 	  },
 	  methods: {
-	    createLeafletElement(L) {
+	    createLeafletElement: function createLeafletElement(L) {
 	      // console.log('AddressInput.vue createLeafletElement is running')
 	      // subclass Control to accept an el which gets mounted to the map
-	      class ControlParent extends L.Control {
-	        constructor(el, options) {
-	          super(options);
+	      var ControlParent = /*@__PURE__*/(function (superclass) {
+	        function ControlParent(el, options) {
+	          superclass.call(this, options);
 	          this.el = el;
 	        }
-	        onAdd() {
-	          const el = this.el;
+
+	        if ( superclass ) ControlParent.__proto__ = superclass;
+	        ControlParent.prototype = Object.create( superclass && superclass.prototype );
+	        ControlParent.prototype.constructor = ControlParent;
+	        ControlParent.prototype.onAdd = function onAdd () {
+	          var el = this.el;
 
 	          // keep clicks from hitting the map
 	          L.DomEvent.disableClickPropagation(el);
 	          L.DomEvent.disableScrollPropagation(el);
 
 	          return el;
-	        }
-	      }
+	        };
 
-	      const el = this.$el;
+	        return ControlParent;
+	      }(L.Control));
+
+	      var el = this.$el;
 	      return new ControlParent(el, {
 	        position: this.position
 	      });
 	    },
-	    parentMounted(parent, props) {
+	    parentMounted: function parentMounted(parent, props) {
 	      // console.log('AddressInput.vue parentMounted is running, parent:', parent, 'props:', props);
-	      const leafletElement = this.createLeafletElement(L$1);
+	      var leafletElement = this.createLeafletElement(L$1);
 	      this.$leafletElement = leafletElement;
-	      const map = this.map;
+	      var map = this.map;
 	      leafletElement.addTo(map);
 	    },
 	    didType: debounce(function (e) {
 	        // console.log('debounce is running');
-	        const { value } = e.target;
+	        var ref = e.target;
+	        var value = ref.value;
 	        this.$data.addressEntered = value;
 	        // this.$store.commit('setAddressEntered', value);
 
@@ -2279,36 +2338,37 @@
 	        }
 	      }, 300
 	    ),
-	    getCandidates(address) {
+	    getCandidates: function getCandidates(address) {
 	      // console.log('getCandidates is running, address:', address);
 	      axios.get('https://cqvfg1pm72.execute-api.us-east-1.amazonaws.com/dev/first-api-test/', {
 	        params: {
-	          address,
+	          address: address,
 	        },
 	      })
 	        .then(this.didGetCandidates)
 	        .catch(this.didGetCandidatesError);
 	    },
-	    didGetCandidates(res) {
-	      const { matches } = res.data;
+	    didGetCandidates: function didGetCandidates(res) {
+	      var ref = res.data;
+	      var matches = ref.matches;
 	      // console.log('matches:', matches, 'matches map:', matches.map(x => x.address));
-	      const matchesArray = matches.map(x => x.address);
+	      var matchesArray = matches.map(function (x) { return x.address; });
 	      this.$store.commit('setCandidates', matchesArray);
 	    },
-	    didGetCandidatesError(err) {
+	    didGetCandidatesError: function didGetCandidatesError(err) {
 	      console.log('error getting candidates', err);
 	      this.$store.commit('setCandidates', []);
 	    },
-	    handleFormX() {
+	    handleFormX: function handleFormX() {
 	      console.log('handleFormX is running');
 	      this.$data.addressEntered = '';
 	      // this.$store.commit('setAddressEntered', '');
 	      this.$store.commit('setShouldShowAddressCandidateList', false);
 	      this.$store.commit('setCandidates', []);
 	    },
-	    handleSearchFormSubmit() {
+	    handleSearchFormSubmit: function handleSearchFormSubmit() {
 	      console.log('handleSearchFormSubmit is running');
-	      let value;
+	      var value;
 	      if (this.addressAutocompleteEnabled){
 	        value = addressEntered;
 	        // value = this.$store.state.addressEntered;
@@ -2325,8 +2385,8 @@
 	      this.$controller.handleSearchFormSubmit(value);
 	      // this.$store.commit('setAddressEntered', value);
 	    },
-	    handleWindowResize() {
-	      const addressEntered = this.addressEntered;
+	    handleWindowResize: function handleWindowResize() {
+	      var addressEntered = this.addressEntered;
 	      // console.log('AddressInput.vue handleWindowResize is running', window.innerWidth, 'addressEntered:', addressEntered);
 	      if (window.innerWidth >= 850) {
 	        this.containerStyle.width = this.$props.widthFromConfig + 'px';
@@ -2360,22 +2420,22 @@
 	  name: 'MapAddressCandidateList',
 	  props: ['position'],
 	  computed: {
-	    map() {
+	    map: function map() {
 	      return this.$store.state.map.map;
 	    },
-	    candidates() {
+	    candidates: function candidates() {
 	      return this.$store.state.candidates;
 	    },
-	    shouldShowAddressCandidateList() {
+	    shouldShowAddressCandidateList: function shouldShowAddressCandidateList() {
 	      return this.$store.state.shouldShowAddressCandidateList;
 	    },
-	    activeTopic() {
+	    activeTopic: function activeTopic() {
 	      return this.$store.state.activeTopic;
 	    },
-	    isMobileOrTablet() {
+	    isMobileOrTablet: function isMobileOrTablet() {
 	      return this.$store.state.isMobileOrTablet;
 	    },
-	    listGroupClass() {
+	    listGroupClass: function listGroupClass() {
 	      if (this.isMobileOrTablet) {
 	        if (this.addressAutocompleteEnabled) {
 	          if (this.addressEntered === '' || this.addressEntered === null) {
@@ -2398,7 +2458,7 @@
 	        }
 	      }
 	    },
-	    addressAutocompleteEnabled() {
+	    addressAutocompleteEnabled: function addressAutocompleteEnabled() {
 	      // TODO this is temporarily disabled
 	      if (this.$config.addressInput) {
 	        if (this.$config.addressInput.autocompleteEnabled === true) {
@@ -2412,7 +2472,7 @@
 	    },
 	  },
 	  watch: {
-	    shouldShowAddressCandidateList(nextValue) {
+	    shouldShowAddressCandidateList: function shouldShowAddressCandidateList(nextValue) {
 	      // console.log('AddressCandidateList.vue watch shouldShowAddressCandidateList is running, nextValue:', nextValue);
 	      if (nextValue === true) {
 	        this.createControl();
@@ -2420,56 +2480,62 @@
 	    },
 	  },
 	  methods: {
-	    createLink(candidate) {
+	    createLink: function createLink(candidate) {
 	      if (this.$store.state.activeTopic) {
 	        return '#/' + candidate + '/' + this.activeTopic;
 	      } else {
 	        return '#/' + candidate;
 	      }
 	    },
-	    createLeafletElement(L) {
+	    createLeafletElement: function createLeafletElement(L) {
 	      // console.log('AddressCandidateList.vue createLeafletElement is running')
 	      // subclass Control to accept an el which gets mounted to the map
-	      class ControlParent extends L.Control {
-	        constructor(el, options) {
-	          super(options);
+	      var ControlParent = /*@__PURE__*/(function (superclass) {
+	        function ControlParent(el, options) {
+	          superclass.call(this, options);
 	          this.el = el;
 	        }
-	        onAdd() {
-	          const el = this.el;
+
+	        if ( superclass ) ControlParent.__proto__ = superclass;
+	        ControlParent.prototype = Object.create( superclass && superclass.prototype );
+	        ControlParent.prototype.constructor = ControlParent;
+	        ControlParent.prototype.onAdd = function onAdd () {
+	          var el = this.el;
 
 	          // keep clicks from hitting the map
 	          L.DomEvent.disableClickPropagation(el);
 	          L.DomEvent.disableScrollPropagation(el);
 
 	          return el;
-	        }
-	      }
+	        };
 
-	      const el = this.$el;
+	        return ControlParent;
+	      }(L.Control));
+
+	      var el = this.$el;
 	      return new ControlParent(el, {
 	        position: this.position
 	      });
 	    },
-	    createControl() {
+	    createControl: function createControl() {
 	      // console.log('AddressCandidateList.vue createControl is running');
-	      const leafletElement = this.createLeafletElement(L$1);
+	      var leafletElement = this.createLeafletElement(L$1);
 	      this.$leafletElement = leafletElement;
-	      const map = this.map;
+	      var map = this.map;
 	      leafletElement.addTo(map);
 	    },
-	    parentMounted(parent, props) {
+	    parentMounted: function parentMounted(parent, props) {
 	      // console.log('AddressCandidateList.vue parentMounted is running, parent:', parent, 'props:', props);
 	    },
-	    maybeUsedArrow(e) {
-	      const id = e.target.id;
-	      const index = parseInt(id.substring(id.lastIndexOf('-') + 1));
-	      let indexUp, indexDown;
+	    maybeUsedArrow: function maybeUsedArrow(e) {
+	      var id = e.target.id;
+	      var index = parseInt(id.substring(id.lastIndexOf('-') + 1));
+	      var indexUp, indexDown;
 	      if (index < this.candidates.length - 1) {
 	        indexUp = index + 1;
-	      } else (
+	      } else { (
 	        indexUp = index
-	      );
+	      ); }
 	      if (index !== 0) {
 	        indexDown = index - 1;
 	      } else {
@@ -2483,7 +2549,7 @@
 	        document.getElementById('address-candidate-list-' + indexDown).focus();
 	      }
 	    },
-	    closeAddressCandidateList(addressCandidate) {
+	    closeAddressCandidateList: function closeAddressCandidateList(addressCandidate) {
 	      // console.log('closeAddressCandidateList, addressCandidate:', addressCandidate);
 	      // this.$controller.handleSearchFormSubmit(addressCandidate);
 	      this.$store.commit('setAddressEntered', addressCandidate);
@@ -2501,44 +2567,44 @@
 	    'markerColor',
 	    'icon'
 	  ],
-	  render(h) {
-	    const a = this.$props.latlng;
+	  render: function render(h) {
+	    var a = this.$props.latlng;
 	    return;
 	  },
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  updated() {
+	  updated: function updated() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const icon = new VectorIcon({
+	    createLeafletElement: function createLeafletElement() {
+	      var icon = new VectorIcon({
 	        icon:  this.$props.icon || 'circle',
 	        markerColor: this.$props.markerColor || '#2176d2',
 	      });
 	      // const icon = {};
 
-	      return new L$1.Marker(this.latlng, { icon });
+	      return new L$1.Marker(this.latlng, { icon: icon });
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
 	  },
@@ -2553,14 +2619,14 @@
 	    'latlng',
 	    'rotationAngle'
 	  ],
-	  render(h) {
+	  render: function render(h) {
 	    // for some reason, the react prop that `this.orientation` depends on has
 	    // to be evaluated once in order to receive updates.
 	    // this.orientation;
 
 	    return;
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    var proto_initIcon = L$1.Marker.prototype._initIcon;
 	    var proto_setPos = L$1.Marker.prototype._setPos;
 
@@ -2616,35 +2682,35 @@
 	        }
 	    });
 
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    //console.log('pngMarker destroyed fired, latlng is', this.latlng);
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  watch: {
-	    rotationAngle(nextRotationAngle) {
+	    rotationAngle: function rotationAngle(nextRotationAngle) {
 	      // console.log('pngMarker orientation changed', nextRotationAngle);
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 
 	      // REVIEW kind of hacky/not reactive?
 	      if (map) {
 	        leafletElement.addTo(map);
 	      }
 	    },
-	    latlng(nextLatLng) {
+	    latlng: function latlng(nextLatLng) {
 	      // console.log('pngMarker orientation changed', nextRotationAngle);
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 
 	      // REVIEW kind of hacky/not reactive?
 	      if (map) {
@@ -2653,10 +2719,10 @@
 	    }
 	  },
 	  methods: {
-	    createLeafletElement() {
+	    createLeafletElement: function createLeafletElement() {
 	      // console.log('pngMarker createLeafletElement is running');
 
-	      const icon = L$1.icon({
+	      var icon = L$1.icon({
 	          iconUrl: this.icon,
 	          iconSize: [26, 16],
 	          iconAnchor: [11, 8],
@@ -2668,16 +2734,15 @@
 	        rotationAngle: this.rotationAngle,
 	      });
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
 	  }
 	};
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .button-image[data-v-24c2c164] { vertical-align: top; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-
-	const {props, methods} = Control;
+	var methods = Control.methods;
 
 	var BasemapToggleControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleImageryToggleButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('img',{staticClass:"button-image",attrs:{"src":_vm.toggleButtonImgSrc}})])])])},staticRenderFns: [],_scopeId: 'data-v-24c2c164',
 	  name: 'BasemapToggleControl',
@@ -2685,9 +2750,9 @@
 	    'position'
 	  ],
 	  computed: {
-	    toggleButtonImgSrc() {
-	      const shouldShowImagery = this.$store.state.map.shouldShowImagery;
-	      let src;
+	    toggleButtonImgSrc: function toggleButtonImgSrc() {
+	      var shouldShowImagery = this.$store.state.map.shouldShowImagery;
+	      var src;
 	      if (shouldShowImagery) {
 	        src = "images/basemap_small.png";
 	      }
@@ -2698,62 +2763,63 @@
 	    },
 	  },
 	  methods: Object.assign(methods, {
-	    handleImageryToggleButtonClick(e) {
+	    handleImageryToggleButtonClick: function handleImageryToggleButtonClick(e) {
 	      // document.getElementById('addressSearch').blur();
-	      const prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
-	      const nextShouldShowImagery = !prevShouldShowImagery;
+	      var prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
+	      var nextShouldShowImagery = !prevShouldShowImagery;
 	      this.$store.commit('setShouldShowImagery', nextShouldShowImagery);
 	    },
 	  })
 	};
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=BasemapSelectControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-	const {props: props$1, methods: methods$1} = Control;
+	var methods$1 = Control.methods;
 
 	var BasemapSelectControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.shouldShowImagery),expression:"shouldShowImagery"}]},[_c('select',{attrs:{"id":"year-select"},on:{"change":_vm.handleImageryChange}},_vm._l((_vm.imageryTypes),function(imageryTypeDef,imageryType){return _c('optgroup',{attrs:{"label":imageryTypeDef.label}},_vm._l((_vm.basemapsForImageryType(imageryType)),function(basemap){return _c('option',{attrs:{"data-key":basemap.key}},[_vm._v(" "+_vm._s(basemap.label)+" ")])}),0)}),0)])},staticRenderFns: [],_scopeId: 'data-v-48c5e6b4',
 	  name: 'BasemapSelectControl',
 	  props: [
-	    'position',
-	  ],
+	    'position' ],
 	  computed: {
-	    shouldShowImagery() {
+	    shouldShowImagery: function shouldShowImagery() {
 	      return this.$store.state.map.shouldShowImagery;
 	    },
-	    imageryTypes() {
+	    imageryTypes: function imageryTypes() {
 	      return this.$config.map.imageryTypes;
 	    },
-	    currentImagery() {
+	    currentImagery: function currentImagery() {
 	      return this.$store.state.map.imagery;
 	    },
 	  },
 	  watch: {
-	    currentImagery(nextCurrentImagery) {
-	      const nextYear = nextCurrentImagery.replace(/\D/g,'');
-	      const el = document.getElementById('year-select');
+	    currentImagery: function currentImagery(nextCurrentImagery) {
+	      var nextYear = nextCurrentImagery.replace(/\D/g,'');
+	      var el = document.getElementById('year-select');
 	      el.value = nextYear;
 	    }
 	  },
 	  methods: Object.assign(methods$1, {
-	    handleImageryChange() {
-	      const el = document.getElementById('year-select');
-	      const group = el.options[el.selectedIndex].parentElement.label;
-	      const year = el.options[el.selectedIndex].value;
-	      const nextBasemap = group.toLowerCase() + year;
+	    handleImageryChange: function handleImageryChange() {
+	      var el = document.getElementById('year-select');
+	      var group = el.options[el.selectedIndex].parentElement.label;
+	      var year = el.options[el.selectedIndex].value;
+	      var nextBasemap = group.toLowerCase() + year;
 
 	      this.$store.commit('setImagery', nextBasemap);
 	    },
 	    // returns keys of basemaps of a certain type (e.g. historic, imagery)
-	    basemapsForImageryType(targetType) {
-	      const basemapConfig = this.$config.map.basemaps;
-	      const basemapKeys = Object.keys(basemapConfig);
-	      const basemaps = [];
+	    basemapsForImageryType: function basemapsForImageryType(targetType) {
+	      var basemapConfig = this.$config.map.basemaps;
+	      var basemapKeys = Object.keys(basemapConfig);
+	      var basemaps = [];
 
-	      for (let basemapKey of basemapKeys) {
-	        const basemapDef = basemapConfig[basemapKey];
-	        const basemapType = basemapDef.type;
+	      for (var i = 0, list = basemapKeys; i < list.length; i += 1) {
+	        var basemapKey = list[i];
+
+	        var basemapDef = basemapConfig[basemapKey];
+	        var basemapType = basemapDef.type;
 
 	        if (basemapType === targetType) {
-	          const basemapLabel = basemapDef.label;
+	          var basemapLabel = basemapDef.label;
 	          basemaps.push({
 	            type: basemapType,
 	            label: basemapLabel
@@ -2781,40 +2847,40 @@
 
 	var FullScreenMapToggleTab = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!this.isMobileOrTablet)?_c('div',{staticClass:"toggle-tab",style:({ top: _vm.buttonPosition }),attrs:{"id":"toggle-tab"},on:{"click":_vm.handleFullScreenMapToggleButtonClick}},[_c('span',{staticClass:"align-span"},[_c('font-awesome-icon',{staticClass:"fa-2x",attrs:{"icon":this.currentIcon}})],1)]):_vm._e()},staticRenderFns: [],_scopeId: 'data-v-10e5c930',
 	  name: 'FullScreenMapToggleTab',
-	  data() {
+	  data: function data() {
 	    return {
 	      'divHeight': 0,
 	      'buttonPosition': 0,
 	    }
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    window.addEventListener('resize', this.setDivHeight);
 	    this.setDivHeight();
 	  },
 	  computed: {
-	    fullScreenMapEnabled() {
+	    fullScreenMapEnabled: function fullScreenMapEnabled() {
 	      return this.$store.state.fullScreenMapEnabled;
 	    },
-	    fullScreenTopicsEnabled() {
+	    fullScreenTopicsEnabled: function fullScreenTopicsEnabled() {
 	      return this.$store.state.fullScreenTopicsEnabled;
 	    },
-	    isMobileOrTablet() {
+	    isMobileOrTablet: function isMobileOrTablet() {
 	      return this.$store.state.isMobileOrTablet;
 	    },
-	    cyclomediaActive() {
+	    cyclomediaActive: function cyclomediaActive() {
 	      return this.$store.state.cyclomedia.active;
 	    },
-	    pictometryActive() {
+	    pictometryActive: function pictometryActive() {
 	      return this.$store.state.pictometry.active;
 	    },
-	    picOrCycloActive() {
+	    picOrCycloActive: function picOrCycloActive() {
 	      if (this.cyclomediaActive || this.pictometryActive) {
 	        return true;
 	      } else {
 	        return false;
 	      }
 	    },
-	    currentIcon() {
+	    currentIcon: function currentIcon() {
 	      if (this.fullScreenMapEnabled) {
 	        return 'caret-right'
 	      } else {
@@ -2823,28 +2889,28 @@
 	    }
 	  },
 	  watch: {
-	    picOrCycloActive(value) {
+	    picOrCycloActive: function picOrCycloActive(value) {
 	      // console.log('FullScreenMapToggleTab watch picOrCycloActive, value:', value);
 	      this.setDivHeight();
 	      // this.$nextTick(() => {
 	      //   this.$store.state.map.map.invalidateSize();
 	      // })
 	    },
-	    fullScreenTopicsEnabled() {
+	    fullScreenTopicsEnabled: function fullScreenTopicsEnabled() {
 	      this.setDivHeight();
 	    }
 	  },
 	  methods: {
-	    setDivHeight() {
+	    setDivHeight: function setDivHeight() {
 	      // console.log('FullScreenMapToggleTab setDivHeight is running');
-	      const el = document.getElementById('map-tag');
-	      const divStyle = window.getComputedStyle(el);
-	      const divHeight = parseFloat(divStyle.getPropertyValue('height').replace('px', ''));
+	      var el = document.getElementById('map-tag');
+	      var divStyle = window.getComputedStyle(el);
+	      var divHeight = parseFloat(divStyle.getPropertyValue('height').replace('px', ''));
 	      this.buttonPosition = (divHeight-48)/2 + 'px';
 	    },
-	    handleFullScreenMapToggleButtonClick(e) {
-	      const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
-	      const nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
+	    handleFullScreenMapToggleButtonClick: function handleFullScreenMapToggleButtonClick(e) {
+	      var prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
+	      var nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
 	      this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
 	    },
 	  }
@@ -2866,40 +2932,40 @@
 
 	var FullScreenMapToggleTabVertical = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return (!this.isMobileOrTablet)?_c('div',{staticClass:"toggle-tab",style:({ left: _vm.buttonPosition }),attrs:{"id":"toggle-tab"},on:{"click":_vm.handleFullScreenMapToggleButtonClick}},[_c('span',{staticClass:"align-span"},[_c('font-awesome-icon',{staticClass:"fa-2x",attrs:{"icon":this.currentIcon}})],1)]):_vm._e()},staticRenderFns: [],_scopeId: 'data-v-78e67c74',
 	  name: 'FullScreenMapToggleTabVertical',
-	  data() {
+	  data: function data() {
 	    return {
 	      'divWidth': 0,
 	      'buttonPosition': 0,
 	    }
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    window.addEventListener('resize', this.setDivWidth);
 	    this.setDivWidth();
 	  },
 	  computed: {
-	    fullScreenMapEnabled() {
+	    fullScreenMapEnabled: function fullScreenMapEnabled() {
 	      return this.$store.state.fullScreenMapEnabled;
 	    },
-	    fullScreenTopicsEnabled() {
+	    fullScreenTopicsEnabled: function fullScreenTopicsEnabled() {
 	      return this.$store.state.fullScreenTopicsEnabled;
 	    },
-	    isMobileOrTablet() {
+	    isMobileOrTablet: function isMobileOrTablet() {
 	      return this.$store.state.isMobileOrTablet;
 	    },
-	    cyclomediaActive() {
+	    cyclomediaActive: function cyclomediaActive() {
 	      return this.$store.state.cyclomedia.active;
 	    },
-	    pictometryActive() {
+	    pictometryActive: function pictometryActive() {
 	      return this.$store.state.pictometry.active;
 	    },
-	    picOrCycloActive() {
+	    picOrCycloActive: function picOrCycloActive() {
 	      if (this.cyclomediaActive || this.pictometryActive) {
 	        return true;
 	      } else {
 	        return false;
 	      }
 	    },
-	    currentIcon() {
+	    currentIcon: function currentIcon() {
 	      if (this.fullScreenMapEnabled) {
 	        return 'caret-up'
 	      } else {
@@ -2908,44 +2974,44 @@
 	    }
 	  },
 	  watch: {
-	    fullScreenTopicsEnabled() {
+	    fullScreenTopicsEnabled: function fullScreenTopicsEnabled() {
 	      this.setDivWidth();
 	    }
 	  },
 	  methods: {
-	    setDivWidth() {
-	      const el = document.getElementById('map-tag');
-	      const divStyle = window.getComputedStyle(el);
-	      const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
+	    setDivWidth: function setDivWidth() {
+	      var el = document.getElementById('map-tag');
+	      var divStyle = window.getComputedStyle(el);
+	      var divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
 	      this.buttonPosition = (divWidth-48)/2 + 'px';
 	    },
-	    handleFullScreenMapToggleButtonClick(e) {
-	      const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
-	      const nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
+	    handleFullScreenMapToggleButtonClick: function handleFullScreenMapToggleButtonClick(e) {
+	      var prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
+	      var nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
 	      this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
 	    },
 	  }
 	};
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=LocationControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-	const {props: props$2, methods: methods$2} = Control;
+	var methods$2 = Control.methods;
 
 	var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":['far', 'dot-circle']}})],1)])])},staticRenderFns: [],_scopeId: 'data-v-15e73008',
 	  name: 'LocationControl',
 	  props: [
 	    'position'
 	  ],
-	  data() {
+	  data: function data() {
 	    return {
 	      locationOn: false
 	    }
 	  },
 	  methods: Object.assign(methods$2, {
 
-	    handleLocationButtonClick(e) {
+	    handleLocationButtonClick: function handleLocationButtonClick(e) {
 	      // document.getElementById('addressSearch').blur()
 	      // alert('handleLocationButtonClick is running');
-	      const watchPositionOn = this.$store.state.map.watchPositionOn;
+	      var watchPositionOn = this.$store.state.map.watchPositionOn;
 	      // console.log('watchPositionOn', watchPositionOn);
 	      if (!watchPositionOn) {
 	        this.$store.commit('setWatchPositionOn', true);
@@ -2954,9 +3020,9 @@
 	        this.moveToPosition();
 	      }
 	    },
-	    geofindSuccess(position) {
+	    geofindSuccess: function geofindSuccess(position) {
 	      // alert('geofindSuccess is running, position:', position);
-	      const payload = {
+	      var payload = {
 	        lat: position.coords.latitude,
 	        lng: position.coords.longitude
 	      };
@@ -2967,13 +3033,13 @@
 	        this.locationOn = true;
 	      }
 	    },
-	    moveToPosition() {
-	      const map = this.$store.state.map.map;
-	      const location = this.$store.state.map.location;
+	    moveToPosition: function moveToPosition() {
+	      var map = this.$store.state.map.map;
+	      var location = this.$store.state.map.location;
 	      // console.log('LocationControl.vue moveToPosition is running, location:', location);
 	      map.setView([location.lat, location.lng], 19);
 	    },
-	    geofindError() {
+	    geofindError: function geofindError() {
 	      console.log('GeofindError');
 	    }
 	  })
@@ -2985,34 +3051,35 @@
 	var MeasureControl$1 = {
 	  name: 'MeasureControl',
 	  props: ['position'],
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeControl(this.$leafletElement);
 	  },
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const { position } = this.$props;
+	    createLeafletElement: function createLeafletElement() {
+	      var ref = this.$props;
+	      var position = ref.position;
 
 	      return new MeasureControl({
-					position,
+					position: position,
 					primaryLengthUnit: 'feet',
 					primaryAreaUnit: 'sqfeet',
 				});
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      map.addControl(this.$leafletElement);
 	    }
 	  }
 	};
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .legend { display: inline-block; padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; line-height: 18px; color: #555; } .legend-box { display: inline-block; width: 18px; height: 18px; opacity: 1; vertical-align: middle; margin-right: 4px; } .list-text { display: inline-block; vertical-align: middle; } .legend-list { list-style: none; padding-top: 2px; padding-left: 2px; margin-left: 0px; /*override standards*/ margin-bottom: 0; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-	const {props: props$3, methods: methods$3} = Control;
+	var methods$3 = Control.methods;
 
 	var LegendControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{directives:[{name:"show",rawName:"v-show",value:(this.shouldShowLegend),expression:"this.shouldShowLegend"}]},[_c('div',{staticClass:"legend"},[_c('ul',{staticClass:"legend-list"},_vm._l((this.keys),function(key){return _c('li',{staticClass:"legend-listitem",style:("font-size:"+_vm.items[key]["font-size"]+";")},[_c('div',{staticClass:"legend-box",style:("background-color:"+_vm.items[key]["background-color"]+
 	           "; border-color:"+_vm.items[key]["border-color"]+
@@ -3027,17 +3094,17 @@
 	    'items'
 	  ],
 	  computed: {
-	    keys() {
+	    keys: function keys() {
 	      return Object.keys(this.$props.items);
 	    },
-	    activeTopic() {
+	    activeTopic: function activeTopic() {
 	      return this.$store.state.activeTopic;
 	    },
-	    shouldShowImagery() {
+	    shouldShowImagery: function shouldShowImagery() {
 	      return this.$store.state.map.shouldShowImagery;
 	    },
-	    shouldShowLegend() {
-	      let result = true;
+	    shouldShowLegend: function shouldShowLegend() {
+	      var result = true;
 	      if (!this.$props.options.topics.includes(this.activeTopic)) {
 	        result = false;
 	      }
@@ -3059,30 +3126,29 @@
 	};
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .basetooltip { width: 32px; height: 32px; padding: 5px 13px; font: 20px/22px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .basetooltip2 { float: right; width: 80%; height: 32px; padding: 3px 10px; padding-right: 40px; font: 12px/14px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,1); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .basetooltip a { color: black } .basetooltip2 a { color: black } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
-	const {props: props$4, methods: methods$4} = Control;
+	var methods$4 = Control.methods;
 
 	var BasemapTooltip = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('div',{class:this.basemap === 'none' ? 'basetooltip': 'basetooltip2',on:{"mouseover":_vm.onMouseover,"mouseout":_vm.onMouseout}},[(this.basemap === 'pwd')?_c('div',[_vm._v(" The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Boundaries are generalized for ease of visualization. Source: Philadelphia Water ")]):(this.basemap === 'dor')?_c('div',[_vm._v(" The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Dimension lengths are calculated using the GIS feature. Source: Department of Records. ")]):_c('div',[_vm._v(" i ")])])])},staticRenderFns: [],
 	  name: 'BasemapTooltip',
 	  props: [
-	    'position',
-	  ],
-	  data() {
+	    'position' ],
+	  data: function data() {
 	    return {
 	      'basemap': 'none'
 	    }
 	  },
 	  computed: {
-	    activeBasemap() {
+	    activeBasemap: function activeBasemap() {
 	      return this.$store.state.map.basemap;
 	    },
-	    activeTopic() {
+	    activeTopic: function activeTopic() {
 	      return this.$store.state.activeTopic;
 	    }
 	  },
 	  methods: Object.assign(methods$4, {
-	    onMouseover() {
-	      const stateBasemap = this.activeBasemap;
-	      let finalBasemap = stateBasemap;
+	    onMouseover: function onMouseover() {
+	      var stateBasemap = this.activeBasemap;
+	      var finalBasemap = stateBasemap;
 	      if (stateBasemap.includes('imagery') || stateBasemap.includes('historic')) {
 	        if (this.activeTopic === 'deeds' || this.activeTopic === 'zoning') {
 	          finalBasemap = 'dor';
@@ -3092,7 +3158,7 @@
 	      }
 	      this.basemap = finalBasemap;
 	    },
-	    onMouseout() {
+	    onMouseout: function onMouseout() {
 	      this.basemap = 'none';
 	    }
 	  })
@@ -3216,151 +3282,139 @@
 	    // route() {
 	    //   return this.$store.state.route;
 	    // },
-	    shouldBeOpen() {
+	    shouldBeOpen: function shouldBeOpen() {
 	      if (this.route === 'help') {
 	        return true;
 	      } else {
 	        return false;
 	      }
 	    },
-	    modals() {
+	    modals: function modals() {
 	      return this.$store.state.modals;
 	    }
 	    // ...mapState(['modals'])
 	  },
 	  methods: {
-	    closeModal () {
-	      const firstLoc = window.location.hash;
-	      let firstLocArr = firstLoc.split('/').slice(1);
+	    closeModal: function closeModal () {
+	      var firstLoc = window.location.hash;
+	      var firstLocArr = firstLoc.split('/').slice(1);
 	      console.log('firstLocArr:', firstLocArr);
-	      const helpPos = firstLocArr.indexOf('help');
+	      var helpPos = firstLocArr.indexOf('help');
 	      firstLocArr = firstLocArr.slice(helpPos+1, helpPos+2);
 	      console.log('firstLocArr:', firstLocArr);
-	      let lastHash = '#';
-	      for (let hashPart of firstLocArr) {
+	      var lastHash = '#';
+	      for (var i = 0, list = firstLocArr; i < list.length; i += 1) {
+	        var hashPart = list[i];
+
 	        lastHash = lastHash + '/' + hashPart;
 	      }
 	      window.location.hash = lastHash;
 	      // this.$store.commit('setDidToggleModal', { name: 'help', open: false });
 	    },
-	    highlight (selector) {
-	      let el = document.querySelectorAll(selector)[0];
+	    highlight: function highlight (selector) {
+	      var el = document.querySelectorAll(selector)[0];
 	      // el.classList.add('tour-highlight')
 	    },
-	    removeHighlight (selector) {
-	      let el = document.querySelectorAll(selector)[0];
+	    removeHighlight: function removeHighlight (selector) {
+	      var el = document.querySelectorAll(selector)[0];
 	      // el.classList.remove('tour-highlight')
 	    }
 	  }
 	};
 
-	class RecordingsClient {
-		constructor(baseUrl, username, password, srid = 3857, proxy) {
-			this.baseUrl = baseUrl;
-			this.username = username;
-			this.password = password;
-			this.srid = srid;
-			this.proxy = proxy;
-		}
+	var RecordingsClient = function RecordingsClient(baseUrl, username, password, srid, proxy) {
+		if ( srid === void 0 ) srid = 3857;
 
-		// this takes leaflet map bonds and an EPSG coordinate system id, e.g. 3857
-		// and returns an array of cyclomedia recording points
-		getRecordings(bounds, callback) {
-			// console.log('get recordings', bounds);
+		this.baseUrl = baseUrl;
+		this.username = username;
+		this.password = password;
+		this.srid = srid;
+		this.proxy = proxy;
+	};
 
-			const swCoord = bounds.getSouthWest();
-			const neCoord = bounds.getNorthEast();
-			const data = `<wfs:GetFeature service="WFS" version="1.1.0" resultType="results" outputFormat="text/xml; subtype=gml/3.1.1" xmlns:wfs="http://www.opengis.net/wfs">
-											<wfs:Query typeName="atlas:Recording" srsName="EPSG:${this.srid}" xmlns:atlas="http://www.cyclomedia.com/atlas">
-												<ogc:Filter xmlns:ogc="http://www.opengis.net/ogc">
-						    					<ogc:And>
-						      					<ogc:BBOX>
-											        <gml:Envelope srsName="EPSG:${this.srid}" xmlns:gml="http://www.opengis.net/gml">
-											          <gml:lowerCorner>${swCoord.lng} ${swCoord.lat}</gml:lowerCorner>
-											          <gml:upperCorner>${neCoord.lng} ${neCoord.lat}</gml:upperCorner>
-											        </gml:Envelope>
-											      </ogc:BBOX>
-											      <ogc:PropertyIsNull>
-											        <ogc:PropertyName>expiredAt</ogc:PropertyName>
-											      </ogc:PropertyIsNull>
-											    </ogc:And>
-											  </ogc:Filter>
-											 </wfs:Query>
-											</wfs:GetFeature>`;
-			const url = (this.proxy || '') + this.baseUrl;
+	// this takes leaflet map bonds and an EPSG coordinate system id, e.g. 3857
+	// and returns an array of cyclomedia recording points
+	RecordingsClient.prototype.getRecordings = function getRecordings (bounds, callback) {
+		// console.log('get recordings', bounds);
 
-			// const params = {
-			// 	data,
-			// 	// type: 'POST',
-			// 	contentType: 'text/xml'
-			// }
-			// const headers = {
-			// 	'Content-Type': 'text/xml',
-			// 	'Authorization': 'Basic ' + window.btoa(this.username + ':' + this.password)
-			// }
-			// console.log('headers', headers);
-			//
-			// axios.get(url, { params, headers }).then(response => {
+		var swCoord = bounds.getSouthWest();
+		var neCoord = bounds.getNorthEast();
+		var data = "<wfs:GetFeature service=\"WFS\" version=\"1.1.0\" resultType=\"results\" outputFormat=\"text/xml; subtype=gml/3.1.1\" xmlns:wfs=\"http://www.opengis.net/wfs\">\n\t\t\t\t\t\t\t\t\t\t\t<wfs:Query typeName=\"atlas:Recording\" srsName=\"EPSG:" + (this.srid) + "\" xmlns:atlas=\"http://www.cyclomedia.com/atlas\">\n\t\t\t\t\t\t\t\t\t\t\t\t<ogc:Filter xmlns:ogc=\"http://www.opengis.net/ogc\">\n\t\t\t\t\t\t    \t\t\t\t\t<ogc:And>\n\t\t\t\t\t\t      \t\t\t\t\t<ogc:BBOX>\n\t\t\t\t\t\t\t\t\t\t\t        <gml:Envelope srsName=\"EPSG:" + (this.srid) + "\" xmlns:gml=\"http://www.opengis.net/gml\">\n\t\t\t\t\t\t\t\t\t\t\t          <gml:lowerCorner>" + (swCoord.lng) + " " + (swCoord.lat) + "</gml:lowerCorner>\n\t\t\t\t\t\t\t\t\t\t\t          <gml:upperCorner>" + (neCoord.lng) + " " + (neCoord.lat) + "</gml:upperCorner>\n\t\t\t\t\t\t\t\t\t\t\t        </gml:Envelope>\n\t\t\t\t\t\t\t\t\t\t\t      </ogc:BBOX>\n\t\t\t\t\t\t\t\t\t\t\t      <ogc:PropertyIsNull>\n\t\t\t\t\t\t\t\t\t\t\t        <ogc:PropertyName>expiredAt</ogc:PropertyName>\n\t\t\t\t\t\t\t\t\t\t\t      </ogc:PropertyIsNull>\n\t\t\t\t\t\t\t\t\t\t\t    </ogc:And>\n\t\t\t\t\t\t\t\t\t\t\t  </ogc:Filter>\n\t\t\t\t\t\t\t\t\t\t\t </wfs:Query>\n\t\t\t\t\t\t\t\t\t\t\t</wfs:GetFeature>";
+		var url = (this.proxy || '') + this.baseUrl;
 
-			// })
+		// const params = {
+		// data,
+		// // type: 'POST',
+		// contentType: 'text/xml'
+		// }
+		// const headers = {
+		// 'Content-Type': 'text/xml',
+		// 'Authorization': 'Basic ' + window.btoa(this.username + ':' + this.password)
+		// }
+		// console.log('headers', headers);
+		//
+		// axios.get(url, { params, headers }).then(response => {
 
-			$$1.ajax({
-		    url,
-		    data,
+		// })
+
+		$$1.ajax({
+		    url: url,
+		    data: data,
 		    type: 'POST',
 		    contentType: 'text/xml',
 		    // dataType: 'text',
-				headers: {
-					// 'Content-length': data.length,
-					'Authorization': 'Basic ' + window.btoa(this.username + ':' + this.password)
-				},
-		    success(data) {
-					console.log('got recordings', data);
+			headers: {
+				// 'Content-length': data.length,
+				'Authorization': 'Basic ' + window.btoa(this.username + ':' + this.password)
+			},
+		    success: function success(data) {
+				console.log('got recordings', data);
 
-					// const data = response.data
+				// const data = response.data
 
-					// this is a list of xml elements representing recordings
-					const recordingElsCollection = data.getElementsByTagNameNS('*', 'Recording');
-					const recordingEls = [].slice.call(recordingElsCollection);
+				// this is a list of xml elements representing recordings
+				var recordingElsCollection = data.getElementsByTagNameNS('*', 'Recording');
+				var recordingEls = [].slice.call(recordingElsCollection);
 
-					// check for > 1
-					if (recordingEls.length < 1) {
-						console.log('no cyclomedia recordings for bounds');
-						return;
-					}
+				// check for > 1
+				if (recordingEls.length < 1) {
+					console.log('no cyclomedia recordings for bounds');
+					return;
+				}
 
-					// check if authorized
-					// const firstRecordingEl = recordingEls[0];
-					// const isAuthorizedEls = firstRecordingEl.firstChild.getElementsByTagNameNS('*', 'isAuthorized');
-					// const isAuthorized = isAuthorizedEls.length > 0 && isAuthorizedEls[0].firstChild.data === 'true';
-					// if (!isAuthorized) {
-					// 	throw 'not authorized to get cyclomedia recordings';
-					// 	return;
-					// }
+				// check if authorized
+				// const firstRecordingEl = recordingEls[0];
+				// const isAuthorizedEls = firstRecordingEl.firstChild.getElementsByTagNameNS('*', 'isAuthorized');
+				// const isAuthorized = isAuthorizedEls.length > 0 && isAuthorizedEls[0].firstChild.data === 'true';
+				// if (!isAuthorized) {
+				// throw 'not authorized to get cyclomedia recordings';
+				// return;
+				// }
 
-					const recordings = recordingEls.map(recordingEl => {
-						const imageId = recordingEl.getElementsByTagNameNS('*', 'imageId')[0].firstChild.data;
-						const coords = recordingEl.getElementsByTagNameNS('*', 'pos')[0].firstChild.data;
-						const [lng, lat] = coords.split(' ').map(parseFloat);
+				var recordings = recordingEls.map(function (recordingEl) {
+					var imageId = recordingEl.getElementsByTagNameNS('*', 'imageId')[0].firstChild.data;
+					var coords = recordingEl.getElementsByTagNameNS('*', 'pos')[0].firstChild.data;
+					var ref = coords.split(' ').map(parseFloat);
+						var lng = ref[0];
+						var lat = ref[1];
 
-						return {
-							imageId,
-							lng,
-							lat
-						};
-					});
+					return {
+						imageId: imageId,
+						lng: lng,
+						lat: lat
+					};
+				});
 
-					callback(recordings);
-				// }, response => {
-					// console.log('AXIOS ERROR recordings-client.js')
-				},
-		    error(xhr, ajaxOptions, thrownError) {
+				callback(recordings);
+			// }, response => {
+				// console.log('AXIOS ERROR recordings-client.js')
+			},
+		    error: function error(xhr, ajaxOptions, thrownError) {
 	        console.log(xhr.status);
 	        console.log(thrownError);
 		    }
-			});
-		}
-	}
+		});
+	};
 
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .inactive[data-v-461b7da4] { background-color: #ffffff; } .inactive[data-v-461b7da4]:hover { background-color: #ffffff; } .active[data-v-461b7da4] { background-color: rgb(243, 198, 19); } .active[data-v-461b7da4]:hover { background-color: rgb(243, 198, 19); } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
@@ -3374,7 +3428,7 @@
 	    'link',
 	    'imgSrc'
 	  ],
-	  created() {
+	  created: function created() {
 	    // create cyclomedia recordings client
 	    this.$cyclomediaRecordingsClient = new RecordingsClient(
 	      this.$config.cyclomedia.recordingsUrl,
@@ -3384,19 +3438,19 @@
 	    );
 	  },
 	  computed: {
-	    cyclomediaInitialized() {
+	    cyclomediaInitialized: function cyclomediaInitialized() {
 	      return this.$store.state.cyclomedia.initialized;
 	    },
-	    cyclomediaActive() {
+	    cyclomediaActive: function cyclomediaActive() {
 	      return this.$store.state.cyclomedia.active ? 'active' : 'inactive'
 	    }
 	  },
 	  methods: {
-	    handleButtonClick(e) {
+	    handleButtonClick: function handleButtonClick(e) {
 	      if (!this.cyclomediaInitialized) {
 	        this.$store.commit('setCyclomediaInitialized', true);
 	      }
-	      const willBeActive = !this.$store.state.cyclomedia.active;
+	      var willBeActive = !this.$store.state.cyclomedia.active;
 
 	      this.$store.commit('setCyclomediaActive', willBeActive);
 
@@ -3432,9 +3486,9 @@
 	    'color',
 	    'weight'
 	  ],
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
-	    const map = this.$store.state.map.map;
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
+	    var map = this.$store.state.map.map;
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
@@ -3453,23 +3507,23 @@
 	    // TODO warn if trying to bind an event that doesn't exist
 	    bindEvents(this, this.$leafletElement, this._events);
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  // we don't actually render anything, but need to define either a template
 	  // or a render function
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  methods: {
-	    createLeafletElement() {
+	    createLeafletElement: function createLeafletElement() {
 	      return new L$1.Circle(this.latlng, this.size, {
 	        color: this.color,
 	        weight: this.weight
 	      });
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    }
 	  }
@@ -3485,7 +3539,7 @@
 
 	// Based on:
 
-	const SvgIcon = L$1.DivIcon.extend({
+	var SvgIcon = L$1.DivIcon.extend({
 	    options: {
 	        "circleText": "",
 	        "className": "svg-icon",
@@ -3662,10 +3716,10 @@
 
 	// L.DivIcon.SVGIcon.noCircleIcon = L.DivIcon.SVGIcon.extend({
 
-	const TriangleIcon = SvgIcon.extend({
+	var TriangleIcon = SvgIcon.extend({
 	  initialize: function(options) {
 	    options = L$1.Util.setOptions(this, options);
-	    const circleAnchor = L$1.point(Number(options.iconSize.x) / 2,
+	    var circleAnchor = L$1.point(Number(options.iconSize.x) / 2,
 	                                 Number(options.iconSize.y) / 2);
 	    options.circleAnchor = circleAnchor;
 	    options.circleRatio = 0;
@@ -3676,15 +3730,15 @@
 	  },
 
 	  _createPathDescription: function () {
-	    const height = Number(this.options.iconSize.y);
-	    const width = Number(this.options.iconSize.x);
-	    const weight = Number(this.options.weight);
-	    const margin = weight;
+	    var height = Number(this.options.iconSize.y);
+	    var width = Number(this.options.iconSize.x);
+	    var weight = Number(this.options.weight);
+	    var margin = weight;
 
-	    const startPoint = "M " + margin + " " + (0) + " ";
-	    const leftLine = "L " + (width / 2) + " " + (height - margin) + " ";
-	    const rightLine = "L " + (width - margin) + " " + (0) + " Z";
-	    const d = startPoint + leftLine + rightLine;
+	    var startPoint = "M " + margin + " " + (0) + " ";
+	    var leftLine = "L " + (width / 2) + " " + (height - margin) + " ";
+	    var rightLine = "L " + (width - margin) + " " + (0) + " Z";
+	    var d = startPoint + leftLine + rightLine;
 
 	    return d;
 	  }
@@ -3713,41 +3767,41 @@
 	    'rotationAngle',
 	    'hFov'
 	  ],
-	  render(h) {
+	  render: function render(h) {
 	    // this.orientation;
 	    return;
 	  },
-	  mounted() {
-	    const leafletElement = this.$leafletElement = this.createLeafletElement();
+	  mounted: function mounted() {
+	    var leafletElement = this.$leafletElement = this.createLeafletElement();
 	    // console.log('WHO IT IS', leafletElement);
-	    const map = this.$store.state.map.map;
+	    var map = this.$store.state.map.map;
 
 	    // REVIEW kind of hacky/not reactive?
 	    if (map) {
 	      leafletElement.addTo(map);
 	    }
 	  },
-	  destroyed() {
+	  destroyed: function destroyed() {
 	    // console.log('svgMarker destroyed fired, latlng is', this.latlng);
 	    this.$leafletElement._map.removeLayer(this.$leafletElement);
 	  },
 	  watch: {
-	    rotationAngle(nextRotationAngle) {
+	    rotationAngle: function rotationAngle(nextRotationAngle) {
 	      // console.log('pngMarker orientation changed', nextRotationAngle);
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 
 	      // REVIEW kind of hacky/not reactive?
 	      if (map) {
 	        leafletElement.addTo(map);
 	      }
 	    },
-	    latlng(nextLatLng) {
+	    latlng: function latlng(nextLatLng) {
 	      // console.log('pngMarker orientation changed', nextRotationAngle);
 	      this.$leafletElement._map.removeLayer(this.$leafletElement);
-	      const leafletElement = this.$leafletElement = this.createLeafletElement();
-	      const map = this.$store.state.map.map;
+	      var leafletElement = this.$leafletElement = this.createLeafletElement();
+	      var map = this.$store.state.map.map;
 
 	      // REVIEW kind of hacky/not reactive?
 	      if (map) {
@@ -3756,21 +3810,21 @@
 	    }
 	  },
 	  computed: {
-	    coneCoords() {
-	      const hFovDegrees = this.hFov * (180/3.14159265359);
-	      const scale = 50;//options.scale;
-	      const angle = hFovDegrees / 2.0;
-	      const width = Math.sin(angle * Math.PI / 180);
-	      const length = Math.sqrt(1.0 - width * width);
-	      const coneCoords = [width * scale, length * scale];
+	    coneCoords: function coneCoords() {
+	      var hFovDegrees = this.hFov * (180/3.14159265359);
+	      var scale = 50;//options.scale;
+	      var angle = hFovDegrees / 2.0;
+	      var width = Math.sin(angle * Math.PI / 180);
+	      var length = Math.sqrt(1.0 - width * width);
+	      var coneCoords = [width * scale, length * scale];
 
 	      return coneCoords;
 	    },
 	  },
 	  methods: {
-	    createLeafletElement() {
-	      const coneCoords = this.coneCoords;
-	      const icon = new TriangleIcon({
+	    createLeafletElement: function createLeafletElement() {
+	      var coneCoords = this.coneCoords;
+	      var icon = new TriangleIcon({
 	        iconSize: L$1.point(this.coneCoords[0], this.coneCoords[1]),
 	        iconAnchor: [this.coneCoords[0] / 2, this.coneCoords[1]],
 	      });
@@ -3779,8 +3833,8 @@
 	        rotationAngle: this.rotationAngle,
 	      });
 	    },
-	    parentMounted(parent) {
-	      const map = parent.$leafletElement;
+	    parentMounted: function parentMounted(parent) {
+	      var map = parent.$leafletElement;
 	      this.$leafletElement.addTo(map);
 	    },
 	  }
@@ -3789,37 +3843,39 @@
 	var mapPanelMixin = {
 	  name: 'cyclomediaMixin',
 	  computed: {
-	    cyclomediaActive() {
+	    cyclomediaActive: function cyclomediaActive() {
 	      return this.$store.state.cyclomedia.active;
 	    },
-	    cyclomediaRecordings() {
+	    cyclomediaRecordings: function cyclomediaRecordings() {
 	      return this.$store.state.cyclomedia.recordings;
 	    },
 	  },
 	  methods: {
-	    handleCyclomediaButtonClick() {
+	    handleCyclomediaButtonClick: function handleCyclomediaButtonClick() {
 	      this.updateCyclomediaRecordings();
 
 	    },
-	    handleCyclomediaRecordingClick(e) {
-	      const latlng = e.latlng;
+	    handleCyclomediaRecordingClick: function handleCyclomediaRecordingClick(e) {
+	      var latlng = e.latlng;
 	      console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
 	      this.$store.commit('setCyclomediaLatLngFromMap', latlng);
 	      // const viewer = this.$store.state.cyclomedia.viewer;
 	      // viewer.openByCoordinate([latlng.lng, latlng.lat]);
 	    },
-	    updateCyclomediaRecordings() {
-	      const map = this.$store.state.map.map;
-	      const zoom = map.getZoom();
+	    updateCyclomediaRecordings: function updateCyclomediaRecordings() {
+	      var this$1 = this;
+
+	      var map = this.$store.state.map.map;
+	      var zoom = map.getZoom();
 	      if (!this.$store.state.cyclomedia.active || zoom <= 18) {
 	        this.$store.commit('setCyclomediaRecordings', []);
 	        return;
 	      }
-	      const bounds = map.getBounds();
+	      var bounds = map.getBounds();
 	      this.$cyclomediaRecordingsClient.getRecordings(
 	        bounds,
-	        recordings => {
-	          this.$store.commit('setCyclomediaRecordings', recordings);
+	        function (recordings) {
+	          this$1.$store.commit('setCyclomediaRecordings', recordings);
 	        }
 	      );
 	    },
@@ -3830,7 +3886,7 @@
 
 	var Widget = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{class:this.cycloContainerClass,attrs:{"id":"cyclo-container"}},[(this.isMobileOrTablet === false && this.popoutAble === true)?_c('div',{style:({ right: _vm.popoutPosition }),attrs:{"id":"inCycloDiv"},on:{"click":this.popoutClicked}},[_c('font-awesome-icon',{staticClass:"popout-icon",attrs:{"icon":"external-link"}})],1):_vm._e(),_vm._v(" "),_c('div',{ref:"cycloviewer",staticClass:"panoramaViewerWindow",attrs:{"id":"cycloviewer"}})])},staticRenderFns: [],
 	  name: 'CyclomediaWidget',
-	  data() {
+	  data: function data() {
 	    return {
 	      'docWidth': 0,
 	      'divWidth': 0,
@@ -3839,14 +3895,14 @@
 	  },
 	  props: ['screenPercent'],
 	  computed: {
-	    isMobileOrTablet() {
+	    isMobileOrTablet: function isMobileOrTablet() {
 	      return this.$store.state.isMobileOrTablet;
 	    },
-	    fullScreenMapEnabled() {
+	    fullScreenMapEnabled: function fullScreenMapEnabled() {
 	      return this.$store.state.fullScreenMapEnabled;
 	    },
-	    popoutAble() {
-	      let answer;
+	    popoutAble: function popoutAble() {
+	      var answer;
 	      if (this.$config.cyclomedia.popoutAble === false) {
 	        answer = false;
 	      } else {
@@ -3854,43 +3910,43 @@
 	      }
 	      return answer
 	    },
-	    cyclomediaInitialized() {
+	    cyclomediaInitialized: function cyclomediaInitialized() {
 	      return this.$store.state.cyclomedia.initialized;
 	    },
-	    cyclomediaActive() {
+	    cyclomediaActive: function cyclomediaActive() {
 	      return this.$store.state.cyclomedia.active;
 	    },
-	    pictometryActive() {
+	    pictometryActive: function pictometryActive() {
 	      return this.$store.state.pictometry.active;
 	    },
-	    cycloContainerClass() {
+	    cycloContainerClass: function cycloContainerClass() {
 	      if (this.pictometryActive) {
 	        return 'medium-16 large-16 columns mb-panel'
 	      } else {
 	        return 'medium-24 large-24 columns mb-panel'
 	      }
 	    },
-	    locForCyclo() {
+	    locForCyclo: function locForCyclo() {
 	      // console.log('computing locForCyclo');
-	      const geocodeData = this.$store.state.geocode.data;
-	      const map = this.$store.state.map.map;
+	      var geocodeData = this.$store.state.geocode.data;
+	      var map = this.$store.state.map.map;
 	      if (geocodeData) {
 	        return [geocodeData.geometry.coordinates[1], geocodeData.geometry.coordinates[0]];
 	      }
 	    },
-	    latLngFromMap() {
+	    latLngFromMap: function latLngFromMap() {
 	      return this.$store.state.cyclomedia.latLngFromMap;
 	    },
-	    mapCenter() {
+	    mapCenter: function mapCenter() {
 	      return this.$store.state.map.center;
 	    },
-	    navBarOpen() {
+	    navBarOpen: function navBarOpen() {
 	      return this.$store.state.cyclomedia.navBarOpen;
 	    },
-	    projection4326() {
+	    projection4326: function projection4326() {
 	      return "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs";
 	    },
-	    projection2272() {
+	    projection2272: function projection2272() {
 	      return "+proj=lcc +lat_1=40.96666666666667 +lat_2=39.93333333333333 +lat_0=39.33333333333334 +lon_0=-77.75 +x_0=600000 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3048006096012192 +no_defs";
 	    },
 	    // surfaceCursorOn() {
@@ -3898,16 +3954,16 @@
 	    // }
 	  },
 	  watch: {
-	    fullScreenMapEnabled() {
+	    fullScreenMapEnabled: function fullScreenMapEnabled() {
 	      this.setDivWidth();
 	    },
-	    locForCyclo(newCoords) {
+	    locForCyclo: function locForCyclo(newCoords) {
 	      // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
 	      if (newCoords) {
 	        this.setNewLocation(newCoords);
 	      }
 	    },
-	    latLngFromMap(newCoords) {
+	    latLngFromMap: function latLngFromMap(newCoords) {
 	      // console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
 	      if (this.cyclomediaInitialized) {
 
@@ -3923,7 +3979,9 @@
 	    // docWidthComp() {
 	    //   console.log('docWidth changed');
 	    // }
-	    cyclomediaInitialized() {
+	    cyclomediaInitialized: function cyclomediaInitialized() {
+	      var this$1 = this;
+
 	      StreetSmartApi.init({
 	        targetElement: this.$refs.cycloviewer,
 	        username: this.$config.cyclomedia.username,
@@ -3937,18 +3995,18 @@
 	          database: 'CMDatabase'
 	        }
 	      }).then (
-	        () => {
+	        function () {
 	          // get map center and set location
-	          const latLngFromMap = this.$store.state.cyclomedia.latLngFromMap;
-	          this.setNewLocation([latLngFromMap[0], latLngFromMap[1]]);
+	          var latLngFromMap = this$1.$store.state.cyclomedia.latLngFromMap;
+	          this$1.setNewLocation([latLngFromMap[0], latLngFromMap[1]]);
 	        },
-	        err => {
+	        function (err) {
 	          // console.log('Api: init: failed. Error: ', err);
 	        }
 	      );
 	      window.addEventListener('resize', this.setDivWidth);
 	    },
-	    cyclomediaActive(newActiveStatus) {
+	    cyclomediaActive: function cyclomediaActive(newActiveStatus) {
 	      this.setDivWidth();
 	      if (newActiveStatus === true) {
 	        this.setNewLocation(this.latLngFromMap);
@@ -3958,7 +4016,7 @@
 	    //   this.setDivWidth();
 	    // }
 	  },
-	  updated() {
+	  updated: function updated() {
 	    // console.log('cyclomedia updated running');
 	    // TODO find a better way to get the image to update and not be stretched
 	    // const viewer = this.$store.state.cyclomedia.viewer;
@@ -3970,15 +4028,15 @@
 	    this.setDivWidth();
 	  },
 	  methods: {
-	    setDivWidth() {
-	      const docWidth = document.body.clientWidth;
+	    setDivWidth: function setDivWidth() {
+	      var docWidth = document.body.clientWidth;
 	      this.docWidth = docWidth;
-	      const el = document.getElementById('cyclo-container');
-	      const divStyle = window.getComputedStyle(el);
-	      const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
+	      var el = document.getElementById('cyclo-container');
+	      var divStyle = window.getComputedStyle(el);
+	      var divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
 	      this.divWidth = divWidth;
 	      // console.log('setDivWidth is running, docWidth:', docWidth, 'divWidth', divWidth);
-	      let answer;
+	      var answer;
 	      if (this.fullScreenMapEnabled) {
 	        answer = docWidth - divWidth + 'px';
 	      } else {
@@ -3988,10 +4046,10 @@
 	      this.popoutPosition = answer;
 	      // return width;
 	    },
-	    setNewLocation(coords) {
+	    setNewLocation: function setNewLocation(coords) {
 	      // console.log('cyclomedia setNewLocation is running using', coords);
-	      const viewerType = StreetSmartApi.ViewerType.PANORAMA;
-	      const coords2272 = proj4(this.projection4326, this.projection2272, [coords[1], coords[0]]);
+	      var viewerType = StreetSmartApi.ViewerType.PANORAMA;
+	      var coords2272 = proj4(this.projection4326, this.projection2272, [coords[1], coords[0]]);
 	      // StreetSmartApi.open(center.lng + ',' + center.lat, {
 	      // StreetSmartApi.open(coords[1] + ',' + coords[0], {
 	      StreetSmartApi.open(coords2272[0] + ',' + coords2272[1], {
@@ -4005,11 +4063,11 @@
 	      }).then (
 	        function(result) {
 	          // console.log('StreetSmartApi2, result:', result);
-	          const widget = this;
+	          var widget = this;
 	          // console.log('Created component through API:', result);
 	          if (result) {
-	            for (let i =0; i < result.length; i++) {
-	              if(result[i].getType() === StreetSmartApi.ViewerType.PANORAMA) window.panoramaViewer = result[i];
+	            for (var i =0; i < result.length; i++) {
+	              if(result[i].getType() === StreetSmartApi.ViewerType.PANORAMA) { window.panoramaViewer = result[i]; }
 	            }
 	            widget.sendOrientationToStore();
 
@@ -4026,8 +4084,10 @@
 	            window.panoramaViewer.toggleButtonEnabled('panorama.elevation', false);
 	            window.panoramaViewer.toggleButtonEnabled('panorama.reportBlurring', false);
 
-	            for (let overlay of window.panoramaViewer.props.overlays) {
+	            for (var i$1 = 0, list = window.panoramaViewer.props.overlays; i$1 < list.length; i$1 += 1) {
 	              // console.log('overlay:', overlay);
+	              var overlay = list[i$1];
+
 	              if (overlay.id === 'surfaceCursorLayer') {
 	                if (overlay.visible === true) {
 	                  window.panoramaViewer.toggleOverlay(overlay);
@@ -4073,18 +4133,18 @@
 	      // const viewer = this.$store.state.cyclomedia.viewer;
 	      // viewer.openByCoordinate(coords);
 	    },
-	    sendOrientationToStore() {
+	    sendOrientationToStore: function sendOrientationToStore() {
 	      // console.log('sendOrientationToStore, yaw:', window.panoramaViewer.props.orientation.yaw);
 	      this.$store.commit('setCyclomediaYaw', window.panoramaViewer.props.orientation.yaw);
 	      this.$store.commit('setCyclomediaHFov', window.panoramaViewer.props.orientation.hFov);
-	      const xy = [window.panoramaViewer.props.orientation.xyz[0], window.panoramaViewer.props.orientation.xyz[1]];
-	      const lnglat = proj4(this.projection2272, this.projection4326, xy);
+	      var xy = [window.panoramaViewer.props.orientation.xyz[0], window.panoramaViewer.props.orientation.xyz[1]];
+	      var lnglat = proj4(this.projection2272, this.projection4326, xy);
 	      // console.log('xy:', xy, 'lnglat', lnglat);
 	      this.$store.commit('setCyclomediaXyz', lnglat);
 	    },
-	    popoutClicked() {
-	      const map = this.$store.state.map.map;
-	      const center = map.getCenter();
+	    popoutClicked: function popoutClicked() {
+	      var map = this.$store.state.map.map;
+	      var center = map.getCenter();
 	      window.open('//cyclomedia.phila.gov/?' + center.lat + '&' + center.lng, '_blank');
 	      this.$store.commit('setCyclomediaActive', false);
 	    }
@@ -4104,12 +4164,12 @@
 	    'imgSrc'
 	  ],
 	  computed: {
-	    pictometryActive() {
+	    pictometryActive: function pictometryActive() {
 	      return this.$store.state.pictometry.active ? 'active' : 'inactive'
 	    }
 	  },
 	  methods: {
-	    handleButtonClick(e) {
+	    handleButtonClick: function handleButtonClick(e) {
 	      this.$store.commit('setPictometryActive', !this.$store.state.pictometry.active);
 	    },
 	  }
@@ -4118,7 +4178,7 @@
 	var mapPanelMixin$1 = {
 	  name: 'pictometryMixin',
 	  computed: {
-	    pictometryActive() {
+	    pictometryActive: function pictometryActive() {
 	      return this.$store.state.pictometry.active;
 	    }
 	  }
@@ -4133,19 +4193,19 @@
 	    'height',
 	    'width'
 	  ],
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  computed: {
-	    ipa() {
+	    ipa: function ipa() {
 	      return this.$store.state.pictometry.ipa;
 	    },
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    // console.log('mounting PngMarker', this.icon);
 	    this.placeMarker(this.$props.latlng);
 	  },
-	  beforeDestroy() {
+	  beforeDestroy: function beforeDestroy() {
 	    // console.log('before destroying PngMarker', this.icon);
 	    this.ipa.removeShapes(this.$store.state.pictometry.pngMarkerIds);
 	    // console.log('before destroyed PngMarker', this.icon);
@@ -4156,15 +4216,15 @@
 	  //   console.log('destroyed PngMarker', this.icon);
 	  // },
 	  watch: {
-	    latlng(nextLatlng) {
+	    latlng: function latlng(nextLatlng) {
 	      // console.log('PngMarker: latlng changed');
 	      this.ipa.removeShapes(this.$store.state.pictometry.pngMarkerIds);
 	      this.placeMarker(nextLatlng);
 	    }
 	  },
 	  methods: {
-	    constructLocalUrl(host, path1, path2) {
-	      let url;
+	    constructLocalUrl: function constructLocalUrl(host, path1, path2) {
+	      var url;
 	      if (window.location.protocol === 'https:') {
 	        // console.log('using https', window.location.protocol);
 	        url = 'https://' + host + path1 + path2;
@@ -4175,16 +4235,16 @@
 	      // console.log('constructing url:', url);
 	      return url
 	    },
-	    placeMarker(nextLatlng) {
+	    placeMarker: function placeMarker(nextLatlng) {
 	      // console.log('starting placeMarker', nextLatlng, this.$props.icon, 'this.ipa:', this.ipa);
-	      const port = window.location.port;
-	      let host;
+	      var port = window.location.port;
+	      var host;
 	      if (port != '') {
 	        host = window.location.hostname + ':' + port;
 	      } else {
 	        host = window.location.hostname;
 	      }
-	      const pngMarker = {
+	      var pngMarker = {
 	        type : this.ipa.SHAPE_TYPE.MARKER,
 	        center: { y: nextLatlng[0], x: nextLatlng[1]},
 	        markerImageHeight: this.$props.height,
@@ -4196,7 +4256,7 @@
 	      };
 	      this.ipa.addShapes([pngMarker], this.didAddShapes);
 	    },
-	    didAddShapes(result) {
+	    didAddShapes: function didAddShapes(result) {
 	      // const pngMarkerIds = shapes.filter(shape => {
 	      //                         return shape.success === 'true';
 	      //                       }).map(shape => shape.shapeId);
@@ -4205,7 +4265,7 @@
 	        if ( result[i].success === 'false' ) {
 	          console.log(result[i].error);
 	        } else {
-	          const pngMarkerIds = this.$store.state.pictometry.pngMarkerIds;
+	          var pngMarkerIds = this.$store.state.pictometry.pngMarkerIds;
 	          // console.log('pngMarkerIds', pngMarkerIds);
 	          pngMarkerIds.push(result[i].shapeId);
 
@@ -4223,18 +4283,18 @@
 	    'rotationAngle',
 	    'hFov'
 	  ],
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  computed: {
-	    ipa() {
+	    ipa: function ipa() {
 	      return this.$store.state.pictometry.ipa;
 	    },
-	    zoom() {
+	    zoom: function zoom() {
 	      return this.$store.state.pictometry.zoom;
 	    },
-	    radius() {
-	      const zoomMap = {
+	    radius: function radius() {
+	      var zoomMap = {
 	        '17': 75,
 	        '18': 50,
 	        '19': 25,
@@ -4248,14 +4308,14 @@
 	      // return zoomMap[this.$store.state.map.zoom]
 	    }
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    this.getViewConeLatLon();
 	  },
-	  beforeDestroy() {
+	  beforeDestroy: function beforeDestroy() {
 	    this.ipa.removeShapes(this.$store.state.pictometry.shapeIds);
 	  },
 	  watch: {
-	    radius(nextRadius) {
+	    radius: function radius(nextRadius) {
 	      // this.ipa.getMetaData(function(e) {
 	      //   console.log(e);
 	      // });
@@ -4265,52 +4325,52 @@
 	      // console.log('radius:', nextRadius);
 	      this.getViewConeLatLon();
 	    },
-	    rotationAngle() {
+	    rotationAngle: function rotationAngle() {
 	      this.ipa.removeShapes(this.$store.state.pictometry.shapeIds);
 	      this.getViewConeLatLon();
 	    },
-	    latlng() {
+	    latlng: function latlng() {
 	      this.ipa.removeShapes(this.$store.state.pictometry.shapeIds);
 	      this.getViewConeLatLon();
 	    },
 	  },
 	  methods: {
-	    getViewConeLatLon() {
+	    getViewConeLatLon: function getViewConeLatLon() {
 	      // console.log('getViewConeLatLon is running');
-	      const camLat = this.latlng[0];
-	      const camLon = this.latlng[1];
+	      var camLat = this.latlng[0];
+	      var camLon = this.latlng[1];
 	      // Earth's radius
-	      const ER=6378137;
+	      var ER=6378137;
 	      // viewcone radius, for scaling its size
 	      // const camR = 10;
-	      const camR = this.radius;
+	      var camR = this.radius;
 	      // Angle1 - camera angle off of N, Angle2 - fov angle
-	      const Angle1 = this.rotationAngle;
-	      const Angle2 = parseFloat(this.hFov) * 180/Math.PI;
+	      var Angle1 = this.rotationAngle;
+	      var Angle2 = parseFloat(this.hFov) * 180/Math.PI;
 
-	      const dnLP = Math.cos((Angle1+Angle2/2) * Math.PI/180)*camR;
-	      const deLP = Math.sin((Angle1+Angle2/2) * Math.PI/180)*camR;
-	      const dnRP = Math.cos((Angle1-Angle2/2) * Math.PI/180)*camR;
-	      const deRP = Math.sin((Angle1-Angle2/2) * Math.PI/180)*camR;
+	      var dnLP = Math.cos((Angle1+Angle2/2) * Math.PI/180)*camR;
+	      var deLP = Math.sin((Angle1+Angle2/2) * Math.PI/180)*camR;
+	      var dnRP = Math.cos((Angle1-Angle2/2) * Math.PI/180)*camR;
+	      var deRP = Math.sin((Angle1-Angle2/2) * Math.PI/180)*camR;
 	      //Coordinate offsets in radians
-	      const dLatLP = dnLP/ER;
-	      const dLonLP = deLP/(ER*Math.cos(Math.PI*camLat/180));
-	      const dLatRP = dnRP/ER;
-	      const dLonRP = deRP/(ER*Math.cos(Math.PI*camLat/180));
+	      var dLatLP = dnLP/ER;
+	      var dLonLP = deLP/(ER*Math.cos(Math.PI*camLat/180));
+	      var dLatRP = dnRP/ER;
+	      var dLonRP = deRP/(ER*Math.cos(Math.PI*camLat/180));
 	      //OffsetPosition
-	      const camRightLat = camLat + dLatLP * 180/Math.PI;
-	      const camRightLon = camLon + dLonLP * 180/Math.PI;
-	      const camLeftLat = camLat + dLatRP * 180/Math.PI;
-	      const camLeftLon = camLon + dLonRP * 180/Math.PI;
+	      var camRightLat = camLat + dLatLP * 180/Math.PI;
+	      var camRightLon = camLon + dLonLP * 180/Math.PI;
+	      var camLeftLat = camLat + dLatRP * 180/Math.PI;
+	      var camLeftLon = camLon + dLonRP * 180/Math.PI;
 
-	      const coordinates = [ {y : camLat, x : camLon, z: 0.0}, {y : camRightLat, x : camRightLon, z: 0.0}, {y : camLeftLat, x : camLeftLon, z: 0.0} ];
+	      var coordinates = [ {y : camLat, x : camLon, z: 0.0}, {y : camRightLat, x : camRightLon, z: 0.0}, {y : camLeftLat, x : camLeftLon, z: 0.0} ];
 	      this.placeViewCone(coordinates);
 	    },
 
 	    placeViewCone: function(coords){
 	      // console.log('placeViewCone is running');
-	      const self = this;
-	      const viewTriangle = {
+	      var self = this;
+	      var viewTriangle = {
 	        type: this.ipa.SHAPE_TYPE.POLYGON,
 	        coordinates: coords,
 	        // coordinates : [ {y : app.state.stViewY, x : app.state.stViewX, z: 0.0}, {y : app.state.viewCone.camRightLat, x : app.state.viewCone.camRightLon, z: 0.0}, {y : app.state.viewCone.camLeftLat, x : app.state.viewCone.camLeftLon, z: 0.0} ],
@@ -4326,11 +4386,11 @@
 	          if ( result[i].success === 'false' ) {
 	            alert(result[i].error);
 	          } else {
-	            const shapeIds = self.$store.state.pictometry.shapeIds;
+	            var shapeIds = self.$store.state.pictometry.shapeIds;
 	            // console.log('shapeIds:', shapeIds);
 	            // console.log('current shapeId:', result[i].shapeId);
 	            shapeIds.push(result[i].shapeId);
-	            const test = shapeIds.slice(0, -1);
+	            var test = shapeIds.slice(0, -1);
 	            // console.log('slice', test);
 	            self.ipa.removeShapes(shapeIds.slice(0, -1));
 	          }
@@ -4346,36 +4406,35 @@
 	  name: 'PictometryWidget',
 	  props: [
 	    'apiKey',
-	    'secretKey',
-	  ],
-	  created() {
+	    'secretKey' ],
+	  created: function created() {
 	    this.$IFRAME_ID = 'pictometry-ipa';
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    // fetch pictometry ipa script
-	    const scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.apiKey;
-	    const self = this;
+	    var scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.apiKey;
+	    var self = this;
 	    $$1.getScript(scriptUrl, self.init);
 	  },
 	  computed: {
-	    isMobileOrTablet() {
+	    isMobileOrTablet: function isMobileOrTablet() {
 	      return this.$store.state.isMobileOrTablet;
 	    },
-	    cyclomediaActive() {
+	    cyclomediaActive: function cyclomediaActive() {
 	      return this.$store.state.cyclomedia.active;
 	    },
-	    pictContainerClass() {
+	    pictContainerClass: function pictContainerClass() {
 	      if (this.cyclomediaActive) {
 	        return 'medium-8 large-8 columns mb-panel';
 	      } else {
 	        return 'medium-24 large-24 columns mb-panel';
 	      }
 	    },
-	    mapCenter() {
+	    mapCenter: function mapCenter() {
 	      // return this.$store.state.geocode.data.geometry.coordinates;
 	      return this.$store.state.pictometry.map.center;
 	    },
-	    mapZoom() {
+	    mapZoom: function mapZoom() {
 	      // const mapZoom = this.$store.state.map.zoom;
 	      // let zoom;
 	      // if (this.cyclomediaActive) {
@@ -4388,14 +4447,15 @@
 	    },
 	  },
 	  watch: {
-	    mapCenter(nextCenter) {
-	      const [x, y] = nextCenter;
-	      const zoom = this.mapZoom;
+	    mapCenter: function mapCenter(nextCenter) {
+	      var x = nextCenter[0];
+	      var y = nextCenter[1];
+	      var zoom = this.mapZoom;
 	      if (this.$ipa) {
-	        this.$ipa.setLocation({ x, y, zoom });
+	        this.$ipa.setLocation({ x: x, y: y, zoom: zoom });
 	      }
 	    },
-	    mapZoom(nextZoom) {
+	    mapZoom: function mapZoom(nextZoom) {
 	      // console.log('watch zoomSentToPict', nextZoom);
 	      if (this.$ipa) {
 	        this.$ipa.setLocation({
@@ -4405,7 +4465,7 @@
 	        });
 	      }
 	    },
-	    cyclomediaActive(nextStatus) {
+	    cyclomediaActive: function cyclomediaActive(nextStatus) {
 	      if (nextStatus) {
 	        // console.log('pictometry widget cyclomediaActive, this.$ipa:', this.$ipa);
 	        this.$ipa.showDashboard({
@@ -4464,40 +4524,40 @@
 	    }
 	  },
 	  methods: {
-	    popoutClicked() {
-	      const map = this.$store.state.map.map;
-	      const center = map.getCenter();
+	    popoutClicked: function popoutClicked() {
+	      var map = this.$store.state.map.map;
+	      var center = map.getCenter();
 	      window.open('//pictometry.phila.gov/?' + center.lat + '&' + center.lng, '_blank');
 	      this.$store.commit('setPictometryActive', false);
 	    },
-	    init() {
+	    init: function init() {
 	      // construct signed url
-	      const d = new Date();
-	      const t = Math.floor(d.getTime() / 1000);
-	      const unsignedUrl = 'https://pol.pictometry.com/ipa/v1/load.php' + "?apikey=" + this.apiKey + "&ts=" + t;
-	      const hash = md5(unsignedUrl, this.secretKey);
-	      const iframeId = this.$IFRAME_ID;
-	      const signedUrl = unsignedUrl + "&ds=" + hash + "&app_id=" + iframeId;
+	      var d = new Date();
+	      var t = Math.floor(d.getTime() / 1000);
+	      var unsignedUrl = 'https://pol.pictometry.com/ipa/v1/load.php' + "?apikey=" + this.apiKey + "&ts=" + t;
+	      var hash = md5(unsignedUrl, this.secretKey);
+	      var iframeId = this.$IFRAME_ID;
+	      var signedUrl = unsignedUrl + "&ds=" + hash + "&app_id=" + iframeId;
 
 	      // set the iframe src to load the IPA
-	      const iframe = this.$refs.pictometryIpa;
+	      var iframe = this.$refs.pictometryIpa;
 	      // REVIEW can we bind this to a computed instead?
 	      iframe.setAttribute('src', signedUrl);
 
 	      // create pictometry host
-	      const ipa = this.$ipa = new PictometryHost(iframeId, 'https://pol.pictometry.com/ipa/v1/load.php');
+	      var ipa = this.$ipa = new PictometryHost(iframeId, 'https://pol.pictometry.com/ipa/v1/load.php');
 	      // console.log('PictometryWidget init ipa:', ipa);
 	      this.$store.commit('setPictometryIpa', ipa);
 	      ipa.ready = this.ipaReady;
 	    },
-	    ipaReady() {
+	    ipaReady: function ipaReady() {
 	      this.$ipa.setLocation({
 	        y: this.mapCenter.lat,
 	        x: this.mapCenter.lng,
 	        zoom: this.mapZoom
 	      });
 
-	      const self = this;
+	      var self = this;
 
 	      this.$ipa.addListener('onendzoom', function(zoom) {
 	        // console.log('widget: ipa detected zoom change to', zoom);
@@ -4510,31 +4570,31 @@
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=""; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 	var Layer = {
 	  name: 'PictometryLayer',
-	  render(h) {
+	  render: function render(h) {
 	    return;
 	  },
 	  computed: {
-	    ipa() {
+	    ipa: function ipa() {
 	      return this.$store.state.pictometry.ipa;
 	    },
-	    activeTopic() {
+	    activeTopic: function activeTopic() {
 	      return this.$store.state.activeTopic;
 	    }
 	  },
-	  mounted() {
+	  mounted: function mounted() {
 	    this.didActivateTopic(this.activeTopic);
 	  },
-	  beforeDestroy() {
+	  beforeDestroy: function beforeDestroy() {
 	    this.didDeactivateTopic(this.activeTopic);
 	  },
 	  watch: {
-	    activeTopic(nextTopic, prevTopic) {
+	    activeTopic: function activeTopic(nextTopic, prevTopic) {
 	      this.didDeactivateTopic(prevTopic);
 	      this.didActivateTopic(nextTopic);
 	    }
 	  },
 	  methods: {
-	    didActivateTopic(topic) {
+	    didActivateTopic: function didActivateTopic(topic) {
 	      // console.log('didActivateTopic is firing with topic: ', topic);
 	      switch (topic) {
 	        case 'deeds':
@@ -4573,7 +4633,7 @@
 	      }
 	    },
 
-	    didDeactivateTopic(topic) {
+	    didDeactivateTopic: function didDeactivateTopic(topic) {
 	      switch (topic) {
 	        case 'deeds':
 	          // turn off DOR parcels
@@ -4619,7 +4679,7 @@
 	// some default values, which get overwritten by the app importing
 	// these could be put in the object instead of this roundabout way
 	// but this is to remind me that mapboard store redefines these values
-	let config = {
+	var config = {
 	  map: {
 	    center:[-75.163471, 39.953338],
 	    zoom: 18,
@@ -4632,7 +4692,7 @@
 	  // }
 	};
 
-	const initialState = {
+	var initialState = {
 	  activeTopic: '',
 	  shouldShowAddressCandidateList: false,
 
@@ -4699,94 +4759,94 @@
 	  },
 	};
 
-	const pvmStore = {
+	var pvmStore = {
 	  state: initialState,
 	  mutations: {
-	    setWatchPositionOn(state, payload) {
+	    setWatchPositionOn: function setWatchPositionOn(state, payload) {
 	      state.map.watchPositionOn = payload;
 	    },
-	    setLocation(state, payload) {
+	    setLocation: function setLocation(state, payload) {
 	      state.map.location.lat = payload.lat;
 	      state.map.location.lng = payload.lng;
 	    },
-	    setActiveTopic(state, payload) {
+	    setActiveTopic: function setActiveTopic(state, payload) {
 	      state.activeTopic = payload;
 	    },
-	    setMapZoom(state, payload) {
+	    setMapZoom: function setMapZoom(state, payload) {
 	      state.map.zoom = payload;
 	    },
-	    setImagery(state, payload) {
+	    setImagery: function setImagery(state, payload) {
 	      state.map.imagery = payload;
 	    },
-	    setShouldShowImagery(state, payload) {
+	    setShouldShowImagery: function setShouldShowImagery(state, payload) {
 	      state.map.shouldShowImagery = payload;
 	    },
-	    setShouldShowAddressCandidateList(state, payload) {
+	    setShouldShowAddressCandidateList: function setShouldShowAddressCandidateList(state, payload) {
 	      state.shouldShowAddressCandidateList = payload;
 	    },
 
 
-	    setCyclomediaInitialized(state, payload) {
+	    setCyclomediaInitialized: function setCyclomediaInitialized(state, payload) {
 	      state.cyclomedia.initialized = payload;
 	    },
-	    setPictometryActive(state, payload) {
+	    setPictometryActive: function setPictometryActive(state, payload) {
 	      // if (!config.pictometry.enabled) {
 	      //   return;
 	      // }
 	      state.pictometry.active = payload;
 	    },
-	    setCyclomediaActive(state, payload) {
+	    setCyclomediaActive: function setCyclomediaActive(state, payload) {
 	      // console.log('setCyclomediaActive is running, config:', config);
 	      // if (!config.cyclomedia.enabled) {
 	      //   return;
 	      // }
 	      state.cyclomedia.active = payload;
 	    },
-	    setCyclomediaYaw(state, payload) {
+	    setCyclomediaYaw: function setCyclomediaYaw(state, payload) {
 	      state.cyclomedia.orientation.yaw = payload;
 	    },
-	    setCyclomediaHFov(state, payload) {
+	    setCyclomediaHFov: function setCyclomediaHFov(state, payload) {
 	      state.cyclomedia.orientation.hFov = payload;
 	    },
-	    setCyclomediaXyz(state, payload) {
+	    setCyclomediaXyz: function setCyclomediaXyz(state, payload) {
 	      state.cyclomedia.orientation.xyz = payload;
 	    },
-	    setCyclomediaRecordings(state, payload) {
+	    setCyclomediaRecordings: function setCyclomediaRecordings(state, payload) {
 	      state.cyclomedia.recordings = payload;
 	    },
-	    setCyclomediaLatLngFromMap(state, payload) {
+	    setCyclomediaLatLngFromMap: function setCyclomediaLatLngFromMap(state, payload) {
 	      state.cyclomedia.latLngFromMap = payload;
 	      // const { lat, lng } = payload || {};
 	      // state.cyclomedia.latLngFromMap[0] = lat;
 	      // state.cyclomedia.latLngFromMap[1] = lng;
 	    },
-	    setCyclomediaNavBarOpen(state, payload) {
+	    setCyclomediaNavBarOpen: function setCyclomediaNavBarOpen(state, payload) {
 	      state.cyclomedia.navBarOpen = payload;
 	    },
 	    // setCyclomediaSurfaceCursorOn(state, payload) {
 	    //   state.cyclomedia.surfaceCursorOn = payload;
 	    // },
 
-	    setPictometryIpa(state, payload) {
+	    setPictometryIpa: function setPictometryIpa(state, payload) {
 	      state.pictometry.ipa = payload;
 	    },
-	    setPictometryShapeIds(state, payload) {
+	    setPictometryShapeIds: function setPictometryShapeIds(state, payload) {
 	      state.pictometry.shapeIds = payload;
 	    },
-	    setPictometryPngMarkerIds(state, payload) {
+	    setPictometryPngMarkerIds: function setPictometryPngMarkerIds(state, payload) {
 	      state.pictometry.pngMarkerIds = payload;
 	    },
 	    // this is the leaflet map center updated when the map is moved
-	    setPictometryMapCenter(state, payload) {
+	    setPictometryMapCenter: function setPictometryMapCenter(state, payload) {
 	      state.pictometry.map.center = payload;
 	    },
-	    setPictometryMapZoom(state, payload) {
+	    setPictometryMapZoom: function setPictometryMapZoom(state, payload) {
 	      state.pictometry.map.zoom = payload;
 	    },
-	    setPictometryZoom(state, payload) {
+	    setPictometryZoom: function setPictometryZoom(state, payload) {
 	      state.pictometry.zoom = payload;
 	    },
-	    setMap(state, payload) {
+	    setMap: function setMap(state, payload) {
 	      state.map.map = payload.map;
 	    },
 	  }
