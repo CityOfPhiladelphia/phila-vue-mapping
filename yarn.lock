@@ -5221,9 +5221,9 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
-vue-template-compiler@^2.5.22:
-  version "2.5.22"
-  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.5.22.tgz#c3d3c02c65f1908205c4fbd3b0ef579e51239955"
+vue-template-compiler@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.6.2.tgz#6230abf7ca92d565b7471c0cc3f54d5b12aa48e7"
   dependencies:
     de-indent "^1.0.2"
     he "^1.1.0"
@@ -5238,13 +5238,13 @@ vue-template-validator@^1.1.5:
   dependencies:
     chalk "^1.1.1"
 
-vue@^2.5.22:
-  version "2.5.22"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.22.tgz#3bf88041af08b8539c37b268b70ca79245e9cc30"
+vue@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.2.tgz#1cc9c9c8f7ba8df45e9b97c284947de78b76301c"
 
-vuex@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.0.1.tgz#e761352ebe0af537d4bb755a9b9dc4be3df7efd2"
+vuex@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/vuex/-/vuex-3.1.0.tgz#634b81515cf0cfe976bd1ffe9601755e51f843b9"
 
 webworkify@^1.0.2:
   version "1.5.0"
