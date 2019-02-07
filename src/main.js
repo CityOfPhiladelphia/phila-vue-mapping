@@ -1,17 +1,11 @@
-
-// Font Awesome Icons
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { dom } from '@fortawesome/fontawesome-svg-core'
-dom.watch() // This will kick of the initial replacement of i to svg tags and configure a MutationObserver
-
-import { faDotCircle } from '@fortawesome/pro-regular-svg-icons/faDotCircle';
-import { faSearch } from '@fortawesome/pro-solid-svg-icons/faSearch';
-import { faTimes } from '@fortawesome/pro-solid-svg-icons/faTimes';
-import { faMapMarkerAlt } from '@fortawesome/pro-solid-svg-icons/faMapMarkerAlt';
-import { faCaretLeft } from '@fortawesome/pro-solid-svg-icons/faCaretLeft';
-import { faCaretRight } from '@fortawesome/pro-solid-svg-icons/faCaretRight';
-library.add(faSearch, faTimes, faMapMarkerAlt, faDotCircle, faCaretLeft, faCaretRight);
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+/*
+        .__    .__.__                                                                              .__
+______ |  |__ |__|  | _____            ___  ____ __   ____             _____ _____  ______ ______ |__| ____    ____
+\____ \|  |  \|  |  | \__  \    ______ \  \/ /  |  \_/ __ \   ______  /     \\__  \ \____ \\____ \|  |/    \  / ___\
+|  |_> >   Y  \  |  |__/ __ \_ /_____/  \   /|  |  /\  ___/  /_____/ |  Y Y  \/ __ \|  |_> >  |_> >  |   |  \/ /_/  >
+|   __/|___|  /__|____(____  /           \_/ |____/  \___  >         |__|_|  (____  /   __/|   __/|__|___|  /\___  /
+|__|        \/             \/                            \/                \/     \/|__|   |__|           \//_____/
+*/
 
 // Leaflet
 import Map_ from './leaflet/Map.vue';
