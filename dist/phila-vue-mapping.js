@@ -1987,7 +1987,7 @@
 	      this.$store.commit('setCandidates', []);
 	    },
 	    handleSearchFormSubmit: function handleSearchFormSubmit() {
-	      console.log('handleSearchFormSubmit is running');
+	      // console.log('handleSearchFormSubmit is running');
 	      var value;
 	      if (this.addressAutocompleteEnabled){
 	        value = addressEntered;

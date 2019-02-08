@@ -204,7 +204,7 @@
         this.$store.commit('setCandidates', []);
       },
       handleSearchFormSubmit() {
-        console.log('handleSearchFormSubmit is running');
+        // console.log('handleSearchFormSubmit is running');
         let value;
         if (this.addressAutocompleteEnabled){
           value = addressEntered
