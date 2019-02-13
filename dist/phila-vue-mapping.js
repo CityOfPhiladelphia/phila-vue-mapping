@@ -23,13 +23,13 @@
 
 	var faDotCircle = createCommonjsModule(function (module, exports) {
 	Object.defineProperty(exports, '__esModule', { value: true });
-	var prefix = 'far';
+	var prefix = 'fas';
 	var iconName = 'dot-circle';
 	var width = 512;
 	var height = 512;
 	var ligatures = [];
 	var unicode = 'f192';
-	var svgPathData = 'M256 56c110.532 0 200 89.451 200 200 0 110.532-89.451 200-200 200-110.532 0-200-89.451-200-200 0-110.532 89.451-200 200-200m0-48C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 168c-44.183 0-80 35.817-80 80s35.817 80 80 80 80-35.817 80-80-35.817-80-80-80z';
+	var svgPathData = 'M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm80 248c0 44.112-35.888 80-80 80s-80-35.888-80-80 35.888-80 80-80 80 35.888 80 80z';
 
 	exports.definition = {
 	  prefix: prefix,
@@ -2996,7 +2996,7 @@
 	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /*# sourceMappingURL=LocationControl.vue.map */"; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 	var methods$2 = Control.methods;
 
-	var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":['far', 'dot-circle']}})],1)])])},staticRenderFns: [],_scopeId: 'data-v-15e73008',
+	var LocationControl = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"leaflet-bar easy-button-container leaflet-control"},[_c('button',{on:{"click":_vm.handleLocationButtonClick}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":"dot-circle"}})],1)])])},staticRenderFns: [],_scopeId: 'data-v-15e73008',
 	  name: 'LocationControl',
 	  props: [
 	    'position'
@@ -3164,7 +3164,7 @@
 	  })
 	};
 
-	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" /* <style lang=\"scss\" scoped> */ .icon-div[data-v-0ccfd0f0] { margin: 10px; } .text-div[data-v-0ccfd0f0] { } .street-view-image[data-v-0ccfd0f0] { height: 40px; width: 73px; color: blue; } .openmaps-modal[data-v-0ccfd0f0] { color: rgb(15, 77, 144); width: 97%; height: 80%; padding: 20px; overflow: hidden; position: absolute; top: 70px; left: 10px; background: white; z-index:1000; opacity: 0.85; } /* .modal-content { overflow-y: auto; } */ .openmaps-modal.openmaps-modal--open[data-v-0ccfd0f0]{ z-index:1000; /* border-left: 3px solid color(ghost-gray); */ opacity: 1; } .openmaps-modal-content[data-v-0ccfd0f0]{ width: 95%; height: 85%; margin: 20px auto; overflow-y: auto; } .openmaps-modal-close[data-v-0ccfd0f0]{ position: absolute; top:15px; left:15px; background: white; height: 30px; width: 30px; } /* @include breakpoint(medium down) { .openmaps-modal{ position:fixed; width: 100%; height:calc(100vh - #{$header-height-mobile}); left:0; top: $header-height-mobile; background: $white; padding:10%; } .openmaps-modal-content{ width: 100%; } .openmaps-modal-close{ position: absolute; top:15px; left:15px; } } */ "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
+	(function(){ if(typeof document !== 'undefined'){ var head=document.head||document.getElementsByTagName('head')[0], style=document.createElement('style'), css=" .icon-div[data-v-0ccfd0f0] { margin: 10px; } .street-view-image[data-v-0ccfd0f0] { height: 40px; width: 73px; color: blue; } .openmaps-modal[data-v-0ccfd0f0] { color: rgb(15, 77, 144); width: 97%; height: 80%; padding: 20px; overflow: hidden; position: absolute; top: 70px; left: 10px; background: white; z-index:1000; opacity: 0.85; } .openmaps-modal.openmaps-modal--open[data-v-0ccfd0f0]{ z-index:1000; opacity: 1; } .openmaps-modal-content[data-v-0ccfd0f0]{ width: 95%; height: 85%; margin: 20px auto; overflow-y: auto; } .openmaps-modal-close[data-v-0ccfd0f0]{ position: absolute; top:15px; left:15px; background: white; height: 30px; width: 30px; } "; style.type='text/css'; if (style.styleSheet){ style.styleSheet.cssText = css; } else { style.appendChild(document.createTextNode(css)); } head.appendChild(style); } })();
 
 
 
@@ -3265,23 +3265,10 @@
 
 
 
-	// import {mapState} from 'vuex'
-	// import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-	/**
-	 * HOW TO USE THE FINDER MODAL
-	 *
-	 * Hightlights certain elements of the interface on keyword hover.
-	 *
-	 * @since 0.6.22
-	 */
+
 	var ModalAbout = {render: function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('section',{directives:[{name:"show",rawName:"v-show",value:(_vm.modals.open === 'help'),expression:"modals.open === 'help'"}],class:['openmaps-about' ,'openmaps-modal']},[_c('div',{staticClass:"openmaps-modal-close",on:{"click":_vm.closeModal}},[_c('span',{staticClass:"button-state state-unnamed-state unnamed-state-active"},[_c('font-awesome-icon',{staticClass:"fa-lg",attrs:{"icon":"times","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('div',{staticClass:"openmaps-modal-content"},[_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"filter","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(1)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"check-square","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(2)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":['fal', 'square'],"aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(3)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.label-text');},"mouseleave":function($event){_vm.removeHighlight('.label-text');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"map-marker-alt","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(4)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"search","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(5)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('img',{staticClass:"street-view-image",attrs:{"src":'images/cyclomedia_blue.png'}})])]),_vm._v(" "),_vm._m(6)]),_vm._v(" "),_c('div',{staticClass:"tour-tip",on:{"mouseover":function($event){_vm.highlight('.openmaps-category-card');},"mouseleave":function($event){_vm.removeHighlight('.openmaps-category-card');}}},[_c('div',{staticClass:"icon-div"},[_c('span',[_c('font-awesome-icon',{staticClass:"fa-3x",attrs:{"icon":"info-circle","aria-hidden":"true"}})],1)]),_vm._v(" "),_vm._m(7)])])])},staticRenderFns: [function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('h2',{staticClass:"text-center"},[_c('b',[_vm._v("How to use OpenMaps")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Filter the list of layers available in the left panel.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Type in the box for the first filter to filter by text. Select a category from the second filter to filter by category.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Toggle on and off map layers by clicking on the checkboxes in the layer panel.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("You can toggle on as many layers as you want, and they will all show on the map.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("If a checkbox is grayed out, zoom in further on the map and it will become active.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Many of the layers will not show when the map is zoomed out too far.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Click on any feature that appears on the map to get a popup with that feature's info.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("If you have turned on overlapping layers, you will be able to click through multiple popups of info.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Search for an address or intersection.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("The map will move to the location that you have searched")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Toggle on and off street view")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Half of the map panel will be taken up by the street view. If you are zoomed in far enough, circles will appear along the streets in the map. Click on a circle to change the street view location to that point.")])])},function(){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"text-div"},[_c('p',{staticClass:"tour-tip__action"},[_c('b',[_vm._v("Learn more about and download data.")])]),_vm._v(" "),_c('p',{staticClass:"tour-tip__result text-nopad"},[_vm._v("Click this icon to be linked to the metadata page for any dataset.")])])}],_scopeId: 'data-v-0ccfd0f0',
-
 	  name: 'ModalAbout',
-	  // components: {FontAwesomeIcon},
 	  computed: {
-	    // route() {
-	    //   return this.$store.state.route;
-	    // },
 	    shouldBeOpen: function shouldBeOpen() {
 	      if (this.route === 'help') {
 	        return true;
@@ -3292,7 +3279,6 @@
 	    modals: function modals() {
 	      return this.$store.state.modals;
 	    }
-	    // ...mapState(['modals'])
 	  },
 	  methods: {
 	    closeModal: function closeModal () {
@@ -3309,15 +3295,12 @@
 	        lastHash = lastHash + '/' + hashPart;
 	      }
 	      window.location.hash = lastHash;
-	      // this.$store.commit('setDidToggleModal', { name: 'help', open: false });
 	    },
 	    highlight: function highlight (selector) {
 	      var el = document.querySelectorAll(selector)[0];
-	      // el.classList.add('tour-highlight')
 	    },
 	    removeHighlight: function removeHighlight (selector) {
 	      var el = document.querySelectorAll(selector)[0];
-	      // el.classList.remove('tour-highlight')
 	    }
 	  }
 	};
