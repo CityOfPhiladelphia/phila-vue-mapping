@@ -9,9 +9,9 @@
   },
   "main": "./dist/phila-vue-mapping.js",
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.8",
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
-    "@fortawesome/vue-fontawesome": "^0.1.2",
+    "@fortawesome/vue-fontawesome": "^0.1.5",
     "@turf/turf": "^5.1.6",
     "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#5849bfa6248a886d8675eeff98fa9dff4949f12a",
     "Leaflet.vector-markers": "^0.0.6",
