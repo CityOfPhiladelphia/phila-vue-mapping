@@ -1,7 +1,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@fortawesome/fontawesome-svg-core'), require('@fortawesome/vue-fontawesome'), require('esri-leaflet'), require('L-esri-WebMap'), require('lodash.debounce'), require('leaflet-vector-icon'), require('leaflet-measure'), require('axios'), require('leaflet'), require('proj4'), require('jquery'), require('blueimp-md5')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@fortawesome/fontawesome-svg-core', '@fortawesome/vue-fontawesome', 'esri-leaflet', 'L-esri-WebMap', 'lodash.debounce', 'leaflet-vector-icon', 'leaflet-measure', 'axios', 'leaflet', 'proj4', 'jquery', 'blueimp-md5'], factory) :
-	(factory((global.philaVueMapping = {}),global.fontawesomeSvgCore,global.vueFontAwesome,global.L.esri,global.LEsriWebMap,global.debounce,global.leafletVectorIcon,global.L.Control.Measure,global.axios,global.L,global.proj4,global.$,global.md5));
+	(factory((global.philaVueMapping = {}),global.FontAwesome,global.vueFontAwesome,global.L.esri,global.LEsriWebMap,global.debounce,global.leafletVectorIcon,global.L.Control.Measure,global.axios,global.L,global.proj4,global.$,global.md5));
 }(this, (function (exports,fontawesomeSvgCore,vueFontawesome,esriLeaflet,LEsriWebMap,debounce,VectorIcon,MeasureControl,axios,L$1,proj4,$$1,md5) { 'use strict';
 
 	debounce = debounce && debounce.hasOwnProperty('default') ? debounce['default'] : debounce;

@@ -49,7 +49,7 @@ export default {
       '@turf/distance': 'turf.distance',
       '@turf/area': 'turf.area',
       '@fortawesome/vue-fontawesome':'vueFontAwesome',
-      '@fortawesome/fontawesome-svg-core': 'fontawesomeSvgCore'
+      '@fortawesome/fontawesome-svg-core': 'FontAwesome'
     },
     sourcemap: true,
   },
