@@ -2,7 +2,7 @@
   <div class="leaflet-bar easy-button-container leaflet-control">
     <button @click="handleLocationButtonClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <font-awesome-icon icon="dot-circle" class="fa-lg" />
+        <font-awesome-icon :icon="this.computedIcon" class="fa-lg"></font-awesome-icon>
       </span>
     </button>
   </div>
@@ -20,6 +20,20 @@
     data() {
       return {
         locationOn: false
+      }
+    },
+    computed: {
+      computedIcon() {
+        if (this.$config.geolocation) {
+          if (this.$config.geolocation.icon) {
+            return this.$config.geolocation.icon;
+          } else {
+            return 'dot-circle';
+          }
+
+        } else {
+          return 'dot-circle';
+        }
       }
     },
     methods: Object.assign(methods, {
