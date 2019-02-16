@@ -11,7 +11,7 @@ before_deploy:
   # - echo "Will push to S3 bucket $S3_BUCKET."
 deploy:
   - provider: npm
-    email: "maps@phila.gov"
+    email: "phillypackage@gmail.com"
     api_key: $NPM_AUTH_TOKEN
     skip_cleanup: true
     on:

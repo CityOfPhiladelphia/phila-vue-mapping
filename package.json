@@ -1,5 +1,5 @@
 {
-  "name": "@cityofphiladelphia/phila-vue-mapping",
+  "name": "@philly/vue-mapping",
   "description": "A Vue.js component for data-rich web mapping",
   "version": "1.0.17",
   "author": "City of Philadelphia <maps@phila.gov>",
