@@ -306,6 +306,8 @@
   background: #2176d2;
   padding: 0px;
   width: 50px;
+  margin-left: 1.5px;
+  margin-right: 1.5px;
 }
 
 .pvm-button-non-mobile {
