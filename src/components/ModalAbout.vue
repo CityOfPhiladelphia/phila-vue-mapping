@@ -99,23 +99,10 @@
 </template>
 
 <script>
-// import {mapState} from 'vuex'
-// import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-/**
- * HOW TO USE THE FINDER MODAL
- *
- * Hightlights certain elements of the interface on keyword hover.
- *
- * @since 0.6.22
- */
-export default {
 
+export default {
   name: 'ModalAbout',
-  // components: {FontAwesomeIcon},
   computed: {
-    // route() {
-    //   return this.$store.state.route;
-    // },
     shouldBeOpen() {
       if (this.route === 'help') {
         return true;
@@ -126,7 +113,6 @@ export default {
     modals() {
       return this.$store.state.modals;
     }
-    // ...mapState(['modals'])
   },
   methods: {
     closeModal () {
@@ -141,29 +127,21 @@ export default {
         lastHash = lastHash + '/' + hashPart;
       }
       window.location.hash = lastHash;
-      // this.$store.commit('setDidToggleModal', { name: 'help', open: false });
     },
     highlight (selector) {
       let el = document.querySelectorAll(selector)[0]
-      // el.classList.add('tour-highlight')
     },
     removeHighlight (selector) {
       let el = document.querySelectorAll(selector)[0]
-      // el.classList.remove('tour-highlight')
     }
   }
 }
 </script>
 
 <style scoped>
-/* <style lang="scss" scoped> */
 
 .icon-div {
   margin: 10px;
-}
-
-.text-div {
-
 }
 
 .street-view-image {
@@ -186,13 +164,8 @@ export default {
   opacity: 0.85;
 }
 
-/* .modal-content {
-  overflow-y: auto;
-} */
-
 .openmaps-modal.openmaps-modal--open{
   z-index:1000;
-  /* border-left: 3px solid color(ghost-gray); */
   opacity: 1;
 }
 
@@ -211,26 +184,5 @@ export default {
   height: 30px;
   width: 30px;
 }
-
-
-/* @include breakpoint(medium down) {
-  .openmaps-modal{
-    position:fixed;
-    width: 100%;
-    height:calc(100vh - #{$header-height-mobile});
-    left:0;
-    top: $header-height-mobile;
-    background: $white;
-    padding:10%;
-  }
-  .openmaps-modal-content{
-    width: 100%;
-  }
-  .openmaps-modal-close{
-    position: absolute;
-    top:15px;
-    left:15px;
-  }
-} */
 
 </style>
