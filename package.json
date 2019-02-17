@@ -1,7 +1,7 @@
 {
-  "name": "@cityofphiladelphia/phila-vue-mapping",
+  "name": "@philly/vue-mapping",
   "description": "A library of vue components for data-rich web mapping",
-  "version": "1.0.13",
+  "version": "1.0.17",
   "author": "City of Philadelphia <maps@phila.gov>",
   "scripts": {
     "serve": "vue-cli-service serve",
