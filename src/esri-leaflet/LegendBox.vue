@@ -9,7 +9,11 @@
 <script>
   import TopicComponent from './TopicComponent.vue';
   import L from 'leaflet';
-  import { legendControl as LegendControl } from 'esri-leaflet';
+  import * as esri from 'esri-leaflet'
+  console.log('esri:', esri)
+  L.esri = esri;
+  // import { legendControl as LegendControl } from 'esri-leaflet';
+  // console.log('LegendControl:', LegendControl);
 
   export default {
     props: ['layer',
@@ -67,8 +71,8 @@
           drawingInfo
         }
         console.log('LegendBox initialize is running:', this.$props.layer, opts);
-        // const legend = L.esri.legendControl(this.$props.layer, opts);
-        const legend = LegendControl(this.$props.layer, opts);
+        const legend = L.esri.legendControl(this.$props.layer, opts);
+        // const legend = LegendControl(this.$props.layer, opts);
       },
       createLegend(scale) {
         const legend = this.$props.legend;
