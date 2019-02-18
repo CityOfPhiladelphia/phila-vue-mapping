@@ -5,7 +5,7 @@
   />
 </template>
 <script>
-  import * as L from 'leaflet';
+  // import * as L from 'leaflet';
   import { dynamicMapLayer as DynamicMapLayer } from 'esri-leaflet';
   // TODO things in esri-leaflet should be standalone and not depend on
   // vue-leaflet-esri components. pass this in as a prop/plugin rather than importing.
