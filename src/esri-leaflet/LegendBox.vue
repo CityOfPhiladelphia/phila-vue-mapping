@@ -10,9 +10,9 @@
   import TopicComponent from './TopicComponent.vue';
   import L from 'leaflet';
   console.log('L:', L);
-  // import * as esri from 'esri-leaflet'
-  // console.log('esri:', esri)
-  // L.esri = esri;
+  import * as esri from 'esri-leaflet'
+  console.log('esri:', esri)
+  L.esri = esri;
   import 'esri-leaflet-legend/dist/esri-leaflet-legend-compat-src-edit.js';
   // console.log('esriLeafletLegend:', esriLeafletLegend);
   // import { legendControl as LegendControl } from 'esri-leaflet';
