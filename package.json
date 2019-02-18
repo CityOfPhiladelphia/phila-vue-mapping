@@ -10,6 +10,7 @@
   "main": "./dist/phila-vue-mapping.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-regular-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "@turf/turf": "^5.1.6",
