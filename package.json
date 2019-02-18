@@ -1,7 +1,7 @@
 {
   "name": "@philly/vue-mapping",
   "description": "A Vue.js component for data-rich web mapping",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "author": "City of Philadelphia <maps@phila.gov>",
   "scripts": {
     "build": "rollup -c rollup.config.js",
