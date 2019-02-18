@@ -3437,9 +3437,10 @@ lcid@^1.0.0:
   dependencies:
     invert-kv "^1.0.0"
 
-leaflet-easybutton@^2.2.2:
+leaflet-easybutton@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/leaflet-easybutton/-/leaflet-easybutton-2.4.0.tgz#3ad8ad31c9cf6d5ca7a6a1988f82eed13ff2c1af"
+  integrity sha512-O+qsQq4zTF6ds8VClnytobTH/MKalctlPpiA8L+bNKHP14J3lgJpvEd/jSpq9mHTI6qOzRAvbQX6wS6qNwThvg==
   dependencies:
     leaflet "^1.0.1"
 
@@ -3474,9 +3475,9 @@ leaflet-shape-markers@^1.0.4:
   dependencies:
     leaflet "^1.0.0"
 
-"leaflet-vector-icon@https://github.com/CityOfPhiladelphia/leaflet-vector-icon#74a56f048bceccef9c945f752bbd0379ae9dc77c":
+"leaflet-vector-icon@https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5":
   version "1.0.0"
-  resolved "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#74a56f048bceccef9c945f752bbd0379ae9dc77c"
+  resolved "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5"
 
 leaflet-vectoricon@^0.1.0:
   version "0.1.0"
