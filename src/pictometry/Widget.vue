@@ -6,7 +6,7 @@
          @click="this.popoutClicked"
          v-if="this.isMobileOrTablet === false"
     >
-      <font-awesome-icon icon="external-link" class="popout-icon" />
+      <font-awesome-icon icon="external-link-alt" class="popout-icon" />
     </div>
     <iframe id="pictometry-ipa"
             src="#"
