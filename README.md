@@ -1,4 +1,4 @@
-# phila-vue-mapping
+# phila-vue-mapping ([@philly/vue-mapping](https://www.npmjs.com/package/@philly/vue-mapping) in [npmjs.com](https://npmjs.com))
 
 phila-vue-mapping is a library of Vue components that can be used in mapping apps which use [Vue.js](https://vuejs.org/v2/guide/) and [Vuex](https://vuex.vuejs.org/).  It includes many mapping components such as [Maps](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/Map), [ESRI WebMaps](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/EsriWebMap), and [Cyclomedia Widgets](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/CyclomediaWidget), etc.
 
@@ -7,11 +7,11 @@ phila-vue-mapping is a library of Vue components that can be used in mapping app
 ## To Include The Components In Your App
 * in a bundled app, use npm:
 
-    `npm install phila-vue-mapping`
+    `npm install @philly/vue-mapping`
 
 * in an html file, use the CDN:
 
-    `<script src="//unpkg.com/@cityofphiladelphia/phila-vue-mapping@0.0.8/dist/phila-vue-mapping.js"></script>`
+    `<script src="//unpkg.com/@philly/vue-mapping@1.0.19/dist/phila-vue-mapping.js"></script>`
 
 
 ## Usage
