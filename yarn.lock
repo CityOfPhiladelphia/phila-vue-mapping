@@ -629,6 +629,18 @@
     cssnano-preset-default "^4.0.0"
     postcss "^7.0.0"
 
+"@mapbox/leaflet-omnivore@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@mapbox/leaflet-omnivore/-/leaflet-omnivore-0.3.4.tgz#d8255eb981549cac421ccf9c1a56a78f6a350346"
+  dependencies:
+    brfs "1.4.3"
+    corslite "0.0.7"
+    csv2geojson "~5.0.0"
+    polyline "0.2.0"
+    togeojson "0.13.0"
+    topojson "1.6.26"
+    wellknown "0.4.2"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2040,6 +2052,10 @@
     leaflet-vectoricon "^0.1.0"
     leaflet.heat "^0.1.3"
     moment "^2.18.1"
+
+"Leaflet-PointInPolygon@https://github.com/hayeswise/Leaflet.PointInPolygon#7a7c7df3d5ccef184c6720c696fa54fde5a0b4e9":
+  version "0.0.0"
+  resolved "https://github.com/hayeswise/Leaflet.PointInPolygon#7a7c7df3d5ccef184c6720c696fa54fde5a0b4e9"
 
 Leaflet.vector-markers@^0.0.6:
   version "0.0.6"
