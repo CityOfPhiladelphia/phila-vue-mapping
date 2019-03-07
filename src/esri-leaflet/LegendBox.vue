@@ -80,7 +80,7 @@
         }
         console.log('LegendBox initialize is running:', this.$props.layer, opts, 'L.esri:', L.esri);
         // const legend = esriLeafletLegend(this.$props.layer, opts);
-        // const legend = L.esri.legendControl(this.$props.layer, opts);
+        const legend = L.esri.legendControl(this.$props.layer, opts);
         // const legend = LegendControl(this.$props.layer, opts);
       },
       createLegend(scale) {
