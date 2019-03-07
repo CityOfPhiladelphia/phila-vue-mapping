@@ -20,7 +20,7 @@
     "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
     "esri-leaflet": "^2.2.3",
-    "esri-leaflet-legend": "https://github.com/ajrothwell/esri-leaflet-legend#f275e4bf4495931712fb11b4dd8b895129ce5308",
+    "esri-leaflet-legend": "https://github.com/ajrothwell/esri-leaflet-legend#d4707975b74477aad48c0f422224eb938424d9ef",
     "esri-leaflet-renderers": "^2.0.6",
     "jquery": "^3.3.1",
     "leaflet": "^1.4.0",
