@@ -42,7 +42,7 @@
       </label>
       <!-- <div class="layer-name">{{layerName}}</div> -->
     </div>
-    <!-- <legend-box v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
+    <legend-box v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
                 :layer="layer"
                 :layerName="layerName"
                 :layerId="layerId"
@@ -50,7 +50,7 @@
                 :legend="legend"
                 :scales="this.$config.map.scales"
       >
-    </legend-box> -->
+    </legend-box>
     <slider v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
             :layer="layer"
             :layerName="layerName"
@@ -63,12 +63,12 @@
 
 <script>
   import TopicComponent from './TopicComponent.vue';
-  // import LegendBox from './LegendBox.vue';
+  import LegendBox from './LegendBox.vue';
   import Slider from './Slider.vue';
 
   export default {
     components: {
-      // LegendBox,
+      LegendBox,
       Slider
     },
     props: ['layer',
