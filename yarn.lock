@@ -3887,9 +3887,9 @@ esri-leaflet-heatmap-feature-layer@^2.0.0-beta.1:
     leaflet "^1.0.0-beta.1"
     leaflet.heat "^0.1.3"
 
-"esri-leaflet-legend@https://github.com/ajrothwell/esri-leaflet-legend#6a3e21ce3b3ba146bc4105adb659d6b37029db53":
+"esri-leaflet-legend@https://github.com/ajrothwell/esri-leaflet-legend#01f42e9f458bbd4fd532d29666abab662c55a175":
   version "2.0.1"
-  resolved "https://github.com/ajrothwell/esri-leaflet-legend#6a3e21ce3b3ba146bc4105adb659d6b37029db53"
+  resolved "https://github.com/ajrothwell/esri-leaflet-legend#01f42e9f458bbd4fd532d29666abab662c55a175"
   dependencies:
     esri-leaflet "^2.2.3"
     leaflet "^1.4.0"
