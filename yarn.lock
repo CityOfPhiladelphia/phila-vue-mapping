@@ -2038,9 +2038,9 @@
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/JSV/-/JSV-4.0.2.tgz#d077f6825571f82132f9dffaed587b4029feff57"
 
-"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#0d41ca53c94143bdb060cdd5572eee4b62a23292":
+"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#830bab539f8c1b6dab3751ea295ab523734c08dc":
   version "0.4.0"
-  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#0d41ca53c94143bdb060cdd5572eee4b62a23292"
+  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#830bab539f8c1b6dab3751ea295ab523734c08dc"
   dependencies:
     arcgis-to-geojson-utils "^1.0.1"
     date-fns "^1.30.1"
