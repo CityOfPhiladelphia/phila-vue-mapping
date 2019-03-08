@@ -14,7 +14,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "@mapbox/leaflet-omnivore": "^0.3.4",
     "@turf/turf": "^5.1.6",
-    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#ba31634ba6d78c6441f51346929aa431e17c827d",
+    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#b4af612b56865d723953710955b8ae3d4c3615b9",
     "Leaflet-PointInPolygon": "https://github.com/hayeswise/Leaflet.PointInPolygon#7a7c7df3d5ccef184c6720c696fa54fde5a0b4e9",
     "Leaflet.vector-markers": "^0.0.6",
     "axios": "^0.18.0",
