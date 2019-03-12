@@ -291,7 +291,7 @@
 #cyclo-container {
   padding: 0px;
   height: 50%;
-  display: none;
+  /* display: none; */
 }
 
 @media screen and (min-width: 46.875em) {
@@ -328,7 +328,7 @@
 
 @media screen and (max-width: 46.875em) {
   .cyclo-container {
-    display: none;
+    /* display: none; */
   }
 }
 
