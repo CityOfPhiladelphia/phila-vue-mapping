@@ -184,6 +184,9 @@
       },
       setNewLocation(coords) {
         // console.log('cyclomedia setNewLocation is running using', coords);
+        if (!coords) {
+          return;
+        }
         const viewerType = StreetSmartApi.ViewerType.PANORAMA;
         const coords2272 = proj4(this.projection4326, this.projection2272, [coords[1], coords[0]]);
         // StreetSmartApi.open(center.lng + ',' + center.lat, {
