@@ -31,13 +31,13 @@
     "lodash-es": "^4.17.11",
     "phila-standards": "^1.0.2",
     "proj4": "^2.5.0",
-    "vue": "^2.6.8",
+    "vue": "^2.6.9",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.5",
     "@vue/cli-service": "^3.0.5",
-    "vue-template-compiler": "^2.6.8",
+    "vue-template-compiler": "^2.6.9",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "postcss": {
