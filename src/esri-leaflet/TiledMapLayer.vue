@@ -1,5 +1,5 @@
 <script>
-  import * as L from 'leaflet';
+  // import * as L from 'leaflet';
   import { tiledMapLayer as TiledMapLayer } from 'esri-leaflet';
 
   export default {

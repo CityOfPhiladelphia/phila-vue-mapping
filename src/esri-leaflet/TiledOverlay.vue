@@ -10,7 +10,7 @@ slider in a slot? -->
 </template>
 
 <script>
-  import * as L from 'leaflet';
+  // import * as L from 'leaflet';
   import { tiledMapLayer as TiledMapLayer } from 'esri-leaflet';
   import OpacitySlider from '../components/OpacitySlider.vue';
 

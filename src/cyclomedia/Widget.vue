@@ -184,6 +184,9 @@
       },
       setNewLocation(coords) {
         // console.log('cyclomedia setNewLocation is running using', coords);
+        if (!coords) {
+          return;
+        }
         const viewerType = StreetSmartApi.ViewerType.PANORAMA;
         const coords2272 = proj4(this.projection4326, this.projection2272, [coords[1], coords[0]]);
         // StreetSmartApi.open(center.lng + ',' + center.lat, {
@@ -291,7 +294,7 @@
 #cyclo-container {
   padding: 0px;
   height: 50%;
-  display: none;
+  /* display: none; */
 }
 
 @media screen and (min-width: 46.875em) {
@@ -328,7 +331,7 @@
 
 @media screen and (max-width: 46.875em) {
   .cyclo-container {
-    display: none;
+    /* display: none; */
   }
 }
 

@@ -30,7 +30,6 @@
           } else {
             return 'dot-circle';
           }
-
         } else {
           return 'dot-circle';
         }

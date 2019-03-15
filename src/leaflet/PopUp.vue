@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import * as L from 'leaflet';
+  import { Popup, Point } from 'leaflet';
   export default {
     name: 'PopUp',
     mounted() {
@@ -43,9 +43,9 @@
         this.$store.commit('setIntersectingFeatures', []);
       },
       createLeafletElement() {
-        const popup = L.popup({
+        const popup = new Popup({
           minWidth: 300,
-          offset: L.point(0, -24)
+          offset: new Point(0, -24)
         }).setLatLng(this.popupCoords)
           .setContent(this.$children[0].$el)
           .openOn(this._map);

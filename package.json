@@ -1,53 +1,53 @@
 {
   "name": "@philly/vue-mapping",
-  "description": "A Vue.js component for data-rich web mapping",
-  "version": "1.0.19",
+  "description": "A library of vue components for data-rich web mapping",
+  "version": "1.0.20",
   "author": "City of Philadelphia <maps@phila.gov>",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "dev": "yarn build -w"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
-  "main": "./dist/phila-vue-mapping.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-regular-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
+    "@mapbox/leaflet-omnivore": "^0.3.4",
     "@turf/turf": "^5.1.6",
-    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#5849bfa6248a886d8675eeff98fa9dff4949f12a",
+    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#830bab539f8c1b6dab3751ea295ab523734c08dc",
+    "Leaflet-PointInPolygon": "https://github.com/hayeswise/Leaflet.PointInPolygon#7a7c7df3d5ccef184c6720c696fa54fde5a0b4e9",
     "Leaflet.vector-markers": "^0.0.6",
     "axios": "^0.18.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-3": "^6.24.1",
     "blueimp-md5": "^2.10.0",
     "esri-leaflet": "^2.2.3",
+    "esri-leaflet-legend": "https://github.com/ajrothwell/esri-leaflet-legend#8d42cbc1ed71c630fd8f9c6795877b5f7498b49f",
+    "esri-leaflet-renderers": "^2.0.6",
     "jquery": "^3.3.1",
     "leaflet": "^1.4.0",
     "leaflet-easybutton": "^2.3.0",
     "leaflet-measure": "https://github.com/CityOfPhiladelphia/leaflet-measure#b70886af342f19597dc2937d79d64bad6bab07c6",
     "leaflet-rotatedmarker": "^0.2.0",
     "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5",
-    "lodash.debounce": "^4.0.8",
+    "lodash-es": "^4.17.11",
     "phila-standards": "^1.0.2",
     "proj4": "^2.5.0",
-    "vue": "^2.5.22",
+    "vue": "^2.6.9",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "rollup": "^0.67.3",
-    "rollup-analyzer-plugin": "^1.1.1",
-    "rollup-plugin-buble": "^0.19.2",
-    "rollup-plugin-commonjs": "^9.1.0",
-    "rollup-plugin-copy": "^0.2.3",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-globals": "^1.2.0",
-    "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^3.0.0",
-    "rollup-plugin-vue": "^3.0.0",
-    "vue-template-compiler": "^2.5.22"
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
+    "vue-template-compiler": "^2.6.9",
+    "webpack-visualizer-plugin": "^0.1.11"
   },
-  "publishConfig": {
-    "access": "public"
-  }
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ]
 }

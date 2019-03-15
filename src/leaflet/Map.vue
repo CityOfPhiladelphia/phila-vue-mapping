@@ -4,7 +4,7 @@
     <div class="map"
          ref="map"
          id="map"
-    />
+    >
       <div>
         <slot />
       </div>
@@ -252,7 +252,8 @@
   }
 
   .map-container-type2 {
-    height: calc(100vh - 109px);
+    height: 100%;
+    /* height: calc(100vh - 109px); */
   }
 
   .map {
@@ -268,7 +269,8 @@
   /* @media screen and (max-width: 40em) { */
   @media screen and (max-width: 750px) {
     .map-container-type2 {
-      height: calc(100vh - 141px);
+      height: 100%;
+      /* height: calc(100vh - 141px); */
     }
   }
 </style>
