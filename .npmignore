@@ -4,4 +4,4 @@ npm-debug.log
 yarn-error.log
 src/config.js
 src/util/streetsmart.js
-.npmrc
+dist/
