@@ -13,7 +13,6 @@
             ref="pictometryIpa"
     >
     </iframe>
-    <!-- </div> -->
     <div>
       <slot />
     </div>
@@ -21,7 +20,6 @@
 </template>
 
 <script>
-  import $ from 'jquery';
   import md5 from 'blueimp-md5';
 
   export default {
@@ -37,7 +35,8 @@
       // fetch pictometry ipa script
       const scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.apiKey;
       const self = this;
-      $.getScript(scriptUrl, self.init);
+      // console.log('Pict Widget mounted is running, scriptUrl:', scriptUrl);
+      this.getScript(scriptUrl, self.init);
     },
     computed: {
       isMobileOrTablet() {
@@ -54,18 +53,9 @@
         }
       },
       mapCenter() {
-        // return this.$store.state.geocode.data.geometry.coordinates;
         return this.$store.state.pictometry.map.center;
       },
       mapZoom() {
-        // const mapZoom = this.$store.state.map.zoom;
-        // let zoom;
-        // if (this.cyclomediaActive) {
-        //   zoom = mapZoom
-        // } else {
-        //   zoom = mapZoom + 1;
-        // }
-        // return zoom;
         return this.$store.state.pictometry.map.zoom;
       },
     },
@@ -146,6 +136,22 @@
       }
     },
     methods: {
+      getScript(source, callback) {
+        var script = document.createElement('script');
+        var prior = document.getElementsByTagName('script')[0];
+        script.async = 1;
+
+        script.onload = script.onreadystatechange = (_, isAbort) => {
+            if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+                script.onload = script.onreadystatechange = null;
+                script = undefined;
+                if (!isAbort) if (callback) callback();
+            }
+        };
+
+        script.src = source;
+        prior.parentNode.insertBefore(script, prior);
+      },
       popoutClicked() {
         const map = this.$store.state.map.map;
         const center = map.getCenter();
@@ -153,6 +159,7 @@
         this.$store.commit('setPictometryActive', false);
       },
       init() {
+        // console.log('Pict Widget init is running');
         // construct signed url
         const d = new Date();
         const t = Math.floor(d.getTime() / 1000);
@@ -206,12 +213,6 @@ header.site-header > .row:last-of-type {
   width: 30px;
   height: 30px;
   cursor:pointer;
-  /* float: right; */
-  /*display:none;*/
-  /*z-index: 2000000;*/
-  /*position: relative;
-  top: 0px;
-  right: 0px;*/
 }
 
 .popout-icon {
@@ -232,9 +233,6 @@ header.site-header > .row:last-of-type {
     display: block;
   }
 }
-
-/*#iframe-div {
-}*/
 
 #pictometry-ipa {
   height: 100%;
@@ -274,11 +272,7 @@ header.site-header > .row:last-of-type {
     font-weight: normal;
     height: 70px;
     line-height: 45px;
-    /*margin-left: 10px;*/
-    /*margin-right: 10px;*/
     padding: 10px;
-    /*vertical-align: middle;*/
-    /*text-align: middle;*/
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     margin-bottom: 8px;
 }
@@ -308,9 +302,5 @@ header.site-header > .row:last-of-type {
     height: 50%;
     position: relative;
   }
-
-  /*#iframe-div {
-  }*/
-
 
 </style>
