@@ -69,6 +69,12 @@
     },
     methods: {
       setDivHeight(dim) {
+        if (this.$config.plugin) {
+          if (this.$config.plugin.enabled === true) {
+            this.buttonPosition = (this.$config.plugin.height-48)/2 + 'px';
+            return;
+          }
+        }
         if (!this.picOrCycloActive) {
           this.buttonPosition = (dim.height-48)/2 + 'px';
         } else {
