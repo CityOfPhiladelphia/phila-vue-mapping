@@ -1,6 +1,6 @@
 <script>
   import MeasureControl from 'leaflet-measure';
-  // import 'leaflet-measure/dist/leaflet-measure.css';
+  import 'leaflet-measure/dist/leaflet-measure.css';
 
   export default {
     name: 'MeasureControl',

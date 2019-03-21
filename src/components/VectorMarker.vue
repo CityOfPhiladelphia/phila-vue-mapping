@@ -1,6 +1,7 @@
 <script>
   import { Marker } from 'leaflet';
   import VectorIcon from 'leaflet-vector-icon';
+  import 'leaflet-vector-icon/dist/leaflet-vector-icon.css';
 
   export default {
     name: 'VectorMarker',

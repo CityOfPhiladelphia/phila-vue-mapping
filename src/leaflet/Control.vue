@@ -15,6 +15,7 @@ isn't there?
 
 <script>
   import * as L from 'leaflet';
+  import 'leaflet-easybutton/src/easy-button.css';
 
   export default {
     name: 'Control',
