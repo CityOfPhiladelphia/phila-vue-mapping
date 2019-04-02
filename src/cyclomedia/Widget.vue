@@ -173,9 +173,11 @@
         this.divWidth = divWidth;
         // console.log('setDivWidth is running, docWidth:', docWidth, 'divWidth', divWidth);
         let answer;
-        if (this.fullScreenMapEnabled) {
+        if (this.fullScreenMapEnabled || docWidth < 750) {
+          console.log('setDivWidth is running, first option')
           answer = docWidth - divWidth + 'px';
         } else {
+          console.log('setDivWidth is running, second option')
           answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
         }
         // console.log('setDivWidth, answer:', answer);
@@ -289,7 +291,7 @@
   };
 </script>
 
-<style>
+<style scoped>
 
 #cyclo-container {
   padding: 0px;
@@ -300,6 +302,12 @@
 @media screen and (min-width: 46.875em) {
   #cyclo-container {
     display: block;
+  }
+}
+
+@media (max-width: 749px) {
+  #cyclo-container {
+    height: 200px;
   }
 }
 

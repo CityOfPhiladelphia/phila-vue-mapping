@@ -63,6 +63,9 @@
     created() {
       window.addEventListener('resize', this.handleWindowResize);
       this.handleWindowResize();
+      if (this.$config.defaultAddress) {
+        this.addressEntered = this.$config.defaultAddress;
+      }
     },
     watch: {
       addressEntered(nextValue) {

@@ -224,13 +224,19 @@ header.site-header > .row:last-of-type {
 #pict-container {
   padding: 0px;
   height: 50%;
-  position: relative;
-  display: none;
+  /* position: relative; */
+  /* display: none; */
 }
 
 @media screen and (min-width: 46.875em) {
   #pict-container {
     display: block;
+  }
+}
+
+@media (max-width: 749px) {
+  #pict-container {
+    height: 200px !important;
   }
 }
 
