@@ -24,16 +24,12 @@
 
   export default {
     name: 'PictometryWidget',
-    props: [
-      'apiKey',
-      'secretKey',
-    ],
     created() {
       this.$IFRAME_ID = 'pictometry-ipa';
     },
     mounted() {
       // fetch pictometry ipa script
-      const scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.apiKey;
+      const scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.$config.pictometry.apiKey;
       const self = this;
       // console.log('Pict Widget mounted is running, scriptUrl:', scriptUrl);
       this.getScript(scriptUrl, self.init);
@@ -163,8 +159,8 @@
         // construct signed url
         const d = new Date();
         const t = Math.floor(d.getTime() / 1000);
-        const unsignedUrl = 'https://pol.pictometry.com/ipa/v1/load.php' + "?apikey=" + this.apiKey + "&ts=" + t;
-        const hash = md5(unsignedUrl, this.secretKey);
+        const unsignedUrl = 'https://pol.pictometry.com/ipa/v1/load.php' + "?apikey=" + this.$config.pictometry.apiKey + "&ts=" + t;
+        const hash = md5(unsignedUrl, this.$config.pictometry.secretKey);
         const iframeId = this.$IFRAME_ID;
         const signedUrl = unsignedUrl + "&ds=" + hash + "&app_id=" + iframeId;
 
@@ -175,7 +171,6 @@
 
         // create pictometry host
         const ipa = this.$ipa = new PictometryHost(iframeId, 'https://pol.pictometry.com/ipa/v1/load.php');
-        // console.log('PictometryWidget init ipa:', ipa);
         this.$store.commit('setPictometryIpa', ipa);
         ipa.ready = this.ipaReady;
       },
@@ -189,7 +184,6 @@
         const self = this;
 
         this.$ipa.addListener('onendzoom', function(zoom) {
-          // console.log('widget: ipa detected zoom change to', zoom);
           self.$store.commit('setPictometryZoom', zoom.level);
         })
       },
