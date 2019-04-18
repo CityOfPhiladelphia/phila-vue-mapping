@@ -174,10 +174,10 @@
         // console.log('setDivWidth is running, docWidth:', docWidth, 'divWidth', divWidth);
         let answer;
         if (this.fullScreenMapEnabled || docWidth < 750) {
-          console.log('setDivWidth is running, first option')
+          // console.log('setDivWidth is running, first option')
           answer = docWidth - divWidth + 'px';
         } else {
-          console.log('setDivWidth is running, second option')
+          // console.log('setDivWidth is running, second option')
           answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
         }
         // console.log('setDivWidth, answer:', answer);
