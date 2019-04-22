@@ -59,7 +59,9 @@
     },
     created() {
       const leafletElement = this.$leafletElement = this.layer;
+      // console.log('this.layer:', this.layer);
       if (this.layer.metadata) {
+        // console.log('this.layer.metadata:', this.layer.metadata);
         this.layer.metadata(function(error, metadata) {
           // console.log('metadata', metadata);
           this.geometryType = metadata.geometryType
@@ -182,7 +184,7 @@
         this.$store.commit('setIntersectingFeatures', intersectingFeatures);
       },
       checkForDuplicates(layer, feature, intersectingFeatures) {
-        // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
+        console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
         let ids = []
         for (let i = 0; i < intersectingFeatures.length; i++) {
           ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
