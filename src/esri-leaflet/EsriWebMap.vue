@@ -72,7 +72,7 @@
             // create webMapLayersAndRest
             // let webMapLayersAndRest = []
             const opLayers = restData.operationalLayers
-            console.log('opLayers:', opLayers, 'webMap.layers:', webMap.layers);
+            // console.log('opLayers:', opLayers, 'webMap.layers:', webMap.layers);
 
             // start of for loop
             for (let layer of webMap.layers) {
@@ -88,7 +88,7 @@
                 }
               }
 
-              console.log('cupOpLayer:', curOpLayer);
+              // console.log('cupOpLayer:', curOpLayer);
               const webmapMetaDataRequestUrl = 'https://www.arcgis.com/sharing/rest/content/items/' + curOpLayer.itemId;
               const id = generateUniqueId();
               let layerObj = {

@@ -59,11 +59,11 @@
     },
     created() {
       const leafletElement = this.$leafletElement = this.layer;
-      console.log('this.layer:', this.layer);
+      // console.log('this.layer:', this.layer);
       if (this.layer.metadata) {
-        console.log('this.layer.metadata:', this.layer.metadata);
+        // console.log('this.layer.metadata:', this.layer.metadata);
         this.layer.metadata(function(error, metadata) {
-          console.log('metadata', metadata);
+          // console.log('metadata', metadata);
           this.geometryType = metadata.geometryType
         }, this);
       } else if (this.layer._layers[Object.keys(this.layer._layers)[0]].metadata){
