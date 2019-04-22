@@ -13,7 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
     "@turf/turf": "^5.1.6",
-    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#8e6995868a84de4864e589e86e4228796653e007",
+    "L-esri-WebMap": "https://github.com/CityOfPhiladelphia/L.esri.WebMap#b6ffd9c792e53507ee03d887097db5aab79856f0",
     "Leaflet-PointInPolygon": "https://github.com/hayeswise/Leaflet.PointInPolygon#7a7c7df3d5ccef184c6720c696fa54fde5a0b4e9",
     "axios": "^0.18.0",
     "blueimp-md5": "^2.10.0",
