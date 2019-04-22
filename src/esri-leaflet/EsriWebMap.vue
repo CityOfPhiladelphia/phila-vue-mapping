@@ -72,20 +72,23 @@
             // create webMapLayersAndRest
             // let webMapLayersAndRest = []
             const opLayers = restData.operationalLayers
+            console.log('opLayers:', opLayers, 'webMap.layers:', webMap.layers);
 
             // start of for loop
             for (let layer of webMap.layers) {
             // for (let [index, layer] of webMap.layers.splice(1).entries()) {
-              if (layer.title === 'CityBasemap') {
+              if (layer.title === 'CityBasemap' || layer.title === 'CityBasemap_Labels' || layer.title === 'CityBasemap_World' || layer.title === 'CityBasemap_Labels_World') {
                 continue;
               }
               let curOpLayer;
               for (let opLayer of opLayers) {
+                // console.log('opLayer.title:', opLayer.title, 'layer.title:', layer.title);
                 if (opLayer.title === layer.title) {
                   curOpLayer = opLayer
                 }
               }
 
+              console.log('cupOpLayer:', curOpLayer);
               const webmapMetaDataRequestUrl = 'https://www.arcgis.com/sharing/rest/content/items/' + curOpLayer.itemId;
               const id = generateUniqueId();
               let layerObj = {
