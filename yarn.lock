@@ -2094,9 +2094,9 @@
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.1.tgz#5c85d662f76fa1d34575766c5dcd6615abcd30d8"
 
-"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#4b02da177a6de1c0a7218b26bab007dcf2256feb":
+"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#a71810ad3fb23d1343d94bce00515f1f622e13d9":
   version "0.4.0"
-  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#4b02da177a6de1c0a7218b26bab007dcf2256feb"
+  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#a71810ad3fb23d1343d94bce00515f1f622e13d9"
   dependencies:
     arcgis-to-geojson-utils "^1.0.1"
     date-fns "^1.30.1"
