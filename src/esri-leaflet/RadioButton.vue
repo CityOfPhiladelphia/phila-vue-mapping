@@ -3,7 +3,7 @@
     <div class="div-row">
       <a :href="'http://metadata.phila.gov/#home/representationdetails/' + this.bennyId"
          target="_blank"
-         v-if="bennyId"
+         v-if="shouldShowDataLink"
       >
         <span><font-awesome-icon icon="info-circle" class="fa-2x" /></span>
       </a>
@@ -17,7 +17,7 @@
       >
 
       <label :for="'radio-'+layerName"
-             :class="{ disabled: shouldBeDisabled, 'label-text': true }"
+             :class="{ disabled: shouldBeDisabled, 'label-text': shouldShowDataLink, 'label-text-no-datalinks': !shouldShowDataLink }"
       >
         <div class="layer-name">{{ layerName }}</div>
       </label>
@@ -61,7 +61,8 @@
             'opacity',
             'legend',
             'tags',
-            'topicLayers'
+            'topicLayers',
+            'shouldShowDataLinks'
     ],
     data() {
       return {
@@ -126,6 +127,13 @@
       },
       url() {
         return this.layerUrls[this.$props.layerName];
+      },
+      shouldShowDataLink() {
+        if (this.bennyId && this.$props.shouldShowDataLinks) {
+          return true;
+        } else {
+          return false;
+        }
       },
       bennyId() {
         if (Object.keys(this.bennyEndpoints).length > 0) {
@@ -263,6 +271,13 @@
 
   input[type=radio]+label.disabled::before {
     color: #d3d3d3;
+  }
+
+  .label-text-no-datalinks {
+    /* position: absolute; */
+    display: inline-block;
+    /* margin-top: 4px; */
+    margin-left: 0px;
   }
 
   .label-text {

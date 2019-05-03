@@ -5,7 +5,7 @@
     <!-- <li> -->
       <a :href="'http://metadata.phila.gov/#home/representationdetails/' + this.bennyId"
          target="_blank"
-         v-if="bennyId"
+         v-if="this.shouldShowDataLink"
       >
         <span><font-awesome-icon icon="info-circle" class="fa-2x" /></span>
       </a>
@@ -25,8 +25,9 @@
       >
       <!-- :disabled="shouldBeDisabled" -->
       <label :for="'checkbox-'+layerName"
-             :class="{ disabled: shouldBeDisabled, 'label-text': true }"
+             :class="{ disabled: shouldBeDisabled, 'label-text': shouldShowDataLink, 'label-text-no-datalinks': !shouldShowDataLink }"
       >
+      <!-- :class="{ disabled: shouldBeDisabled, 'label-text': true }" -->
         <div class="layer-name">{{ layerName }}</div>
         <!-- <div class="tag-title"
              v-if="matchingTags.length > 0"
@@ -78,7 +79,8 @@
             'layerDefinition',
             'opacity',
             'legend',
-            'tags'
+            'tags',
+            'shouldShowDataLinks'
     ],
     data() {
       return {
@@ -146,6 +148,13 @@
       },
       url() {
         return this.layerUrls[this.$props.layerName];
+      },
+      shouldShowDataLink() {
+        if (this.bennyId && this.$props.shouldShowDataLinks) {
+          return true;
+        } else {
+          return false;
+        }
       },
       bennyId() {
         if (Object.keys(this.bennyEndpoints).length > 0) {
@@ -319,6 +328,13 @@
 
   input[type=checkbox]+label.disabled::before {
     color: #d3d3d3;
+  }
+
+  .label-text-no-datalinks {
+    /* position: absolute; */
+    display: inline-block;
+    /* margin-top: 4px; */
+    margin-left: 0px;
   }
 
   .label-text {
