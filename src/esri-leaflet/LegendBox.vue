@@ -41,7 +41,7 @@
         this.createLegend(nextScale);
       },
       legend() {
-        console.log('watch legend fired');
+        console.log('METHOD watch props legend fired, this.$props.layerId:', this.$props.layerId);
         this.createLegend(this.scale);
       }
     },
@@ -55,6 +55,12 @@
     },
     methods: {
       initialize() {
+        // console.log('LegendBox.vue initialize is runnning, this.$props:', this.$props);
+        if (this.$props.legend) {
+          // console.log('already have a legend')
+          this.createLegend(this.scale);
+          return;
+        }
         let drawingInfo;
         if (this.$props.layerDefinition) {
           drawingInfo = this.$props.layerDefinition.drawingInfo;
@@ -65,14 +71,14 @@
           store: this.$store,
           drawingInfo
         }
-        console.log('LegendBox initialize is running:', this.$props.layer, opts, 'L.esri:', L.esri);
+        // console.log('METHOD LegendBox initialize is running, this.$props.layerId:', this.$props.layerId, 'opts:', opts, 'L.esri:', L.esri);
         // const legend = esriLeafletLegend(this.$props.layer, opts);
         const legend = L.esri.legendControl(this.$props.layer, opts);
         // const legend = LegendControl(this.$props.layer, opts);
       },
       createLegend(scale) {
         const legend = this.$props.legend;
-        console.log('METHOD createLegend running', scale, legend);
+        // console.log('METHOD createLegend running, this.$props.layerId:', this.$props.layerId, 'scale:', scale, 'legend:', legend);
         let layersHtml = '';
         if (legend.layers.length === 1) {
           const layer = legend.layers[0];
