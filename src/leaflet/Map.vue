@@ -30,6 +30,7 @@
       'maxZoom',
     ],
     mounted() {
+      // console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom)
       const map = this.$leafletElement = this.createLeafletElement();
 
       // move zoom control
@@ -99,6 +100,7 @@
     },
     watch: {
       center(nextCenter) {
+        // console.log('Map.vue watch center is firing, nextCenter:', nextCenter)
         this.setMapView(nextCenter);
       },
       zoom(nextZoom) {
@@ -107,7 +109,7 @@
         this.$store.commit('setMapZoom', nextZoom);
       },
       mapBounds(nextBounds) {
-        console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
+        // console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
         this.setMapBounds(nextBounds)
       },
       fullScreenMapEnabled() {
@@ -119,7 +121,7 @@
         for (let feature of this.intersectingFeatures) {
           intersectingLayers.push(feature.feature.layerName);
         }
-        console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
+        // console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
         for (let layer of intersectingLayers) {
           if (!nextWebMapDisplayedLayers.includes(layer)) {
             this.$store.commit('setIntersectingFeatures', []);
@@ -158,6 +160,7 @@
         child.addTo(this.$leafletElement);
       },
       setMapView(xy = [], zoom = this.zoom) {
+        // console.log('Map.vue setMapView is running, xy:', xy)
         if (xy.length === 0) return;
         const [ lng, lat ] = xy;
         const latLng = new LatLng(lat, lng);
