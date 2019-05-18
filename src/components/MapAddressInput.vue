@@ -268,7 +268,6 @@
 .pvm-search-control-container {
   display: inline-block;
   border-radius: 2px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
   width: 305px;
 }
 
@@ -309,13 +308,12 @@
   background: #2176d2;
   padding: 0px;
   width: 50px;
-  margin-left: 1.5px;
-  margin-right: 1.5px;
 }
 
 .pvm-button-non-mobile {
   height: 48px;
   line-height: 48px;
+  position: absolute;
 }
 
 .pvm-button-mobile {
