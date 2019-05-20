@@ -266,7 +266,7 @@
 /* Container */
 
 .pvm-search-control-container {
-  display: inline-block;
+  display: flex;
   border-radius: 2px;
   width: 305px;
 }
@@ -308,12 +308,12 @@
   background: #2176d2;
   padding: 0px;
   width: 50px;
+  margin-right: 1.5px;
 }
 
 .pvm-button-non-mobile {
   height: 48px;
   line-height: 48px;
-  position: absolute;
 }
 
 .pvm-button-mobile {
