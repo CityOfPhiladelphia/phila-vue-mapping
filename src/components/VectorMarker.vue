@@ -18,7 +18,20 @@
       return;
     },
     mounted() {
-      console.log('VectorMarker mounted is running');
+      // console.log('VectorMarker mounted is running, this:', this);
+      const leafletElement = this.$leafletElement = this.createLeafletElement();
+      const map = this.$store.state.map.map;
+
+      // REVIEW kind of hacky/not reactive?
+      if (map) {
+        leafletElement.addTo(map);
+      }
+
+      bindEvents(this, this.$leafletElement, this._events);
+    },
+    updated() {
+      // console.log('VectorMarker updated is running');
+      this.$leafletElement._map.removeLayer(this.$leafletElement);
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
 
@@ -28,19 +41,8 @@
       }
       bindEvents(this, this.$leafletElement, this._events);
     },
-    // updated() {
-    //   console.log('VectorMarker updated is running');
-    //   this.$leafletElement._map.removeLayer(this.$leafletElement);
-    //   const leafletElement = this.$leafletElement = this.createLeafletElement();
-    //   const map = this.$store.state.map.map;
-    //
-    //   // REVIEW kind of hacky/not reactive?
-    //   if (map) {
-    //     leafletElement.addTo(map);
-    //   }
-    // },
     destroyed() {
-      console.log('VectorMarker destroyed is running');
+      // console.log('VectorMarker destroyed is running');
       this.$leafletElement._map.removeLayer(this.$leafletElement);
     },
     methods: {
