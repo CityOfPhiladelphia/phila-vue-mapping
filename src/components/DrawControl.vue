@@ -4,7 +4,8 @@
   import 'sdleafletdraw';
 
   // Include the css files
-  require('sdleafletdraw/dist/leaflet.draw.css');
+  // require('sdleafletdraw/dist/leaflet.draw.css');
+  import 'sdleafletdraw/dist/leaflet.draw.css';
 
 
 
@@ -35,6 +36,7 @@
         this.$store.commit('setEditableLayers', editableLayers);
       },
       createLeafletElement() {
+        console.log('DrawControl createLeafletElement is running');
         const { position } = this.$props;
         const { control } = this.$props;
         const editableLayers = new L.FeatureGroup();
@@ -55,6 +57,7 @@
         return drawControl
       },
       parentMounted(parent) {
+        console.log('DrawControl parentMounted is running')
         const map = parent.$leafletElement;
         map.addControl(this.$leafletElement);
       }

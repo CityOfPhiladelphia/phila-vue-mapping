@@ -100,7 +100,9 @@
 
 
       const editableLayers = this.$store.state.editableLayers;
-      map.addLayer(editableLayers);
+      if (editableLayers !== null) {
+        map.addLayer(editableLayers);
+      }
 
       map.on('draw:drawstart', () => {
         if(this.$store.state.editableLayers !== null){

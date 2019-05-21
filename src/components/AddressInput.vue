@@ -24,22 +24,23 @@
       <font-awesome-icon icon="times" />
     </button>
     <button :class="'pvm-search-control-button ' + this.buttonClass"
+            name="pvm-search-control-button"
             tabindex="-1"
             @click="this.handleSearchFormSubmit"
     >
       <font-awesome-icon icon="search" />
     </button>
-    <slot name="address-candidates-slot">
+    <slot name="address-candidates-slot" />
   </div>
 </template>
 
 <script>
   import * as L from 'leaflet';
-  import debounce from 'lodash.debounce';
+  import debounce from 'lodash-es/debounce';
   import axios from 'axios';
   import generateUniqueId from '../util/unique-id';
-
   export default {
+    name: 'MapAddressInput',
     props: [
       'position',
       'widthFromConfig',
@@ -61,6 +62,9 @@
     created() {
       window.addEventListener('resize', this.handleWindowResize);
       this.handleWindowResize();
+      if (this.$config.defaultAddress) {
+        this.addressEntered = this.$config.defaultAddress;
+      }
     },
     watch: {
       addressEntered(nextValue) {
@@ -133,15 +137,12 @@
           }
           onAdd() {
             const el = this.el;
-
             // keep clicks from hitting the map
             L.DomEvent.disableClickPropagation(el);
             L.DomEvent.disableScrollPropagation(el);
-
             return el;
           }
         }
-
         const el = this.$el;
         return new ControlParent(el, {
           position: this.position
@@ -159,7 +160,6 @@
           const { value } = e.target;
           this.$data.addressEntered = value;
           // this.$store.commit('setAddressEntered', value);
-
           if (this.addressAutocompleteEnabled) {
             // console.log('debounce is running, e:', e, 'this:', this);
             if (e.key === "ArrowDown") {
@@ -204,7 +204,7 @@
         this.$store.commit('setCandidates', []);
       },
       handleSearchFormSubmit() {
-        // console.log('handleSearchFormSubmit is running');
+        console.log('handleSearchFormSubmit is running');
         let value;
         if (this.addressAutocompleteEnabled){
           value = addressEntered
@@ -253,31 +253,22 @@
 </script>
 
 <style scoped>
-
 .pvm-search-control-form {
   display: inline-block;
 }
-
 /* Container */
-
 .pvm-search-control-container {
-  display: inline-block;
+  display: flex;
   border-radius: 2px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
   width: 305px;
 }
-
 .pvm-container-non-mobile {
   height: 48px;
 }
-
 .pvm-container-mobile {
   height: 38px;
 }
-
-
 /* Input */
-
 .pvm-search-control-input {
   display: inline-block;
   border: 0;
@@ -286,36 +277,28 @@
   font-size: 16px;
   width: 250px;
 }
-
 .pvm-input-non-mobile {
   height: 48px;
 }
-
 .pvm-input-mobile {
   height: 38px;
 }
-
-
 /* Button */
-
 .pvm-search-control-button {
   display: inline-block;
   color: #fff;
   background: #2176d2;
   padding: 0px;
   width: 50px;
+  margin-right: 1.5px;
 }
-
 .pvm-button-non-mobile {
   height: 48px;
   line-height: 48px;
 }
-
 .pvm-button-mobile {
   height: 38px;
   line-height: 38px;
   padding-top: 1px;
 }
-
-
 </style>
