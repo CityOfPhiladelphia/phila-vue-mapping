@@ -23,13 +23,17 @@ import EsriTiledMapLayer from './esri-leaflet/TiledMapLayer.vue';
 import EsriTiledOverlay from './esri-leaflet/TiledOverlay.vue';
 import EsriDynamicMapLayer from './esri-leaflet/DynamicMapLayer.vue';
 import EsriFeatureLayer from './esri-leaflet/FeatureLayer.vue';
-import WebMap from './esri-leaflet/WebMap.vue';
-import WebMapLayer from './esri-leaflet/WebMapLayer.vue';
+import EsriWebMap from './esri-leaflet/EsriWebMap.vue';
+import EsriWebMapLayer from './esri-leaflet/EsriWebMapLayer.vue';
+import Checkbox from './esri-leaflet/Checkbox.vue';
+import LegendBox from './esri-leaflet/LegendBox.vue';
+import Slider from './esri-leaflet/Slider.vue';
+import TopicComponent from './esri-leaflet/TopicComponent.vue';
 
 // our components
 import DrawControl from './components/DrawControl.vue';
-import AddressInput from './components/AddressInput.vue';
-import AddressCandidateList from './components/AddressCandidateList.vue';
+import MapAddressInput from './components/MapAddressInput.vue';
+import MapAddressCandidateList from './components/MapAddressCandidateList.vue';
 import OpacitySlider from './components/OpacitySlider.vue';
 import VectorMarker from './components/VectorMarker.vue';
 import PngMarker from './components/PngMarker.vue';
@@ -99,10 +103,10 @@ export {
   CyclomediaRecordingCircle,
   CyclomediaRecordingsClient,
   SvgViewConeMarker,
-  cyclomediaMixin,
+  CyclomediaMixin,
   CyclomediaWidget,
   PictometryButton,
-  pictometryMixin,
+  PictometryMixin,
   PictometryPngMarker,
   PictometryViewCone,
   PictometryWidget,

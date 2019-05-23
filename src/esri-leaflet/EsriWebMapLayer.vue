@@ -1,5 +1,12 @@
+
+
 <script>
+  import {
+    LatLngBounds
+  } from 'leaflet';
+
   export default {
+    name: 'WebMapLayer',
     props: [
       'layer',
       'layerName',
@@ -52,7 +59,9 @@
     },
     created() {
       const leafletElement = this.$leafletElement = this.layer;
+      // console.log('this.layer:', this.layer);
       if (this.layer.metadata) {
+        // console.log('this.layer.metadata:', this.layer.metadata);
         this.layer.metadata(function(error, metadata) {
           // console.log('metadata', metadata);
           this.geometryType = metadata.geometryType
@@ -130,7 +139,7 @@
       // this one is used when the click is ON a point
       clickHandler(e) {
         const map = this.$store.state.map.map;
-        const clickBounds = L.latLngBounds(e.layer._latlng, e.layer._latlng);
+        const clickBounds = new LatLngBounds(e.layer._latlng, e.layer._latlng);
         // console.log('clickHandler in WebMapLayer is starting, e:', e, 'e.layer._latlng', e.layer._latlng);
         // console.log('map._layers', map._layers);
         let intersectingFeatures = [];
@@ -160,7 +169,7 @@
                     this.checkForDuplicates(layer, feature, intersectingFeatures);
                   }
                 } else if (geometry === 'Point') {
-                  bounds = L.latLngBounds(feature._latlng, feature._latlng);
+                  bounds = new LatLngBounds(feature._latlng, feature._latlng);
                   // console.log('Point, bounds:', bounds, 'clickBounds:', clickBounds);
                   if (bounds && clickBounds.intersects(bounds)) {
                     // console.log('Winner - feature:', feature, 'bounds:', bounds, 'clickBounds:', clickBounds);
@@ -175,7 +184,7 @@
         this.$store.commit('setIntersectingFeatures', intersectingFeatures);
       },
       checkForDuplicates(layer, feature, intersectingFeatures) {
-        // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
+        console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
         let ids = []
         for (let i = 0; i < intersectingFeatures.length; i++) {
           ids[i] = layer + '_' + intersectingFeatures[i].feature.id;

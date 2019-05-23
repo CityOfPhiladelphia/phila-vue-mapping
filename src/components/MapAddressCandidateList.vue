@@ -22,6 +22,7 @@
   import * as L from 'leaflet';
 
   export default {
+    name: 'MapAddressCandidateList',
     props: ['position'],
     computed: {
       map() {

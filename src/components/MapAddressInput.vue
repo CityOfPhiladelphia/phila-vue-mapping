@@ -39,6 +39,7 @@
   import debounce from 'lodash-es/debounce';
   import axios from 'axios';
   import generateUniqueId from '../util/unique-id';
+
   export default {
     name: 'MapAddressInput',
     props: [
@@ -137,12 +138,15 @@
           }
           onAdd() {
             const el = this.el;
+
             // keep clicks from hitting the map
             L.DomEvent.disableClickPropagation(el);
             L.DomEvent.disableScrollPropagation(el);
+
             return el;
           }
         }
+
         const el = this.$el;
         return new ControlParent(el, {
           position: this.position
@@ -160,6 +164,7 @@
           const { value } = e.target;
           this.$data.addressEntered = value;
           // this.$store.commit('setAddressEntered', value);
+
           if (this.addressAutocompleteEnabled) {
             // console.log('debounce is running, e:', e, 'this:', this);
             if (e.key === "ArrowDown") {
@@ -253,22 +258,30 @@
 </script>
 
 <style scoped>
+
 .pvm-search-control-form {
   display: inline-block;
 }
+
 /* Container */
+
 .pvm-search-control-container {
   display: flex;
   border-radius: 2px;
   width: 305px;
 }
+
 .pvm-container-non-mobile {
   height: 48px;
 }
+
 .pvm-container-mobile {
   height: 38px;
 }
+
+
 /* Input */
+
 .pvm-search-control-input {
   display: inline-block;
   border: 0;
@@ -277,13 +290,18 @@
   font-size: 16px;
   width: 250px;
 }
+
 .pvm-input-non-mobile {
   height: 48px;
 }
+
 .pvm-input-mobile {
   height: 38px;
 }
+
+
 /* Button */
+
 .pvm-search-control-button {
   display: inline-block;
   color: #fff;
@@ -292,13 +310,17 @@
   width: 50px;
   margin-right: 1.5px;
 }
+
 .pvm-button-non-mobile {
   height: 48px;
   line-height: 48px;
 }
+
 .pvm-button-mobile {
   height: 38px;
   line-height: 38px;
   padding-top: 1px;
 }
+
+
 </style>
