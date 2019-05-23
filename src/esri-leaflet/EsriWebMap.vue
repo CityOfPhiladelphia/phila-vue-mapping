@@ -10,10 +10,14 @@
   import * as LEsriWebMap from 'L-esri-WebMap'
 
   export default {
+    name: 'WebMap',
     computed: {
       webmapId() {
         // console.log('config', this.$config);
         return this.$config.webmapId;
+      },
+      defaultLayers() {
+        return this.$store.state.layers.defaultLayers;
       }
     },
     methods: {
@@ -71,20 +75,24 @@
             // create webMapLayersAndRest
             // let webMapLayersAndRest = []
             const opLayers = restData.operationalLayers
+            // console.log('opLayers:', opLayers, 'webMap.layers:', webMap.layers);
 
             // start of for loop
             for (let layer of webMap.layers) {
             // for (let [index, layer] of webMap.layers.splice(1).entries()) {
-              if (layer.title === 'CityBasemap') {
+              if (layer.title === 'CityBasemap' || layer.title === 'CityBasemap_Labels' || layer.title === 'CityBasemap_World' || layer.title === 'CityBasemap_Labels_World') {
                 continue;
               }
+              // console.log('in EsriWebMap loop, layer.title.split("_")[1]:', layer.title.split('_')[1], 'self.defaultLayers:', self.defaultLayers);
               let curOpLayer;
               for (let opLayer of opLayers) {
+                // console.log('opLayer.title:', opLayer.title, 'layer.title:', layer.title);
                 if (opLayer.title === layer.title) {
                   curOpLayer = opLayer
                 }
               }
 
+              // console.log('cupOpLayer:', curOpLayer);
               const webmapMetaDataRequestUrl = 'https://www.arcgis.com/sharing/rest/content/items/' + curOpLayer.itemId;
               const id = generateUniqueId();
               let layerObj = {
@@ -185,12 +193,58 @@
             self.$store.commit('setWebMapLayersAndRest', webMapLayersAndRest);
             self.$store.commit('setCategories', categories);
             map.createPane('highlightOverlay');
+            // console.log('EsriWebMap end of onload')
+            self.runAsyncLegendLoop()
           }) // end of webmap onload
         }, response => {
           console.log('AXIOS ERROR WebMap.vue');
         }) // end of axios
 
       }, // end of parentMounted
+      async runAsyncLegendLoop() {
+        let layers = this.$store.state.map.webMapLayersAndRest;
+        // console.log('runAsyncLegendLoop running, this.defaultLayers:', this.defaultLayers, 'this.$store.state.map.webMapLayersAndRest:', this.$store.state.map.webMapLayersAndRest);
+        for (let layer of layers.keys()) {
+          // console.log('in runAsyncLegendLoop loop, layer:', layer);
+          if (this.defaultLayers.includes(layers[layer].title)) {
+            // console.log('in runAsyncLegendLoop on:', layers[layer].title)
+            this.initializeDefaultLegends(layers[layer].layer, layers[layer].title, layers[layer].id)
+            var x = await this.resolveLegendLoop('resolved', layer)
+            // console.log('in runAsyncLegendLoop, x:', x)
+          }
+        }
+      },
+
+      resolveLegendLoop(x, layer) {
+        // console.log('in resolveLegendLoop, layer:', layer);
+        return new Promise(resolve => {
+          let i;
+          for (i=0; i<10; i++) {
+            setTimeout(() => {
+              if (!!this.$store.state.map.webMapLayersAndRest[layer].legend) {
+                resolve(x);
+              }
+            }, 500);
+          }
+        });
+      },
+
+      initializeDefaultLegends(layer, layerName, layerId, layerDefinition) {
+        // console.log('EsriWebMap.vue initializeDefaultLegends is runnning');
+        let drawingInfo;
+        if (layerDefinition) {
+          drawingInfo = layerDefinition.drawingInfo;
+        }
+        const opts = {
+          layerName: layerName,
+          layerId: layerId,
+          store: this.$store,
+          drawingInfo
+        }
+        // console.log('METHOD initializeDefaultLegends is running, layerId:', layerId, 'opts:', opts, 'L.esri:', L.esri);
+
+        const legend = L.esri.legendControl(layer, opts);
+      },
 
     } // end of methods
 

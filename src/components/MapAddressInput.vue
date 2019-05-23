@@ -24,22 +24,24 @@
       <font-awesome-icon icon="times" />
     </button>
     <button :class="'pvm-search-control-button ' + this.buttonClass"
+            name="pvm-search-control-button"
             tabindex="-1"
             @click="this.handleSearchFormSubmit"
     >
       <font-awesome-icon icon="search" />
     </button>
-    <slot name="address-candidates-slot">
+    <slot name="address-candidates-slot" />
   </div>
 </template>
 
 <script>
   import * as L from 'leaflet';
-  import debounce from 'lodash.debounce';
+  import debounce from 'lodash-es/debounce';
   import axios from 'axios';
   import generateUniqueId from '../util/unique-id';
 
   export default {
+    name: 'MapAddressInput',
     props: [
       'position',
       'widthFromConfig',
@@ -61,6 +63,9 @@
     created() {
       window.addEventListener('resize', this.handleWindowResize);
       this.handleWindowResize();
+      if (this.$config.defaultAddress) {
+        this.addressEntered = this.$config.defaultAddress;
+      }
     },
     watch: {
       addressEntered(nextValue) {
@@ -204,7 +209,7 @@
         this.$store.commit('setCandidates', []);
       },
       handleSearchFormSubmit() {
-        // console.log('handleSearchFormSubmit is running');
+        console.log('handleSearchFormSubmit is running');
         let value;
         if (this.addressAutocompleteEnabled){
           value = addressEntered
@@ -261,9 +266,8 @@
 /* Container */
 
 .pvm-search-control-container {
-  display: inline-block;
+  display: flex;
   border-radius: 2px;
-  box-shadow:0 2px 4px rgba(0,0,0,0.2),0 -1px 0px rgba(0,0,0,0.02);
   width: 305px;
 }
 
@@ -304,6 +308,7 @@
   background: #2176d2;
   padding: 0px;
   width: 50px;
+  margin-right: 1.5px;
 }
 
 .pvm-button-non-mobile {
