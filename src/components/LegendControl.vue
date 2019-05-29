@@ -41,8 +41,8 @@
       activeTopic() {
         return this.$store.state.activeTopic;
       },
-      shouldShowImagery() {
-        return this.$store.state.map.shouldShowImagery;
+      shouldShowBasemapSelectControl() {
+        return this.$store.state.map.shouldShowBasemapSelectControl;
       },
       shouldShowLegend() {
         let result = true;
@@ -50,7 +50,7 @@
           result = false;
         }
         if (this.$props.options.showWithBaseMapOnly) {
-          if (this.shouldShowImagery) {
+          if (this.shouldShowBasemapSelectControl) {
             result = false;
           }
         }

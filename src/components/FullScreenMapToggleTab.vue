@@ -94,6 +94,7 @@
 
   .toggle-tab {
     display: none;
+    padding-top: 9px;
   }
 
   .align-span {
@@ -108,7 +109,7 @@
       border-style: solid;
       border-color: #CAC9C9;
       height: 48px;
-      line-height: 56px;
+      /* line-height: 56px; */
       width:24px;
       background-color: white;
       display: inline-block;

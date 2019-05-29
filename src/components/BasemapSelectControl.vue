@@ -1,5 +1,5 @@
 <template>
-  <div v-show="shouldShowImagery">
+  <div v-show="shouldShowBasemapSelectControl">
     <select id="year-select" @change="handleImageryChange">
       <optgroup v-for="(imageryTypeDef, imageryType) in imageryTypes"
                 :label="imageryTypeDef.label">
@@ -23,8 +23,8 @@
       'position',
     ],
     computed: {
-      shouldShowImagery() {
-        return this.$store.state.map.shouldShowImagery;
+      shouldShowBasemapSelectControl() {
+        return this.$store.state.map.shouldShowBasemapSelectControl;
       },
       imageryTypes() {
         return this.$config.map.imageryTypes;
@@ -43,6 +43,7 @@
     methods: Object.assign(methods, {
       handleImageryChange() {
         const el = document.getElementById('year-select');
+        console.log('el:', el, 'el.options:', el.options, 'el.selectedIndex:', el.selectedIndex)
         const group = el.options[el.selectedIndex].parentElement.label;
         const year = el.options[el.selectedIndex].value;
         const nextBasemap = group.toLowerCase() + year;

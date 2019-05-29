@@ -42,7 +42,9 @@ const initialState = {
     // DataManager.resetGeocode; see note above for activeTopic and
     basemap: '',
     imagery: 'imagery2018',
-    shouldShowImagery: false,
+    selectedOverlay: null,
+    shouldShowOverlaySelectControl: false,
+    shouldShowBasemapSelectControl: false,
     // this is the key for the active overlay image (eg regmap)
     imageOverlay: null,
     imageOverlayOpacity: null,
@@ -100,8 +102,14 @@ const pvmStore = {
     setImagery(state, payload) {
       state.map.imagery = payload;
     },
-    setShouldShowImagery(state, payload) {
-      state.map.shouldShowImagery = payload;
+    setSelectedOverlay(state, payload) {
+      state.map.selectedOverlay = payload
+    },
+    setShouldShowOverlaySelectControl(state, payload) {
+      state.map.shouldShowOverlaySelectControl = payload
+    },
+    setShouldShowBasemapSelectControl(state, payload) {
+      state.map.shouldShowBasemapSelectControl = payload;
     },
     setShouldShowAddressCandidateList(state, payload) {
       state.shouldShowAddressCandidateList = payload;

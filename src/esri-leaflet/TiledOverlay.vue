@@ -6,11 +6,9 @@ slider in a slot? -->
                   :position="'topleft'"
                   :initialOpacity="opacity"
   />
-  <!-- <div v-if="!opacitySlider"></div> -->
 </template>
 
 <script>
-  // import * as L from 'leaflet';
   import { tiledMapLayer as TiledMapLayer } from 'esri-leaflet';
   import OpacitySlider from '../components/OpacitySlider.vue';
 
@@ -25,7 +23,8 @@ slider in a slot? -->
       'maxZoom',
       'zIndex',
       'attribution',
-      'opacity'
+      'opacity',
+      'test'
     ],
     created() {
       const leafletElement = this.$leafletElement = this.createLeafletElement();
@@ -40,11 +39,6 @@ slider in a slot? -->
     destroyed() {
       this.$leafletElement._map.removeLayer(this.$leafletElement);
     },
-    // we don't actually render anything, but need to define either a template
-    // or a render function
-    // render(h) {
-    //   return;
-    // },
     methods: {
       createLeafletElement() {
         const props = Object.assign({}, this.$props);

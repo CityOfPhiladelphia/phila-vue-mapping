@@ -1,6 +1,6 @@
 <template>
   <div class="leaflet-bar easy-button-container leaflet-control">
-    <button @click="handleImageryToggleButtonClick">
+    <button @click="handleBasemapToggleControlClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
         <img class="button-image" :src="toggleButtonImgSrc">
       </span>
@@ -20,9 +20,9 @@
     ],
     computed: {
       toggleButtonImgSrc() {
-        const shouldShowImagery = this.$store.state.map.shouldShowImagery;
+        const shouldShowBasemapSelectControl = this.$store.state.map.shouldShowBasemapSelectControl;
         let src;
-        if (shouldShowImagery) {
+        if (shouldShowBasemapSelectControl) {
           src = "images/basemap_small.png"
         }
         else {
@@ -32,11 +32,11 @@
       },
     },
     methods: Object.assign(methods, {
-      handleImageryToggleButtonClick(e) {
+      handleBasemapToggleControlClick(e) {
         // document.getElementById('addressSearch').blur();
-        const prevShouldShowImagery = this.$store.state.map.shouldShowImagery;
-        const nextShouldShowImagery = !prevShouldShowImagery;
-        this.$store.commit('setShouldShowImagery', nextShouldShowImagery);
+        const prevShouldShowBasemapSelectControl = this.$store.state.map.shouldShowBasemapSelectControl;
+        const nextShouldShowBasemapSelectControl = !prevShouldShowBasemapSelectControl;
+        this.$store.commit('setShouldShowBasemapSelectControl', nextShouldShowBasemapSelectControl);
       },
     })
   };
