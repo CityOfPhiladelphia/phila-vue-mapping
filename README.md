@@ -16,3 +16,10 @@ phila-vue-mapping is a library of Vue components that can be used in mapping app
 
 ## Usage
 Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki) for usage documentation.
+
+## Release Notes
+
+### 1.0.30
+
+* Adds components/OverlaySelectControl.vue for toggling between two years of data in CleanPhl.
+* Changes made over initial development of resource finder.
