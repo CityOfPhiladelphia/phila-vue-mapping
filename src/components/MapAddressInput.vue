@@ -20,7 +20,6 @@
             v-if="this.addressEntered != '' && this.addressEntered != null"
             @click="handleFormX"
     >
-    <!-- v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null" -->
       <font-awesome-icon icon="times" />
     </button>
     <button :class="'pvm-search-control-button ' + this.buttonClass"
@@ -76,9 +75,6 @@
       map() {
         return this.$store.state.map.map;
       },
-      // addressEntered() {
-      //   return this.$store.state.addressEntered;
-      // },
       inputWidth() {
         // if (this.addressAutocompleteEnabled) {
           if (this.addressEntered === '' || this.addressEntered === null) {
