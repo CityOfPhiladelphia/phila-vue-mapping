@@ -19,7 +19,7 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
-### 1.0.30
+### 1.0.30 - 5/30/2019
 
 * Adds components/OverlaySelectControl.vue for toggling between two years of data in CleanPhl.
 * Changes made over initial development of resource finder.
