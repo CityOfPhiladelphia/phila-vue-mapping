@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.31 - 6/2/2019
+
+* Uses axios 0.19.0 to fix security bug
+
 ### 1.0.30 - 5/30/2019
 
 * Adds components/OverlaySelectControl.vue for toggling between two years of data in CleanPhl.
