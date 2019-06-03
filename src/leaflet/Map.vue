@@ -30,7 +30,7 @@
       'maxZoom',
     ],
     mounted() {
-      console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom)
+      // console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom)
       const map = this.$leafletElement = this.createLeafletElement();
 
       // move zoom control
