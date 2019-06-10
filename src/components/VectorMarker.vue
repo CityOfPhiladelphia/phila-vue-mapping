@@ -1,12 +1,16 @@
 <script>
   import { Marker } from 'leaflet';
   import VectorIcon from 'leaflet-vector-icon';
+  import 'leaflet-vector-icon/dist/leaflet-vector-icon.css';
+  import bindEvents from '../leaflet/util/bind-events';
 
   export default {
+    name: 'VectorMarker',
     props: [
       'latlng',
       'markerColor',
-      'icon'
+      'icon',
+      'data'
     ],
     render(h) {
       const a = this.$props.latlng;
@@ -20,6 +24,8 @@
       if (map) {
         leafletElement.addTo(map);
       }
+
+      bindEvents(this, this.$leafletElement, this._events);
     },
     updated() {
       this.$leafletElement._map.removeLayer(this.$leafletElement);
@@ -30,19 +36,26 @@
       if (map) {
         leafletElement.addTo(map);
       }
+      bindEvents(this, this.$leafletElement, this._events);
     },
     destroyed() {
       this.$leafletElement._map.removeLayer(this.$leafletElement);
     },
     methods: {
       createLeafletElement() {
-        const icon = new VectorIcon({
+        const props = this.$props;
+        const {
+          latlng,
+          ...options
+        } = props;
+        options.icon = new VectorIcon({
           icon:  this.$props.icon || 'circle',
           markerColor: this.$props.markerColor || '#2176d2',
         });
         // const icon = {};
 
-        return new Marker(this.latlng, { icon });
+        // return new Marker(this.latlng, { icon });
+        return new Marker(this.latlng, options);
       },
       parentMounted(parent) {
         const map = parent.$leafletElement;
