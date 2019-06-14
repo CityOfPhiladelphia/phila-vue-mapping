@@ -107,7 +107,9 @@
       popupHtmlArray() {
         let htmlArray = [];
         for (let feature in this.$store.state.map.intersectingFeatures) {
-          htmlArray.push(this.$store.state.map.intersectingFeatures[feature].feature.popupHtml)
+          if (this.$store.state.map.intersectingFeatures[feature].feature) {
+            htmlArray.push(this.$store.state.map.intersectingFeatures[feature].feature.popupHtml)
+          }
         }
         return htmlArray;
       },

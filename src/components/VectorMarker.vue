@@ -1,5 +1,11 @@
+<template>
+  <div>
+    <slot />
+  </div>
+</template>
+
 <script>
-  import { Marker } from 'leaflet';
+  import { Marker, DomUtil } from 'leaflet';
   import VectorIcon from 'leaflet-vector-icon';
   import 'leaflet-vector-icon/dist/leaflet-vector-icon.css';
   import bindEvents from '../leaflet/util/bind-events';
@@ -13,10 +19,10 @@
       'icon',
       'data',
     ],
-    render(h) {
-      const a = this.$props.latlng;
-      return;
-    },
+    // render(h) {
+    //   const a = this.$props.latlng;
+    //   return;
+    // },
     mounted() {
       // console.log('VectorMarker mounted is running, this:', this);
       const leafletElement = this.$leafletElement = this.createLeafletElement();
@@ -46,6 +52,9 @@
       this.$leafletElement._map.removeLayer(this.$leafletElement);
     },
     methods: {
+      testfunc2() {
+        console.log('testfunc2 is running');
+      },
       createLeafletElement() {
         const props = this.$props;
         const {
@@ -58,8 +67,21 @@
         });
         // const icon = {};
 
-        // return new Marker(this.latlng, { icon });
-        return new Marker(this.latlng, options);
+        const popup = DomUtil.create('div', 'infoWindow');
+        popup.innerHTML = "<div id='customPopup'><h3>test</h3></div>"
+        // console.log('in createMarker, popup:', popup)
+
+        let marker = new Marker(this.latlng, options);
+        // console.log('in createLeafletElement, options.popup:', options.popup);
+        // if (options.popup) {
+        //   console.log('in if options.popup');
+        //   marker.bindPopup(options.popup);
+        // }
+        // marker.bindPopup(popup)
+
+        // document.getElementById('customPopup').on('click', this.testfunc2());
+
+        return marker;
       },
       parentMounted(parent) {
         const map = parent.$leafletElement;
