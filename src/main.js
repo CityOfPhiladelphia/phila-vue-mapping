@@ -14,9 +14,9 @@ import Geojson from './leaflet/Geojson.vue';
 import CircleMarker from './leaflet/CircleMarker.vue';
 import ControlCorner from './leaflet/ControlCorner.vue';
 import PopupSimple from './leaflet/PopupSimple.vue';
-import Popup from './leaflet/PopUp.vue';
-import PopupContent from './leaflet/PopUpContent.vue';
-import PopupContentFunctional from './leaflet/PopUpContentFunctional.vue';
+import Popup from './leaflet/Popup.vue';
+import PopupContent from './leaflet/PopupContent.vue';
+import PopupContentFunctional from './leaflet/PopupContentFunctional.vue';
 import Polygon_ from './leaflet/Polygon.vue';
 import Polyline_ from './leaflet/Polyline.vue';
 
