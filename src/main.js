@@ -13,7 +13,7 @@ import Control from './leaflet/Control.vue';
 import Geojson from './leaflet/Geojson.vue';
 import CircleMarker from './leaflet/CircleMarker.vue';
 import ControlCorner from './leaflet/ControlCorner.vue';
-import PopupSimple from './leaflet/PopUpSimple.vue';
+import PopupSimple from './leaflet/PopupSimple.vue';
 import Popup from './leaflet/PopUp.vue';
 import PopupContent from './leaflet/PopUpContent.vue';
 import PopupContentFunctional from './leaflet/PopUpContentFunctional.vue';
