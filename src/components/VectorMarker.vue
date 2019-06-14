@@ -5,11 +5,10 @@
 </template>
 
 <script>
-  import { Marker, DomUtil } from 'leaflet';
+  import { Marker } from 'leaflet';
   import VectorIcon from 'leaflet-vector-icon';
   import 'leaflet-vector-icon/dist/leaflet-vector-icon.css';
   import bindEvents from '../leaflet/util/bind-events';
-
 
   export default {
     name: 'VectorMarker',
@@ -28,7 +27,6 @@
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
 
-      // REVIEW kind of hacky/not reactive?
       if (map) {
         leafletElement.addTo(map);
       }
@@ -52,9 +50,6 @@
       this.$leafletElement._map.removeLayer(this.$leafletElement);
     },
     methods: {
-      testfunc2() {
-        console.log('testfunc2 is running');
-      },
       createLeafletElement() {
         const props = this.$props;
         const {
@@ -65,23 +60,8 @@
           icon:  this.$props.icon || 'circle',
           markerColor: this.$props.markerColor || '#2176d2',
         });
-        // const icon = {};
 
-        const popup = DomUtil.create('div', 'infoWindow');
-        popup.innerHTML = "<div id='customPopup'><h3>test</h3></div>"
-        // console.log('in createMarker, popup:', popup)
-
-        let marker = new Marker(this.latlng, options);
-        // console.log('in createLeafletElement, options.popup:', options.popup);
-        // if (options.popup) {
-        //   console.log('in if options.popup');
-        //   marker.bindPopup(options.popup);
-        // }
-        // marker.bindPopup(popup)
-
-        // document.getElementById('customPopup').on('click', this.testfunc2());
-
-        return marker;
+        return new Marker(this.latlng, options);
       },
       parentMounted(parent) {
         const map = parent.$leafletElement;

@@ -5,14 +5,12 @@
 </template>
 
 <script>
-  import { Popup, Point, DomUtil } from 'leaflet';
+  import { Popup, Point } from 'leaflet';
   export default {
     name: 'PopUpSimple',
     props: [
       'latlng',
       'featureId',
-      'popupData',
-      'popupHtml'
     ],
     mounted() {
       // console.log('popup mounted is running');
@@ -27,16 +25,6 @@
       _map() {
         return this.$store.state.map.map;
       },
-      // popupContent() {
-      //   let text = ''
-      //   for (let key of Object.keys(this.$props.popupData)) {
-      //     text += key + ': ' + this.$props.popupData[key]
-      //   }
-      //   return text;
-      // }
-      popupContent() {
-
-      }
     },
     methods: {
       createLeafletElement() {
@@ -45,12 +33,7 @@
           offset: new Point(0, -24)
         }).setLatLng(this.latlng)
           .setContent(this.$children[0].$el)
-          // .setContent(this.popupHtml)
           .openOn(this._map);
-
-        // popup.setLatLng(this.latlng)
-        //   // .setContent(this.popupHtml)
-        //   .openOn(this._map);
 
         return popup;
       }
