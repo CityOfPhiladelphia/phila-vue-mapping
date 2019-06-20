@@ -13,10 +13,13 @@ import Control from './leaflet/Control.vue';
 import Geojson from './leaflet/Geojson.vue';
 import CircleMarker from './leaflet/CircleMarker.vue';
 import ControlCorner from './leaflet/ControlCorner.vue';
-import PopUp from './leaflet/PopUp.vue';
-import PopUpContent from './leaflet/PopUpContent.vue';
+import PopupSimple from './leaflet/PopupSimple.vue';
+import Popup from './leaflet/Popup.vue';
+import PopupContent from './leaflet/PopupContent.vue';
+import PopupContentFunctional from './leaflet/PopupContentFunctional.vue';
 import Polygon_ from './leaflet/Polygon.vue';
 import Polyline_ from './leaflet/Polyline.vue';
+
 
 // Esri-Leaflet
 import EsriTiledMapLayer from './esri-leaflet/TiledMapLayer.vue';
@@ -71,8 +74,10 @@ export {
   Geojson,
   CircleMarker,
   ControlCorner,
-  PopUp,
-  PopUpContent,
+  PopupSimple,
+  Popup,
+  PopupContent,
+  PopupContentFunctional,
   Polygon_,
   Polyline_,
   EsriTiledMapLayer,

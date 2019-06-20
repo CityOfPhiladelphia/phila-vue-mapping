@@ -190,6 +190,7 @@
 
       // this is used when the click should identify features
       identifyFeatures(e) {
+        console.log('identifyFeatures is running, e:', e)
         const map = this.$leafletElement
         const clickBounds = new LatLngBounds(e.latlng, e.latlng);
         // console.log('map._layers', map._layers);

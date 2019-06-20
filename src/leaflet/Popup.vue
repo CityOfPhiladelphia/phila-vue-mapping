@@ -43,6 +43,7 @@
         this.$store.commit('setIntersectingFeatures', []);
       },
       createLeafletElement() {
+        console.log('creating popup')
         const popup = new Popup({
           minWidth: 300,
           offset: new Point(0, -24)
