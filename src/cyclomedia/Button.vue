@@ -62,7 +62,7 @@
         //   });
         // }
 
-        // this.$emit('click');
+        this.$emit('click');
       },
       // setNewLocation(latlng) {
       //   const viewer = this.$store.state.cyclomedia.viewer;

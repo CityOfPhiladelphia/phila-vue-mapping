@@ -9,17 +9,18 @@ export default {
   },
   methods: {
     handleCyclomediaButtonClick() {
+      // console.log('handleCyclomediaButtonClick is running');
       this.updateCyclomediaRecordings();
-
     },
     handleCyclomediaRecordingClick(e) {
       const latlng = e.latlng;
-      console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
+      // console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
       this.$store.commit('setCyclomediaLatLngFromMap', latlng);
       // const viewer = this.$store.state.cyclomedia.viewer;
       // viewer.openByCoordinate([latlng.lng, latlng.lat]);
     },
     updateCyclomediaRecordings() {
+      // console.log('updateCyclomediaRecordings is running');
       const map = this.$store.state.map.map;
       const zoom = map.getZoom();
       if (!this.$store.state.cyclomedia.active || zoom <= 18) {
