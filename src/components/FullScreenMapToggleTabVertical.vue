@@ -61,7 +61,7 @@
     },
     methods: {
       setDivWidth() {
-        const el = document.getElementById('map-tag');
+        const el = document.getElementById('map-panel-container');
         const divStyle = window.getComputedStyle(el);
         const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
         this.buttonPosition = (divWidth-48)/2 + 'px';

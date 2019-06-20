@@ -1,15 +1,15 @@
 <template>
   <div id="cyclo-container"
-       :class="this.cycloContainerClass"
+       :class="this.widgetClass"
   >
   <!-- v-once -->
-    <div id="inCycloDiv"
+    <!-- <div id="inCycloDiv"
          @click="this.popoutClicked"
          :style="{ right: popoutPosition }"
          v-if="this.isMobileOrTablet === false && this.popoutAble === true"
     >
       <font-awesome-icon icon="external-link" class="popout-icon" />
-    </div>
+    </div> -->
     <div id="cycloviewer"
          ref="cycloviewer"
          class="panoramaViewerWindow"
@@ -38,6 +38,9 @@
       fullScreenMapEnabled() {
         return this.$store.state.fullScreenMapEnabled;
       },
+      fullScreenTopicsEnabled() {
+        return this.$store.state.fullScreenTopicsEnabled;
+      },
       popoutAble() {
         let answer;
         if (this.$config.cyclomedia.popoutAble === false) {
@@ -56,11 +59,11 @@
       pictometryActive() {
         return this.$store.state.pictometry.active;
       },
-      cycloContainerClass() {
-        if (this.pictometryActive) {
-          return 'medium-16 large-16 columns mb-panel'
+      widgetClass() {
+        if (this.fullScreenTopicsEnabled) {
+          return 'medium-12 small-24 full-topics-open'
         } else {
-          return 'medium-24 large-24 columns mb-panel'
+          return 'medium-12 small-24'
         }
       },
       locForCyclo() {
@@ -93,6 +96,9 @@
     watch: {
       fullScreenMapEnabled() {
         this.setDivWidth();
+      },
+      fullScreenTopicsEnabled() {
+        console.log('cyclomedia Widget.vue watch fullScreenTopicEnabled is firing');
       },
       locForCyclo(newCoords) {
         // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
@@ -289,15 +295,17 @@
 
 #cyclo-container {
   padding: 0px;
-  height: 50%;
-  display: none;
+  height: 100%;
 }
 
-@media screen and (min-width: 46.875em) {
-  #cyclo-container {
-    display: block;
-  }
+.full-topics-open {
+  display: none;
 }
+/* @media screen and (min-width: 46.875em) {
+  #cyclo-container {
+    display: inline-block;
+  }
+} */
 
 #inCycloDiv {
   /* position: absolute; */
@@ -320,15 +328,15 @@
 }
 
 .panoramaViewerWindow {
-  display: block;
+  display: inline-block;
   width: 100%;
   height:100%;
 }
 
-@media screen and (max-width: 46.875em) {
+/* @media screen and (max-width: 46.875em) {
   .cyclo-container {
     display: none;
   }
-}
+} */
 
 </style>
