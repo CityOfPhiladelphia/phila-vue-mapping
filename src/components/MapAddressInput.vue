@@ -70,6 +70,11 @@
     watch: {
       addressEntered(nextValue) {
         this.handleWindowResize();
+      },
+      lastSearchMethod(nextLastSearchMethod){
+        if (this.$store.state.lastSearchMethod != 'owner search' ) {
+          return this.addressEntered = this.$store.state.geocode.input
+        }
       }
     },
     computed: {
@@ -126,6 +131,9 @@
       isMobileOrTablet() {
         return this.$store.state.isMobileOrTablet;
       },
+      lastSearchMethod() {
+        return this.$store.state.lastSearchMethod;
+      }
     },
     methods: {
       createLeafletElement(L) {
