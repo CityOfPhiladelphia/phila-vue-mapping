@@ -20,7 +20,6 @@
             v-if="this.addressEntered != '' && this.addressEntered != null"
             @click="handleFormX"
     >
-    <!-- v-if="this.addressAutocompleteEnabled && this.addressEntered != '' && this.addressEntered != null" -->
       <font-awesome-icon icon="times" />
     </button>
     <button :class="'pvm-search-control-button ' + this.buttonClass"
@@ -39,7 +38,6 @@
   import debounce from 'lodash-es/debounce';
   import axios from 'axios';
   import generateUniqueId from '../util/unique-id';
-
   export default {
     name: 'MapAddressInput',
     props: [
@@ -70,20 +68,12 @@
     watch: {
       addressEntered(nextValue) {
         this.handleWindowResize();
-      },
-      lastSearchMethod(nextLastSearchMethod){
-        if (this.$store.state.lastSearchMethod != 'owner search' ) {
-          return this.addressEntered = this.$store.state.geocode.input
-        }
       }
     },
     computed: {
       map() {
         return this.$store.state.map.map;
       },
-      // addressEntered() {
-      //   return this.$store.state.addressEntered;
-      // },
       inputWidth() {
         // if (this.addressAutocompleteEnabled) {
           if (this.addressEntered === '' || this.addressEntered === null) {
@@ -131,9 +121,6 @@
       isMobileOrTablet() {
         return this.$store.state.isMobileOrTablet;
       },
-      lastSearchMethod() {
-        return this.$store.state.lastSearchMethod;
-      }
     },
     methods: {
       createLeafletElement(L) {
@@ -146,15 +133,12 @@
           }
           onAdd() {
             const el = this.el;
-
             // keep clicks from hitting the map
             L.DomEvent.disableClickPropagation(el);
             L.DomEvent.disableScrollPropagation(el);
-
             return el;
           }
         }
-
         const el = this.$el;
         return new ControlParent(el, {
           position: this.position
@@ -172,7 +156,6 @@
           const { value } = e.target;
           this.$data.addressEntered = value;
           // this.$store.commit('setAddressEntered', value);
-
           if (this.addressAutocompleteEnabled) {
             // console.log('debounce is running, e:', e, 'this:', this);
             if (e.key === "ArrowDown") {
@@ -266,30 +249,22 @@
 </script>
 
 <style scoped>
-
 .pvm-search-control-form {
   display: inline-block;
 }
-
 /* Container */
-
 .pvm-search-control-container {
   display: flex;
   border-radius: 2px;
   width: 305px;
 }
-
 .pvm-container-non-mobile {
   height: 48px;
 }
-
 .pvm-container-mobile {
   height: 38px;
 }
-
-
 /* Input */
-
 .pvm-search-control-input {
   display: inline-block;
   border: 0;
@@ -301,37 +276,28 @@
   border-color: #2176d2;
   border-width: 2px;
 }
-
 .pvm-input-non-mobile {
   height: 48px;
 }
-
 .pvm-input-mobile {
   height: 38px;
 }
-
-
 /* Button */
-
 .pvm-search-control-button {
   display: inline-block;
   color: #fff;
   background: #2176d2;
   padding: 0px;
   width: 50px;
+  margin-right: 1.5px;
 }
-
 .pvm-button-non-mobile {
   height: 48px;
   line-height: 48px;
-  position: absolute;
 }
-
 .pvm-button-mobile {
   height: 38px;
   line-height: 38px;
   padding-top: 1px;
 }
-
-
 </style>
