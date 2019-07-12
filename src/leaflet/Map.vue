@@ -176,6 +176,7 @@
       drawShapeChange(shape) {
         // console.log("drawShapeChange:", shape.layer);
         this.$store.commit('setDrawShape', shape.layer);
+        this.$store.commit('setShapeSearchInput', shape.layer._latlngs[0])
       },
       drawStartChange() {
         // console.log("DrawStart is working");
