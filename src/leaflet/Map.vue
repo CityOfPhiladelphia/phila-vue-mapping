@@ -51,53 +51,11 @@
         child.parentMounted(this, child.$props);
       }
 
-      // bind events
-      // http://leafletjs.com/reference.html#map-click
-
-      // const MAP_EVENTS = [
-      //   'click',
-      //   'dblclick',
-      //   'mousedown',
-      //   'mouseup',
-      //   'mouseover',
-      //   'mouseout',
-      //   'mousemove',
-      //   'contextmenu',
-      //   'focus',
-      //   'blur',
-      //   'preclick',
-      //   'load',
-      //   'unload',
-      //   'viewreset',
-      //   'movestart',
-      //   'move',
-      //   'moveend',
-      //   'dragstart',
-      //   'drag',
-      //   'dragend',
-      //   'zoomstart',
-      //   'zoomend',
-      //   'zoomlevelschange',
-      //   'resize',
-      //   'autopanstart',
-      //   'layeradd',
-      //   'layerremove',
-      //   'baselayerchange',
-      //   'overlayadd',
-      //   'overlayremove',
-      //   'locationfound',
-      //   'locationerror',
-      //   'popupopen',
-      //   'popupclose'
-      // ];
-
       // TODO warn if trying to bind an event that doesn't exist
       bindEvents(this, this.$leafletElement, this._events);
       if (this.$config.map.clickToIdentifyFeatures) {
         map.on('click', this.identifyFeatures);
       }
-
-
 
       const editableLayers = this.$store.state.editableLayers;
       if (editableLayers !== null) {
@@ -114,9 +72,12 @@
       map.on('draw:created', this.drawShapeChange);
       map.on('draw:created', (e) => {editableLayers.addLayer(e.layer);});
     },
+
     watch: {
       center(nextCenter) {
-        this.setMapView(nextCenter);
+        if (typeof nextCenter[0] == 'number') {
+          this.setMapView(nextCenter);
+        }
       },
       zoom(nextZoom) {
         if (!nextZoom) return;
@@ -195,6 +156,7 @@
         child.addTo(this.$leafletElement);
       },
       setMapView(xy = [], zoom = this.zoom) {
+        console.log('setMapView is running, xy:', xy);
         if (xy.length === 0) return;
         const [ lng, lat ] = xy;
         const latLng = new LatLng(lat, lng);

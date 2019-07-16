@@ -238,20 +238,20 @@
       handleWindowResize() {
         const addressEntered = this.addressEntered;
         // console.log('AddressInput.vue handleWindowResize is running', window.innerWidth, 'addressEntered:', addressEntered);
-        if (window.innerWidth >= 850) {
+        if (window.innerWidth >= 750) {
           this.containerStyle.width = this.$props.widthFromConfig + 'px';
           if (addressEntered === '' || addressEntered === null) {
             this.inputStyle.width = this.$props.widthFromConfig - 55 + 'px';
           } else {
             this.inputStyle.width = this.$props.widthFromConfig - 108 + 'px';
           }
-        } else if (window.innerWidth >= 750) {
-          this.containerStyle.width = this.$props.widthFromConfig - 100 + 'px';
-          if (addressEntered === '' || addressEntered === null) {
-            this.inputStyle.width = this.$props.widthFromConfig - 155 + 'px';
-          } else {
-            this.inputStyle.width = this.$props.widthFromConfig - 208 + 'px';
-          }
+        // } else if (window.innerWidth >= 750) {
+        //   this.containerStyle.width = this.$props.widthFromConfig - 100 + 'px';
+        //   if (addressEntered === '' || addressEntered === null) {
+        //     this.inputStyle.width = this.$props.widthFromConfig - 155 + 'px';
+        //   } else {
+        //     this.inputStyle.width = this.$props.widthFromConfig - 208 + 'px';
+        //   }
         } else {
           this.containerStyle.width = '300px';
           if (addressEntered === '' || addressEntered === null) {

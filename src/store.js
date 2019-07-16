@@ -19,6 +19,7 @@ const initialState = {
   shouldShowAddressCandidateList: false,
   drawStart: null,
   drawShape: null,
+  bufferMode: false,
   editableLayers: null,
 
   // the leaflet map object
@@ -87,6 +88,10 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setBufferMode(state, payload) {
+      console.log('setBufferMode is running, payload:', payload);
+      state.bufferMode = payload;
+    },
     setDrawStartEnabled(state, payload) {
       state.drawStart = payload;
     },
