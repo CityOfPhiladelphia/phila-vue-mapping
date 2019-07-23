@@ -36,7 +36,7 @@
         this.$store.commit('setEditableLayers', editableLayers);
       },
       createLeafletElement() {
-        console.log('DrawControl createLeafletElement is running');
+        // console.log('DrawControl createLeafletElement is running');
         const { position } = this.$props;
         const { control } = this.$props;
         const editableLayers = new L.FeatureGroup();
@@ -57,7 +57,7 @@
         return drawControl
       },
       parentMounted(parent) {
-        console.log('DrawControl parentMounted is running')
+        // console.log('DrawControl parentMounted is running')
         const map = parent.$leafletElement;
         map.addControl(this.$leafletElement);
       }
