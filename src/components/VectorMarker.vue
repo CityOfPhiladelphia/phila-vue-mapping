@@ -10,7 +10,8 @@
       'latlng',
       'markerColor',
       'icon',
-      'data'
+      'data',
+      'interactive'
     ],
     render(h) {
       const a = this.$props.latlng;
@@ -51,6 +52,7 @@
         options.icon = new VectorIcon({
           icon:  this.$props.icon || 'circle',
           markerColor: this.$props.markerColor || '#2176d2',
+          interactive: this.$props.interactive || true,
         });
         // const icon = {};
 
