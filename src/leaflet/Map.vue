@@ -87,7 +87,7 @@
         this.$store.commit('setMapZoom', nextZoom);
       },
       mapBounds(nextBounds) {
-        console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
+        // console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
         this.setMapBounds(nextBounds)
       },
       fullScreenMapEnabled() {
@@ -99,7 +99,7 @@
         for (let feature of this.intersectingFeatures) {
           intersectingLayers.push(feature.feature.layerName);
         }
-        console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
+        // console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
         for (let layer of intersectingLayers) {
           if (!nextWebMapDisplayedLayers.includes(layer)) {
             this.$store.commit('setIntersectingFeatures', []);
