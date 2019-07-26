@@ -3,7 +3,7 @@
 // but this is to remind me that mapboard store redefines these values
 let config = {
   map: {
-    center:[-75.163471, 39.953338],
+    center:[-75.164, 39.9525],
     zoom: 18,
   },
   // pictometry: {
