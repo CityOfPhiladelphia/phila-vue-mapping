@@ -158,7 +158,7 @@
         child.addTo(this.$leafletElement);
       },
       setMapView(xy = [], zoom = this.zoom) {
-        console.log('setMapView is running, xy:', xy);
+        // console.log('setMapView is running, xy:', xy);
         if (xy.length === 0) return;
         const [ lng, lat ] = xy;
         const latLng = new LatLng(lat, lng);

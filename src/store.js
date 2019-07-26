@@ -89,7 +89,7 @@ const pvmStore = {
   state: initialState,
   mutations: {
     setBufferMode(state, payload) {
-      console.log('setBufferMode is running, payload:', payload);
+      // console.log('setBufferMode is running, payload:', payload);
       state.bufferMode = payload;
     },
     setDrawStartEnabled(state, payload) {
