@@ -35,7 +35,8 @@
     },
     methods: Object.assign(methods, {
       handleBufferButtonClick(e) {
-        this.$store.commit('setBufferMode', true);
+        const bufferMode = this.$store.state.bufferMode;
+        this.$store.commit('setBufferMode', !bufferMode);
       },
     })
   };
