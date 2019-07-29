@@ -25,6 +25,7 @@
       'center',
       'zoom',
       'zoomControlPosition',
+      'attributionPosition',
       'minZoom',
       'maxZoom',
       'drawControl',
@@ -35,6 +36,7 @@
 
       // move zoom control
       map.zoomControl.setPosition(this.$props.zoomControlPosition);
+      map.attributionControl.setPosition(this.$props.attributionPosition);
 
       // put in state
       this.$store.commit('setMap', { map });
@@ -82,6 +84,7 @@
         }
       },
       zoom(nextZoom) {
+        console.log('Map.vue watch zoom is firing')
         if (!nextZoom) return;
         this.$leafletElement.setZoom(nextZoom);
         this.$store.commit('setMapZoom', nextZoom);
@@ -151,7 +154,7 @@
       },
 
       createLeafletElement() {
-        const { zoomControlPosition, ...options } = this.$props;
+        const { zoomControlPosition, attributionPosition, ...options } = this.$props;
         return new Map(this.$refs.map, options);
       },
       childDidMount(child) {
