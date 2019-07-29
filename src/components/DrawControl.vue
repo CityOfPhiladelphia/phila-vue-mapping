@@ -28,7 +28,7 @@
     computed: {
       editableLayers() {
         return this.$store.state.editableLayers;
-      }
+      },
     },
     methods: {
       editableLayersChange(editableLayers) {
@@ -65,6 +65,10 @@
   };
 </script>
 
-<style scoped>
+<style>
+
+  .leaflet-draw-toolbar-button-enabled {
+    background-color: rgb(243, 198, 19) !important;
+  }
 
 </style>
