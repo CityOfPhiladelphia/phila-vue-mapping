@@ -24,8 +24,8 @@
     props: [
       'center',
       'zoom',
-      'zoomControlPosition',
       'attributionPosition',
+      'zoomControlPosition',
       'minZoom',
       'maxZoom',
       'drawControl',
@@ -35,8 +35,8 @@
       const map = this.$leafletElement = this.createLeafletElement();
 
       // move zoom control
-      map.zoomControl.setPosition(this.$props.zoomControlPosition);
       map.attributionControl.setPosition(this.$props.attributionPosition);
+      map.zoomControl.setPosition(this.$props.zoomControlPosition);
 
       // put in state
       this.$store.commit('setMap', { map });
@@ -146,11 +146,11 @@
       },
       drawStartChange() {
         // console.log("DrawStart is working");
-        this.$store.commit('setDrawStartEnabled', 'start');
+        this.$store.commit('setDrawStart', 'start');
       },
       drawStopChange() {
         // console.log("DrawStart is working");
-        this.$store.commit('setDrawStartEnabled', null);
+        this.$store.commit('setDrawStart', null);
       },
 
       createLeafletElement() {

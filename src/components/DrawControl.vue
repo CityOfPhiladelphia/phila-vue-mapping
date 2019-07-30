@@ -18,6 +18,7 @@
 
     mounted() {
       const leafletElement = this.$leafletElement = this.createLeafletElement();
+      this.setOnClick();
     },
     destroyed() {
       this.$leafletElement._map.removeControl(this.$leafletElement);
@@ -31,6 +32,17 @@
       },
     },
     methods: {
+      async setOnClick() {
+        let test = await this.createLeafletElement();
+        const drawControlButton = document.querySelector('[title="Draw a polygon"]');
+        drawControlButton.addEventListener('click', this.controlClick);
+      },
+      controlClick() {
+        if (Object.keys(this.$store.state).includes('bufferMode')) {
+          this.$store.commit('setBufferMode', false);
+          // this.$store.commit('setBufferShape', false);
+        }
+      },
       editableLayersChange(editableLayers) {
         // console.log("editableLayersChange is working", editableLayers);
         this.$store.commit('setEditableLayers', editableLayers);

@@ -21,6 +21,7 @@ const initialState = {
   drawShape: null,
   bufferMode: false,
   editableLayers: null,
+  bufferShape: null,
 
   // the leaflet map object
   map: {
@@ -88,11 +89,14 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setBufferShape(state, payload) {
+      state.bufferShape = payload;
+    },
     setBufferMode(state, payload) {
       // console.log('setBufferMode is running, payload:', payload);
       state.bufferMode = payload;
     },
-    setDrawStartEnabled(state, payload) {
+    setDrawStart(state, payload) {
       state.drawStart = payload;
     },
     setDrawShape(state, payload) {
