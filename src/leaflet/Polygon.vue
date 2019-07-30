@@ -41,10 +41,10 @@
         // console.log('Polygon createLeafletElement is firing', this.$props.latlngs);
         return new Polygon(this.$props.latlngs, {
           color: this.$props.color,
-          weight: this.$props.weight,
-          fill: this.$props.fill,
-          pane: this.$props.pane,
-          'z-index': 9999,
+          // weight: this.$props.weight,
+          // fill: this.$props.fill,
+          // pane: this.$props.pane,
+          // 'z-index': 9999,
         });
       },
       parentMounted(parent) {

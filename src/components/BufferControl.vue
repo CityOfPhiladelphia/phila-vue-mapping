@@ -35,8 +35,16 @@
     },
     methods: Object.assign(methods, {
       handleBufferButtonClick(e) {
+        // console.log('handleBufferButtonClick is running, Object.keys(this.$store.state):', Object.keys(this.$store.state));
         const bufferMode = this.$store.state.bufferMode;
         this.$store.commit('setBufferMode', !bufferMode);
+        if (Object.keys(this.$store.state).includes('drawStart')) {
+          this.$store.commit('setDrawStart', null);
+          const cancelButton = document.querySelector('[title="Cancel drawing"]');
+          if (cancelButton) {
+            cancelButton.click();
+          }
+        }
       },
     })
   };
