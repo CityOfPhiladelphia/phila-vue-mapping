@@ -267,7 +267,7 @@
 
   @media (max-width: 749px) {
     .map-container {
-      height: 300px;
+      height: 250px;
     }
   }
 

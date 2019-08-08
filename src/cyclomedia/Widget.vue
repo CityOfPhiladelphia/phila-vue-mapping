@@ -33,9 +33,9 @@
     },
     props: ['screenPercent'],
     computed: {
-      isMobileOrTablet() {
-        return this.$store.state.isMobileOrTablet;
-      },
+      // isMobileOrTablet() {
+      //   return this.$store.state.isMobileOrTablet;
+      // },
       fullScreenMapEnabled() {
         return this.$store.state.fullScreenMapEnabled;
       },
@@ -332,6 +332,12 @@
   display: inline-block;
   width: 100%;
   height:100%;
+}
+
+@media (max-width: 749px) {
+  #cyclo-container {
+    height: 250px;
+  }
 }
 
 /* @media screen and (max-width: 46.875em) {
