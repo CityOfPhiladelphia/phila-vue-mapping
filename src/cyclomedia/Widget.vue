@@ -95,9 +95,9 @@
       // }
     },
     watch: {
-      fullScreenMapEnabled() {
-        this.setDivWidth();
-      },
+      // fullScreenMapEnabled() {
+      //   this.setDivWidth();
+      // },
       fullScreenTopicsEnabled() {
         console.log('cyclomedia Widget.vue watch fullScreenTopicEnabled is firing');
       },
@@ -146,10 +146,10 @@
             // console.log('Api: init: failed. Error: ', err);
           }
         );
-        window.addEventListener('resize', this.setDivWidth);
+        // window.addEventListener('resize', this.setDivWidth);
       },
       cyclomediaActive(newActiveStatus) {
-        this.setDivWidth();
+        // this.setDivWidth();
         if (newActiveStatus === true) {
           this.setNewLocation(this.latLngFromMap);
         }
@@ -167,27 +167,28 @@
           window.panoramaViewer.rotateRight(0.0000001);
         }
       }
-      this.setDivWidth();
+      // this.setDivWidth();
     },
     methods: {
-      setDivWidth() {
-        const docWidth = document.body.clientWidth;
-        this.docWidth = docWidth;
-        const el = document.getElementById('cyclo-container');
-        const divStyle = window.getComputedStyle(el);
-        const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
-        this.divWidth = divWidth;
-        // console.log('setDivWidth is running, docWidth:', docWidth, 'divWidth', divWidth);
-        let answer;
-        if (this.fullScreenMapEnabled) {
-          answer = docWidth - divWidth + 'px';
-        } else {
-          answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
-        }
-        // console.log('setDivWidth, answer:', answer);
-        this.popoutPosition = answer;
-        // return width;
-      },
+      // setDivWidth() {
+      //   // console.log('setDivWidth is running');
+      //   const docWidth = document.body.clientWidth;
+      //   this.docWidth = docWidth;
+      //   const el = document.getElementById('cyclo-container');
+      //   const divStyle = window.getComputedStyle(el);
+      //   const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
+      //   this.divWidth = divWidth;
+      //   // console.log('setDivWidth is running, docWidth:', docWidth, 'divWidth', divWidth);
+      //   let answer;
+      //   if (this.fullScreenMapEnabled) {
+      //     answer = docWidth - divWidth + 'px';
+      //   } else {
+      //     answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
+      //   }
+      //   console.log('setDivWidth, answer:', answer);
+      //   // this.popoutPosition = answer;
+      //   // return width;
+      // },
       setNewLocation(coords) {
         // console.log('cyclomedia setNewLocation is running using', coords);
         const viewerType = StreetSmartApi.ViewerType.PANORAMA;
