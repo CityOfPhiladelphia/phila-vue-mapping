@@ -10,6 +10,13 @@
         <font-awesome-icon :icon="'circle'" class="fa-3x icon-padding" />
       </span>
     </button>
+    <div :class="this.bufferClassActive">
+      <ul>
+        <li>Click to search by buffer.</li>
+        <li class="cancel"><a @click="handleBufferButtonClick" >Cancel</a></li>
+      </ul>
+
+    </div>
   </div>
 </template>
 
@@ -31,6 +38,9 @@
     computed: {
       bufferToolActive() {
         return this.$store.state.bufferMode ? 'active' : 'inactive'
+      },
+      bufferClassActive() {
+        return this.$store.state.bufferMode ? 'leaflet-buffer-actions' : 'leaflet-buffer-actions tool-inactive'
       }
     },
     methods: Object.assign(methods, {
@@ -73,5 +83,55 @@
   .active:hover {
     background-color: rgb(243, 198, 19);
   }
+
+  .leaflet-buffer-actions {
+    height: 30px;
+    width: 217px;
+    background-color: #919187;
+    color: #FFF;
+    display: block;
+    top: -1px;
+    left: 113px;
+    position: absolute;
+    /* padding-left: 10px; */
+    font: 11px/19px "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    /* line-height: 2.5; */
+    border-radius: 0 4px 4px 0;
+  }
+
+  .leaflet-buffer-actions li {
+    display: inline-block;
+    border-left: 1px solid #AAA;
+    padding: 0 5px 0 5px;
+    height: 30px;
+  }
+
+  .leaflet-buffer-actions ul {
+    line-height: 2.5;
+    margin-left: 5px;
+  }
+
+  .leaflet-buffer-actions li:first-child {
+    /* margin-left: 9px; */
+    border-left: none;
+}
+
+.cancel {
+  margin-left: 13px;
+}
+
+.tool-inactive {
+  display: none;
+}
+
+.leaflet-buffer-actions a {
+  padding-left: 5px;
+    width: 100%;
+    color: #FFF;
+    font: "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    background-color: #919187;
+}
 
 </style>
