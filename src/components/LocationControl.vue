@@ -2,7 +2,7 @@
   <div class="leaflet-bar easy-button-container leaflet-control">
     <button @click="handleLocationButtonClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <font-awesome-icon :icon="['far', 'dot-circle']" class="fa-lg" />
+        <font-awesome-icon :icon="['far', 'dot-circle']" class="fa-lg icon-padding" />
       </span>
     </button>
   </div>
