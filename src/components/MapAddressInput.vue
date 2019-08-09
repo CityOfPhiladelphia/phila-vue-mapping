@@ -285,6 +285,9 @@
   font-family: 'Montserrat', 'Tahoma', sans-serif;
   font-size: 16px;
   width: 250px;
+  border-style: solid;
+  border-color: #2176d2;
+  border-width: 2px;
 }
 
 .pvm-input-non-mobile {
