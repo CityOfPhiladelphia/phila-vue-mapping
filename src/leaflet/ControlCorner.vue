@@ -64,6 +64,14 @@
     z-index: 500;
   }
 
+  .leaflet-almosttop {
+    position: absolute;
+    top: 50px;
+    /* right: 0px; */
+    padding-bottom: 10px;
+    z-index: 500;
+  }
+
   .leaflet-almostright .leaflet-control {
     margin-top: 10px;
   }
