@@ -6024,11 +6024,6 @@ leaflet-easybutton@^2.3.0:
   dependencies:
     leaflet "^1.0.1"
 
-leaflet-event-forwarder@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/leaflet-event-forwarder/-/leaflet-event-forwarder-0.0.3.tgz#0b97d1f687dd8cabd3d523c3aeb8624050b0a593"
-  integrity sha512-vLBZTtnjCODq9vaY9E9OxPPqU6AJMKuOt7pw+D7RZ0EPG92W8JfA1F/l7M1M++h3ByypMidkmKNfCFfEkWjuVw==
-
 "leaflet-measure@https://github.com/CityOfPhiladelphia/leaflet-measure#b70886af342f19597dc2937d79d64bad6bab07c6":
   version "4.0.0"
   resolved "https://github.com/CityOfPhiladelphia/leaflet-measure#b70886af342f19597dc2937d79d64bad6bab07c6"
