@@ -9,10 +9,28 @@
     render(h) {
       return;
     },
+    computed: {
+      isMobileOrTablet() {
+        return this.$store.state.isMobileOrTablet;
+      },
+      mobileTag() {
+        if (this.isMobileOrTablet) {
+          return 'mobile-corner';
+        } else {
+          return 'non-mobile-corner';
+        }
+      }
+    },
     methods: {
       parentMounted(parent) {
         const map = parent.$leafletElement;
-        map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div', 'leaflet-'+this.vSide+' leaflet-'+this.hSide, map._controlContainer);
+        map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div',
+          'leaflet-'+this.vSide+
+          ' leaflet-'+this.hSide, map._controlContainer
+          // ' test'
+        );
+        // console.log('map._controlCorners[this.vSide + this.hSide]:', map._controlCorners[this.vSide + this.hSide])
+        map._controlCorners[this.vSide + this.hSide].classList.add(this.mobileTag);
       }
     }
   };

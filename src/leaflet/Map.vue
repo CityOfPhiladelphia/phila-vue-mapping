@@ -118,8 +118,13 @@
       drawShape() {
         return this.$store.state.drawShape;
       },
+      cyclomediaActive() {
+        return this.$store.state.cyclomedia.active;
+      },
       mapContainerClass() {
-        if (this.$config.map.containerClass) {
+        if (this.cyclomediaActive && this.$config.map.containerClassWCyclo) {
+          return this.$config.map.containerClassWCyclo;
+        } else if (this.$config.map.containerClass) {
           return this.$config.map.containerClass
         } else {
           return 'map-container'
@@ -257,6 +262,10 @@
     height: 100%;
   }
 
+  .map-container-350 {
+    height: 100%;
+  }
+
   .map-container-type2 {
     height: calc(100vh - 109px);
   }
@@ -268,6 +277,10 @@
   @media (max-width: 749px) {
     .map-container {
       height: 250px;
+    }
+
+    .map-container-350 {
+      height: 350px;
     }
   }
 
