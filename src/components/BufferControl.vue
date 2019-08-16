@@ -62,14 +62,28 @@
 
 <style scoped>
 
-  .button-image {
-    vertical-align: top;
-  }
-
   .icon-padding {
     padding-top: 8px;
     color: #4f4f4f;
   }
+
+  @media screen and (max-width: 750px) {
+
+    .fa-3x {
+      font-size: 1.5em;
+    }
+
+    .icon-padding {
+      padding-top: 0px;
+      color: #4f4f4f;
+      left: 4px;
+      top: 4px;
+      position: absolute;
+    }
+
+
+  }
+
 
   .inactive {
     background-color: #ffffff;
