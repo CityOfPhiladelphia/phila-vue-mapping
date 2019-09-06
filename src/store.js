@@ -87,6 +87,12 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setMapCenter(state, payload) {
+      state.map.center = payload;
+    },
+    setMapZoom(state, payload) {
+      state.map.zoom = payload;
+    },
     setWatchPositionOn(state, payload) {
       state.map.watchPositionOn = payload;
     },
