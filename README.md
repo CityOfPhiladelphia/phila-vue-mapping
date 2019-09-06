@@ -19,6 +19,26 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.36 - 9/6/2019
+
+* Monthly package upgrades
+
+### 1.0.35 - 8/9/2019
+
+* Adds border to address search
+
+### 1.0.34 - 8/9/2019
+
+* Monthly package upgrades
+
+### 1.0.33 - 7/11/2019
+
+* Upgrades lodash-es and lodash.defaultsdeep
+
+### 1.0.32 - 6/20/2019
+
+* changes for Pinboard
+
 ### 1.0.31 - 6/2/2019
 
 * Uses axios 0.19.0 to fix security bug
