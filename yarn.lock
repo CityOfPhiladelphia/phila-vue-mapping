@@ -6078,7 +6078,7 @@ leaflet.heat@^0.1.3:
   resolved "https://registry.yarnpkg.com/leaflet.heat/-/leaflet.heat-0.1.3.tgz#ad798d8db69d49873bfcbe7116a22158ed7c7076"
   integrity sha1-rXmNjbadSYc7/L5xFqIhWO18cHY=
 
-leaflet@^1.0.0, leaflet@^1.0.0-beta.1, leaflet@^1.0.0-rc.3, leaflet@^1.0.1, leaflet@^1.3.1, leaflet@^1.4.0:
+leaflet@^1.0.0, leaflet@^1.0.0-beta.1, leaflet@^1.0.0-rc.3, leaflet@^1.0.1, leaflet@^1.3.1, leaflet@^1.4.0, leaflet@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.5.1.tgz#9afb9d963d66c870066b1342e7a06f92840f46bf"
   integrity sha512-ekM9KAeG99tYisNBg0IzEywAlp0hYI5XRipsqRXyRTeuU8jcuntilpp+eFf5gaE0xubc9RuSNIVtByEKwqFV0w==
@@ -8362,11 +8362,11 @@ scope-analyzer@^2.0.1:
     estree-is-function "^1.0.0"
     get-assigned-identifiers "^1.1.0"
 
-"sdleafletdraw@https://github.com/CityOfPhiladelphia/SDLeafletDraw#b825fd6bdfe84b0a01cc3872a8a3ece0f81fb900":
+"sdleafletdraw@https://github.com/CityOfPhiladelphia/SDLeafletDraw#a0e54633bc22c342ab89668e4ca4288c8d2dc68f":
   version "1.3.0"
-  resolved "https://github.com/CityOfPhiladelphia/SDLeafletDraw#b825fd6bdfe84b0a01cc3872a8a3ece0f81fb900"
+  resolved "https://github.com/CityOfPhiladelphia/SDLeafletDraw#a0e54633bc22c342ab89668e4ca4288c8d2dc68f"
   dependencies:
-    leaflet "^1.3.1"
+    leaflet "^1.5.1"
 
 select-hose@^2.0.0:
   version "2.0.0"
