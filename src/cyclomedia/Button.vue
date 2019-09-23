@@ -35,8 +35,11 @@
       );
     },
     computed: {
-      cyclomediaInitialized() {
-        return this.$store.state.cyclomedia.initialized;
+      cyclomediaInitializationBegun() {
+        return this.$store.state.cyclomedia.initializationBegun;
+      },
+      cyclomediaInitializationComplete() {
+        return this.$store.state.cyclomedia.initializationComplete;
       },
       cyclomediaActive() {
         return this.$store.state.cyclomedia.active ? 'active' : 'inactive'
@@ -44,8 +47,8 @@
     },
     methods: {
       handleButtonClick(e) {
-        if (!this.cyclomediaInitialized) {
-          this.$store.commit('setCyclomediaInitialized', true);
+        if (!this.cyclomediaInitializationBegun) {
+          this.$store.commit('setCyclomediaInitializationBegun', true);
         }
         const willBeActive = !this.$store.state.cyclomedia.active;
 
