@@ -53,7 +53,8 @@ const initialState = {
   },
 
   cyclomedia: {
-    initialized: false,
+    initializationBegun: false,
+    initializationComplete: false,
     navBarOpen: false,
     // surfaceCursorOn: true,
     latLngFromMap: null,
@@ -116,8 +117,13 @@ const pvmStore = {
     },
 
 
-    setCyclomediaInitialized(state, payload) {
-      state.cyclomedia.initialized = payload;
+    setCyclomediaInitializationBegun(state, payload) {
+      // console.log('setCyclomediaInitializationBegun is running, payload:', payload);
+      state.cyclomedia.initializationBegun = payload;
+    },
+    setCyclomediaInitilizationComplete(state, payload) {
+      // console.log('setCyclomediaInitializationComplete is running, payload:', payload);
+      state.cyclomedia.initializationComplete = payload;
     },
     setPictometryActive(state, payload) {
       // if (!config.pictometry.enabled) {

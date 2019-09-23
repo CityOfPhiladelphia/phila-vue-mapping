@@ -48,8 +48,11 @@
         }
         return answer
       },
-      cyclomediaInitialized() {
-        return this.$store.state.cyclomedia.initialized;
+      cyclomediaInitializationBegun() {
+        return this.$store.state.cyclomedia.initializationBegun;
+      },
+      cyclomediaInitializationComplete() {
+        return this.$store.state.cyclomedia.initializationComplete;
       },
       cyclomediaActive() {
         return this.$store.state.cyclomedia.active;
@@ -96,14 +99,14 @@
         this.setDivWidth();
       },
       locForCyclo(newCoords) {
-        // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
-        if (newCoords) {
+        console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
+        if (newCoords && this.cyclomediaInitializationComplete) {
           this.setNewLocation(newCoords);
         }
       },
       latLngFromMap(newCoords) {
         // console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
-        if (this.cyclomediaInitialized) {
+        if (this.cyclomediaInitializationComplete) {
 
           if (Array.isArray(newCoords)) {
             // console.log('it is an array');
@@ -117,7 +120,7 @@
       // docWidthComp() {
       //   console.log('docWidth changed');
       // }
-      cyclomediaInitialized() {
+      cyclomediaInitializationBegun() {
         StreetSmartApi.init({
           targetElement: this.$refs.cycloviewer,
           username: this.$config.cyclomedia.username,
@@ -134,18 +137,20 @@
           () => {
             // get map center and set location
             const latLngFromMap = this.$store.state.cyclomedia.latLngFromMap;
+            this.$store.commit('setCyclomediaInitilizationComplete', true);
             this.setNewLocation([latLngFromMap[0], latLngFromMap[1]]);
           },
           err => {
-            // console.log('Api: init: failed. Error: ', err);
+            console.log('Api: init: failed. Error: ', err);
           }
         );
         window.addEventListener('resize', this.setDivWidth);
       },
       cyclomediaActive(newActiveStatus) {
+        console.log('cyclomediaActive watch is firing');
         this.setDivWidth();
-        if (newActiveStatus === true) {
-          this.setNewLocation(this.latLngFromMap);
+        if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
+          this.setNewLocation([this.latLngFromMap[1], this.latLngFromMap[0]]);
         }
       },
       // pictometryActive() {
@@ -185,7 +190,7 @@
         // return width;
       },
       setNewLocation(coords) {
-        // console.log('cyclomedia setNewLocation is running using', coords);
+        console.log('cyclomedia setNewLocation is running using', coords);
         if (!coords) {
           return;
         }
@@ -193,6 +198,7 @@
         const coords2272 = proj4(this.projection4326, this.projection2272, [coords[1], coords[0]]);
         // StreetSmartApi.open(center.lng + ',' + center.lat, {
         // StreetSmartApi.open(coords[1] + ',' + coords[0], {
+        // if (this.cyclomediaInitializationBegun) {
         StreetSmartApi.open(coords2272[0] + ',' + coords2272[1], {
           viewerType: viewerType,
           srs: 'EPSG:2272',
