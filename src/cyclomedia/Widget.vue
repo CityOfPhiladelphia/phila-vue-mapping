@@ -99,7 +99,7 @@
         this.setDivWidth();
       },
       locForCyclo(newCoords) {
-        console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
+        // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
         if (newCoords && this.cyclomediaInitializationComplete) {
           this.setNewLocation(newCoords);
         }
@@ -147,7 +147,7 @@
         window.addEventListener('resize', this.setDivWidth);
       },
       cyclomediaActive(newActiveStatus) {
-        console.log('cyclomediaActive watch is firing');
+        // console.log('cyclomediaActive watch is firing');
         this.setDivWidth();
         if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
           this.setNewLocation([this.latLngFromMap[1], this.latLngFromMap[0]]);
@@ -190,7 +190,7 @@
         // return width;
       },
       setNewLocation(coords) {
-        console.log('cyclomedia setNewLocation is running using', coords);
+        // console.log('cyclomedia setNewLocation is running using', coords);
         if (!coords) {
           return;
         }
@@ -210,61 +210,47 @@
         }).then (
           function(result) {
             // console.log('StreetSmartApi2, result:', result);
+            const viewer = result[0]
             const widget = this;
-            // console.log('Created component through API:', result);
-            if (result) {
-              for (let i =0; i < result.length; i++) {
-                if(result[i].getType() === StreetSmartApi.ViewerType.PANORAMA) window.panoramaViewer = result[i];
-              }
-              widget.sendOrientationToStore();
+            // console.log('Created component through API:', result, 'widget:', widget, 'viewer:', viewer);
+            if (viewer) {
+              const expanded = viewer.getNavbarExpanded();
+              // console.log('expanded:', expanded);
+              viewer.toggleNavbarExpanded(widget.navBarOpen);
+              viewer.toggleButtonEnabled('panorama.elevation', false);
+              viewer.toggleButtonEnabled('panorama.reportBlurring', false);
 
-              // StreetSmartApi.removeOverlay()
-              window.panoramaViewer.toggleNavbarExpanded(widget.navBarOpen);
-              // if (widget.isMobileOrTablet) {
-              // console.log('about to remove surfaceCursorLayer');
-              // StreetSmartApi.removeOverlay('surfaceCursorLayer');
-              // console.log('removed surfaceCursorLayer');
-              // }
-
-              // StreetSmartApi.removeOverlay('measurementLayer');
-              // window.panoramaViewer.toggleButtonEnabled('panorama.measure', false);
-              window.panoramaViewer.toggleButtonEnabled('panorama.elevation', false);
-              window.panoramaViewer.toggleButtonEnabled('panorama.reportBlurring', false);
-
-              for (let overlay of window.panoramaViewer.props.overlays) {
-                // console.log('overlay:', overlay);
+              for (let overlay of viewer.props.overlays) {
                 if (overlay.id === 'surfaceCursorLayer') {
                   if (overlay.visible === true) {
-                    window.panoramaViewer.toggleOverlay(overlay);
-                    // overlay.visible = false;
+                    viewer.toggleOverlay(overlay);
                   }
                 }
               }
 
               if (!this.$config.cyclomedia.measurementAllowed || this.$config.cyclomedia.measurementAllowed === 'false') {
                 StreetSmartApi.removeOverlay('measurementLayer');
-                window.panoramaViewer.toggleButtonEnabled('panorama.measure', false);
+                viewer.toggleButtonEnabled('panorama.measure', false);
               }
 
-              window.panoramaViewer.on('VIEW_CHANGE', function() {
-                if (window.panoramaViewer.props.orientation.yaw !== widget.$store.state.cyclomedia.orientation.yaw ||
-                    window.panoramaViewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz
+              viewer.on('VIEW_CHANGE', function(e) {
+                // console.log('on VIEW_CHANGE fired, type:', e.type, 'detail:', e.detail);
+                if (e.detail.yaw !== widget.$store.state.cyclomedia.orientation.yaw ||
+                    viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz
                 ) {
-                  // console.log('on VIEW_CHANGE fired with yaw change', window.panoramaViewer.props.orientation);
-                  widget.sendOrientationToStore();
-                } else if (window.panoramaViewer.getNavbarExpanded() !== this.navBarOpen) {
-                  widget.$store.commit('setCyclomediaNavBarOpen', window.panoramaViewer.getNavbarExpanded());
+                  // console.log('on VIEW_CHANGE fired with yaw change', viewer.props.orientation);
+                  widget.sendOrientationToStore(e.detail, viewer.props.orientation.xyz);
+                } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
+                  widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
                 }
               })
 
-              window.panoramaViewer.on('VIEW_LOAD_END', function() {
-                if (window.panoramaViewer.props.orientation.yaw !== widget.$store.state.cyclomedia.orientation.yaw ||
-                    window.panoramaViewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz
-                ) {
-                  // console.log('on VIEW_CHANGE fired with yaw change', window.panoramaViewer.props.orientation);
-                  widget.sendOrientationToStore();
-                } else if (window.panoramaViewer.getNavbarExpanded() !== this.navBarOpen) {
-                  widget.$store.commit('setCyclomediaNavBarOpen', window.panoramaViewer.getNavbarExpanded());
+              viewer.on('VIEW_LOAD_END', function(e) {
+                // console.log('on VIEW_LOAD_END fired, type:', e.type, 'e:', e);
+                if (viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz) {
+                  widget.sendOrientationToStore(e, viewer.props.orientation.xyz);
+                } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
+                  widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
                 }
               })
             }
@@ -278,13 +264,14 @@
         // const viewer = this.$store.state.cyclomedia.viewer;
         // viewer.openByCoordinate(coords);
       },
-      sendOrientationToStore() {
-        // console.log('sendOrientationToStore, yaw:', window.panoramaViewer.props.orientation.yaw);
-        this.$store.commit('setCyclomediaYaw', window.panoramaViewer.props.orientation.yaw)
-        this.$store.commit('setCyclomediaHFov', window.panoramaViewer.props.orientation.hFov)
-        const xy = [window.panoramaViewer.props.orientation.xyz[0], window.panoramaViewer.props.orientation.xyz[1]];
+      sendOrientationToStore(e, xyz) {
+        if (e.yaw) {
+          this.$store.commit('setCyclomediaYaw', e.yaw)
+          this.$store.commit('setCyclomediaHFov', e.hFov)
+        }
+        const xy = [xyz[0], xyz[1]];
+        // console.log('sendOrientationToStore, e:', e, 'xyz:', xyz, 'xy:', xy);
         const lnglat = proj4(this.projection2272, this.projection4326, xy);
-        // console.log('xy:', xy, 'lnglat', lnglat);
         this.$store.commit('setCyclomediaXyz', lnglat);
       },
       popoutClicked() {

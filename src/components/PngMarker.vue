@@ -27,53 +27,64 @@
       var oldIE = (L.DomUtil.TRANSFORM === 'msTransform');
 
       L.Marker.addInitHook(function () {
-          var iconOptions = this.options.icon && this.options.icon.options;
-          var iconAnchor = iconOptions && this.options.icon.options.iconAnchor;
-          if (iconAnchor) {
-              iconAnchor = (iconAnchor[0] + 'px ' + iconAnchor[1] + 'px');
-          }
-          this.options.rotationOrigin = this.options.rotationOrigin || iconAnchor || 'center bottom' ;
-          this.options.rotationAngle = this.options.rotationAngle || 0;
+        var iconOptions = this.options.icon && this.options.icon.options;
+        var iconAnchor = iconOptions && this.options.icon.options.iconAnchor;
+        if (iconAnchor) {
+            iconAnchor = (iconAnchor[0] + 'px ' + iconAnchor[1] + 'px');
+        }
+        this.options.rotationOrigin = this.options.rotationOrigin || iconAnchor || 'center bottom' ;
+        this.options.rotationAngle = this.options.rotationAngle || 0;
 
-          // Ensure marker keeps rotated during dragging
-          this.on('drag', function(e) { e.target._applyRotation(); });
+        // console.log('PngMarker addInitHook, iconOptions:', iconOptions, 'iconAnchor:', iconAnchor, 'this.options.rotationOrigin:', this.options.rotationOrigin, 'this.options.rotationAngle:', this.options.rotationAngle);
+
+        // Ensure marker keeps rotated during dragging
+        this.on('drag', function(e) { e.target._applyRotation(); });
       });
 
       L.Marker.include({
-          _initIcon: function() {
-              proto_initIcon.call(this);
-          },
+        _initIcon: function() {
+          // console.log('_initIcon is running');
+          proto_initIcon.call(this);
+        },
 
-          _setPos: function (pos) {
-              proto_setPos.call(this, pos);
-              this._applyRotation();
-          },
+        _setPos: function (pos) {
+          // console.log('_setPos is running, pos:', pos);
+          proto_setPos.call(this, pos);
+          this._applyRotation();
+        },
 
-          _applyRotation: function () {
-              if(this.options.rotationAngle) {
-                  this._icon.style[L.DomUtil.TRANSFORM+'Origin'] = this.options.rotationOrigin;
+        _applyRotation: function () {
+          if(this.options.rotationAngle) {
+            // console.log('PngMarker _applyRotation is running, this.options.rotationAngle:', this.options.rotationAngle);
+            this._icon.style[L.DomUtil.TRANSFORM+'Origin'] = this.options.rotationOrigin;
 
-                  if(oldIE) {
-                      // for IE 9, use the 2D rotation
-                      this._icon.style[L.DomUtil.TRANSFORM] = 'rotate(' + this.options.rotationAngle + 'deg)';
-                  } else {
-                      // for modern browsers, prefer the 3D accelerated version
-                      this._icon.style[L.DomUtil.TRANSFORM] += ' rotateZ(' + this.options.rotationAngle + 'deg)';
-                  }
-              }
-          },
-
-          setRotationAngle: function(angle) {
-              this.options.rotationAngle = angle;
-              this.update();
-              return this;
-          },
-
-          setRotationOrigin: function(origin) {
-              this.options.rotationOrigin = origin;
-              this.update();
-              return this;
+            if(oldIE) {
+              // for IE 9, use the 2D rotation
+              // console.log('oldIE');
+              this._icon.style[L.DomUtil.TRANSFORM] = 'rotate(' + this.options.rotationAngle + 'deg)';
+            } else {
+              // for modern browsers, prefer the 3D accelerated version
+              // console.log('notOldIE');
+              this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.rotationAngle + 'deg)';
+              // this._icon.style[L.DomUtil.TRANSFORM] += ' rotateZ(' + this.options.rotationAngle + 'deg)';
+              // this.setRotationAngle(this.options.rotationAngle);
+            }
           }
+        },
+
+        setRotationAngle: function(angle) {
+          // console.log('PngMarker setRotationAngle is running');
+          this.options.rotationAngle = angle;
+          this.update();
+          return this;
+        },
+
+        setRotationOrigin: function(origin) {
+          // console.log('PngMarker setRotationOrigin is running');
+          this.options.rotationOrigin = origin;
+          this.update();
+          return this;
+        }
       });
 
       const leafletElement = this.$leafletElement = this.createLeafletElement();
@@ -82,10 +93,11 @@
       // REVIEW kind of hacky/not reactive?
       if (map) {
         leafletElement.addTo(map);
+        // console.log('leafletElement:', leafletElement);
       }
     },
     destroyed() {
-      //console.log('pngMarker destroyed fired, latlng is', this.latlng);
+      // console.log('pngMarker destroyed fired, latlng is', this.latlng);
       this.$leafletElement._map.removeLayer(this.$leafletElement);
     },
     watch: {

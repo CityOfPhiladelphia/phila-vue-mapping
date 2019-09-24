@@ -20,6 +20,7 @@
       return;
     },
     mounted() {
+      // console.log('SvgViewConeMarker, this.$props.rotationAngle:', this.$props.rotationAngle);
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       // console.log('WHO IT IS', leafletElement);
       const map = this.$store.state.map.map;
@@ -59,9 +60,9 @@
     },
     computed: {
       coneCoords() {
-        const hFovDegrees = this.hFov * (180/3.14159265359);
+        // const hFovDegrees = this.hFov * (180/3.14159265359);
         const scale = 50//options.scale;
-        const angle = hFovDegrees / 2.0;
+        const angle = this.hFov / 2.0;
         const width = Math.sin(angle * Math.PI / 180);
         const length = Math.sqrt(1.0 - width * width);
         const coneCoords = [width * scale, length * scale];

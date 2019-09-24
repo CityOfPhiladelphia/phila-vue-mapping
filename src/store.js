@@ -139,12 +139,15 @@ const pvmStore = {
       state.cyclomedia.active = payload;
     },
     setCyclomediaYaw(state, payload) {
+      // console.log('setCyclomediaYaw is running, payload:', payload);
       state.cyclomedia.orientation.yaw = payload
     },
     setCyclomediaHFov(state, payload) {
+      // console.log('setCyclomediaHFov is running, payload:', payload);
       state.cyclomedia.orientation.hFov = payload
     },
     setCyclomediaXyz(state, payload) {
+      // console.log('setCyclomediaXyz is running, payload:', payload);
       state.cyclomedia.orientation.xyz = payload
     },
     setCyclomediaRecordings(state, payload) {
