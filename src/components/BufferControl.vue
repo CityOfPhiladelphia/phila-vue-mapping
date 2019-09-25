@@ -1,5 +1,5 @@
 <template>
-  <div class="leaflet-bar easy-button-container leaflet-control"
+  <div class="leaflet-bar easy-button-container leaflet-control" title="Search by Radius"
        :style="{ 'color': 'red', 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
   >
     <button @click="handleBufferButtonClick"
@@ -37,7 +37,7 @@
     ],
     computed: {
       bufferToolActive() {
-        return this.$store.state.bufferMode ? 'active' : 'inactive'
+        return this.$store.state.bufferMode ? 'active pointer' : 'inactive pointer'
       },
       bufferClassActive() {
         return this.$store.state.bufferMode ? 'leaflet-buffer-actions' : 'leaflet-buffer-actions tool-inactive'
@@ -146,6 +146,10 @@
     font: "Helvetica Neue", Arial, Helvetica, sans-serif;
     font-size: 12px;
     background-color: #919187;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 </style>
