@@ -205,7 +205,7 @@
         this.$store.commit('setCandidates', []);
       },
       handleSearchFormSubmit() {
-        console.log('handleSearchFormSubmit is running');
+        console.log('MapAddressInput handleSearchFormSubmit is running');
         let value;
         if (this.addressAutocompleteEnabled){
           value = addressEntered
@@ -220,7 +220,8 @@
           // }
         }
         // console.log('phila-vue-comps AddressInput.vue, handleSearchFormSubmit is running, value:', value);
-        this.$controller.handleSearchFormSubmit(value);
+        this.$emit('handle-search-form-submit', value);
+        // this.$controller.handleSearchFormSubmit(value);
         // this.$store.commit('setAddressEntered', value);
       },
       handleWindowResize() {
