@@ -221,8 +221,6 @@
         }
         // console.log('phila-vue-comps AddressInput.vue, handleSearchFormSubmit is running, value:', value);
         this.$emit('handle-search-form-submit', value);
-        // this.$controller.handleSearchFormSubmit(value);
-        // this.$store.commit('setAddressEntered', value);
       },
       handleWindowResize() {
         const addressEntered = this.addressEntered;
