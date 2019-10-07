@@ -19,6 +19,26 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.41 - 10/7/2019
+
+* Monthly package upgrades, merges in all changes to work with pvd upgrade
+
+### 1.0.40 - 9/24/2019
+
+* Changes for adapting to Cyclomedia 19.12
+
+### 1.0.39 - 9/23/2019
+
+* Changes for adapting to Cyclomedia 19.12
+
+### 1.0.38 - 9/23/2019
+
+* Changes for adapting to Cyclomedia 19.12
+
+### 1.0.37 - 9/6/2019
+
+* Adds to Polyline.vue to fix style changes
+
 ### 1.0.36 - 9/6/2019
 
 * Monthly package upgrades
