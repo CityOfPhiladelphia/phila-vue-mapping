@@ -41,7 +41,6 @@
         // fn
         if (valOrGetterType === 'function') {
           const state = this.$store.state;
-          const controller = this.$controller;
           const getter = valOrGetter;
 
           // const getterText = String(getter);
@@ -56,7 +55,7 @@
           // from a list of things, e.g. dor parcels), pass the item itself
           // as well when evaluating
           if (item) {
-            val = getter(state, item, controller);
+            val = getter(state, item);
           } else {
             // console.log('evaluateSlot, about to get value');
             val = getter(state);

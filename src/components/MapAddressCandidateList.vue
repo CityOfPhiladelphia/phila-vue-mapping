@@ -150,7 +150,6 @@
       },
       closeAddressCandidateList(addressCandidate) {
         // console.log('closeAddressCandidateList, addressCandidate:', addressCandidate);
-        // this.$controller.handleSearchFormSubmit(addressCandidate);
         this.$store.commit('setAddressEntered', addressCandidate);
         this.$store.commit('setShouldShowAddressCandidateList', false);
       },
