@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div 
+    <div
       v-if="this.popupHtmlArray.length > 1"
       class="text-center"
     >
@@ -9,25 +9,26 @@
           <span v-if="this.previousIsDisabled !== 'pagination-previous'">
             Previous
           </span>
-          <a 
+          <a
             v-if="this.previousIsDisabled === 'pagination-previous'"
             @click="changePopup(currentPopup-1)"
           >
             Previous
           </a>
         </li>
-        <div 
+        <div
           v-if="this.popupHtmlArrayLength <= 9"
           class="inline-div"
         >
-          <li 
+          <li
             v-for="(popup, index) in this.popupHtmlArray"
+            :key="index"
             :class="isCurrent(index)"
           >
             <span v-if="isCurrent(index) === 'current'">
               {{ index + 1 }}
             </span>
-            <a 
+            <a
               v-if="isCurrent(index) !== 'current'"
               @click="changePopup(index)"
             >
@@ -35,7 +36,7 @@
             </a>
           </li>
         </div>
-        <div 
+        <div
           v-if="this.popupHtmlArrayLength >= 10"
           class="inline-div popup-div"
         >
@@ -45,7 +46,7 @@
           <span v-if="this.nextIsDisabled !== 'pagination-next'">
             Next
           </span>
-          <a 
+          <a
             v-if="this.nextIsDisabled === 'pagination-next'"
             @click="changePopup(currentPopup+1)"
           >
@@ -69,16 +70,16 @@ export default {
     previousIsDisabled() {
       if (this.currentPopup === 0) {
         return 'pagination-previous disabled';
-      } 
+      }
       return 'pagination-previous';
-        
+
     },
     nextIsDisabled() {
       if (this.currentPopup === this.popupHtmlArray.length - 1) {
         return 'pagination-next disabled';
-      } 
+      }
       return 'pagination-next';
-        
+
     },
     intersectingFeatures() {
       return this.$store.state.map.intersectingFeatures;
@@ -118,9 +119,9 @@ export default {
     isCurrent(index) {
       if (index === this.currentPopup) {
         return 'current inline-div';
-      } 
+      }
       return 'inline-div';
-        
+
     },
   },
 };

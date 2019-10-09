@@ -56,7 +56,7 @@ export default {
 
       // Ensure marker keeps rotated during dragging
       this.on('drag', function(e) {
-        e.target._applyRotation(); 
+        e.target._applyRotation();
       });
     });
 
@@ -140,12 +140,11 @@ export default {
       this.$leafletElement.addTo(map);
     },
   },
-  render(h) {
-    // for some reason, the react prop that `this.orientation` depends on has
-    // to be evaluated once in order to receive updates.
-    // this.orientation;
-
-    return;
-  },
+  // for some reason, the react prop that `this.orientation` depends on has
+  // to be evaluated once in order to receive updates.
+  // this.orientation;
+  // render(h) {
+  //   return;
+  // },
 };
 </script>

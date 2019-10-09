@@ -57,8 +57,8 @@ export default {
   },
   // we don't actually render anything, but need to define either a template
   // or a render function
-  render(h) {
-    return;
-  },
+  // render(h) {
+  //   return;
+  // },
 };
 </script>

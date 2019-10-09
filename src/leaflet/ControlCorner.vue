@@ -13,9 +13,9 @@ export default {
       map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div', 'leaflet-'+this.vSide+' leaflet-'+this.hSide, map._controlContainer);
     },
   },
-  render(h) {
-    return;
-  },
+  // render(h) {
+  //   return;
+  // },
 };
 </script>
 

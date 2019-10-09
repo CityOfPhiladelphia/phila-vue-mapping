@@ -1,12 +1,13 @@
 <template>
   <div style="display: inline">
-    <div 
+    <div
       v-show="activeBasemap && activeBasemap.startsWith('historic')"
       class="year-selector-container"
     >
       <ul>
-        <li 
+        <li
           v-for="historicYear in historicYears"
+          :key="historicYear"
           :class="{ active: activeBasemap === 'historic' + historicYear }"
           @click="handleHistoricYearClick"
         >
@@ -15,13 +16,13 @@
       </ul>
     </div>
     <div class="leaflet-bar easy-button-container leaflet-control">
-      <button 
+      <button
         class="easy-button-button leaflet-bar-part leaflet-interactive unnamed-state-active"
         @click="handleHistoricToggleButtonClick"
       >
         <span class="button-state state-unnamed-state unnamed-state-active">
-          <img 
-            :src="toggleButtonImgSrc" 
+          <img
+            :src="toggleButtonImgSrc"
             class="button-image"
           >
         </span>
@@ -58,9 +59,7 @@ export default {
 
       if (basemapType === 'historic') {
         src = "../../src/assets/basemap_small.png";
-      }
-      //else if (basemapType === 'featuremap') {
-      else {
+      } else {
         src = "../../src/assets/historic_small.png";
       }
 
@@ -83,9 +82,7 @@ export default {
       if (prevBasemapType !== 'historic') {
         const years = this.historicYears;
         nextBasemap = 'historic' + years[0];
-      }
-      // imagery => feature map
-      else {
+      } else {
         const activeTopic = this.$store.state.activeTopic;
         const activeTopicConfig = this.$config.topics.filter(topic => topic.key === activeTopic)[0];
         nextBasemap = activeTopicConfig.basemap;

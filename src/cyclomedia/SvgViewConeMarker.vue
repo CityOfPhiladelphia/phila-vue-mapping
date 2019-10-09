@@ -83,10 +83,10 @@ export default {
       this.$leafletElement.addTo(map);
     },
   },
-  render(h) {
-    // this.orientation;
-    return;
-  },
+  // render(h) {
+  //   // this.orientation;
+  //   return;
+  // },
 };
 </script>
 

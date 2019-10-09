@@ -85,6 +85,7 @@ export default {
           id: 108982,
           visible: false,
         });
+        break;
 
       default:
         // turn off DOR parcels
@@ -102,8 +103,8 @@ export default {
 
 
   },
-  render(h) {
-    return;
-  },
+  // render(h) {
+  //   return;
+  // },
 };
 </script>

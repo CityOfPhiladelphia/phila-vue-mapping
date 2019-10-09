@@ -10,6 +10,7 @@
 <script>
 
 import TopicComponent from './TopicComponent.vue';
+import * as L from 'leaflet';
 
 export default {
   props: [ 'layer',
@@ -56,7 +57,7 @@ export default {
   },
   methods: {
     initialize() {
-      // console.log('LegendBox.vue initialize is runnning, this.$props:', this.$props);
+      console.log('LegendBox.vue initialize is runnning, this.$props:', this.$props);
       if (this.$props.legend) {
         // console.log('already have a legend')
         this.createLegend(this.scale);

@@ -26,9 +26,9 @@ export default {
       map.addControl(this.$leafletElement);
     },
   },
-  render(h) {
-    return;
-  },
+  // render(h) {
+  //   return;
+  // },
 };
 </script>
 
