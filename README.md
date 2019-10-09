@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.42 - 10/9/2019
+
+* Uses update to L.esri.Webmap to add datetime to popups
+
 ### 1.0.41 - 10/7/2019
 
 * Monthly package upgrades, merges in all changes to work with pvd upgrade
