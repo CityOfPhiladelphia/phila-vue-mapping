@@ -1,23 +1,29 @@
 <template>
   <div style="display: inline">
-    <div class="year-selector-container"
-         v-show="activeBasemap && activeBasemap.startsWith('historic')"
+    <div 
+      v-show="activeBasemap && activeBasemap.startsWith('historic')"
+      class="year-selector-container"
     >
       <ul>
-        <li v-for="historicYear in historicYears"
-            :class="{ active: activeBasemap === 'historic' + historicYear }"
-            @click="handleHistoricYearClick"
+        <li 
+          v-for="historicYear in historicYears"
+          :class="{ active: activeBasemap === 'historic' + historicYear }"
+          @click="handleHistoricYearClick"
         >
           {{ historicYear }}
         </li>
       </ul>
     </div>
     <div class="leaflet-bar easy-button-container leaflet-control">
-      <button class="easy-button-button leaflet-bar-part leaflet-interactive unnamed-state-active"
-              @click="handleHistoricToggleButtonClick"
+      <button 
+        class="easy-button-button leaflet-bar-part leaflet-interactive unnamed-state-active"
+        @click="handleHistoricToggleButtonClick"
       >
         <span class="button-state state-unnamed-state unnamed-state-active">
-          <img class="button-image" :src="toggleButtonImgSrc">
+          <img 
+            :src="toggleButtonImgSrc" 
+            class="button-image"
+          >
         </span>
       </button>
     </div>
@@ -25,76 +31,76 @@
 </template>
 
 <script>
-  import Control from '../leaflet/Control.vue';
+import Control from '../leaflet/Control.vue';
 
-  // REVIEW is there a better way to extend a vue component?
-  const {props, methods} = Control;
+// REVIEW is there a better way to extend a vue component?
+const { props, methods } = Control;
 
-  export default {
-    name: 'HistoricmapControl',
-    // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
-    // props: Object.assign(props, {
-    // }),
-    props: [
-      'position',
-      'historicYears'
-    ],
-    computed: {
-      activeBasemap() {
-        const basemap = this.$store.state.map.basemap;
-        return basemap;
-      },
-      toggleButtonImgSrc() {
-        const basemap = this.activeBasemap;
-        const basemapConfig = this.configForBasemap(basemap) || {};
-        const basemapType = basemapConfig.type;
-        let src;
-
-        if (basemapType === 'historic') {
-          src = "../../src/assets/basemap_small.png"
-        }
-        //else if (basemapType === 'featuremap') {
-        else {
-          src = "../../src/assets/historic_small.png"
-        }
-
-        return src;
-      },
+export default {
+  name: 'HistoricmapControl',
+  // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
+  // props: Object.assign(props, {
+  // }),
+  props: [
+    'position',
+    'historicYears',
+  ],
+  computed: {
+    activeBasemap() {
+      const basemap = this.$store.state.map.basemap;
+      return basemap;
     },
-    methods: Object.assign(methods, {
-      configForBasemap(key) {
-        return this.$config.map.basemaps[key];
-      },
-      // return a list of imagery basemap years in descending order
-      handleHistoricToggleButtonClick(e) {
-        const prevBasemap = this.activeBasemap;
-        const prevBasemapConfig = this.configForBasemap(prevBasemap);
-        const prevBasemapType = prevBasemapConfig.type;
-        let nextBasemap;
+    toggleButtonImgSrc() {
+      const basemap = this.activeBasemap;
+      const basemapConfig = this.configForBasemap(basemap) || {};
+      const basemapType = basemapConfig.type;
+      let src;
 
-        // feature map => imagery
-        // if (prevBasemapType === 'featuremap') {
-        if (prevBasemapType !== 'historic') {
-          const years = this.historicYears;
-          nextBasemap = 'historic' + years[0];
-        }
-        // imagery => feature map
-        else {
-          const activeTopic = this.$store.state.activeTopic;
-          const activeTopicConfig = this.$config.topics.filter(topic => topic.key === activeTopic)[0];
-          nextBasemap = activeTopicConfig.basemap;
-        }
+      if (basemapType === 'historic') {
+        src = "../../src/assets/basemap_small.png";
+      }
+      //else if (basemapType === 'featuremap') {
+      else {
+        src = "../../src/assets/historic_small.png";
+      }
 
-        this.$store.commit('setBasemap', nextBasemap);
-      },
+      return src;
+    },
+  },
+  methods: Object.assign(methods, {
+    configForBasemap(key) {
+      return this.$config.map.basemaps[key];
+    },
+    // return a list of imagery basemap years in descending order
+    handleHistoricToggleButtonClick(e) {
+      const prevBasemap = this.activeBasemap;
+      const prevBasemapConfig = this.configForBasemap(prevBasemap);
+      const prevBasemapType = prevBasemapConfig.type;
+      let nextBasemap;
 
-      handleHistoricYearClick(e) {
-        const year = e.target.innerText;
-        const nextBasemap = 'historic' + year;
-        this.$store.commit('setBasemap', nextBasemap);
-      },
-    })
-  };
+      // feature map => imagery
+      // if (prevBasemapType === 'featuremap') {
+      if (prevBasemapType !== 'historic') {
+        const years = this.historicYears;
+        nextBasemap = 'historic' + years[0];
+      }
+      // imagery => feature map
+      else {
+        const activeTopic = this.$store.state.activeTopic;
+        const activeTopicConfig = this.$config.topics.filter(topic => topic.key === activeTopic)[0];
+        nextBasemap = activeTopicConfig.basemap;
+      }
+
+      this.$store.commit('setBasemap', nextBasemap);
+    },
+
+    handleHistoricYearClick(e) {
+      const year = e.target.innerText;
+      const nextBasemap = 'historic' + year;
+      this.$store.commit('setBasemap', nextBasemap);
+    },
+  }),
+};
 </script>
 
 <style scoped>

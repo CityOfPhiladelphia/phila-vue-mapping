@@ -1,93 +1,97 @@
 <template>
-  <div id="toggle-tab"
-       class="toggle-tab"
-       :style="{ top: buttonPosition }"
-       @click="handleFullScreenMapToggleButtonClick"
-       v-if="!this.isMobileOrTablet"
+  <div 
+    v-if="!this.isMobileOrTablet"
+    id="toggle-tab"
+    :style="{ top: buttonPosition }"
+    class="toggle-tab"
+    @click="handleFullScreenMapToggleButtonClick"
   >
     <span class="align-span">
-      <font-awesome-icon :icon="this.currentIcon" class="fa-2x" />
+      <font-awesome-icon 
+        :icon="this.currentIcon" 
+        class="fa-2x"
+      />
     </span>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'FullScreenMapToggleTab',
-    data() {
-      return {
-        'buttonPosition': 0,
-      }
+export default {
+  name: 'FullScreenMapToggleTab',
+  data() {
+    return {
+      'buttonPosition': 0,
+    };
+  },
+  computed: {
+    windowDim() {
+      return this.$store.state.windowDimensions;
     },
-    mounted() {
+    fullScreenMapEnabled() {
+      return this.$store.state.fullScreenMapEnabled;
+    },
+    fullScreenTopicsEnabled() {
+      return this.$store.state.fullScreenTopicsEnabled;
+    },
+    isMobileOrTablet() {
+      return this.$store.state.isMobileOrTablet;
+    },
+    cyclomediaActive() {
+      return this.$store.state.cyclomedia.active;
+    },
+    pictometryActive() {
+      return this.$store.state.pictometry.active;
+    },
+    picOrCycloActive() {
+      if (this.cyclomediaActive || this.pictometryActive) {
+        return true;
+      } 
+      return false;
+        
+    },
+    currentIcon() {
+      if (this.fullScreenMapEnabled) {
+        return 'caret-right';
+      } 
+      return 'caret-left';
+        
+    },
+  },
+  watch: {
+    picOrCycloActive(value) {
       this.setDivHeight(this.windowDim);
     },
-    watch: {
-      picOrCycloActive(value) {
-        this.setDivHeight(this.windowDim);
-      },
-      fullScreenTopicsEnabled() {
-        this.setDivHeight(this.windowDim);
-      },
-      windowDim(nextDim) {
-        this.setDivHeight(nextDim);
-      }
+    fullScreenTopicsEnabled() {
+      this.setDivHeight(this.windowDim);
     },
-    computed: {
-      windowDim() {
-        return this.$store.state.windowDimensions;
-      },
-      fullScreenMapEnabled() {
-        return this.$store.state.fullScreenMapEnabled;
-      },
-      fullScreenTopicsEnabled() {
-        return this.$store.state.fullScreenTopicsEnabled;
-      },
-      isMobileOrTablet() {
-        return this.$store.state.isMobileOrTablet;
-      },
-      cyclomediaActive() {
-        return this.$store.state.cyclomedia.active;
-      },
-      pictometryActive() {
-        return this.$store.state.pictometry.active;
-      },
-      picOrCycloActive() {
-        if (this.cyclomediaActive || this.pictometryActive) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      currentIcon() {
-        if (this.fullScreenMapEnabled) {
-          return 'caret-right'
-        } else {
-          return 'caret-left'
+    windowDim(nextDim) {
+      this.setDivHeight(nextDim);
+    },
+  },
+  mounted() {
+    this.setDivHeight(this.windowDim);
+  },
+  methods: {
+    setDivHeight(dim) {
+      if (this.$config.plugin) {
+        if (this.$config.plugin.enabled === true) {
+          this.buttonPosition = (this.$config.plugin.height-48)/2 + 'px';
+          return;
         }
       }
+      if (!this.picOrCycloActive) {
+        this.buttonPosition = (dim.height-48)/2 + 'px';
+      } else {
+        this.buttonPosition = (dim.height-48)/4 + 'px';
+      }
     },
-    methods: {
-      setDivHeight(dim) {
-        if (this.$config.plugin) {
-          if (this.$config.plugin.enabled === true) {
-            this.buttonPosition = (this.$config.plugin.height-48)/2 + 'px';
-            return;
-          }
-        }
-        if (!this.picOrCycloActive) {
-          this.buttonPosition = (dim.height-48)/2 + 'px';
-        } else {
-          this.buttonPosition = (dim.height-48)/4 + 'px';
-        }
-      },
-      handleFullScreenMapToggleButtonClick(e) {
-        const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
-        const nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
-        this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
-      },
-    }
-  };
+    handleFullScreenMapToggleButtonClick(e) {
+      const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
+      const nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
+      this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
+    },
+  },
+};
 </script>
 
 <style scoped>

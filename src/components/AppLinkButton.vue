@@ -1,37 +1,41 @@
 <template>
   <div class="leaflet-bar easy-button-container leaflet-control">
-    <button class="easy-button-button leaflet-bar-part leaflet-interactive unnamed-state-active"
-            @click="handleButtonClick(link)"
+    <button 
+      class="easy-button-button leaflet-bar-part leaflet-interactive unnamed-state-active"
+      @click="handleButtonClick(link)"
     >
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <img class="button-image" :src="imgSrc">
+        <img 
+          :src="imgSrc" 
+          class="button-image"
+        >
       </span>
     </button>
   </div>
 </template>
 
 <script>
-  import Control from '../leaflet/Control.vue';
+import Control from '../leaflet/Control.vue';
 
-  // REVIEW is there a better way to extend a vue component?
-  const {props, methods} = Control;
+// REVIEW is there a better way to extend a vue component?
+const { props, methods } = Control;
 
-  export default {
-    name: 'AppLinkButton',
-    // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
-    // props: Object.assign(props, {
-    // }),
-    props: [
-      'position',
-      'link',
-      'imgSrc'
-    ],
-    methods: Object.assign(methods, {
-      handleButtonClick(link) {
-        window.open('http://localhost:8080/' + link);
-      },
-    })
-  };
+export default {
+  name: 'AppLinkButton',
+  // TODO figure how to extend props. sometimes it's an obj, sometimes an array.
+  // props: Object.assign(props, {
+  // }),
+  props: [
+    'position',
+    'link',
+    'imgSrc',
+  ],
+  methods: Object.assign(methods, {
+    handleButtonClick(link) {
+      window.open('http://localhost:8080/' + link);
+    },
+  }),
+};
 </script>
 
 <style scoped>

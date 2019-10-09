@@ -1,21 +1,23 @@
 <template>
   <div v-show="this.shouldShowLegend">
-    <div class='legend'>
-      <ul class='legend-list'>
-        <li v-for='key in this.keys'
-            class='legend-listitem'
-            :style='"font-size:"+items[key]["font-size"]+";"'
+    <div class="legend">
+      <ul class="legend-list">
+        <li 
+          v-for="key in this.keys"
+          :style="&quot;font-size:&quot;+items[key][&quot;font-size&quot;]+&quot;;&quot;"
+          class="legend-listitem"
         >
-          <div class='legend-box'
-             :style='"background-color:"+items[key]["background-color"]+
-             "; border-color:"+items[key]["border-color"]+
-             "; border-style:"+items[key]["border-style"]+
-             "; border-width:"+items[key]["border-weight"]+
-             "; width:"+items[key].width+
-             "; height:"+items[key].height+";"'
+          <div 
+            :style="&quot;background-color:&quot;+items[key][&quot;background-color&quot;]+
+              &quot;; border-color:&quot;+items[key][&quot;border-color&quot;]+
+              &quot;; border-style:&quot;+items[key][&quot;border-style&quot;]+
+              &quot;; border-width:&quot;+items[key][&quot;border-weight&quot;]+
+              &quot;; width:&quot;+items[key].width+
+              &quot;; height:&quot;+items[key].height+&quot;;&quot;"
+            class="legend-box"
           />
-          <div class='list-text'>
-            {{key}}
+          <div class="list-text">
+            {{ key }}
           </div>
         </li>
       </ul>
@@ -24,47 +26,47 @@
 </template>
 
 <script>
-  import Control from '../leaflet/Control.vue';
-  const {props, methods} = Control;
+import Control from '../leaflet/Control.vue';
+const { props, methods } = Control;
 
-  export default {
-    name: 'LegendControl',
-    props: [
-      'position',
-      'options',
-      'items'
-    ],
-    computed: {
-      keys() {
-        return Object.keys(this.$props.items);
-      },
-      activeTopic() {
-        return this.$store.state.activeTopic;
-      },
-      shouldShowBasemapSelectControl() {
-        return this.$store.state.map.shouldShowBasemapSelectControl;
-      },
-      shouldShowLegend() {
-        let result = true;
-        if (!this.$props.options.topics.includes(this.activeTopic)) {
+export default {
+  name: 'LegendControl',
+  props: [
+    'position',
+    'options',
+    'items',
+  ],
+  computed: {
+    keys() {
+      return Object.keys(this.$props.items);
+    },
+    activeTopic() {
+      return this.$store.state.activeTopic;
+    },
+    shouldShowBasemapSelectControl() {
+      return this.$store.state.map.shouldShowBasemapSelectControl;
+    },
+    shouldShowLegend() {
+      let result = true;
+      if (!this.$props.options.topics.includes(this.activeTopic)) {
+        result = false;
+      }
+      if (this.$props.options.showWithBaseMapOnly) {
+        if (this.shouldShowBasemapSelectControl) {
           result = false;
         }
-        if (this.$props.options.showWithBaseMapOnly) {
-          if (this.shouldShowBasemapSelectControl) {
-            result = false;
-          }
-        }
-        return result;
       }
-      // style() {
-      //   // const string = "background: " + this.$props.items[key].background + " color: " + this.$props.items[key].color
-      //   const string = this.$props.items[]
-      //   console.log('style string', string);
-      //   return string
-      // }
+      return result;
     },
-    methods: Object.assign(methods)
-  };
+    // style() {
+    //   // const string = "background: " + this.$props.items[key].background + " color: " + this.$props.items[key].color
+    //   const string = this.$props.items[]
+    //   console.log('style string', string);
+    //   return string
+    // }
+  },
+  methods: Object.assign(methods),
+};
 </script>
 
 <style>
