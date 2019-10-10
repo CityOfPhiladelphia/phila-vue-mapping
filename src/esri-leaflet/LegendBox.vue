@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div 
+    <div
       class="legend"
-      v-html="this.legendHtml"
+      v-html="legendHtml"
     />
   </div>
 </template>

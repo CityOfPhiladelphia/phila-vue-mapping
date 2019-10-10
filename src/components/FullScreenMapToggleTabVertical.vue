@@ -1,14 +1,14 @@
 <template>
-  <div 
-    v-if="!this.isMobileOrTablet"
+  <div
+    v-if="!isMobileOrTablet"
     id="toggle-tab"
     :style="{ left: buttonPosition }"
     class="toggle-tab"
     @click="handleFullScreenMapToggleButtonClick"
   >
     <span class="align-span">
-      <font-awesome-icon 
-        :icon="this.currentIcon" 
+      <font-awesome-icon
+        :icon="currentIcon" 
         class="fa-2x"
       />
     </span>
@@ -43,16 +43,16 @@ export default {
     picOrCycloActive() {
       if (this.cyclomediaActive || this.pictometryActive) {
         return true;
-      } 
+      }
       return false;
-        
+
     },
     currentIcon() {
       if (this.fullScreenMapEnabled) {
         return 'caret-up';
-      } 
+      }
       return 'caret-down';
-        
+
     },
   },
   watch: {

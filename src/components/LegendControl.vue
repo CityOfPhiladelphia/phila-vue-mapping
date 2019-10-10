@@ -1,13 +1,14 @@
 <template>
-  <div v-show="this.shouldShowLegend">
+  <div v-show="shouldShowLegend">
     <div class="legend">
       <ul class="legend-list">
-        <li 
-          v-for="key in this.keys"
+        <li
+          v-for="key in keys"
+          :key="key"
           :style="&quot;font-size:&quot;+items[key][&quot;font-size&quot;]+&quot;;&quot;"
           class="legend-listitem"
         >
-          <div 
+          <div
             :style="&quot;background-color:&quot;+items[key][&quot;background-color&quot;]+
               &quot;; border-color:&quot;+items[key][&quot;border-color&quot;]+
               &quot;; border-style:&quot;+items[key][&quot;border-style&quot;]+

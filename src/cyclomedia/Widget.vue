@@ -1,21 +1,21 @@
 <template>
-  <div 
+  <div
     id="cyclo-container"
-    :class="this.cycloContainerClass"
+    :class="cycloContainerClass"
   >
     <!-- v-once -->
-    <div 
-      v-if="this.isMobileOrTablet === false && this.popoutAble === true"
+    <div
+      v-if="isMobileOrTablet === false && popoutAble === true"
       id="inCycloDiv"
       :style="{ right: popoutPosition }"
-      @click="this.popoutClicked"
+      @click="popoutClicked"
     >
-      <font-awesome-icon 
-        icon="external-link-alt" 
+      <font-awesome-icon
+        icon="external-link-alt"
         class="popout-icon"
       />
     </div>
-    <div 
+    <div
       id="cycloviewer"
       ref="cycloviewer"
       class="panoramaViewerWindow"
@@ -69,9 +69,9 @@ export default {
     cycloContainerClass() {
       if (this.pictometryActive) {
         return 'medium-16 large-16 columns mb-panel';
-      } 
+      }
       return 'medium-24 large-24 columns mb-panel';
-        
+
     },
     locForCyclo() {
       // console.log('computing locForCyclo');
@@ -80,6 +80,7 @@ export default {
       if (geocodeData) {
         return [ geocodeData.geometry.coordinates[1], geocodeData.geometry.coordinates[0] ];
       }
+      return [];
     },
     latLngFromMap() {
       return this.$store.state.cyclomedia.latLngFromMap;

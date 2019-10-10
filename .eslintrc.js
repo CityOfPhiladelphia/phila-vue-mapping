@@ -35,6 +35,10 @@ module.exports = {
     "vue/no-v-html": "off",
     "vue/order-in-components": "error",
     "vue/attributes-order": "error",
+    "vue/require-render-return": "off",
+    "vue/require-prop-types": "off",
+    "vue/require-default-prop": "off",
+    "no-undef": "off",
   },
   parserOptions: {
     parser: "babel-eslint",

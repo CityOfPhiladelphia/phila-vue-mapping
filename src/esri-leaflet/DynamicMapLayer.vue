@@ -1,5 +1,5 @@
 <template>
-  <opacity-slider 
+  <opacity-slider
     :layer="this.$leafletElement"
     :position="'topleft'"
     :initial-opacity="opacity"

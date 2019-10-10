@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import * as L from 'leaflet';
 // import Control from '../leaflet/Control.vue';
 // const {props, methods} = Control;
 

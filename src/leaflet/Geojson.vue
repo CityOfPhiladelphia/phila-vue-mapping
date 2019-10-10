@@ -41,16 +41,6 @@ export default {
       const newGeojson = new GeoJson(geojson, options);
       //this.$store.commit('setCircleMarkers', newCircleMarker);
       return newGeojson;
-      // if the geoJSON feature is a point, it needs to be styled through "pointToLayer"
-      // const type = this.$props.overlay.type;
-      // const style = this.$props.overlay.style;
-      // return new GeoJson(this.$props.geojson, {
-      //   color: this.$props.color,
-      //   weight: this.$props.weight,
-      //   // pointToLayer: function (feature, latlng) {
-      	// 	// 	return type(latlng, style)
-      //   // }
-      // });
     },
     parentMounted(parent) {
       const map = parent.$leafletElement;

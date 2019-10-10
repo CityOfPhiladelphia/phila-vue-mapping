@@ -1,13 +1,13 @@
 <template>
   <!-- <div class="leaflet-bar easy-button-container leaflet-control"> -->
   <div class="leaflet-bar easy-button-container leaflet-control">
-    <button 
-      :class="this.pictometryActive"
+    <button
+      :class="pictometryActive"
       @click.prevent="handleButtonClick"
     >
       <span class="button-state">
-        <img 
-          :src="imgSrc" 
+        <img
+          :src="imgSrc"
           class="button-image"
         >
       </span>

@@ -8,6 +8,7 @@
 import axios from 'axios';
 import generateUniqueId from '../util/unique-id';
 import * as LEsriWebMap from 'L-esri-WebMap';
+import * as L from 'leaflet';
 
 export default {
   name: 'WebMap',
@@ -123,8 +124,8 @@ export default {
                     // console.log('in EsriWebMap.vue, a:', a, 'b:', b);
                     const titleA = a.title.toLowerCase();
                     const titleB=b.title.toLowerCase();
-                    if (titleA < titleB) //sort string ascending
-                    {
+                    //sort string ascending
+                    if (titleA < titleB) {
                       return -1;
                     }
                     if (titleA > titleB) {
@@ -144,8 +145,8 @@ export default {
                     // console.log('in EsriWebMap.vue, a:', a, 'b:', b);
                     const titleA = a.title.toLowerCase();
                     const titleB=b.title.toLowerCase();
-                    if (titleA < titleB) //sort string ascending
-                    {
+                    //sort string ascending
+                    if (titleA < titleB) {
                       return -1;
                     }
                     if (titleA > titleB) {
@@ -162,8 +163,8 @@ export default {
                 // console.log('in EsriWebMap.vue, a:', a, 'b:', b);
                 const titleA = a.title.toLowerCase();
                 const titleB=b.title.toLowerCase();
-                if (titleA < titleB) //sort string ascending
-                {
+                //sort string ascending
+                if (titleA < titleB) {
                   return -1;
                 }
                 if (titleA > titleB) {
@@ -195,8 +196,8 @@ export default {
           categories.sort(function(a, b) {
             const titleA = a.toLowerCase();
             const titleB=b.toLowerCase();
-            if (titleA < titleB) //sort string ascending
-            {
+            //sort string ascending
+            if (titleA < titleB) {
               return -1;
             }
             if (titleA > titleB) {

@@ -1,11 +1,14 @@
 <template>
-  <div 
-    v-show="this.shouldShowAddressCandidateList"
-    :class="this.listGroupClass"
+  <div
+    v-show="shouldShowAddressCandidateList"
+    :class="listGroupClass"
   >
     <ul>
-      <li v-for="(candidate, i) in candidates">
-        <a 
+      <li
+        v-for="(candidate, i) in candidates"
+        :key="i"
+      >
+        <a
           :id="'address-candidate-list-' + i"
           :href="createLink(candidate)"
           class="list-group-item"
@@ -47,35 +50,35 @@ export default {
         if (this.addressAutocompleteEnabled) {
           if (this.addressEntered === '' || this.addressEntered === null) {
             return 'list-group-mobile';
-          } 
+          }
           return 'list-group-mobile-full';
-            
-        } 
+
+        }
         return 'list-group-mobile';
-          
-      } 
+
+      }
       if (this.addressAutocompleteEnabled) {
         if (this.addressEntered === '' || this.addressEntered === null) {
           return 'list-group';
-        } 
+        }
         return 'list-group-full';
-            
-      } 
+
+      }
       return 'list-group';
-          
-        
+
+
     },
     addressAutocompleteEnabled() {
       // TODO this is temporarily disabled
       if (this.$config.addressInput) {
         if (this.$config.addressInput.autocompleteEnabled === true) {
           return true;
-        } 
+        }
         return false;
-          
-      } 
+
+      }
       return false;
-        
+
     },
   },
   watch: {
@@ -90,9 +93,9 @@ export default {
     createLink(candidate) {
       if (this.$store.state.activeTopic) {
         return '#/' + candidate + '/' + this.activeTopic;
-      } 
+      }
       return '#/' + candidate;
-        
+
     },
     createLeafletElement(L) {
       // console.log('AddressCandidateList.vue createLeafletElement is running')

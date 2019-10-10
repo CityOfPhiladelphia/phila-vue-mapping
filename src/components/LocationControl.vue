@@ -2,8 +2,8 @@
   <div class="leaflet-bar easy-button-container leaflet-control">
     <button @click="handleLocationButtonClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <font-awesome-icon 
-          :icon="this.computedIcon" 
+        <font-awesome-icon
+          :icon="computedIcon" 
           class="fa-lg"
         />
       </span>
@@ -30,12 +30,12 @@ export default {
       if (this.$config.geolocation) {
         if (this.$config.geolocation.icon) {
           return this.$config.geolocation.icon;
-        } 
+        }
         return 'dot-circle';
-          
-      } 
+
+      }
       return 'dot-circle';
-        
+
     },
   },
   methods: Object.assign(methods, {

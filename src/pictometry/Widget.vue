@@ -1,19 +1,19 @@
 <template>
-  <div 
+  <div
     id="pict-container"
-    :class="this.pictContainerClass"
+    :class="pictContainerClass"
   >
-    <div 
-      v-if="this.isMobileOrTablet === false"
+    <div
+      v-if="isMobileOrTablet === false"
       id="in-pict-div"
-      @click="this.popoutClicked"
+      @click="popoutClicked"
     >
-      <font-awesome-icon 
-        icon="external-link-alt" 
+      <font-awesome-icon
+        icon="external-link-alt"
         class="popout-icon"
       />
     </div>
-    <iframe 
+    <iframe
       id="pictometry-ipa"
       ref="pictometryIpa"
       src="#"
@@ -39,9 +39,9 @@ export default {
     pictContainerClass() {
       if (this.cyclomediaActive) {
         return 'medium-8 large-8 columns mb-panel';
-      } 
+      }
       return 'medium-24 large-24 columns mb-panel';
-        
+
     },
     mapCenter() {
       return this.$store.state.pictometry.map.center;

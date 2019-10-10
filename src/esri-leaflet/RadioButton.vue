@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="div-row">
-      <a 
+      <a
         v-if="shouldShowDataLink"
-        :href="'http://metadata.phila.gov/#home/representationdetails/' + this.bennyId"
+        :href="'http://metadata.phila.gov/#home/representationdetails/' + bennyId"
         target="_blank"
       >
-        <span><font-awesome-icon 
-          icon="info-circle" 
+        <span><font-awesome-icon
+          icon="info-circle"
           class="fa-2x"
         /></span>
       </a>
-      <input 
+      <input
         :id="'radio-'+layerName"
         :value="layerId"
         :class="{ disabled: shouldBeDisabled }"
@@ -21,7 +21,7 @@
         @click="radioToggle"
       >
 
-      <label 
+      <label
         :for="'radio-'+layerName"
         :class="{ disabled: shouldBeDisabled, 'label-text': shouldShowDataLink, 'label-text-no-datalinks': !shouldShowDataLink }"
       >
@@ -29,7 +29,7 @@
       </label>
     </div>
 
-    <legend-box 
+    <legend-box
       v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
       :layer="layer"
       :layer-name="layerName"
@@ -38,7 +38,7 @@
       :legend="legend"
       :scales="this.$config.map.scales"
     />
-    <slider 
+    <slider
       v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
       :layer="layer"
       :layer-name="layerName"
@@ -94,17 +94,21 @@ export default {
     },
     shouldBeDisabled() {
       const def = this.$props.layerDefinition;
+      let value;
       if (def) {
         if (def.minScale) {
           if (this.scale > def.minScale) {
-            return true;
-          } 
-          return false;
-            
+            value = true;
+            // return true;
+          }
+          value = false;
+          // return false;
         }
       } else {
-        return false;
+        value = false;
+        // return false;
       }
+      return value;
     },
     layerUrls() {
       return this.$store.state.layers.layerUrls;
@@ -118,17 +122,17 @@ export default {
     shouldShowDataLink() {
       if (this.bennyId && this.$props.shouldShowDataLinks) {
         return true;
-      } 
+      }
       return false;
-        
+
     },
     bennyId() {
       if (Object.keys(this.bennyEndpoints).length > 0) {
         const id = this.bennyEndpoints[this.url];
         return id;
-      } 
+      }
       return ' ';
-        
+
     },
     webMapUrlLayer() {
       return this.$store.state.map.webMapUrlLayer;

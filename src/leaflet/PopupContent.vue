@@ -1,27 +1,27 @@
 <template>
   <div>
     <div
-      v-if="this.popupHtmlArray.length > 1"
+      v-if="popupHtmlArray.length > 1"
       class="text-center"
     >
       <ul class="pagination text-center">
-        <li :class="this.previousIsDisabled">
-          <span v-if="this.previousIsDisabled !== 'pagination-previous'">
+        <li :class="previousIsDisabled">
+          <span v-if="previousIsDisabled !== 'pagination-previous'">
             Previous
           </span>
           <a
-            v-if="this.previousIsDisabled === 'pagination-previous'"
+            v-if="previousIsDisabled === 'pagination-previous'"
             @click="changePopup(currentPopup-1)"
           >
             Previous
           </a>
         </li>
         <div
-          v-if="this.popupHtmlArrayLength <= 9"
+          v-if="popupHtmlArrayLength <= 9"
           class="inline-div"
         >
           <li
-            v-for="(popup, index) in this.popupHtmlArray"
+            v-for="(popup, index) in popupHtmlArray"
             :key="index"
             :class="isCurrent(index)"
           >
@@ -37,17 +37,17 @@
           </li>
         </div>
         <div
-          v-if="this.popupHtmlArrayLength >= 10"
+          v-if="popupHtmlArrayLength >= 10"
           class="inline-div popup-div"
         >
-          {{ currentPopup + 1 }} of {{ this.popupHtmlArrayLength }}
+          {{ currentPopup + 1 }} of {{ popupHtmlArrayLength }}
         </div>
-        <li :class="this.nextIsDisabled">
-          <span v-if="this.nextIsDisabled !== 'pagination-next'">
+        <li :class="nextIsDisabled">
+          <span v-if="nextIsDisabled !== 'pagination-next'">
             Next
           </span>
           <a
-            v-if="this.nextIsDisabled === 'pagination-next'"
+            v-if="nextIsDisabled === 'pagination-next'"
             @click="changePopup(currentPopup+1)"
           >
             Next
@@ -55,7 +55,7 @@
         </li>
       </ul>
     </div>
-    <div v-html="this.popupHtmlArray[this.currentPopup]" />
+    <div v-html="popupHtmlArray[currentPopup]" />
   </div>
 </template>
 <script>

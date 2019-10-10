@@ -1,13 +1,13 @@
 <template>
   <div class="leaflet-bar easy-button-container leaflet-control">
-    <button 
-      :class="this.cyclomediaActive"
+    <button
+      :class="cyclomediaActive"
       class="cyclomedia-button"
       @click.prevent="handleButtonClick"
     >
       <span class="button-state">
-        <img 
-          :src="imgSrc" 
+        <img
+          :src="imgSrc"
           class="button-image"
         >
       </span>

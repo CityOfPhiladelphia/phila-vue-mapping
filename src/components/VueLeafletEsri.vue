@@ -1,34 +1,34 @@
 <template>
-  <div 
+  <div
     id="mb-root"
     :class="rootClass"
     :style="styleObject"
   >
     <map-panel>
-      <cyclomedia-widget 
-        v-if="this.shouldLoadCyclomediaWidget"
+      <cyclomedia-widget
+        v-if="shouldLoadCyclomediaWidget"
         v-show="cyclomediaActive"
         slot="cycloWidget"
       />
-      <pictometry-widget 
-        v-if="this.shouldLoadPictometryWidget"
+      <pictometry-widget
+        v-if="shouldLoadPictometryWidget"
         v-show="pictometryActive"
         slot="pictWidget"
-        :api-key="this.ak"
-        :secret-key="this.sk"
+        :api-key="ak"
+        :secret-key="sk"
       >
-        <png-marker 
-          v-if="this.pictometryShowAddressMarker"
-          :latlng="[this.geocodeData.geometry.coordinates[1], this.geocodeData.geometry.coordinates[0]]"
+        <png-marker
+          v-if="pictometryShowAddressMarker"
+          :latlng="[geocodeData.geometry.coordinates[1], geocodeData.geometry.coordinates[0]]"
           :icon="'markers.png'"
           :height="60"
           :width="40"
           :offset-x="0"
           :offset-y="0"
         />
-        <layer v-if="this.pictometryActive" />
-        <png-marker 
-          v-if="this.cyclomediaActive && this.pictometryActive"
+        <layer v-if="pictometryActive" />
+        <png-marker
+          v-if="cyclomediaActive && pictometryActive"
           :latlng="cycloLatlng"
           :icon="'camera2.png'"
           :height="20"
@@ -36,8 +36,8 @@
           :offset-x="-2"
           :offset-y="-2"
         />
-        <view-cone 
-          v-if="this.cyclomediaActive && this.pictometryActive"
+        <view-cone
+          v-if="cyclomediaActive && pictometryActive"
           :latlng="cycloLatlng"
           :rotation-angle="cycloRotationAngle"
           :h-fov="cycloHFov"
@@ -101,10 +101,10 @@ export default {
       if (this.$store.state.cyclomedia.orientation.xyz !== null) {
         const xyz = this.$store.state.cyclomedia.orientation.xyz;
         return [ xyz[1], xyz[0] ];
-      } 
+      }
       const center = this.$config.map.center;
       return center;
-        
+
     },
     cycloRotationAngle() {
       return this.$store.state.cyclomedia.orientation.yaw * (180/3.14159265359);
@@ -123,9 +123,9 @@ export default {
         return false;
       } else if (this.pictometryZoom < 20 && this.cyclomediaActive) {
         return false;
-      } 
+      }
       return true;
-        
+
     },
     geocodeData() {
       return this.$store.state.geocode.data;
@@ -134,37 +134,32 @@ export default {
       const host = window.location.hostname;
       if (host === 'atlas.phila.gov') {
         return this.$config.pictometry.apiKey;
-      }
-      if (host === 'atlas-dev.phila.gov') {
+      } else if (host === 'atlas-dev.phila.gov') {
         return this.$config.pictometryDev.apiKey;
-      }
-      if (host === 'cityatlas.phila.gov') {
+      } else if (host === 'cityatlas.phila.gov') {
         return this.$config.pictometryCity.apiKey;
-      }
-      if (host === 'cityatlas-dev.phila.gov') {
+      } else if (host === 'cityatlas-dev.phila.gov') {
         return this.$config.pictometryCityDev.apiKey;
-      }
-      if (host === '10.8.101.67') {
+      } else if (host === '10.8.101.67') {
         return this.$config.pictometryLocal.apiKey;
       }
+      return '';
+
     },
     sk() {
       const host = window.location.hostname;
       if (host === 'atlas.phila.gov') {
         return this.$config.pictometry.secretKey;
-      }
-      if (host === 'atlas-dev.phila.gov') {
+      } else if (host === 'atlas-dev.phila.gov') {
         return this.$config.pictometryDev.secretKey;
-      }
-      if (host === 'cityatlas.phila.gov') {
+      } else if (host === 'cityatlas.phila.gov') {
         return this.$config.pictometryCity.secretKey;
-      }
-      if (host === 'cityatlas-dev.phila.gov') {
+      } else if (host === 'cityatlas-dev.phila.gov') {
         return this.$config.pictometryCityDev.secretKey;
-      }
-      if (host === '10.8.101.67') {
+      } else if (host === '10.8.101.67') {
         return this.$config.pictometryLocal.secretKey;
       }
+      return '';
     },
   },
   created() {

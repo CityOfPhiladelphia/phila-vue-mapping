@@ -5,19 +5,19 @@ export default {
     'slots': {
       type: Object,
       default: function() {
-        return {}; 
+        return {};
       },
     },
     'options': {
       type: Object,
       default: function() {
-        return {}; 
+        return {};
       },
     },
     'item': {
       type: Object,
       default: function() {
-        return {}; 
+        return {};
       },
     },
   },
@@ -73,7 +73,7 @@ export default {
 
       // format nulls but not falses
       if (val === false) {
-
+        // do nothing
       } else if (!val) {
         return nullValue;
       }

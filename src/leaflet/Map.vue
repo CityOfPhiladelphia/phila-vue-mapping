@@ -1,7 +1,7 @@
 <template>
-  <div :class="this.mapContainerClass">
+  <div :class="mapContainerClass">
     <!-- the leaflet map -->
-    <div 
+    <div
       id="map"
       ref="map"
       class="map"
@@ -34,9 +34,9 @@ export default {
     mapContainerClass() {
       if (this.$config.map.containerClass) {
         return this.$config.map.containerClass;
-      } 
+      }
       return 'map-container';
-        
+
     },
     fullScreenMapEnabled() {
       return this.$store.state.fullScreenMapEnabled;

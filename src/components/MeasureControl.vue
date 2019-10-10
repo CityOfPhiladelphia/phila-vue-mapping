@@ -16,10 +16,10 @@ export default {
       const { position } = this.$props;
 
       return new MeasureControl({
-  				position,
-  				primaryLengthUnit: 'feet',
-  				primaryAreaUnit: 'sqfeet',
-  			});
+        position,
+        primaryLengthUnit: 'feet',
+        primaryAreaUnit: 'sqfeet',
+      });
     },
     parentMounted(parent) {
       const map = parent.$leafletElement;

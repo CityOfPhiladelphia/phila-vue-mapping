@@ -1,14 +1,14 @@
 <template>
   <div>
-    <div 
-      :class="this.basemap === 'none' ? 'basetooltip': 'basetooltip2'"
+    <div
+      :class="basemap === 'none' ? 'basetooltip': 'basetooltip2'"
       @mouseover="onMouseover"
       @mouseout="onMouseout"
     >
-      <div v-if="this.basemap === 'pwd'">
+      <div v-if="basemap === 'pwd'">
         The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Boundaries are generalized for ease of visualization. Source: Philadelphia Water
       </div>
-      <div v-else-if="this.basemap === 'dor'">
+      <div v-else-if="basemap === 'dor'">
         The property boundaries displayed on the map are for reference only and may not be used in place of recorded deeds or land surveys. Dimension lengths are calculated using the GIS feature. Source: Department of Records.
       </div>
       <div v-else>

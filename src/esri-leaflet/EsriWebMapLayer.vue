@@ -4,6 +4,7 @@
 import {
   LatLngBounds,
 } from 'leaflet';
+import * as L from 'leaflet';
 
 export default {
   name: 'WebMapLayer',

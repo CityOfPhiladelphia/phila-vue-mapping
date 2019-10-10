@@ -3,13 +3,13 @@
     <div class="div-row">
       <!-- <div class="input-group"> -->
       <!-- <li> -->
-      <a 
-        v-if="this.shouldShowDataLink"
-        :href="'http://metadata.phila.gov/#home/representationdetails/' + this.bennyId"
+      <a
+        v-if="shouldShowDataLink"
+        :href="'http://metadata.phila.gov/#home/representationdetails/' + bennyId"
         target="_blank"
       >
-        <span><font-awesome-icon 
-          icon="info-circle" 
+        <span><font-awesome-icon
+          icon="info-circle"
           class="fa-2x"
         /></span>
       </a>
@@ -20,7 +20,7 @@
       :checked="webMapActiveLayers.includes(layerName)"
       @click="checkboxToggle"
       :class="{ disabled: shouldBeDisabled }" -->
-      <input 
+      <input
         :id="'checkbox-'+layerName"
         :class="{ disabled: shouldBeDisabled }"
         :layerid="layerId"
@@ -29,7 +29,7 @@
         @click="checkboxToggle"
       >
       <!-- :disabled="shouldBeDisabled" -->
-      <label 
+      <label
         :for="'checkbox-'+layerName"
         :class="{ disabled: shouldBeDisabled, 'label-text': shouldShowDataLink, 'label-text-no-datalinks': !shouldShowDataLink }"
       >
@@ -49,7 +49,7 @@
       </label>
       <!-- <div class="layer-name">{{layerName}}</div> -->
     </div>
-    <legend-box 
+    <legend-box
       v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
       :layer="layer"
       :layer-name="layerName"
@@ -58,7 +58,7 @@
       :legend="legend"
       :scales="this.$config.map.scales"
     />
-    <slider 
+    <slider
       v-if="this.$store.state.map.webMapActiveLayers.includes(layerName)"
       :layer="layer"
       :layer-name="layerName"
@@ -113,17 +113,21 @@ export default {
     },
     shouldBeDisabled() {
       const def = this.$props.layerDefinition;
+      let value;
       if (def) {
         if (def.minScale) {
           if (this.scale > def.minScale) {
-            return true;
-          } 
-          return false;
-            
+            value = true;
+            // return true;
+          }
+          value = false;
+          // return false;
         }
       } else {
-        return false;
+        value = false;
+        // return false;
       }
+      return value;
     },
     layerUrls() {
       return this.$store.state.layers.layerUrls;
@@ -137,18 +141,18 @@ export default {
     shouldShowDataLink() {
       if (this.bennyId && this.$props.shouldShowDataLinks) {
         return true;
-      } 
+      }
       return false;
-        
+
     },
     bennyId() {
       if (Object.keys(this.bennyEndpoints).length > 0) {
         const id = this.bennyEndpoints[this.url];
         // const id = this.bennyEndpoints[this.url]['Metadata'];
         return id;
-      } 
+      }
       return ' ';
-        
+
     },
     webMapUrlLayer() {
       return this.$store.state.map.webMapUrlLayer;
