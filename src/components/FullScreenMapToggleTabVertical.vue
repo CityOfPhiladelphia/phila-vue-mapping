@@ -1,79 +1,83 @@
 <template>
-  <div id="toggle-tab"
-       class="toggle-tab"
-       :style="{ left: buttonPosition }"
-       @click="handleFullScreenMapToggleButtonClick"
-       v-if="!this.isMobileOrTablet"
+  <div
+    v-if="!isMobileOrTablet"
+    id="toggle-tab"
+    :style="{ left: buttonPosition }"
+    class="toggle-tab"
+    @click="handleFullScreenMapToggleButtonClick"
   >
     <span class="align-span">
-      <font-awesome-icon :icon="this.currentIcon" class="fa-2x" />
+      <font-awesome-icon
+        :icon="currentIcon" 
+        class="fa-2x"
+      />
     </span>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'FullScreenMapToggleTabVertical',
-    data() {
-      return {
-        'divWidth': 0,
-        'buttonPosition': 0,
-      }
+export default {
+  name: 'FullScreenMapToggleTabVertical',
+  data() {
+    return {
+      'divWidth': 0,
+      'buttonPosition': 0,
+    };
+  },
+  computed: {
+    fullScreenMapEnabled() {
+      return this.$store.state.fullScreenMapEnabled;
     },
-    mounted() {
-      window.addEventListener('resize', this.setDivWidth);
+    fullScreenTopicsEnabled() {
+      return this.$store.state.fullScreenTopicsEnabled;
+    },
+    isMobileOrTablet() {
+      return this.$store.state.isMobileOrTablet;
+    },
+    cyclomediaActive() {
+      return this.$store.state.cyclomedia.active;
+    },
+    pictometryActive() {
+      return this.$store.state.pictometry.active;
+    },
+    picOrCycloActive() {
+      if (this.cyclomediaActive || this.pictometryActive) {
+        return true;
+      }
+      return false;
+
+    },
+    currentIcon() {
+      if (this.fullScreenMapEnabled) {
+        return 'caret-up';
+      }
+      return 'caret-down';
+
+    },
+  },
+  watch: {
+    fullScreenTopicsEnabled() {
       this.setDivWidth();
     },
-    computed: {
-      fullScreenMapEnabled() {
-        return this.$store.state.fullScreenMapEnabled;
-      },
-      fullScreenTopicsEnabled() {
-        return this.$store.state.fullScreenTopicsEnabled;
-      },
-      isMobileOrTablet() {
-        return this.$store.state.isMobileOrTablet;
-      },
-      cyclomediaActive() {
-        return this.$store.state.cyclomedia.active;
-      },
-      pictometryActive() {
-        return this.$store.state.pictometry.active;
-      },
-      picOrCycloActive() {
-        if (this.cyclomediaActive || this.pictometryActive) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      currentIcon() {
-        if (this.fullScreenMapEnabled) {
-          return 'caret-up'
-        } else {
-          return 'caret-down'
-        }
-      }
+  },
+  mounted() {
+    window.addEventListener('resize', this.setDivWidth);
+    this.setDivWidth();
+  },
+  methods: {
+    setDivWidth() {
+      const el = document.getElementById('map-tag');
+      const divStyle = window.getComputedStyle(el);
+      const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
+      this.buttonPosition = (divWidth-48)/2 + 'px';
     },
-    watch: {
-      fullScreenTopicsEnabled() {
-        this.setDivWidth();
-      }
+    handleFullScreenMapToggleButtonClick(e) {
+      const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
+      const nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
+      this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
     },
-    methods: {
-      setDivWidth() {
-        const el = document.getElementById('map-tag');
-        const divStyle = window.getComputedStyle(el);
-        const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
-        this.buttonPosition = (divWidth-48)/2 + 'px';
-      },
-      handleFullScreenMapToggleButtonClick(e) {
-        const prevFullScreenMapEnabled = this.$store.state.fullScreenMapEnabled;
-        const nextFullScreenMapEnabled = !prevFullScreenMapEnabled;
-        this.$store.commit('setFullScreenMapEnabled', nextFullScreenMapEnabled);
-      },
-    }
-  };
+  },
+};
 </script>
 
 <style scoped>

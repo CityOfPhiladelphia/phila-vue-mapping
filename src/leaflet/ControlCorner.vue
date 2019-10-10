@@ -1,22 +1,22 @@
 <script>
-  import * as L from 'leaflet';
+import * as L from 'leaflet';
 
-  export default {
-    name: 'ControlCorner',
-    props: [
-      'vSide',
-      'hSide'
-    ],
-    render(h) {
-      return;
+export default {
+  name: 'ControlCorner',
+  props: [
+    'vSide',
+    'hSide',
+  ],
+  methods: {
+    parentMounted(parent) {
+      const map = parent.$leafletElement;
+      map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div', 'leaflet-'+this.vSide+' leaflet-'+this.hSide, map._controlContainer);
     },
-    methods: {
-      parentMounted(parent) {
-        const map = parent.$leafletElement;
-        map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div', 'leaflet-'+this.vSide+' leaflet-'+this.hSide, map._controlContainer);
-      }
-    }
-  };
+  },
+  render(h) {
+    return;
+  },
+};
 </script>
 
 <style>

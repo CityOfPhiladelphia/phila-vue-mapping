@@ -3,7 +3,7 @@
 // but this is to remind me that mapboard store redefines these values
 let config = {
   map: {
-    center:[-75.163471, 39.953338],
+    center:[ -75.163471, 39.953338 ],
     zoom: 18,
   },
   // pictometry: {
@@ -12,7 +12,7 @@ let config = {
   // cyclomedia: {
   //   enabled: '',
   // }
-}
+};
 
 const initialState = {
   activeTopic: '',
@@ -22,7 +22,7 @@ const initialState = {
   map: {
     location: {
       lat: null,
-      lng: null
+      lng: null,
     },
     center: config.map.center,
     bounds: {
@@ -79,8 +79,8 @@ const initialState = {
     // viewport changes.
     map: {
       center: config.map.center,
-      zoom: config.map.zoom
-    }
+      zoom: config.map.zoom,
+    },
   },
 };
 
@@ -103,17 +103,14 @@ const pvmStore = {
     setActiveTopic(state, payload) {
       state.activeTopic = payload;
     },
-    setMapZoom(state, payload) {
-      state.map.zoom = payload;
-    },
     setImagery(state, payload) {
       state.map.imagery = payload;
     },
     setSelectedOverlay(state, payload) {
-      state.map.selectedOverlay = payload
+      state.map.selectedOverlay = payload;
     },
     setShouldShowOverlaySelectControl(state, payload) {
-      state.map.shouldShowOverlaySelectControl = payload
+      state.map.shouldShowOverlaySelectControl = payload;
     },
     setShouldShowBasemapSelectControl(state, payload) {
       state.map.shouldShowBasemapSelectControl = payload;
@@ -146,15 +143,15 @@ const pvmStore = {
     },
     setCyclomediaYaw(state, payload) {
       // console.log('setCyclomediaYaw is running, payload:', payload);
-      state.cyclomedia.orientation.yaw = payload
+      state.cyclomedia.orientation.yaw = payload;
     },
     setCyclomediaHFov(state, payload) {
       // console.log('setCyclomediaHFov is running, payload:', payload);
-      state.cyclomedia.orientation.hFov = payload
+      state.cyclomedia.orientation.hFov = payload;
     },
     setCyclomediaXyz(state, payload) {
       // console.log('setCyclomediaXyz is running, payload:', payload);
-      state.cyclomedia.orientation.xyz = payload
+      state.cyclomedia.orientation.xyz = payload;
     },
     setCyclomediaRecordings(state, payload) {
       state.cyclomedia.recordings = payload;
@@ -197,13 +194,10 @@ const pvmStore = {
     setBasemap(state, payload) {
       state.map.basemap = payload;
     },
-    setImagery(state, payload) {
-      state.map.imagery = payload;
-    },
     setShouldShowImagery(state, payload) {
       state.map.shouldShowImagery = payload;
     },
-  }
-}
+  },
+};
 
 export default pvmStore;

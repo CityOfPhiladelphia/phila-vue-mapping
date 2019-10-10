@@ -24,7 +24,7 @@ export default {
       const map = this.$store.state.map.map;
       const zoom = map.getZoom();
       if (!this.$store.state.cyclomedia.active || zoom <= 18) {
-        this.$store.commit('setCyclomediaRecordings', [])
+        this.$store.commit('setCyclomediaRecordings', []);
         return;
       }
       const bounds = map.getBounds();
@@ -35,5 +35,5 @@ export default {
         }
       );
     },
-  }
+  },
 };

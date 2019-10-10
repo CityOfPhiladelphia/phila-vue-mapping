@@ -1,49 +1,50 @@
 <template>
   <div class="slider-wrapper">
-    <input class="slider"
-           type="range"
-           min="1"
-           max="100"
-           step="1"
-           v-model="opa"
+    <input 
+      v-model="opa"
+      class="slider"
+      type="range"
+      min="1"
+      max="100"
+      step="1"
     >
   </div>
 </template>
 
 <script>
-  import TopicComponent from './TopicComponent.vue';
+import TopicComponent from './TopicComponent.vue';
 
-  export default {
-    props: ['layer',
-            'layerName',
-            'layerId',
-            'opacity'
-    ],
-    data() {
-      return {
-        opa: this.$props.opacity * 100
-      }
-    },
-    watch: {
-      opa(nextOpacity) {
-        const payload = {
-                          layerName: this.$props.layerName,
-                          opa: nextOpacity/100
-                        }
-        // console.log('OPACITY CHANGED', payload);
-        this.$store.commit('setWebMapLayersOpacity', payload);
-      }
-    },
-    created() {
-      // this.initialize();
-    },
-    computed: {
+export default {
+  props: [ 'layer',
+    'layerName',
+    'layerId',
+    'opacity',
+  ],
+  data() {
+    return {
+      opa: this.$props.opacity * 100,
+    };
+  },
+  computed: {
 
+  },
+  watch: {
+    opa(nextOpacity) {
+      const payload = {
+        layerName: this.$props.layerName,
+        opa: nextOpacity/100,
+      };
+      // console.log('OPACITY CHANGED', payload);
+      this.$store.commit('setWebMapLayersOpacity', payload);
     },
-    methods: {
+  },
+  created() {
+    // this.initialize();
+  },
+  methods: {
 
-    }
-  };
+  },
+};
 </script>
 
 <style>

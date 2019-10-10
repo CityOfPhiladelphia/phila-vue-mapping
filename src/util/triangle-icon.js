@@ -30,7 +30,7 @@ const TriangleIcon = SvgIcon.extend({
   initialize: function(options) {
     options = L.Util.setOptions(this, options);
     const circleAnchor = L.point(Number(options.iconSize.x) / 2,
-                                 Number(options.iconSize.y) / 2);
+      Number(options.iconSize.y) / 2);
     options.circleAnchor = circleAnchor;
     options.circleRatio = 0;
     options.className = options.className + "-noClick";
@@ -51,8 +51,8 @@ const TriangleIcon = SvgIcon.extend({
     const d = startPoint + leftLine + rightLine;
 
     return d;
-  }
-})
+  },
+});
 
 export default TriangleIcon;
 
