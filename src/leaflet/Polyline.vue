@@ -50,9 +50,9 @@ export default {
       this.$leafletElement.addTo(map);
     },
   },
-  // render(h) {
-  //   return;
-  // },
+  render(h) {
+    return;
+  },
 };
 
 </script>

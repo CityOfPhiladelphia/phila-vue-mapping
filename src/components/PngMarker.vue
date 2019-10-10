@@ -140,11 +140,12 @@ export default {
       this.$leafletElement.addTo(map);
     },
   },
-  // for some reason, the react prop that `this.orientation` depends on has
-  // to be evaluated once in order to receive updates.
-  // this.orientation;
-  // render(h) {
-  //   return;
-  // },
+  render(h) {
+    // for some reason, the react prop that `this.orientation` depends on has
+    // to be evaluated once in order to receive updates.
+    // this.orientation;
+
+    return;
+  },
 };
 </script>

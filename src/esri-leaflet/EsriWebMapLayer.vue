@@ -190,8 +190,8 @@ export default {
       }
     },
   },
-  // render(h) {
-  //   return;
-  // },
+  render(h) {
+    return;
+  },
 };
 </script>
