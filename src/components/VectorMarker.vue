@@ -23,7 +23,7 @@ export default {
   //   return;
   // },
   mounted() {
-    // console.log('VectorMarker mounted is running, this:', this);
+    console.log('VectorMarker mounted is running, this:', this);
     const leafletElement = this.$leafletElement = this.createLeafletElement();
     const map = this.$store.state.map.map;
 
@@ -48,11 +48,21 @@ export default {
         leafletElement.addTo(map);
       }
       bindEvents(this, this.$leafletElement, this._events);
+    },
+    latlng(nextLatLng, prevLatLng) {
+      this.$leafletElement._map.removeLayer(this.$leafletElement);
+      const leafletElement = this.$leafletElement = this.createLeafletElement();
+      const map = this.$store.state.map.map;
+
+      if (map) {
+        leafletElement.addTo(map);
+      }
+      bindEvents(this, this.$leafletElement, this._events);
     }
   },
   methods: {
     createLeafletElement() {
-      // console.log('createLeafletElement is running');
+      console.log('createLeafletElement is running');
       const props = this.$props;
       const {
         latlng,
