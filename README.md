@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.43 - 10/17/2019
+
+* adds linting, fixes VectorMarker by moving changes from update lifecycle hook to a watch
+
 ### 1.0.42 - 10/9/2019
 
 * Uses update to L.esri.Webmap to add datetime to popups
