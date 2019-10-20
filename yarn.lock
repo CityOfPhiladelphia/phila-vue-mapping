@@ -4938,9 +4938,9 @@ esri-leaflet-renderers@^2.0.6:
     mapbox-gl-leaflet "0.0.4"
 
 esri-leaflet@^2.0.0, esri-leaflet@^2.0.0-beta.4, esri-leaflet@^2.2.3:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.3.0.tgz#fc714ebb9f32bc843ecc068f8cda9efc447a9e55"
-  integrity sha512-il9bozdMPQ3FoGPHeraKfDkZGayssKVYenE4L/tTXndZ3SEOQvYSfTqNk87TUE3awdASPryC3UMQqrsMELWrgQ==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.3.1.tgz#f1b1724525e92260e4e71edf8abf1c4d62793cf3"
+  integrity sha512-KboDAAsoEonyYlkW1keOov1XndDyM/qQwWlLdP26WhTMPH/S5QvYsKP9ueKsc73m90YmvXZqC5Qp4wv1m3Xtrw==
   dependencies:
     "@esri/arcgis-to-geojson-utils" "^1.3.0"
     leaflet-virtual-grid "^1.0.7"
