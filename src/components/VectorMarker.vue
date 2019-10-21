@@ -22,21 +22,6 @@ export default {
   //   const a = this.$props.latlng;
   //   return;
   // },
-  mounted() {
-    console.log('VectorMarker mounted is running, this:', this);
-    const leafletElement = this.$leafletElement = this.createLeafletElement();
-    const map = this.$store.state.map.map;
-
-    if (map) {
-      leafletElement.addTo(map);
-    }
-
-    bindEvents(this, this.$leafletElement, this._events);
-  },
-  destroyed() {
-    // console.log('VectorMarker destroyed is running');
-    this.$leafletElement._map.removeLayer(this.$leafletElement);
-  },
   watch: {
     markerColor(nextMarkerColor, prevMarkerColor) {
       // console.log('watch markerColor, nextMarkerColor:', nextMarkerColor, 'prevMarkerColor:', prevMarkerColor);
@@ -58,7 +43,22 @@ export default {
         leafletElement.addTo(map);
       }
       bindEvents(this, this.$leafletElement, this._events);
+    },
+  },
+  mounted() {
+    console.log('VectorMarker mounted is running, this:', this);
+    const leafletElement = this.$leafletElement = this.createLeafletElement();
+    const map = this.$store.state.map.map;
+
+    if (map) {
+      leafletElement.addTo(map);
     }
+
+    bindEvents(this, this.$leafletElement, this._events);
+  },
+  destroyed() {
+    // console.log('VectorMarker destroyed is running');
+    this.$leafletElement._map.removeLayer(this.$leafletElement);
   },
   methods: {
     createLeafletElement() {
