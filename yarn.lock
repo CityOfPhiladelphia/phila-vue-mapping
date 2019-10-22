@@ -2461,20 +2461,21 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#58f79b635f170e2477de8eab4a4623a90f276af9":
-  version "0.4.0"
-  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#58f79b635f170e2477de8eab4a4623a90f276af9"
+"L-esri-WebMap@https://github.com/ajrothwell/esriWebMap#c9a00bd89f61771ac0251b74f1448ea7c00e1067":
+  version "0.1.0"
+  resolved "https://github.com/ajrothwell/esriWebMap#c9a00bd89f61771ac0251b74f1448ea7c00e1067"
   dependencies:
     arcgis-to-geojson-utils "^1.0.1"
     date-fns "^2.6.0"
-    esri-leaflet "^2.2.3"
+    esri-leaflet "^2.3.1"
     esri-leaflet-heatmap-feature-layer "^2.0.0-beta.1"
     esri-leaflet-renderers "^2.0.6"
     esri-leaflet-vector "https://github.com/CityOfPhiladelphia/esri-leaflet-vector#a82cfeec87dfd99b2a9bcf30dfd56bf44eccc77e"
-    leaflet "^1.4.0"
+    leaflet "^1.5.1"
     leaflet-omnivore "https://github.com/CityOfPhiladelphia/leaflet-omnivore#f072195b03f7930690d9cbccb9375f0eda50fd41"
     leaflet-vectoricon "^0.1.0"
     leaflet.heat "^0.1.3"
+    vue "^2.6.10"
 
 "Leaflet-PointInPolygon@https://github.com/CityOfPhiladelphia/Leaflet.PointInPolygon#a0d410f69aacf5f9165c4d01ccffeed824ccaed8":
   version "1.0.0"
@@ -4901,7 +4902,7 @@ esri-leaflet-renderers@^2.0.6:
     mapbox-gl "^0.53.1"
     mapbox-gl-leaflet "0.0.4"
 
-esri-leaflet@^2.0.0, esri-leaflet@^2.0.0-beta.4, esri-leaflet@^2.2.3:
+esri-leaflet@^2.0.0, esri-leaflet@^2.0.0-beta.4, esri-leaflet@^2.2.3, esri-leaflet@^2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.3.1.tgz#f1b1724525e92260e4e71edf8abf1c4d62793cf3"
   integrity sha512-KboDAAsoEonyYlkW1keOov1XndDyM/qQwWlLdP26WhTMPH/S5QvYsKP9ueKsc73m90YmvXZqC5Qp4wv1m3Xtrw==
@@ -6652,7 +6653,7 @@ leaflet.heat@^0.1.3:
   resolved "https://registry.yarnpkg.com/leaflet.heat/-/leaflet.heat-0.1.3.tgz#ad798d8db69d49873bfcbe7116a22158ed7c7076"
   integrity sha1-rXmNjbadSYc7/L5xFqIhWO18cHY=
 
-leaflet@^1.0.0, leaflet@^1.0.0-beta.1, leaflet@^1.0.0-rc.3, leaflet@^1.0.1, leaflet@^1.3.1, leaflet@^1.4.0:
+leaflet@^1.0.0, leaflet@^1.0.0-beta.1, leaflet@^1.0.0-rc.3, leaflet@^1.0.1, leaflet@^1.3.1, leaflet@^1.4.0, leaflet@^1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.5.1.tgz#9afb9d963d66c870066b1342e7a06f92840f46bf"
   integrity sha512-ekM9KAeG99tYisNBg0IzEywAlp0hYI5XRipsqRXyRTeuU8jcuntilpp+eFf5gaE0xubc9RuSNIVtByEKwqFV0w==
