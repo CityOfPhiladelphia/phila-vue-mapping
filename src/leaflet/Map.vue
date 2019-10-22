@@ -150,9 +150,9 @@ export default {
 
     // TODO warn if trying to bind an event that doesn't exist
     bindEvents(this, this.$leafletElement, this._events);
-    if (this.$config.map.clickToIdentifyFeatures) {
-      map.on('click', this.identifyFeatures);
-    }
+    // if (this.$config.map.clickToIdentifyFeatures) {
+    //   map.on('click', this.identifyFeatures);
+    // }
   },
   methods: {
     createLeafletElement() {
@@ -193,63 +193,63 @@ export default {
       }
     },
 
-    // this is used when the click should identify features
-    identifyFeatures(e) {
-      console.log('identifyFeatures is running, e:', e);
-      const map = this.$leafletElement;
-      const clickBounds = new LatLngBounds(e.latlng, e.latlng);
-      // console.log('map._layers', map._layers);
-      let intersectingFeatures = [];
-      let geometry;
-      for (let layer in map._layers) {
-        var overlay = map._layers[layer];
-        // console.log('layer:', layer, 'overlay:', overlay);
-        if (overlay._layers) {
-          for (let oLayer in overlay._layers) {
-            const feature = overlay._layers[oLayer];
-            // console.log('feature:', feature);
-            if (feature.feature) {
-              geometry = feature.feature.geometry.type;
-              // console.log('clickHandler LAYER:', layer, 'FEATURE:', feature, 'GEOMETRY:', geometry);
-              let bounds;
-              if (geometry === 'Polygon' || geometry === 'MultiPolygon') {
-                // console.log('polygon or multipolygon');
-                if (feature.contains(e.latlng)) {
-                  // console.log('about to run checkForDuplicates')
-                  this.checkForDuplicates(layer, feature, intersectingFeatures);
-                }
-              } else if (geometry === 'LineString') {
-                // console.log('Line');
-                bounds = feature.getBounds();
-                if (bounds && clickBounds.intersects(bounds)) {
-                  this.checkForDuplicates(layer, feature, intersectingFeatures);
-                }
-              } else if (geometry === 'Point') {
-                // console.log('Point');
-                bounds = new LatLngBounds(feature._latlng, feature._latlng);
-                if (bounds && clickBounds.intersects(bounds)) {
-                  this.checkForDuplicates(layer, feature, intersectingFeatures);
-                }
-              }
-            }
-          }
-        }
-      }
-      this.$store.commit('setPopupCoords', e.latlng);
-      this.$store.commit('setIntersectingFeatures', intersectingFeatures);
-    },
-    checkForDuplicates(layer, feature, intersectingFeatures) {
-      // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
-      let ids = [];
-      for (let i = 0; i < intersectingFeatures.length; i++) {
-        ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
-      }
-      // console.log('layer:', layer, 'feature.feature.id:', feature.feature.id);
-      if (!ids.includes(layer + '_' + feature.feature.id)) {
-        // console.log('checkForDuplicates going to push to intersectingFeatures:', layer, feature.feature.id);
-        intersectingFeatures.push(feature);
-      }
-    },
+    // // this is used when the click should identify features
+    // identifyFeatures(e) {
+    //   console.log('identifyFeatures is running, e:', e);
+    //   const map = this.$leafletElement;
+    //   const clickBounds = new LatLngBounds(e.latlng, e.latlng);
+    //   // console.log('map._layers', map._layers);
+    //   let intersectingFeatures = [];
+    //   let geometry;
+    //   for (let layer in map._layers) {
+    //     var overlay = map._layers[layer];
+    //     // console.log('layer:', layer, 'overlay:', overlay);
+    //     if (overlay._layers) {
+    //       for (let oLayer in overlay._layers) {
+    //         const feature = overlay._layers[oLayer];
+    //         // console.log('feature:', feature);
+    //         if (feature.feature) {
+    //           geometry = feature.feature.geometry.type;
+    //           // console.log('clickHandler LAYER:', layer, 'FEATURE:', feature, 'GEOMETRY:', geometry);
+    //           let bounds;
+    //           if (geometry === 'Polygon' || geometry === 'MultiPolygon') {
+    //             // console.log('polygon or multipolygon');
+    //             if (feature.contains(e.latlng)) {
+    //               // console.log('about to run checkForDuplicates')
+    //               this.checkForDuplicates(layer, feature, intersectingFeatures);
+    //             }
+    //           } else if (geometry === 'LineString') {
+    //             // console.log('Line');
+    //             bounds = feature.getBounds();
+    //             if (bounds && clickBounds.intersects(bounds)) {
+    //               this.checkForDuplicates(layer, feature, intersectingFeatures);
+    //             }
+    //           } else if (geometry === 'Point') {
+    //             // console.log('Point');
+    //             bounds = new LatLngBounds(feature._latlng, feature._latlng);
+    //             if (bounds && clickBounds.intersects(bounds)) {
+    //               this.checkForDuplicates(layer, feature, intersectingFeatures);
+    //             }
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    //   this.$store.commit('setPopupCoords', e.latlng);
+    //   this.$store.commit('setIntersectingFeatures', intersectingFeatures);
+    // },
+    // checkForDuplicates(layer, feature, intersectingFeatures) {
+    //   // console.log('checkForDuplicates is running, layer:', layer, 'feature:', feature);
+    //   let ids = [];
+    //   for (let i = 0; i < intersectingFeatures.length; i++) {
+    //     ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
+    //   }
+    //   // console.log('layer:', layer, 'feature.feature.id:', feature.feature.id);
+    //   if (!ids.includes(layer + '_' + feature.feature.id)) {
+    //     // console.log('checkForDuplicates going to push to intersectingFeatures:', layer, feature.feature.id);
+    //     intersectingFeatures.push(feature);
+    //   }
+    // },
   },
 };
 </script>

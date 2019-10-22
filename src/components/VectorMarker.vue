@@ -22,8 +22,31 @@ export default {
   //   const a = this.$props.latlng;
   //   return;
   // },
+  watch: {
+    markerColor(nextMarkerColor, prevMarkerColor) {
+      // console.log('watch markerColor, nextMarkerColor:', nextMarkerColor, 'prevMarkerColor:', prevMarkerColor);
+      this.$leafletElement._map.removeLayer(this.$leafletElement);
+      const leafletElement = this.$leafletElement = this.createLeafletElement();
+      const map = this.$store.state.map.map;
+
+      if (map) {
+        leafletElement.addTo(map);
+      }
+      bindEvents(this, this.$leafletElement, this._events);
+    },
+    latlng(nextLatLng, prevLatLng) {
+      this.$leafletElement._map.removeLayer(this.$leafletElement);
+      const leafletElement = this.$leafletElement = this.createLeafletElement();
+      const map = this.$store.state.map.map;
+
+      if (map) {
+        leafletElement.addTo(map);
+      }
+      bindEvents(this, this.$leafletElement, this._events);
+    },
+  },
   mounted() {
-    // console.log('VectorMarker mounted is running, this:', this);
+    console.log('VectorMarker mounted is running, this:', this);
     const leafletElement = this.$leafletElement = this.createLeafletElement();
     const map = this.$store.state.map.map;
 
@@ -37,22 +60,9 @@ export default {
     // console.log('VectorMarker destroyed is running');
     this.$leafletElement._map.removeLayer(this.$leafletElement);
   },
-  watch: {
-    markerColor(nextMarkerColor, prevMarkerColor) {
-      // console.log('watch markerColor, nextMarkerColor:', nextMarkerColor, 'prevMarkerColor:', prevMarkerColor);
-      this.$leafletElement._map.removeLayer(this.$leafletElement);
-      const leafletElement = this.$leafletElement = this.createLeafletElement();
-      const map = this.$store.state.map.map;
-
-      if (map) {
-        leafletElement.addTo(map);
-      }
-      bindEvents(this, this.$leafletElement, this._events);
-    }
-  },
   methods: {
     createLeafletElement() {
-      // console.log('createLeafletElement is running');
+      console.log('createLeafletElement is running');
       const props = this.$props;
       const {
         latlng,
