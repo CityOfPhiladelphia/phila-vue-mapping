@@ -2461,12 +2461,12 @@
   resolved "https://registry.yarnpkg.com/@xtuc/long/-/long-4.2.2.tgz#d291c6a4e97989b5c61d9acf396ae4fe133a718d"
   integrity sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==
 
-"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#1d4ee074f60f2bba8bfe596d150ea23556c8a94f":
+"L-esri-WebMap@https://github.com/CityOfPhiladelphia/L.esri.WebMap#cc527466c4955287475bd0988ed9c74041ee9828":
   version "0.4.0"
-  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#1d4ee074f60f2bba8bfe596d150ea23556c8a94f"
+  resolved "https://github.com/CityOfPhiladelphia/L.esri.WebMap#cc527466c4955287475bd0988ed9c74041ee9828"
   dependencies:
     arcgis-to-geojson-utils "^1.0.1"
-    date-fns "^1.30.1"
+    date-fns "^2.6.0"
     esri-leaflet "^2.2.3"
     esri-leaflet-heatmap-feature-layer "^2.0.0-beta.1"
     esri-leaflet-renderers "^2.0.6"
@@ -4078,10 +4078,10 @@ dashdash@^1.12.0:
   dependencies:
     assert-plus "^1.0.0"
 
-date-fns@^1.30.1:
-  version "1.30.1"
-  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
-  integrity sha512-hBSVCvSmWC+QypYObzwGOd9wqdDpOt+0wl0KbU+R+uuZBS1jN8VsD1ss3irQDknRj5NvxiTF6oj/nDRnN/UQNw==
+date-fns@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.6.0.tgz#a5bc82e6a4c3995ae124b0ba1a71aec7b8cbd666"
+  integrity sha512-F55YxqRdEfP/eYQmQjLN798v0AwLjmZ8nMBjdQvNwEE3N/zWVrlkkqT+9seBlPlsbkybG4JmWg3Ee3dIV9BcGQ==
 
 date-now@^0.1.4:
   version "0.1.4"
