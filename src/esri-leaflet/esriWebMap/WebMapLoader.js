@@ -10,7 +10,7 @@
  * ```
  */
 
-import { version } from '../package.json';
+// import { version } from '../package.json';
 
 import L from 'leaflet';
 import { operationalLayer } from './OperationalLayer';
@@ -42,7 +42,7 @@ export var WebMap = L.Evented.extend({
     this.bookmarks = []; // Web Map Bookmarks -> [{ name: 'Bookmark name', bounds: <L.latLngBounds> }]
     this.portalItem = {}; // Web Map Metadata
 
-    this.VERSION = version;
+    // this.VERSION = version;
 
     this._loadWebMapMetaData(webmapId);
     this._loadWebMap(webmapId);
