@@ -10,7 +10,6 @@
     "lintFix": "vue-cli-service lint --fix"
   },
   "dependencies": {
-    "esriWebMap": "https://github.com/ajrothwell/esriWebMap#c9a00bd89f61771ac0251b74f1448ea7c00e1067",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-regular-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",

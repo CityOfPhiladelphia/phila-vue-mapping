@@ -7,7 +7,9 @@
 <script>
 import axios from 'axios';
 import generateUniqueId from '../util/unique-id';
-import * as esriWebMap from 'esriWebMap/src/main.js';
+import * as esriWebMap from './esriWebMap/main.js';
+// import * as esriWebMap from 'esriWebMap/src/main.js';
+
 // console.log('LEsriWebMap:', LEsriWebMap);
 // import * as L from 'leaflet';
 
