@@ -19,6 +19,18 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.45 - 10/23/2019
+
+* you have to use the following with this:
+
+    "@vue/cli-plugin-babel": "^4.0.5",
+    "@vue/cli-plugin-eslint": "^4.0.5",
+    "@vue/cli-service": "^4.0.5",
+
+### 1.0.44 - 10/22/2019
+
+* updates from dependabot
+
 ### 1.0.43 - 10/17/2019
 
 * adds linting, fixes VectorMarker by moving changes from update lifecycle hook to a watch
