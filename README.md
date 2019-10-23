@@ -19,6 +19,14 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 1.0.47 - 10/23/2019
+
+* correctly fixes date-fns
+
+### 1.0.46 - 10/23/2019
+
+* attempt to fix date-fns
+
 ### 1.0.45 - 10/23/2019
 
 * you have to use the following with this:
