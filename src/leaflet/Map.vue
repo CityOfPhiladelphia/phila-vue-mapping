@@ -259,6 +259,10 @@ export default {
     height: 100%;
   }
 
+  .map-container-350 {
+    height: 100%;
+  }
+
   .map-container-type2 {
     height: 100%;
     /* height: calc(100vh - 109px); */
@@ -271,6 +275,10 @@ export default {
   @media (max-width: 749px) {
     .map-container {
       height: 300px;
+    }
+
+    .map-container-350 {
+      height: 350px;
     }
   }
 

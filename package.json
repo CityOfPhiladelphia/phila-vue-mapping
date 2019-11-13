@@ -32,6 +32,7 @@
     "lodash-es": "^4.17.14",
     "phila-standards": "^1.0.2",
     "proj4": "^2.5.0",
+    "sdleafletdraw": "https://github.com/CityOfPhiladelphia/SDLeafletDraw#a0e54633bc22c342ab89668e4ca4288c8d2dc68f",
     "vue": "^2.6.10",
     "vuex": "^3.1.1"
   },

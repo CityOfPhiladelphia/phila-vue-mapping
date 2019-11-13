@@ -17,6 +17,11 @@ let config = {
 const initialState = {
   activeTopic: '',
   shouldShowAddressCandidateList: false,
+  drawStart: null,
+  drawShape: null,
+  bufferMode: false,
+  editableLayers: null,
+  bufferShape: null,
 
   // the leaflet map object
   map: {
@@ -87,6 +92,22 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setBufferShape(state, payload) {
+      state.bufferShape = payload;
+    },
+    setBufferMode(state, payload) {
+      // console.log('setBufferMode is running, payload:', payload);
+      state.bufferMode = payload;
+    },
+    setDrawStart(state, payload) {
+      state.drawStart = payload;
+    },
+    setDrawShape(state, payload) {
+      state.drawShape = payload;
+    },
+    setEditableLayers(state, payload) {
+      state.editableLayers = payload;
+    },
     setMapCenter(state, payload) {
       state.map.center = payload;
     },
