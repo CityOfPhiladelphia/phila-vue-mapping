@@ -2,12 +2,13 @@
 import { Polygon } from 'leaflet';
 
 export default {
-  name: 'Polygon',
+  name: 'Polygon_',
   props: [
     'latlngs',
     'color',
     'weight',
     'fill',
+    'fillColor',
     'pane',
   ],
   watch: {
@@ -38,9 +39,10 @@ export default {
     createLeafletElement() {
       // console.log('Polygon createLeafletElement is firing', this.$props.latlngs);
       return new Polygon(this.$props.latlngs, {
-        color: this.$props.color,
-        weight: this.$props.weight,
-        fill: this.$props.fill,
+        color: this.$props.color || 'b6b6b6',
+        weight: this.$props.weight || 0,
+        fill: this.$props.fill || true,
+        fillColor: this.$props.fillColor || '5e5e5e',
         pane: this.$props.pane,
         'z-index': 9999,
       });
