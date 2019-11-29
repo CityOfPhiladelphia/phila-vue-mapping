@@ -1,9 +1,8 @@
 <template>
   <div
     id="cyclo-container"
-    :class="cycloContainerClass"
+    :class="widgetClass"
   >
-    <!-- v-once -->
     <div
       v-if="isMobileOrTablet === false && popoutAble === true"
       id="inCycloDiv"
@@ -19,9 +18,7 @@
       id="cycloviewer"
       ref="cycloviewer"
       class="panoramaViewerWindow"
-    >
-      <!-- @mousedown="console.log('mouseup')" -->
-    </div>
+    />
   </div>
 </template>
 
@@ -30,7 +27,10 @@ import proj4 from 'proj4';
 
 export default {
   name: 'CyclomediaWidget',
-  props: [ 'screenPercent' ],
+  props: [
+    'screenPercent',
+    'orientation',
+  ],
   data() {
     return {
       'docWidth': 0,
@@ -71,7 +71,15 @@ export default {
         return 'medium-16 large-16 columns mb-panel';
       }
       return 'medium-24 large-24 columns mb-panel';
-
+    },
+    widgetClass() {
+      let value;
+      if (this.fullScreenTopicsEnabled) {
+        value = 'medium-12 small-24 full-topics-open';
+      } else {
+        value = 'medium-12 small-24';
+      }
+      return value;
     },
     locForCyclo() {
       // console.log('computing locForCyclo');
@@ -103,7 +111,7 @@ export default {
   },
   watch: {
     fullScreenMapEnabled() {
-      this.setDivWidth();
+      // this.setDivWidth();
     },
     locForCyclo(newCoords) {
       // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
@@ -149,20 +157,17 @@ export default {
         },
         err => {
           console.log('Api: init: failed. Error: ', err);
-        }
+        },
       );
-      window.addEventListener('resize', this.setDivWidth);
+      // window.addEventListener('resize', this.setDivWidth);
     },
     cyclomediaActive(newActiveStatus) {
       // console.log('cyclomediaActive watch is firing');
-      this.setDivWidth();
+      // this.setDivWidth();
       if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
         this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
       }
     },
-    // pictometryActive() {
-    //   this.setDivWidth();
-    // }
   },
   updated() {
     // console.log('cyclomedia updated running');
@@ -173,7 +178,7 @@ export default {
         window.panoramaViewer.rotateRight(0.0000001);
       }
     }
-    this.setDivWidth();
+    // this.setDivWidth();
   },
   methods: {
     setDivWidth() {
@@ -261,11 +266,11 @@ export default {
               }
             });
           }
-        }.bind(this)
+        }.bind(this),
       ).catch(
         function(reason) {
           // console.log('Failed to create component(s) through API: ' + reason);
-        }
+        },
       );
 
       // const viewer = this.$store.state.cyclomedia.viewer;
