@@ -2,7 +2,7 @@
 import { Polygon } from 'leaflet';
 
 export default {
-  name: 'Polygon_',
+  name: 'Polygon',
   props: [
     'latlngs',
     'color',

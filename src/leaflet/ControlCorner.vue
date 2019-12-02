@@ -1,40 +1,40 @@
 <script>
-  import * as L from 'leaflet';
+import * as L from 'leaflet';
 
-  export default {
-    name: 'ControlCorner',
-    props: [
-      'vSide',
-      'hSide'
-    ],
-    render(h) {
-      return;
+export default {
+  name: 'ControlCorner',
+  props: [
+    'vSide',
+    'hSide',
+  ],
+  computed: {
+    isMobileOrTablet() {
+      return this.$store.state.isMobileOrTablet;
     },
-    computed: {
-      isMobileOrTablet() {
-        return this.$store.state.isMobileOrTablet;
-      },
-      mobileTag() {
-        if (this.isMobileOrTablet) {
-          return 'mobile-corner';
-        } else {
-          return 'non-mobile-corner';
-        }
-      }
+    mobileTag() {
+      if (this.isMobileOrTablet) {
+        return 'mobile-corner';
+      } 
+      return 'non-mobile-corner';
+        
     },
-    methods: {
-      parentMounted(parent) {
-        const map = parent.$leafletElement;
-        map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div',
-          'leaflet-'+this.vSide+
+  },
+  methods: {
+    parentMounted(parent) {
+      const map = parent.$leafletElement;
+      map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div',
+        'leaflet-'+this.vSide+
           ' leaflet-'+this.hSide, map._controlContainer
-          // ' test'
-        );
-        // console.log('map._controlCorners[this.vSide + this.hSide]:', map._controlCorners[this.vSide + this.hSide])
-        map._controlCorners[this.vSide + this.hSide].classList.add(this.mobileTag);
-      }
-    }
-  };
+        // ' test'
+      );
+      // console.log('map._controlCorners[this.vSide + this.hSide]:', map._controlCorners[this.vSide + this.hSide])
+      map._controlCorners[this.vSide + this.hSide].classList.add(this.mobileTag);
+    },
+  },
+  render(h) {
+    return;
+  },
+};
 </script>
 
 <style>

@@ -29,6 +29,9 @@ import md5 from 'blueimp-md5';
 
 export default {
   name: 'PictometryWidget',
+  props: [
+    'orientation',
+  ],
   computed: {
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
@@ -38,9 +41,9 @@ export default {
     },
     pictContainerClass() {
       if (this.cyclomediaActive) {
-        return 'medium-8 large-8 columns mb-panel';
+        return 'medium-8 large-8 height50 columns';
       }
-      return 'medium-24 large-24 columns mb-panel';
+      return 'medium-24 large-24 height50 columns';
 
     },
     mapCenter() {
@@ -226,9 +229,21 @@ header.site-header > .row:last-of-type {
 
 #pict-container {
   padding: 0px;
-  height: 50%;
+  /* height: 50%; */
   /* position: relative; */
   /* display: none; */
+}
+
+.full-topics-open {
+  display: none;
+}
+
+.height100 {
+  height: 100%;
+}
+
+.height50 {
+  height: 50%;
 }
 
 @media screen and (min-width: 46.875em) {

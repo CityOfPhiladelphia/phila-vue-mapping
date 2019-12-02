@@ -1,63 +1,70 @@
 <template>
-  <div class="leaflet-bar easy-button-container leaflet-control" title="Search by Radius"
-       :style="{ 'color': 'red', 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
+  <div
+    class="leaflet-bar easy-button-container leaflet-control"
+    title="Search by Radius"
+    :style="{ 'color': 'red', 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
   >
-    <button @click="handleBufferButtonClick"
-            :class="this.bufferToolActive"
-            :style="{ 'color': 'red', 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }"
+    <button
+      :class="bufferToolActive"
+      :style="{ 'color': 'red', 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }"
+      @click="handleBufferButtonClick"
     >
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <font-awesome-icon :icon="'circle'" class="fa-3x icon-padding" />
+        <font-awesome-icon
+          :icon="'circle'"
+          class="fa-3x icon-padding"
+        />
       </span>
     </button>
-    <div :class="this.bufferClassActive">
+    <div :class="bufferClassActive">
       <ul>
         <li>Click to search by buffer.</li>
-        <li class="cancel"><a @click="handleBufferButtonClick" >Cancel</a></li>
+        <li class="cancel">
+          <a @click="handleBufferButtonClick">Cancel</a>
+        </li>
       </ul>
-
     </div>
   </div>
 </template>
 
 <script>
-  import Control from '../leaflet/Control.vue';
+import Control from '../leaflet/Control.vue';
 
-  const {props, methods} = Control;
+const { props, methods } = Control;
 
-  export default {
-    props: [
-      'position',
-      'barHeight',
-      'barWidth',
-      'barLineHeight',
-      'buttonHeight',
-      'buttonWidth',
-      'buttonLineHeight'
-    ],
-    computed: {
-      bufferToolActive() {
-        return this.$store.state.bufferMode ? 'active pointer' : 'inactive pointer'
-      },
-      bufferClassActive() {
-        return this.$store.state.bufferMode ? 'leaflet-buffer-actions' : 'leaflet-buffer-actions tool-inactive'
+export default {
+  props: [
+    'position',
+    'barHeight',
+    'barWidth',
+    'barLineHeight',
+    'buttonHeight',
+    'buttonWidth',
+    'buttonLineHeight',
+  ],
+  computed: {
+    bufferToolActive() {
+      return this.$store.state.bufferMode ? 'active pointer' : 'inactive pointer';
+    },
+    bufferClassActive() {
+      return this.$store.state.bufferMode ? 'leaflet-buffer-actions' : 'leaflet-buffer-actions tool-inactive';
+    },
+  },
+  methods: Object.assign(methods, {
+    handleBufferButtonClick(e) {
+      // console.log('handleBufferButtonClick is running, Object.keys(this.$store.state):', Object.keys(this.$store.state));
+      const bufferMode = this.$store.state.bufferMode;
+      this.$store.commit('setBufferMode', !bufferMode);
+      if (Object.keys(this.$store.state).includes('drawStart')) {
+        this.$store.commit('setDrawStart', null);
+        const cancelButton = document.querySelector('[title="Cancel drawing"]');
+        if (cancelButton) {
+          cancelButton.click();
+        }
       }
     },
-    methods: Object.assign(methods, {
-      handleBufferButtonClick(e) {
-        // console.log('handleBufferButtonClick is running, Object.keys(this.$store.state):', Object.keys(this.$store.state));
-        const bufferMode = this.$store.state.bufferMode;
-        this.$store.commit('setBufferMode', !bufferMode);
-        if (Object.keys(this.$store.state).includes('drawStart')) {
-          this.$store.commit('setDrawStart', null);
-          const cancelButton = document.querySelector('[title="Cancel drawing"]');
-          if (cancelButton) {
-            cancelButton.click();
-          }
-        }
-      },
-    })
-  };
+  }),
+};
 </script>
 
 <style scoped>

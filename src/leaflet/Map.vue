@@ -1,5 +1,8 @@
 <template>
-  <div :class="mapContainerClass">
+  <div
+    id="map-container"
+    :class="mapContainerClass"
+  >
     <!-- the leaflet map -->
     <div
       id="map"
@@ -35,10 +38,20 @@ export default {
     cyclomediaActive() {
       return this.$store.state.cyclomedia.active;
     },
+    pictometryActive() {
+      return this.$store.state.pictometry.active;
+    },
+    picOrCycloActive() {
+      if (this.cyclomediaActive || this.pictometryActive) {
+        return true;
+      }
+      return false;
+    },
     mapContainerClass() {
       let value;
-      if (this.cyclomediaActive && this.$config.map.containerClassWCyclo) {
-        value = this.$config.map.containerClassWCyclo;
+      if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
+        value = 'height50';
+        // value = this.$config.map.containerClassWCyclo;
       } else if (this.$config.map.containerClass) {
         value = this.$config.map.containerClass;
       } else {
@@ -100,7 +113,8 @@ export default {
     const map = this.$leafletElement = this.createLeafletElement();
 
     // move attribution and zoom controls
-    map.attributionControl.setPosition(this.$props.attributionPosition);
+    map.attributionControl.setPosition(this.$props.attributionPosition || 'bottomright');
+    console.log('still going');
     map.zoomControl.setPosition(this.$props.zoomControlPosition);
 
     // put in state
@@ -314,7 +328,19 @@ export default {
     height: 100%;
   }
 
+  .height100 {
+    height: 100%;
+  }
+
+  .height50 {
+    height: 50%;
+  }
+
   @media (max-width: 749px) {
+    .height50 {
+      height: 300px;
+    }
+
     .map-container {
       height: 300px;
     }
