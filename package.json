@@ -19,7 +19,7 @@
     "arcgis-to-geojson-utils": "^1.0.1",
     "axios": "^0.19.0",
     "blueimp-md5": "^2.10.0",
-    "date-fns": "^2.6.0",
+    "date-fns": "^2.8.1",
     "esri-leaflet": "^2.3.1",
     "esri-leaflet-legend": "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#8d42cbc1ed71c630fd8f9c6795877b5f7498b49f",
     "esri-leaflet-renderers": "^2.0.6",
