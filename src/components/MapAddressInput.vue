@@ -50,6 +50,7 @@ export default {
     'position',
     'widthFromConfig',
     'placeholder',
+    'static'
   ],
   data() {
     const data = {
@@ -237,7 +238,7 @@ export default {
         } else {
           this.inputStyle.width = this.$props.widthFromConfig - 108 + 'px';
         }
-      } else if (window.innerWidth >= 750) {
+      } else if (window.innerWidth >= 750 && !this.$props.static) {
         this.containerStyle.width = this.$props.widthFromConfig - 100 + 'px';
         if (addressEntered === '' || addressEntered === null) {
           this.inputStyle.width = this.$props.widthFromConfig - 155 + 'px';
