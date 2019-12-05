@@ -50,7 +50,7 @@ export default {
     'position',
     'widthFromConfig',
     'placeholder',
-    'static'
+    'static',
   ],
   data() {
     const data = {
