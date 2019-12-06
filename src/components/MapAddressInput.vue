@@ -181,7 +181,7 @@ export default {
           this.$store.commit('setShouldShowAddressCandidateList', true);
         }
       }
-    }, 300
+    }, 300,
     ),
     getCandidates(address) {
       // console.log('getCandidates is running, address:', address);
