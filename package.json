@@ -31,21 +31,21 @@
     "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5",
     "lodash-es": "^4.17.14",
     "phila-standards": "^1.0.2",
-    "proj4": "^2.5.0",
+    "proj4": "^2.6.0",
     "sdleafletdraw": "https://github.com/CityOfPhiladelphia/SDLeafletDraw#a0e54633bc22c342ab89668e4ca4288c8d2dc68f",
     "vue": "^2.6.10",
-    "vuex": "^3.1.1"
+    "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.0.5",
-    "@vue/cli-plugin-eslint": "^4.0.5",
-    "@vue/cli-service": "^4.0.5",
-    "@vue/eslint-config-standard": "^4.0.0",
+    "@vue/cli-plugin-babel": "^4.1.1",
+    "@vue/cli-plugin-eslint": "^4.1.1",
+    "@vue/cli-service": "^4.1.1",
+    "@vue/eslint-config-standard": "^5.0.1",
     "babel-eslint": "^10.0.3",
     "babel-runtime": "^6.26.0",
-    "eslint": "^6.5.1",
-    "eslint-plugin-vue": "^5.2.3",
-    "vue-template-compiler": "^2.6.9",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.0.1",
+    "vue-template-compiler": "^2.6.10",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "postcss": {
