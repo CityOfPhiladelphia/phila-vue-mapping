@@ -1,6 +1,6 @@
 <script>
-import Control from '../leaflet/Control.vue';
-import * as L from 'leaflet';
+// import Control from '../leaflet/Control.vue';
+// import * as L from 'leaflet';
 import 'sdleafletdraw';
 
 // Include the css files
@@ -45,7 +45,7 @@ export default {
       this.$store.commit('setEditableLayers', editableLayers);
     },
     createLeafletElement() {
-      // console.log('DrawControl createLeafletElement is running');
+      console.log('DrawControl createLeafletElement is running, L:', L);
       const { position } = this.$props;
       const { control } = this.$props;
       const editableLayers = new L.FeatureGroup();
