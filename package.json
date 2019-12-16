@@ -23,7 +23,7 @@
     "esri-leaflet": "^2.3.1",
     "esri-leaflet-legend": "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#8d42cbc1ed71c630fd8f9c6795877b5f7498b49f",
     "esri-leaflet-renderers": "^2.0.6",
-    "leaflet": "^1.5.1",
+    "leaflet": "1.5.1",
     "leaflet-easybutton": "^2.3.0",
     "leaflet-measure": "https://github.com/CityOfPhiladelphia/leaflet-measure#b70886af342f19597dc2937d79d64bad6bab07c6",
     "leaflet-omnivore": "https://github.com/CityOfPhiladelphia/leaflet-omnivore#f072195b03f7930690d9cbccb9375f0eda50fd41",
