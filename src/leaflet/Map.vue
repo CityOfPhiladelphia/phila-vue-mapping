@@ -1,5 +1,8 @@
 <template>
-  <div :class="mapContainerClass">
+  <div
+    id="map-container"
+    :class="mapContainerClass"
+  >
     <!-- the leaflet map -->
     <div
       id="map"
@@ -26,17 +29,35 @@ export default {
   props: [
     'center',
     'zoom',
+    'attributionPosition',
     'zoomControlPosition',
     'minZoom',
     'maxZoom',
   ],
   computed: {
-    mapContainerClass() {
-      if (this.$config.map.containerClass) {
-        return this.$config.map.containerClass;
+    cyclomediaActive() {
+      return this.$store.state.cyclomedia.active;
+    },
+    pictometryActive() {
+      return this.$store.state.pictometry.active;
+    },
+    picOrCycloActive() {
+      if (this.cyclomediaActive || this.pictometryActive) {
+        return true;
       }
-      return 'map-container';
-
+      return false;
+    },
+    mapContainerClass() {
+      let value;
+      if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
+        value = 'height50';
+        // value = this.$config.map.containerClassWCyclo;
+      } else if (this.$config.map.containerClass) {
+        value = this.$config.map.containerClass;
+      } else {
+        value = 'map-container';
+      }
+      return value;
     },
     fullScreenMapEnabled() {
       return this.$store.state.fullScreenMapEnabled;
@@ -54,7 +75,9 @@ export default {
   watch: {
     center(nextCenter) {
       // console.log('Map.vue watch center is firing, nextCenter:', nextCenter)
-      this.setMapView(nextCenter);
+      if (typeof nextCenter[0] == 'number') {
+        this.setMapView(nextCenter);
+      }
     },
     zoom(nextZoom) {
       if (!nextZoom) {
@@ -86,10 +109,12 @@ export default {
     },
   },
   mounted() {
-    // console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom)
+    console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
     const map = this.$leafletElement = this.createLeafletElement();
 
-    // move zoom control
+    // move attribution and zoom controls
+    map.attributionControl.setPosition(this.$props.attributionPosition || 'bottomright');
+    console.log('still going');
     map.zoomControl.setPosition(this.$props.zoomControlPosition);
 
     // put in state
@@ -153,8 +178,39 @@ export default {
     // if (this.$config.map.clickToIdentifyFeatures) {
     //   map.on('click', this.identifyFeatures);
     // }
+
+    const editableLayers = this.$store.state.editableLayers;
+    if (editableLayers !== null) {
+      map.addLayer(editableLayers);
+    }
+
+    map.on('draw:drawstart', () => {
+      if(this.$store.state.editableLayers !== null){
+        this.$store.state.editableLayers.clearLayers();
+      }
+      this.drawStartChange();
+    });
+    map.on('draw:drawstop', this.drawStopChange);
+    map.on('draw:created', this.drawShapeChange);
+    map.on('draw:created', (e) => {
+      editableLayers.addLayer(e.layer);
+    });
+
   },
   methods: {
+    drawShapeChange(shape) {
+      // console.log("drawShapeChange:", shape.layer);
+      this.$store.commit('setDrawShape', shape.layer);
+      this.$store.commit('setShapeSearchInput', shape.layer._latlngs[0]);
+    },
+    drawStartChange() {
+      // console.log("DrawStart is working");
+      this.$store.commit('setDrawStart', 'start');
+    },
+    drawStopChange() {
+      // console.log("DrawStart is working");
+      this.$store.commit('setDrawStart', null);
+    },
     createLeafletElement() {
       const { zoomControlPosition, ...options } = this.$props;
       return new Map(this.$refs.map, options);
@@ -259,6 +315,10 @@ export default {
     height: 100%;
   }
 
+  .map-container-350 {
+    height: 100%;
+  }
+
   .map-container-type2 {
     height: 100%;
     /* height: calc(100vh - 109px); */
@@ -268,9 +328,25 @@ export default {
     height: 100%;
   }
 
+  .height100 {
+    height: 100%;
+  }
+
+  .height50 {
+    height: 50%;
+  }
+
   @media (max-width: 749px) {
+    .height50 {
+      height: 300px;
+    }
+
     .map-container {
       height: 300px;
+    }
+
+    .map-container-350 {
+      height: 350px;
     }
   }
 

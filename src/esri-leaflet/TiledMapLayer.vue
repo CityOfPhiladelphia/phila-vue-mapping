@@ -12,6 +12,7 @@ export default {
     'attribution',
   ],
   mounted() {
+    // console.log('EsriTiledMapLayer mounted is running');
     const leafletElement = this.$leafletElement = this.createLeafletElement();
     const map = this.$store.state.map.map;
 
@@ -23,6 +24,7 @@ export default {
     }
   },
   destroyed() {
+    // console.log('EsriTiledMapLayer destroyed is running');
     this.$leafletElement._map.removeLayer(this.$leafletElement);
   },
   methods: {

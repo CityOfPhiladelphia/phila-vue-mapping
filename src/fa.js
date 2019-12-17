@@ -9,6 +9,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons/faTimes';
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons/faMapMarkerAlt';
 import { faCaretLeft } from '@fortawesome/free-solid-svg-icons/faCaretLeft';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons/faCaretRight';
-library.add(faSearch, faTimes, faMapMarkerAlt, faDotCircle, faCaretLeft, faCaretRight);
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons/faCaretDown';
+import { faCaretUp } from '@fortawesome/free-solid-svg-icons/faCaretUp';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons/faExternalLinkAlt';
+library.add(faSearch, faTimes, faMapMarkerAlt, faDotCircle, faCaretLeft, faCaretRight, faCaretDown, faCaretUp, faExternalLinkAlt);
 
 export default library;

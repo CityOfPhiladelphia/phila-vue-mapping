@@ -7,10 +7,24 @@ export default {
     'vSide',
     'hSide',
   ],
+  computed: {
+    isMobileOrTablet() {
+      return this.$store.state.isMobileOrTablet;
+    },
+    mobileTag() {
+      if (this.isMobileOrTablet) {
+        return 'mobile-corner';
+      }
+      return 'non-mobile-corner';
+
+    },
+  },
   methods: {
     parentMounted(parent) {
       const map = parent.$leafletElement;
       map._controlCorners[this.vSide + this.hSide] = L.DomUtil.create('div', 'leaflet-'+this.vSide+' leaflet-'+this.hSide, map._controlContainer);
+      // console.log('map._controlCorners[this.vSide + this.hSide]:', map._controlCorners[this.vSide + this.hSide])
+      map._controlCorners[this.vSide + this.hSide].classList.add(this.mobileTag);
     },
   },
   render(h) {
@@ -61,6 +75,14 @@ export default {
     position: absolute;
     top: 0px;
     right: 60px;
+    padding-bottom: 10px;
+    z-index: 500;
+  }
+
+  .leaflet-almosttop {
+    position: absolute;
+    top: 50px;
+    /* right: 0px; */
     padding-bottom: 10px;
     z-index: 500;
   }

@@ -32,7 +32,7 @@ export default {
         bounds,
         recordings => {
           this.$store.commit('setCyclomediaRecordings', recordings);
-        }
+        },
       );
     },
   },
