@@ -41,20 +41,22 @@ export default {
       return this.$store.state.map.imagery;
     },
   },
-  watch: {
-    currentImagery(nextCurrentImagery) {
-      const nextYear = nextCurrentImagery.replace(/\D/g,'');
-      const el = document.getElementById('year-select');
-      el.value = nextYear;
-    },
-  },
+  // watch: {
+  //   currentImagery(nextCurrentImagery) {
+  //     const nextYear = nextCurrentImagery.replace(/\D/g,'');
+  //     const el = document.getElementById('year-select');
+  //     console.log('watch currentImagery is firing, nextYear:', nextYear, 'el:', el);
+  //     // el.value = nextYear;
+  //   },
+  // },
   methods: Object.assign(methods, {
     handleImageryChange() {
       const el = document.getElementById('year-select');
-      console.log('el:', el, 'el.options:', el.options, 'el.selectedIndex:', el.selectedIndex);
       const group = el.options[el.selectedIndex].parentElement.label;
       const year = el.options[el.selectedIndex].value;
-      const nextBasemap = group.toLowerCase() + year;
+      let nextBasemap = group.toLowerCase() + year;
+      nextBasemap = nextBasemap.replace(/\s/g, '');
+      // console.log('el:', el, 'el.options:', el.options, 'el.selectedIndex:', el.selectedIndex, 'nextBasemap:', nextBasemap);
 
       this.$store.commit('setImagery', nextBasemap);
     },
