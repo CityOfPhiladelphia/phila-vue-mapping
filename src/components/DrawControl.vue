@@ -1,6 +1,6 @@
 <script>
-// import Control from '../leaflet/Control.vue';
-// import * as L from 'leaflet';
+import Control from '../leaflet/Control.vue';
+import * as L from 'leaflet';
 import 'sdleafletdraw';
 
 // Include the css files
