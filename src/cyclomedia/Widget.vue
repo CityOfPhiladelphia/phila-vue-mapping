@@ -14,6 +14,7 @@
         class="popout-icon"
       />
     </div>
+    <slot />
     <div
       id="cycloviewer"
       ref="cycloviewer"
@@ -76,7 +77,7 @@ export default {
     widgetClass() {
       let value;
       if (this.$props.orientation === 'full-screen') {
-        value = "medium-24 small-24 height100";
+        value = "medium-24 small-24 height100 fullScreen";
       } else if (this.$props.orientation === 'vertical') {
         value = "medium-12 small-24 height100";
       } else {
@@ -340,7 +341,12 @@ export default {
   }
 }
 
-@media (max-width: 749px) {
+@media screen and (max-width: 749px) {
+  .fullScreen {
+    /* display: block; */
+    height: 100% !important;
+  }
+
   #cyclo-container {
     height: 200px;
   }
