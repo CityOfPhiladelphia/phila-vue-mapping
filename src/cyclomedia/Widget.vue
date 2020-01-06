@@ -38,6 +38,10 @@ export default {
       'popoutPosition': 0,
     };
   },
+  mounted() {
+    console.log('cyclomedia widget mounted');
+    this.$emit('cyclomedia-widget-mounted');
+  },
   computed: {
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
@@ -71,7 +75,9 @@ export default {
     },
     widgetClass() {
       let value;
-      if (this.$props.orientation === 'vertical') {
+      if (this.$props.orientation === 'full-screen') {
+        value = "medium-24 small-24 height100";
+      } else if (this.$props.orientation === 'vertical') {
         value = "medium-12 small-24 height100";
       } else {
         if (this.pictometryActive) {
@@ -142,6 +148,7 @@ export default {
     //   console.log('docWidth changed');
     // }
     cyclomediaInitializationBegun() {
+      console.log('watch cyclomediaInitializationBegun is running');
       StreetSmartApi.init({
         targetElement: this.$refs.cycloviewer,
         username: this.$config.cyclomedia.username,
@@ -157,9 +164,14 @@ export default {
       }).then (
         () => {
           // get map center and set location
-          const latLngFromMap = this.$store.state.cyclomedia.latLngFromMap;
+          let latLng;
+          if (this.$store.state.cyclomedia.latLngFromMap) {
+            latLng = this.$store.state.cyclomedia.latLngFromMap;
+          } else {
+            latLng = [39.953338, -75.163471];
+          }
           this.$store.commit('setCyclomediaInitilizationComplete', true);
-          this.setNewLocation([ latLngFromMap[0], latLngFromMap[1] ]);
+          this.setNewLocation([ latLng[0], latLng[1] ]);
         },
         err => {
           console.log('Api: init: failed. Error: ', err);
