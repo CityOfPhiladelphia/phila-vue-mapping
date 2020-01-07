@@ -76,7 +76,7 @@ export default {
     },
     widgetClass() {
       let value;
-      if (this.$props.orientation === 'full-screen') {
+      if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
         value = "medium-24 small-24 height100 fullScreen";
       } else if (this.$props.orientation === 'vertical') {
         value = "medium-12 small-24 height100";
