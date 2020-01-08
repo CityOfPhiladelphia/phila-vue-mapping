@@ -35,6 +35,9 @@ export default {
     'maxZoom',
   ],
   computed: {
+    shouldInitializeMap() {
+      return this.$store.state.map.shouldInitialize;
+    },
     cyclomediaActive() {
       return this.$store.state.cyclomedia.active;
     },
@@ -58,6 +61,9 @@ export default {
         value = 'map-container';
       }
       return value;
+    },
+    fullScreenCycloEnabled() {
+      return this.$store.state.fullScreenCycloEnabled;
     },
     fullScreenMapEnabled() {
       return this.$store.state.fullScreenMapEnabled;
@@ -90,6 +96,20 @@ export default {
       // console.log('watch nextBounds is firing, nextBounds:', nextBounds, 'this.$leafletElement:', this.$leafletElement);
       this.setMapBounds(nextBounds);
     },
+    shouldInitializeMap(nextShouldInitializeMap) {
+      if (nextShouldInitializeMap === true) {
+        this.initializeMap();
+      }
+    },
+    fullScreenCycloEnabled() {
+      // console.log('Map.vue fullScreenCycloEnabled watch is firing, this.$leafletElement:', this.$leafletElement.invalidateSize);
+      if (this.$leafletElement) {
+        let leaf = this.$leafletElement
+        setTimeout(function() {
+          leaf.invalidateSize();
+        }, 500, this.$leafletElement);
+      }
+    },
     fullScreenMapEnabled() {
       // console.log('Map.vue fullScreenMapEnabled watch is firing');
       this.$leafletElement.invalidateSize();
@@ -110,94 +130,100 @@ export default {
   },
   mounted() {
     console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
-    const map = this.$leafletElement = this.createLeafletElement();
-
-    // move attribution and zoom controls
-    map.attributionControl.setPosition(this.$props.attributionPosition || 'bottomright');
-    console.log('still going');
-    map.zoomControl.setPosition(this.$props.zoomControlPosition);
-
-    // put in state
-    this.$store.commit('setMap', { map });
-
-    this.setMapView(this.center);
-
-    this.$nextTick(() => {
-      map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
-    });
-
-    // signal children to mount
-    for (let child of this.$children) {
-      // REVIEW it seems weird to pass children their own props. trying to
-      // remember why this was necessary... binding issue?
-      child.parentMounted(this, child.$props);
+    if (this.$store.state.map.shouldInitialize) {
+      this.initializeMap()
     }
-
-    // bind events
-    // http://leafletjs.com/reference.html#map-click
-
-    // const MAP_EVENTS = [
-    //   'click',
-    //   'dblclick',
-    //   'mousedown',
-    //   'mouseup',
-    //   'mouseover',
-    //   'mouseout',
-    //   'mousemove',
-    //   'contextmenu',
-    //   'focus',
-    //   'blur',
-    //   'preclick',
-    //   'load',
-    //   'unload',
-    //   'viewreset',
-    //   'movestart',
-    //   'move',
-    //   'moveend',
-    //   'dragstart',
-    //   'drag',
-    //   'dragend',
-    //   'zoomstart',
-    //   'zoomend',
-    //   'zoomlevelschange',
-    //   'resize',
-    //   'autopanstart',
-    //   'layeradd',
-    //   'layerremove',
-    //   'baselayerchange',
-    //   'overlayadd',
-    //   'overlayremove',
-    //   'locationfound',
-    //   'locationerror',
-    //   'popupopen',
-    //   'popupclose'
-    // ];
-
-    // TODO warn if trying to bind an event that doesn't exist
-    bindEvents(this, this.$leafletElement, this._events);
-    // if (this.$config.map.clickToIdentifyFeatures) {
-    //   map.on('click', this.identifyFeatures);
-    // }
-
-    const editableLayers = this.$store.state.editableLayers;
-    if (editableLayers !== null) {
-      map.addLayer(editableLayers);
-    }
-
-    map.on('draw:drawstart', () => {
-      if(this.$store.state.editableLayers !== null){
-        this.$store.state.editableLayers.clearLayers();
-      }
-      this.drawStartChange();
-    });
-    map.on('draw:drawstop', this.drawStopChange);
-    map.on('draw:created', this.drawShapeChange);
-    map.on('draw:created', (e) => {
-      editableLayers.addLayer(e.layer);
-    });
-
   },
   methods: {
+    initializeMap() {
+      console.log('Map.vue initializeMap is running');
+      const map = this.$leafletElement = this.createLeafletElement();
+
+      // move attribution and zoom controls
+      map.attributionControl.setPosition(this.$props.attributionPosition || 'bottomright');
+      map.zoomControl.setPosition(this.$props.zoomControlPosition);
+
+      // put in state
+      this.$store.commit('setMap', { map });
+
+      this.setMapView(this.center);
+
+      this.$nextTick(() => {
+        map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
+      });
+
+      // signal children to mount
+      for (let child of this.$children) {
+        // REVIEW it seems weird to pass children their own props. trying to
+        // remember why this was necessary... binding issue?
+        child.parentMounted(this, child.$props);
+      }
+
+      // bind events
+      // http://leafletjs.com/reference.html#map-click
+
+      // const MAP_EVENTS = [
+      //   'click',
+      //   'dblclick',
+      //   'mousedown',
+      //   'mouseup',
+      //   'mouseover',
+      //   'mouseout',
+      //   'mousemove',
+      //   'contextmenu',
+      //   'focus',
+      //   'blur',
+      //   'preclick',
+      //   'load',
+      //   'unload',
+      //   'viewreset',
+      //   'movestart',
+      //   'move',
+      //   'moveend',
+      //   'dragstart',
+      //   'drag',
+      //   'dragend',
+      //   'zoomstart',
+      //   'zoomend',
+      //   'zoomlevelschange',
+      //   'resize',
+      //   'autopanstart',
+      //   'layeradd',
+      //   'layerremove',
+      //   'baselayerchange',
+      //   'overlayadd',
+      //   'overlayremove',
+      //   'locationfound',
+      //   'locationerror',
+      //   'popupopen',
+      //   'popupclose'
+      // ];
+
+      // TODO warn if trying to bind an event that doesn't exist
+      bindEvents(this, this.$leafletElement, this._events);
+      // if (this.$config.map.clickToIdentifyFeatures) {
+      //   map.on('click', this.identifyFeatures);
+      // }
+
+      const editableLayers = this.$store.state.editableLayers;
+      if (editableLayers !== null) {
+        map.addLayer(editableLayers);
+      }
+
+      map.on('draw:drawstart', () => {
+        if(this.$store.state.editableLayers !== null){
+          this.$store.state.editableLayers.clearLayers();
+        }
+        this.drawStartChange();
+      });
+      map.on('draw:drawstop', this.drawStopChange);
+      map.on('draw:created', this.drawShapeChange);
+      map.on('draw:created', (e) => {
+        editableLayers.addLayer(e.layer);
+      });
+
+      this.$store.commit('setInitializedMap', true);
+    },
     drawShapeChange(shape) {
       // console.log("drawShapeChange:", shape.layer);
       this.$store.commit('setDrawShape', shape.layer);
@@ -230,7 +256,9 @@ export default {
       // "panTo" was getting stepped on by "setZoom" and it was not happening
       this.$nextTick(() => {
         // console.log('Map.vue this.$leafletElement.setView is running, latLng:', latLng);
-        this.$leafletElement.setView(latLng, zoom);
+        if (this.$leafletElement) {
+          this.$leafletElement.setView(latLng, zoom);
+        }
       });
     },
     setMapBounds(bounds) {

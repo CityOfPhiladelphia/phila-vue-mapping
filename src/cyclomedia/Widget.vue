@@ -97,7 +97,7 @@ export default {
     locForCyclo() {
       // console.log('computing locForCyclo');
       const geocodeData = this.$store.state.geocode.data;
-      const map = this.$store.state.map.map;
+      // const map = this.$store.state.map.map;
       if (geocodeData) {
         return [ geocodeData.geometry.coordinates[1], geocodeData.geometry.coordinates[0] ];
       }

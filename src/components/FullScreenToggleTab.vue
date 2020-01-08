@@ -20,22 +20,25 @@ export default {
   name: 'FullScreenToggleTab',
   props: [
     'event',
+    'deactivatedDirection'
   ],
   data() {
     return {
       'buttonPosition': 0,
+      'buttonDirection': 'left',
+      'activated': false,
     };
   },
   computed: {
     windowDim() {
       return this.$store.state.windowDimensions;
     },
-    fullScreenMapEnabled() {
-      return this.$store.state.fullScreenMapEnabled;
-    },
-    fullScreenTopicsEnabled() {
-      return this.$store.state.fullScreenTopicsEnabled;
-    },
+    // fullScreenMapEnabled() {
+    //   return this.$store.state.fullScreenMapEnabled;
+    // },
+    // fullScreenTopicsEnabled() {
+    //   return this.$store.state.fullScreenTopicsEnabled;
+    // },
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
     },
@@ -53,11 +56,11 @@ export default {
 
     },
     currentIcon() {
-      if (this.fullScreenMapEnabled) {
+      if (this.buttonDirection === 'right') {
         return 'caret-right';
+      } else {
+        return 'caret-left';
       }
-      return 'caret-left';
-
     },
   },
   watch: {
@@ -70,9 +73,22 @@ export default {
     windowDim(nextDim) {
       this.setDivHeight(nextDim);
     },
+    activated(nextActivated) {
+      console.log('watch activated, nextActivated:', nextActivated);
+      if (nextActivated === false) {
+        this.buttonDirection = this.deactivatedDirection;
+      } else {
+        this.buttonDirection = !this.deactivatedDirection;
+      }
+    }
   },
   mounted() {
+    console.log('FullScreenToggleTab.vue mounted is running');
     this.setDivHeight(this.windowDim);
+    if (this.$props.deactivatedDirection !== null) {
+      console.log('FullScreenToggleTab.vue mounted IF is running');
+      this.buttonDirection = this.$props.deactivatedDirection;
+    }
   },
   methods: {
     setDivHeight(dim) {
@@ -83,13 +99,15 @@ export default {
       //   }
       // }
       // if (!this.picOrCycloActive) {
-        this.buttonPosition = (dim.height-48)/2 + 'px';
+        this.buttonPosition = (dim.height+100)/2 + 'px';
+        // this.buttonPosition = (dim.height-48)/2 + 'px';
       // } else {
       //   this.buttonPosition = (dim.height-48)/4 + 'px';
       // }
     },
     handleFullScreenToggleButtonClick() {
-      console.log('this.$props.event:', this.$props.event);
+      // console.log('this.$props.event:', this.$props.event);
+      this.activated = !this.activated;
       this.$emit(this.$props.event);
     },
   },
@@ -110,7 +128,7 @@ export default {
   @media screen and (min-width: 46.875em) {
     .toggle-tab {
       position: absolute;
-      left: 0px;
+      /* left: 0px; */
       border-width: 1.3px;
       border-style: solid;
       border-color: #CAC9C9;
