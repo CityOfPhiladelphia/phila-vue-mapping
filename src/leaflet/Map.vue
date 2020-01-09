@@ -343,13 +343,20 @@ export default {
     height: 100%;
   }
 
+  .map {
+    height: 100%;
+  }
+
+  /* .map-container {
+    height: 100%;
+  }
+
   .map-container-350 {
     height: 100%;
   }
 
   .map-container-type2 {
     height: 100%;
-    /* height: calc(100vh - 109px); */
   }
 
   .map {
@@ -378,11 +385,9 @@ export default {
     }
   }
 
-  /* @media screen and (max-width: 40em) { */
   @media screen and (max-width: 750px) {
     .map-container-type2 {
       height: 100%;
-      /* height: calc(100vh - 141px); */
     }
-  }
+  } */
 </style>

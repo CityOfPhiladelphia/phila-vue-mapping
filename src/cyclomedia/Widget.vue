@@ -1,8 +1,9 @@
 <template>
   <div
-    id="cyclo-container"
-    :class="widgetClass"
+    id="cyclomedia-container"
+    class="cyclo-div"
   >
+  <!-- :class="widgetClass" -->
     <div
       v-if="isMobileOrTablet === false && popoutAble === true"
       id="inCycloDiv"
@@ -76,21 +77,21 @@ export default {
     },
     widgetClass() {
       let value;
-      if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
-        value = "medium-24 small-24 height100 fullScreen";
-      } else if (this.$props.orientation === 'vertical') {
-        value = "medium-12 small-24 height100";
-      } else {
-        if (this.pictometryActive) {
-          value = 'medium-16 large-16 height50 columns';
-        } else {
-          value = 'medium-24 large-24 height50 columns';
-        }
-      }
-
-      if (this.fullScreenTopicsEnabled) {
-        value += ' full-topics-open';
-      }
+      // if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
+      //   value = "medium-24 small-24 height100 fullScreen";
+      // } else if (this.$props.orientation === 'vertical') {
+      //   value = "medium-12 small-24 height100";
+      // } else {
+      //   if (this.pictometryActive) {
+      //     value = 'medium-16 large-16 height50 columns';
+      //   } else {
+      //     value = 'medium-24 large-24 height50 columns';
+      //   }
+      // }
+      //
+      // if (this.fullScreenTopicsEnabled) {
+      //   value += ' full-topics-open';
+      // }
 
       return value;
     },
@@ -317,10 +318,12 @@ export default {
 
 <style scoped>
 
+.cyclo-div {
+  height: 100%;
+}
+
 #cyclo-container {
   padding: 0px;
-  /* height: 50%; */
-  /* display: none; */
 }
 
 .full-topics-open {
@@ -341,9 +344,8 @@ export default {
   }
 }
 
-@media screen and (max-width: 749px) {
+@media (max-width: 749px) {
   .fullScreen {
-    /* display: block; */
     height: 100% !important;
   }
 

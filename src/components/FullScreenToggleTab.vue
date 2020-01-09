@@ -33,12 +33,6 @@ export default {
     windowDim() {
       return this.$store.state.windowDimensions;
     },
-    // fullScreenMapEnabled() {
-    //   return this.$store.state.fullScreenMapEnabled;
-    // },
-    // fullScreenTopicsEnabled() {
-    //   return this.$store.state.fullScreenTopicsEnabled;
-    // },
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
     },
@@ -53,7 +47,6 @@ export default {
         return true;
       }
       return false;
-
     },
     currentIcon() {
       if (this.buttonDirection === 'right') {
@@ -92,18 +85,7 @@ export default {
   },
   methods: {
     setDivHeight(dim) {
-      // if (this.$config.plugin) {
-      //   if (this.$config.plugin.enabled === true) {
-      //     this.buttonPosition = (this.$config.plugin.height-48)/2 + 'px';
-      //     return;
-      //   }
-      // }
-      // if (!this.picOrCycloActive) {
-        this.buttonPosition = (dim.height+100)/2 + 'px';
-        // this.buttonPosition = (dim.height-48)/2 + 'px';
-      // } else {
-      //   this.buttonPosition = (dim.height-48)/4 + 'px';
-      // }
+      this.buttonPosition = (dim.height+100)/2 + 'px';
     },
     handleFullScreenToggleButtonClick() {
       // console.log('this.$props.event:', this.$props.event);
