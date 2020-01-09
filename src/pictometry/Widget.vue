@@ -1,8 +1,9 @@
 <template>
   <div
     id="pict-container"
-    :class="pictContainerClass"
+    class="pictometry-div"
   >
+  <!-- :class="pictContainerClass" -->
     <div
       v-if="isMobileOrTablet === false"
       id="in-pict-div"
@@ -13,11 +14,14 @@
         class="popout-icon"
       />
     </div>
-    <iframe
-      id="pictometry-ipa"
-      ref="pictometryIpa"
-      src="#"
-    />
+    <!-- <div class="resp-container"> -->
+      <iframe
+        class="resp-iframe"
+        id="pictometry-ipa"
+        ref="pictometryIpa"
+        src="#"
+      />
+    <!-- </div> -->
     <div>
       <slot />
     </div>
@@ -29,9 +33,9 @@ import md5 from 'blueimp-md5';
 
 export default {
   name: 'PictometryWidget',
-  props: [
-    'orientation',
-  ],
+  // props: [
+  //   'orientation',
+  // ],
   computed: {
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
@@ -133,6 +137,8 @@ export default {
     this.$IFRAME_ID = 'pictometry-ipa';
   },
   mounted() {
+    console.log('pictometry widget mounted');
+    this.$emit('pictometry-widget-mounted');
     // fetch pictometry ipa script
     const scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.$config.pictometry.apiKey;
     const self = this;
@@ -205,10 +211,28 @@ export default {
 
 <style scoped>
 
-
-header.site-header > .row:last-of-type {
-  background: #2176d2;
+.pictometry-div {
+  height: 100%;
 }
+
+/* .resp-container {
+  position: relative;
+  overflow: hidden;
+  padding-top: 56.25%;
+}
+
+.resp-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+} */
+
+/* header.site-header > .row:last-of-type {
+  background: #2176d2;
+} */
 
 #in-pict-div {
   position: absolute;
@@ -229,33 +253,18 @@ header.site-header > .row:last-of-type {
 
 #pict-container {
   padding: 0px;
-  /* height: 50%; */
-  /* position: relative; */
-  /* display: none; */
-}
-
-.full-topics-open {
-  display: none;
-}
-
-.height100 {
-  height: 100%;
-}
-
-.height50 {
-  height: 50%;
 }
 
 @media screen and (min-width: 46.875em) {
-  #pict-container {
+  /* #pict-container {
     display: block;
-  }
+  } */
 }
 
 @media (max-width: 749px) {
-  #pict-container {
+  /* #pict-container {
     height: 200px !important;
-  }
+  } */
 }
 
 #pictometry-ipa {
@@ -264,67 +273,67 @@ header.site-header > .row:last-of-type {
   border: 0px;
 }
 
-#search-container {
-    float: right;
-}
+/* #search-container {
+  float: right;
+} */
 
-#search-input {
-    float: left;
-    width: 400px;
-}
+/* #search-input {
+  float: left;
+  width: 400px;
+} */
 
-#search-button {
-    height: 2.78571rem;
-}
+/* #search-button {
+  height: 2.78571rem;
+} */
 
-#data-panel {
-    background: #fff;
-    padding-left: 12px;
-    padding-right: 12px;
-    height: 100%;
+/* #data-panel {
+  background: #fff;
+  padding-left: 12px;
+  padding-right: 12px;
+  height: 100%;
 }
 
 #data-panel > h1 {
-    color: #666;
-}
+  color: #666;
+} */
 
-#data-row-list > a {
-    background: #f5f5f5;
-    border: 1px solid #ddd;
-    display: block;
-    font-size: 18px;
-    font-weight: normal;
-    height: 70px;
-    line-height: 45px;
-    padding: 10px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    margin-bottom: 8px;
+/* #data-row-list > a {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  display: block;
+  font-size: 18px;
+  font-weight: normal;
+  height: 70px;
+  line-height: 45px;
+  padding: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 8px;
 }
 
 #data-row-list > a:hover {
-    background: #fff;
-    color: inherit;
+  background: #fff;
+  color: inherit;
 }
 
 #data-row-list .data-row-link-icon {
-    padding-right: 30px;
-}
+  padding-right: 30px;
+} */
 
-.data-row {
-    padding: 10px;
-    margin-bottom: 10px;
-    display: none;
+/* .data-row {
+  padding: 10px;
+  margin-bottom: 10px;
+  display: none;
 }
 
 .data-row table th, .data-row table td {
-    font-size: 15px;
-    margin-left: 8.5px;
-  }
+  font-size: 15px;
+  margin-left: 8.5px;
+} */
 
-  #pict-container {
-    padding: 0px;
-    height: 50%;
-    position: relative;
-  }
+/* #pict-container {
+  padding: 0px;
+  height: 50%;
+  position: relative;
+} */
 
 </style>
