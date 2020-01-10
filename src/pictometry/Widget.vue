@@ -197,7 +197,7 @@ export default {
       }
     },
     ipaReady() {
-      console.log('ipaReady is running');
+      console.log('ipaReady is running, this.mapCenter:', this.mapCenter);
       this.$ipa.setLocation({
         y: this.mapCenter.lat,
         x: this.mapCenter.lng,
