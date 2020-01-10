@@ -198,13 +198,15 @@ export default {
     },
     ipaReady() {
       console.log('ipaReady is running, this.mapCenter:', this.mapCenter);
+      const self = this;
+
       this.$ipa.setLocation({
-        y: this.mapCenter.lat,
-        x: this.mapCenter.lng,
+        y: this.mapCenter[1],
+        x: this.mapCenter[0],
+        // y: this.mapCenter.lat,
+        // x: this.mapCenter.lng,
         zoom: this.mapZoom,
       });
-
-      const self = this;
 
       this.$ipa.addListener('onendzoom', function(zoom) {
         self.$store.commit('setPictometryZoom', zoom.level);
