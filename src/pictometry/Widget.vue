@@ -33,9 +33,9 @@ import md5 from 'blueimp-md5';
 
 export default {
   name: 'PictometryWidget',
-  // props: [
-  //   'orientation',
-  // ],
+  props: [
+    'setLocation',
+  ],
   computed: {
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
@@ -173,7 +173,7 @@ export default {
       this.$store.commit('setPictometryActive', false);
     },
     init() {
-      // console.log('Pict Widget init is running');
+      console.log('Pict Widget init is running');
       // construct signed url
       const d = new Date();
       const t = Math.floor(d.getTime() / 1000);
@@ -191,8 +191,13 @@ export default {
       const ipa = this.$ipa = new PictometryHost(iframeId, 'https://pol.pictometry.com/ipa/v1/load.php');
       this.$store.commit('setPictometryIpa', ipa);
       ipa.ready = this.ipaReady;
+
+      if (this.$props.setLocation) {
+        this.ipaReady();
+      }
     },
     ipaReady() {
+      console.log('ipaReady is running');
       this.$ipa.setLocation({
         y: this.mapCenter.lat,
         x: this.mapCenter.lng,
