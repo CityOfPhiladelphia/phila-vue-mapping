@@ -18,11 +18,18 @@
 
 <script>
 
-import {
-  Map,
-  LatLng,
-  LatLngBounds,
-} from 'mapbox-gl';
+// import {
+//   Map,
+//   LatLng,
+//   LatLngBounds,
+// } from 'mapbox-gl';
+
+import * as mapboxgl from 'mapbox-gl';
+// import { accessToken } from 'mapbox-gl';
+console.log('mapboxgl:', mapboxgl, 'process.env.VUE_APP_MAPBOX_TOKEN:', process.env.VUE_APP_MAPBOX_TOKEN);
+
+mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
+
 import bindEvents from './util/bind-events';
 
 export default {
@@ -35,6 +42,7 @@ export default {
     'minZoom',
     'maxZoom',
     'container',
+    'style_'
   ],
   computed: {
     cyclomediaActive() {
@@ -120,13 +128,36 @@ export default {
     // map.zoomControl.setPosition(this.$props.zoomControlPosition);
 
     // put in state
-    this.$store.commit('setMap', { map });
+    // this.$store.commit('setMap', { map });
 
-    this.setMapView(this.center);
+    // this.setMapView(this.center);
 
-    this.$nextTick(() => {
-      map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
-    });
+    // this.$nextTick(() => {
+    //   map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
+    // });
+
+    map.on('load', function() {
+
+      map.addLayer({
+        // "id": "road2",
+        // "type": "line",
+        "sources": {
+          "type": "vector",
+          // "tiles": ["https://tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/PVL_Original/VectorTileServer?token=gkbUYrWehy4cJuI1wh0fKWg19jKXm-_zjzSFpuiniRXOLcj1kTThOfc0YeI4WMqyINSiOVqN0evdNTc5bYAGkKhYdmEV4IaWBsDzbZzzfpv2DbWhj4X1mQVjOsYUZSMBCZNFrWhuk5cyKeMpbI6iDuegPC2yQZA46QqUT14PRpGUwI9U-ML_C4-5NZbdAFjqmsxVBEoW0lLG4b-Ibk4NQm3WXVGYUH9bPg24kGhaWFpjoA9zV-5OcyFYqk9FAdge/tile/{z}/{y}/{x}.pbf"]
+          // "tiles": ["https://tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/PVL_Original/VectorTileServer/tile/{z}/{y}/{x}.pbf?token=gkbUYrWehy4cJuI1wh0fKWg19jKXm-_zjzSFpuiniRXOLcj1kTThOfc0YeI4WMqyINSiOVqN0evdNTc5bYAGkKhYdmEV4IaWBsDzbZzzfpv2DbWhj4X1mQVjOsYUZSMBCZNFrWhuk5cyKeMpbI6iDuegPC2yQZA46QqUT14PRpGUwI9U-ML_C4-5NZbdAFjqmsxVBEoW0lLG4b-Ibk4NQm3WXVGYUH9bPg24kGhaWFpjoA9zV-5OcyFYqk9FAdge"]
+          "tiles": ["https://tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/PVL_Original/VectorTileServer/tile/{z}/{y}/{x}.pbf"]
+        },
+        // "source-layer": "road",
+        // "layout": {
+        //   "line-cap": "butt",
+        //   "line-join": "miter"
+        // },
+        // "paint": {
+        //   "line-color": "rgba(65,244,244,0.3)",
+        //   "line-width": 3
+        // }
+      }, 'waterway-label');
+    })
 
     // signal children to mount
     for (let child of this.$children) {
@@ -175,9 +206,10 @@ export default {
     },
     createMapboxElement() {
       const { zoomControlPosition, ...options } = this.$props;
+      options.style=options.style_
       console.log('createMapboxElement is running, options:', options, 'this.$refs.mbmap:', this.$refs.mbmap);
       // return new Map(this.$refs.map, options);
-      return new Map(options);
+      return new mapboxgl.Map(options);
     },
     childDidMount(child) {
       child.addTo(this.$mapboxElement);
