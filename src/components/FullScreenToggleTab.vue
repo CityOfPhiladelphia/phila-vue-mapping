@@ -20,7 +20,7 @@ export default {
   name: 'FullScreenToggleTab',
   props: [
     'event',
-    'deactivatedDirection'
+    'deactivatedDirection',
   ],
   data() {
     return {
@@ -51,9 +51,9 @@ export default {
     currentIcon() {
       if (this.buttonDirection === 'right') {
         return 'caret-right';
-      } else {
-        return 'caret-left';
-      }
+      } 
+      return 'caret-left';
+      
     },
   },
   watch: {
@@ -73,7 +73,7 @@ export default {
       } else {
         this.buttonDirection = !this.deactivatedDirection;
       }
-    }
+    },
   },
   mounted() {
     console.log('FullScreenToggleTab.vue mounted is running');
