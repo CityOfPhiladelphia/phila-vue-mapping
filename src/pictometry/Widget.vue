@@ -3,7 +3,6 @@
     id="pict-container"
     class="pictometry-div"
   >
-  <!-- :class="pictContainerClass" -->
     <div
       v-if="isMobileOrTablet === false"
       id="in-pict-div"
@@ -15,12 +14,12 @@
       />
     </div>
     <!-- <div class="resp-container"> -->
-      <iframe
-        class="resp-iframe"
-        id="pictometry-ipa"
-        ref="pictometryIpa"
-        src="#"
-      />
+    <iframe
+      id="pictometry-ipa"
+      ref="pictometryIpa"
+      class="resp-iframe"
+      src="#"
+    />
     <!-- </div> -->
     <div>
       <slot />
@@ -169,7 +168,7 @@ export default {
     popoutClicked() {
       const map = this.$store.state.map.map;
       const center = map.getCenter();
-      window.open('//pictometry.phila.gov/?' + center.lat + '&' + center.lng, '_blank');
+      window.open('//pictometry.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setPictometryActive', false);
     },
     init() {

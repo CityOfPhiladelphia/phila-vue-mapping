@@ -104,7 +104,7 @@ export default {
     fullScreenCycloEnabled() {
       // console.log('Map.vue fullScreenCycloEnabled watch is firing, this.$leafletElement:', this.$leafletElement.invalidateSize);
       if (this.$leafletElement) {
-        let leaf = this.$leafletElement
+        let leaf = this.$leafletElement;
         setTimeout(function() {
           leaf.invalidateSize();
         }, 500, this.$leafletElement);
@@ -131,7 +131,7 @@ export default {
   mounted() {
     console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
     if (this.$store.state.map.shouldInitialize) {
-      this.initializeMap()
+      this.initializeMap();
     }
   },
   methods: {
@@ -367,10 +367,12 @@ export default {
     height: 100%;
   }
 
+*/
   .height50 {
     height: 50%;
   }
 
+/*
   @media (max-width: 749px) {
     .height50 {
       height: 300px;

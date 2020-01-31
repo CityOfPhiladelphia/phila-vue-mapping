@@ -1,9 +1,9 @@
 <template>
   <div
     id="cyclomedia-container"
-    class="cyclo-div"
+    :class="widgetClass"
   >
-  <!-- :class="widgetClass" -->
+    <!-- class="cyclo-div" -->
     <div
       v-if="isMobileOrTablet === false && popoutAble === true"
       id="inCycloDiv"
@@ -39,10 +39,6 @@ export default {
       'divWidth': 0,
       'popoutPosition': 0,
     };
-  },
-  mounted() {
-    console.log('cyclomedia widget mounted');
-    this.$emit('cyclomedia-widget-mounted');
   },
   computed: {
     isMobileOrTablet() {
@@ -92,6 +88,12 @@ export default {
       // if (this.fullScreenTopicsEnabled) {
       //   value += ' full-topics-open';
       // }
+
+      if (this.$props.orientation === 'horizontal') {
+        value = 'height50';
+      } else {
+        value = 'cyclo-div';
+      }
 
       return value;
     },
@@ -170,7 +172,7 @@ export default {
           if (this.$store.state.cyclomedia.latLngFromMap) {
             latLng = this.$store.state.cyclomedia.latLngFromMap;
           } else {
-            latLng = [39.953338, -75.163471];
+            latLng = [ 39.953338, -75.163471 ];
           }
           this.$store.commit('setCyclomediaInitilizationComplete', true);
           this.setNewLocation([ latLng[0], latLng[1] ]);
@@ -188,6 +190,10 @@ export default {
         this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
       }
     },
+  },
+  mounted() {
+    console.log('cyclomedia widget mounted');
+    this.$emit('cyclomedia-widget-mounted');
   },
   updated() {
     // console.log('cyclomedia updated running');
@@ -309,7 +315,7 @@ export default {
     popoutClicked() {
       const map = this.$store.state.map.map;
       const center = map.getCenter();
-      window.open('//cyclomedia.phila.gov/?' + center.lat + '&' + center.lng, '_blank');
+      window.open('//cyclomedia.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setCyclomediaActive', false);
     },
   },
@@ -335,6 +341,7 @@ export default {
 }
 
 .height50 {
+  /* padding-top: 50%; */
   height: 50%;
 }
 
