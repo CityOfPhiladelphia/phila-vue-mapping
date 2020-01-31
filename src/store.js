@@ -55,6 +55,8 @@ const initialState = {
     imageOverlayOpacity: null,
     filters: [],
     watchPositionOn: false,
+    shouldInitialize: true,
+    initialized: null,
   },
 
   cyclomedia: {
@@ -92,6 +94,12 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setShouldInitializeMap(state, payload) {
+      state.map.shouldInitialize = payload;
+    },
+    setInitializedMap(state, payload) {
+      state.map.initialized = payload;
+    },
     setBufferShape(state, payload) {
       state.bufferShape = payload;
     },

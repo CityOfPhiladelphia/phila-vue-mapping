@@ -1,8 +1,9 @@
 <template>
   <div
-    id="cyclo-container"
+    id="cyclomedia-container"
     :class="widgetClass"
   >
+    <!-- class="cyclo-div" -->
     <div
       v-if="isMobileOrTablet === false && popoutAble === true"
       id="inCycloDiv"
@@ -14,6 +15,7 @@
         class="popout-icon"
       />
     </div>
+    <slot />
     <div
       id="cycloviewer"
       ref="cycloviewer"
@@ -71,18 +73,26 @@ export default {
     },
     widgetClass() {
       let value;
-      if (this.$props.orientation === 'vertical') {
-        value = "medium-12 small-24 height100";
-      } else {
-        if (this.pictometryActive) {
-          value = 'medium-16 large-16 height50 columns';
-        } else {
-          value = 'medium-24 large-24 height50 columns';
-        }
-      }
+      // if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
+      //   value = "medium-24 small-24 height100 fullScreen";
+      // } else if (this.$props.orientation === 'vertical') {
+      //   value = "medium-12 small-24 height100";
+      // } else {
+      //   if (this.pictometryActive) {
+      //     value = 'medium-16 large-16 height50 columns';
+      //   } else {
+      //     value = 'medium-24 large-24 height50 columns';
+      //   }
+      // }
+      //
+      // if (this.fullScreenTopicsEnabled) {
+      //   value += ' full-topics-open';
+      // }
 
-      if (this.fullScreenTopicsEnabled) {
-        value += ' full-topics-open';
+      if (this.$props.orientation === 'horizontal') {
+        value = 'height50';
+      } else {
+        value = 'cyclo-div';
       }
 
       return value;
@@ -90,7 +100,7 @@ export default {
     locForCyclo() {
       // console.log('computing locForCyclo');
       const geocodeData = this.$store.state.geocode.data;
-      const map = this.$store.state.map.map;
+      // const map = this.$store.state.map.map;
       if (geocodeData) {
         return [ geocodeData.geometry.coordinates[1], geocodeData.geometry.coordinates[0] ];
       }
@@ -142,6 +152,7 @@ export default {
     //   console.log('docWidth changed');
     // }
     cyclomediaInitializationBegun() {
+      console.log('watch cyclomediaInitializationBegun is running');
       StreetSmartApi.init({
         targetElement: this.$refs.cycloviewer,
         username: this.$config.cyclomedia.username,
@@ -157,9 +168,14 @@ export default {
       }).then (
         () => {
           // get map center and set location
-          const latLngFromMap = this.$store.state.cyclomedia.latLngFromMap;
+          let latLng;
+          if (this.$store.state.cyclomedia.latLngFromMap) {
+            latLng = this.$store.state.cyclomedia.latLngFromMap;
+          } else {
+            latLng = [ 39.953338, -75.163471 ];
+          }
           this.$store.commit('setCyclomediaInitilizationComplete', true);
-          this.setNewLocation([ latLngFromMap[0], latLngFromMap[1] ]);
+          this.setNewLocation([ latLng[0], latLng[1] ]);
         },
         err => {
           console.log('Api: init: failed. Error: ', err);
@@ -174,6 +190,10 @@ export default {
         this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
       }
     },
+  },
+  mounted() {
+    console.log('cyclomedia widget mounted');
+    this.$emit('cyclomedia-widget-mounted');
   },
   updated() {
     // console.log('cyclomedia updated running');
@@ -295,7 +315,7 @@ export default {
     popoutClicked() {
       const map = this.$store.state.map.map;
       const center = map.getCenter();
-      window.open('//cyclomedia.phila.gov/?' + center.lat + '&' + center.lng, '_blank');
+      window.open('//cyclomedia.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setCyclomediaActive', false);
     },
   },
@@ -304,10 +324,12 @@ export default {
 
 <style scoped>
 
+.cyclo-div {
+  height: 100%;
+}
+
 #cyclo-container {
   padding: 0px;
-  /* height: 50%; */
-  /* display: none; */
 }
 
 .full-topics-open {
@@ -319,6 +341,7 @@ export default {
 }
 
 .height50 {
+  /* padding-top: 50%; */
   height: 50%;
 }
 
@@ -329,6 +352,10 @@ export default {
 }
 
 @media (max-width: 749px) {
+  .fullScreen {
+    height: 100% !important;
+  }
+
   #cyclo-container {
     height: 200px;
   }

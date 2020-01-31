@@ -42,6 +42,7 @@ import VectorMarker from './components/VectorMarker.vue';
 import PngMarker from './components/PngMarker.vue';
 import BasemapToggleControl from './components/BasemapToggleControl.vue';
 import BasemapSelectControl from './components/BasemapSelectControl.vue';
+import FullScreenToggleTab from './components/FullScreenToggleTab.vue';
 import FullScreenMapToggleTab from './components/FullScreenMapToggleTab.vue';
 import FullScreenMapToggleTabVertical from './components/FullScreenMapToggleTabVertical.vue';
 import LocationControl from './components/LocationControl.vue';
@@ -97,6 +98,7 @@ export {
   PngMarker,
   BasemapToggleControl,
   BasemapSelectControl,
+  FullScreenToggleTab,
   FullScreenMapToggleTab,
   FullScreenMapToggleTabVertical,
   LocationControl,
