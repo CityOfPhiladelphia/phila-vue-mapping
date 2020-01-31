@@ -19,6 +19,21 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.0.4 = 1/31/2020
+
+* changes to make new destination work
+
+### 2.0.3 - 1/31/2020
+
+* uses major updates to cyclomedia
+* pushes to @phila/vue-mapping instead of @philly/vue-mapping
+
+### 2.0.2 - 12/30/2019
+
+### 2.0.1 - 12/19/2019
+
+### 2.0.0 - 12/17/2019
+
 ### 1.0.47 - 10/23/2019
 
 * correctly fixes date-fns
