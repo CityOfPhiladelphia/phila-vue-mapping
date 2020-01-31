@@ -19,7 +19,11 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
-### 2.0.4 = 1/31/2020
+### 2.0.5 - 1/31/2020
+
+* pushes again after linting project
+
+### 2.0.4 - 1/31/2020
 
 * changes to make new destination work
 
