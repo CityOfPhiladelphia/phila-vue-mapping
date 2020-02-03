@@ -7,7 +7,7 @@ phila-vue-mapping is a library of Vue components that can be used in mapping app
 ## To Include The Components In Your App
 * in a bundled app, use npm:
 
-    `npm install @philly/vue-mapping`
+    `npm install @phila/vue-mapping`
 
 * in an html file, use the CDN:
 
