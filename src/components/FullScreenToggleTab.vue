@@ -23,7 +23,7 @@ export default {
     'initialActivation',
     'deactivatedDirection',
     'buttonSide',
-    'panel'
+    'panel',
   ],
   data() {
     return {
@@ -116,14 +116,15 @@ export default {
 
     if (this.$props.position !== null) {
       if (this.$props.position === 'relative') {
-        this.buttonPosition = 'relative'
+        this.buttonPosition = 'relative';
       }
     }
   },
   methods: {
     setDivHeight(dim) {
-      if (this.buttonPosition)
-      this.buttonTop = (dim.height - 70)/2 + 'px';
+      if (this.buttonPosition) {
+        this.buttonTop = (dim.height - 70)/2 + 'px';
+      }
       // this.buttonTop = (dim.height+100)/2 + 'px';
     },
     handleFullScreenToggleButtonClick() {
