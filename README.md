@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+# 2.0.7 - 2/6/2020
+
+* lints files for release
+
 # 2.0.6 - 2/6/2020
 
 * fixes for viewerboard basemap toggle
