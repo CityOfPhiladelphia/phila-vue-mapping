@@ -46,7 +46,7 @@ const initialState = {
     // this gets set to the parcel layer for the default topic by
     // DataManager.resetGeocode; see note above for activeTopic and
     basemap: '',
-    imagery: 'imagery2018',
+    imagery: 'imagery2019',
     selectedOverlay: null,
     shouldShowOverlaySelectControl: false,
     shouldShowBasemapSelectControl: false,
