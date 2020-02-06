@@ -219,6 +219,7 @@ export default {
 
 .pictometry-div {
   height: 100%;
+  position: relative;
 }
 
 /* .resp-container {
