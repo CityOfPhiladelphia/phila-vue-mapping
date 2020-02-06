@@ -1,8 +1,8 @@
 <template>
   <div
-    v-if="!isMobileOrTablet"
+    v-show="!isMobileOrTablet"
     id="toggle-tab"
-    :style="{ top: buttonPosition }"
+    :style="{ top: buttonTop, right: buttonRight, left: buttonLeft, position: buttonPosition }"
     class="toggle-tab"
     @click="handleFullScreenToggleButtonClick"
   >
@@ -20,13 +20,19 @@ export default {
   name: 'FullScreenToggleTab',
   props: [
     'event',
+    'initialActivation',
     'deactivatedDirection',
+    'buttonSide',
+    'panel'
   ],
   data() {
     return {
-      'buttonPosition': 0,
+      'buttonPosition': 'absolute',
+      'buttonTop': 0,
       'buttonDirection': 'left',
       'activated': false,
+      'buttonRight': null,
+      'buttonLeft': null,
     };
   },
   computed: {
@@ -36,56 +42,89 @@ export default {
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
     },
-    cyclomediaActive() {
-      return this.$store.state.cyclomedia.active;
+    fullScreenMapEnabled() {
+      return this.$store.state.fullScreenMapEnabled;
     },
-    pictometryActive() {
-      return this.$store.state.pictometry.active;
-    },
-    picOrCycloActive() {
-      if (this.cyclomediaActive || this.pictometryActive) {
-        return true;
-      }
-      return false;
+    fullScreenImageryEnabled() {
+      return this.$store.state.fullScreenImageryEnabled;
     },
     currentIcon() {
       if (this.buttonDirection === 'right') {
         return 'caret-right';
-      } 
+      }
       return 'caret-left';
-      
     },
   },
   watch: {
-    picOrCycloActive(value) {
-      this.setDivHeight(this.windowDim);
+    fullScreenMapEnabled(nextFullScreenMapEnabled) {
+      console.log('watch fullScreenMapEnabled:', nextFullScreenMapEnabled);
+      if (this.$props.panel === 'map') {
+        this.activated = nextFullScreenMapEnabled;
+      }
     },
-    fullScreenTopicsEnabled() {
-      this.setDivHeight(this.windowDim);
+    fullScreenImageryEnabled(nextFullScreenImageryEnabled) {
+      console.log('watch fullScreenImageryEnabled:', nextFullScreenImageryEnabled);
+      if (this.$props.panel === 'imagery') {
+        this.activated = nextFullScreenImageryEnabled;
+      }
     },
     windowDim(nextDim) {
       this.setDivHeight(nextDim);
     },
+    initialActivation(nextInitialActivation) {
+      console.log('watch initialActivation is firing, nextInitialActivation:', nextInitialActivation);
+    },
     activated(nextActivated) {
       console.log('watch activated, nextActivated:', nextActivated);
       if (nextActivated === false) {
-        this.buttonDirection = this.deactivatedDirection;
+        this.buttonDirection = this.$props.deactivatedDirection;
       } else {
-        this.buttonDirection = !this.deactivatedDirection;
+        if (this.$props.deactivatedDirection === 'left') {
+          this.buttonDirection = 'right';
+        } else if (this.$props.deactivatedDirection === 'right') {
+          this.buttonDirection = 'left';
+        }
       }
     },
   },
   mounted() {
-    console.log('FullScreenToggleTab.vue mounted is running');
+    console.log('FullScreenToggleTab.vue mounted is running, this.$props.initialActivation:', this.$props.initialActivation);
     this.setDivHeight(this.windowDim);
-    if (this.$props.deactivatedDirection !== null) {
-      console.log('FullScreenToggleTab.vue mounted IF is running');
-      this.buttonDirection = this.$props.deactivatedDirection;
+    this.$nextTick(() => {
+      if (this.$props.initialActivation) {
+        this.activated = true;
+        if (this.$props.deactivatedDirection === 'left') {
+          this.buttonDirection = 'right';
+        } else if (this.$props.deactivatedDirection === 'right') {
+          this.buttonDirection = 'left';
+        }
+      } else {
+        // console.log('FullScreenToggleTab.vue mounted ELSE is running');
+        this.buttonDirection = this.$props.deactivatedDirection;
+      }
+    });
+
+    if (this.$props.buttonSide !== null) {
+      if (this.$props.buttonSide === 'right') {
+        this.buttonRight = '0px';
+      } else if (this.$props.buttonLeft === 'left') {
+        this.buttonLeft = '0px';
+      }
+    } else {
+      this.buttonLeft = '0px';
+    }
+
+    if (this.$props.position !== null) {
+      if (this.$props.position === 'relative') {
+        this.buttonPosition = 'relative'
+      }
     }
   },
   methods: {
     setDivHeight(dim) {
-      this.buttonPosition = (dim.height+100)/2 + 'px';
+      if (this.buttonPosition)
+      this.buttonTop = (dim.height - 70)/2 + 'px';
+      // this.buttonTop = (dim.height+100)/2 + 'px';
     },
     handleFullScreenToggleButtonClick() {
       // console.log('this.$props.event:', this.$props.event);
