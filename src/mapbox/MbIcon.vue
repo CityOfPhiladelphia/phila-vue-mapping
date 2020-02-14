@@ -39,12 +39,12 @@ export default {
       console.log('MbLayer.vue parentMounted is running, parent:', parent, 'map:', map);
       map.loadImage(
         // '../assets/markers.png',
-        'https://mapboard-images.s3.amazonaws.com/camera.png',
+        this.$props.url,
+        // 'https://mapboard-images.s3.amazonaws.com/camera.png',
         // 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png',
         function(error, image) {
           if (error) throw error;
           map.addImage('markers', image);
-          // map.addImage('cat', image);
           map.addSource('point', {
             'type': 'geojson',
             'data': {
@@ -66,7 +66,6 @@ export default {
           'source': 'point',
           'layout': {
             'icon-image': 'markers',
-            // 'icon-image': 'cat',
             'icon-size': 0.25
           }
           });
