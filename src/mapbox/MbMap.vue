@@ -19,19 +19,9 @@
 
 <script>
 
-// import {
-//   Map,
-//   LatLng,
-//   LatLngBounds,
-// } from 'mapbox-gl';
-
-// import length from '@turf/length';
-
 import * as mapboxgl from 'mapbox-gl';
-// import { accessToken } from 'mapbox-gl';
+// mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
 console.log('mapboxgl:', mapboxgl, 'process.env.VUE_APP_MAPBOX_TOKEN:', process.env.VUE_APP_MAPBOX_TOKEN);
-
-mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
 
 import bindEvents from './util/bind-events';
 
@@ -133,23 +123,6 @@ export default {
     // put in state
     this.$store.commit('setMap', { map });
 
-    // var distanceContainer = document.getElementById('distance');
-    //
-    // // GeoJSON object to hold our measurement features
-    // var geojson = {
-    // 'type': 'FeatureCollection',
-    // 'features': []
-    // };
-    //
-    // // Used to draw a line between points
-    // var linestring = {
-    // 'type': 'Feature',
-    // 'geometry': {
-    // 'type': 'LineString',
-    // 'coordinates': []
-    // }
-    // };
-
     // signal children to mount
     map.on('load', function() {
         console.log('this:', this);
@@ -159,147 +132,14 @@ export default {
           // remember why this was necessary... binding issue?
           child.parentMounted(this, child.$props);
         }
-
-      //   map.addSource('geojson', {
-      //     'type': 'geojson',
-      //     'data': geojson
-      //   });
-      //
-      //   // Add styles to the map
-      //   map.addLayer({
-      //     id: 'measure-points',
-      //     type: 'circle',
-      //     source: 'geojson',
-      //     paint: {
-      //     'circle-radius': 5,
-      //     'circle-color': '#000'
-      //     },
-      //     filter: ['in', '$type', 'Point']
-      //   });
-      //
-      //   map.addLayer({
-      //     id: 'measure-lines',
-      //     type: 'line',
-      //     source: 'geojson',
-      //     layout: {
-      //     'line-cap': 'round',
-      //     'line-join': 'round'
-      //     },
-      //     paint: {
-      //     'line-color': '#000',
-      //     'line-width': 2.5
-      //     },
-      //     filter: ['in', '$type', 'LineString']
-      //   });
-      //
-      //
-      //   map.on('click', function(e) {
-      //     var features = map.queryRenderedFeatures(e.point, {
-      //     layers: ['measure-points']
-      //     });
-      //
-      //     // Remove the linestring from the group
-      //     // So we can redraw it based on the points collection
-      //     if (geojson.features.length > 1) geojson.features.pop();
-      //
-      //     // Clear the Distance container to populate it with a new value
-      //     distanceContainer.innerHTML = '';
-      //
-      //     // If a feature was clicked, remove it from the map
-      //     if (features.length) {
-      //     var id = features[0].properties.id;
-      //     geojson.features = geojson.features.filter(function(point) {
-      //     return point.properties.id !== id;
-      //     });
-      //     } else {
-      //     var point = {
-      //     'type': 'Feature',
-      //     'geometry': {
-      //     'type': 'Point',
-      //     'coordinates': [e.lngLat.lng, e.lngLat.lat]
-      //     },
-      //     'properties': {
-      //     'id': String(new Date().getTime())
-      //     }
-      //     };
-      //
-      //     geojson.features.push(point);
-      //     }
-      //
-      //     if (geojson.features.length > 1) {
-      //     linestring.geometry.coordinates = geojson.features.map(function(
-      //     point
-      //     ) {
-      //     return point.geometry.coordinates;
-      //     });
-      //
-      //     geojson.features.push(linestring);
-      //
-      //     // Populate the distanceContainer with total distance
-      //     var value = document.createElement('pre');
-      //     value.textContent =
-      //     'Total distance: ' +
-      //     length(linestring).toLocaleString() +
-      //     'km';
-      //     distanceContainer.appendChild(value);
-      //     }
-      //
-      //     map.getSource('geojson').setData(geojson);
-      //   });
-      //   // });
-      //
-      //   map.on('mousemove', function(e) {
-      //     var features = map.queryRenderedFeatures(e.point, {
-      //     layers: ['measure-points']
-      //   });
-      //     // UI indicator for clicking/hovering a point on the map
-      //   map.getCanvas().style.cursor = features.length
-      //     ? 'pointer'
-      //     : 'crosshair';
-      //   });
       }.bind(this)
     )
 
-
-
     // TODO warn if trying to bind an event that doesn't exist
     bindEvents(this, this.$mapboxElement, this._events);
-    // if (this.$config.map.clickToIdentifyFeatures) {
-    //   map.on('click', this.identifyFeatures);
-    // }
-
-    // const editableLayers = this.$store.state.editableLayers;
-    // if (editableLayers !== null) {
-    //   map.addLayer(editableLayers);
-    // }
-    //
-    // map.on('draw:drawstart', () => {
-    //   if(this.$store.state.editableLayers !== null){
-    //     this.$store.state.editableLayers.clearLayers();
-    //   }
-    //   this.drawStartChange();
-    // });
-    // map.on('draw:drawstop', this.drawStopChange);
-    // map.on('draw:created', this.drawShapeChange);
-    // map.on('draw:created', (e) => {
-    //   editableLayers.addLayer(e.layer);
-    // });
 
   },
   methods: {
-    // drawShapeChange(shape) {
-    //   // console.log("drawShapeChange:", shape.layer);
-    //   this.$store.commit('setDrawShape', shape.layer);
-    //   this.$store.commit('setShapeSearchInput', shape.layer._latlngs[0]);
-    // },
-    // drawStartChange() {
-    //   // console.log("DrawStart is working");
-    //   this.$store.commit('setDrawStart', 'start');
-    // },
-    // drawStopChange() {
-    //   // console.log("DrawStart is working");
-    //   this.$store.commit('setDrawStart', null);
-    // },
     createMapboxElement() {
       const { zoomControlPosition, ...options } = this.$props;
       options.style=options.style_
