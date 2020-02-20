@@ -19,14 +19,18 @@
 
 <script>
 
-import * as mapboxgl from 'mapbox-gl';
+import Mapbox from 'mapbox-gl';
+import mapEvents from "./events";
+import options from "./options";
 // mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_TOKEN;
-console.log('mapboxgl:', mapboxgl, 'process.env.VUE_APP_MAPBOX_TOKEN:', process.env.VUE_APP_MAPBOX_TOKEN);
+// console.log('this.mapbox:', this.mapbox, 'process.env.VUE_APP_MAPBOX_TOKEN:', process.env.VUE_APP_MAPBOX_TOKEN);
 
-import bindEvents from './util/bind-events';
+import withPrivateMethods from "./mixins/withPrivateMethods";
+import bindEvents from '../util/bind-events';
 
 export default {
   name: 'MbMap',
+  mixins: [withPrivateMethods],
   props: [
     'center',
     'zoom',
@@ -37,19 +41,36 @@ export default {
     'container',
     'style_'
   ],
-  computed: {
-    cyclomediaActive() {
-      return this.$store.state.cyclomedia.active;
-    },
-    pictometryActive() {
-      return this.$store.state.pictometry.active;
-    },
-    picOrCycloActive() {
-      if (this.cyclomediaActive || this.pictometryActive) {
-        return true;
+  provide() {
+    const self = this;
+    return {
+      get mapbox() {
+        console.log('MbMap provide get mapbox is running, self:', self, 'self.mapbox:', self.mapbox);
+        return self.mapbox;
+      },
+      get map() {
+        console.log('MbMap provide get map is running, self:', self, 'self.map:', self.map, 'self.$mapboxElement:', self.$mapboxElement);
+        // return self.$mapboxElement;
+        return self.map;
+      },
+      get actions() {
+        return self.actions;
       }
-      return false;
-    },
+    };
+  },
+  computed: {
+    // cyclomediaActive() {
+    //   return this.$store.state.cyclomedia.active;
+    // },
+    // pictometryActive() {
+    //   return this.$store.state.pictometry.active;
+    // },
+    // picOrCycloActive() {
+    //   if (this.cyclomediaActive || this.pictometryActive) {
+    //     return true;
+    //   }
+    //   return false;
+    // },
     mapContainerClass() {
       let value;
       if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
@@ -68,12 +89,12 @@ export default {
     mapBounds() {
       return this.$store.state.map.bounds;
     },
-    webMapDisplayedLayers() {
-      return this.$store.state.map.webMapDisplayedLayers;
-    },
-    intersectingFeatures() {
-      return this.$store.state.map.intersectingFeatures;
-    },
+    // webMapDisplayedLayers() {
+    //   return this.$store.state.map.webMapDisplayedLayers;
+    // },
+    // intersectingFeatures() {
+    //   return this.$store.state.map.intersectingFeatures;
+    // },
   },
   watch: {
     center(nextCenter) {
@@ -97,23 +118,33 @@ export default {
       // console.log('Map.vue fullScreenMapEnabled watch is firing');
       this.$mapboxElement.invalidateSize();
     },
-    webMapDisplayedLayers(nextWebMapDisplayedLayers) {
-      let intersectingLayers = [];
-      for (let feature of this.intersectingFeatures) {
-        intersectingLayers.push(feature.feature.layerName);
-      }
-      // console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
-      for (let layer of intersectingLayers) {
-        if (!nextWebMapDisplayedLayers.includes(layer)) {
-          this.$store.commit('setIntersectingFeatures', []);
-          return;
-        }
-      }
-    },
+    // webMapDisplayedLayers(nextWebMapDisplayedLayers) {
+    //   let intersectingLayers = [];
+    //   for (let feature of this.intersectingFeatures) {
+    //     intersectingLayers.push(feature.feature.layerName);
+    //   }
+    //   // console.log('map.vue watch nextWebMapDisplayedLayers:', nextWebMapDisplayedLayers, 'intersectingLayers:', intersectingLayers);
+    //   for (let layer of intersectingLayers) {
+    //     if (!nextWebMapDisplayedLayers.includes(layer)) {
+    //       this.$store.commit('setIntersectingFeatures', []);
+    //       return;
+    //     }
+    //   }
+    // },
+  },
+  created() {
+    // this.map = null;
+    // this.propsIsUpdating = {};
+    // this.mapboxPromise = this.mapboxGl
+    //   ? Promise.resolve(this.mapboxGl)
+    //   : import("mapbox-gl");
+    this.mapbox = Mapbox;
+    console.log('MbMap.vue created, this.mapbox:', this.mapbox);
   },
   mounted() {
-    console.log('MbMap.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
-    const map = this.$mapboxElement = this.createMapboxElement();
+    // console.log('MbMap.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
+    const map = this.$mapboxElement = this.map = this.createMapboxElement();
+    console.log('MbMap.vue mounted, this.map:', this.map);
 
     // move attribution and zoom controls
     // map.attributionControl.setPosition(this.$props.attributionPosition || 'bottomright');
@@ -138,6 +169,9 @@ export default {
     // TODO warn if trying to bind an event that doesn't exist
     bindEvents(this, this.$mapboxElement, this._events);
 
+    const eventNames = Object.keys(mapEvents);
+    this.$_bindMapEvents(eventNames);
+
   },
   methods: {
     createMapboxElement() {
@@ -145,10 +179,11 @@ export default {
       options.style=options.style_
       console.log('createMapboxElement is running, options:', options, 'this.$refs.mbmap:', this.$refs.mbmap);
       // return new Map(this.$refs.map, options);
-      return new mapboxgl.Map(options);
+      return new this.mapbox.Map(options);
     },
     childDidMount(child) {
-      child.addTo(this.$mapboxElement);
+      console.log('MbMap.vue childDidMount is running, this.map:', this.map);
+      // child.addTo(this.$mapboxElement);
     },
     setMapView(xy = [], zoom = this.zoom) {
       // console.log('Map.vue setMapView is running, xy:', xy)
