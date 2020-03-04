@@ -125,20 +125,39 @@ export default {
         { deep: true }
       );
     }
+
+    // if (this.layer.tiles) {
+    //   this.$watch(
+    //     "layer",
+    //     function(next) {
+    //       console.log('watch layer tiles is firing, next:', next);
+    //       if (this.initial) return;
+    //       // this.map.removeLayer(this.layerId);
+    //       this.map.addLayer(next);
+    //       // this.map.setFilter(this.layerId, next);
+    //     },
+    //     { deep: true }
+    //   );
+    // }
   },
 
   beforeDestroy() {
-    if (this.map && this.map.loaded()) {
+    // console.log('layerMixin beforeDestroy is running, this.layerId:', this.layerId, 'this.clearSource:', this.clearSource, 'this.map:', this.map, 'this.map.loaded():', this.map.loaded());
+    // if (this.map && this.map.loaded()) {
       try {
+        // console.log('layerMixin beforeDestroy if map and maploaded try is running')
         this.map.removeLayer(this.layerId);
       } catch (err) {
+        // console.log('layerMixin beforeDestroy error 1 is running')
         this.$_emitEvent("layer-does-not-exist", {
           layerId: this.sourceId,
           error: err
         });
       }
       if (this.clearSource) {
+        // console.log('layerMixin beforeDestroy if clearSource is running')
         try {
+          // console.log('layerMixin beforeDestroy if clearSource try is running');
           this.map.removeSource(this.sourceId);
         } catch (err) {
           this.$_emitEvent("source-does-not-exist", {
@@ -147,7 +166,7 @@ export default {
           });
         }
       }
-    }
+    // }
   },
 
   methods: {

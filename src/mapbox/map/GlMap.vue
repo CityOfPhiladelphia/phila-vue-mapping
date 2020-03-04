@@ -31,11 +31,11 @@ export default {
     const self = this;
     return {
       get mapbox() {
-        console.log('GlMap.vue provide mapbox running')
+        // console.log('GlMap.vue provide mapbox running')
         return self.mapbox;
       },
       get map() {
-        console.log('GlMap.vue provide map running')
+        // console.log('GlMap.vue provide map running')
         return self.map;
       },
       get actions() {
@@ -88,7 +88,7 @@ export default {
   },
 
   mounted() {
-    console.log('GlMap.vue mounted, this.mapbox:', this.mapbox);
+    console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
       this.map = map;
       if (this.RTLTextPluginUrl !== undefined) {
