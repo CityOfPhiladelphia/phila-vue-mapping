@@ -27,7 +27,7 @@ export default {
   },
 
   provide() {
-    console.log('GlMap.vue provide is running, this.mapbox:', this.mapbox);
+    // console.log('GlMap.vue provide is running, this.mapbox:', this.mapbox);
     const self = this;
     return {
       get mapbox() {
@@ -39,7 +39,7 @@ export default {
         return self.map;
       },
       get actions() {
-        console.log('GlMap.vue provide actions running')
+        // console.log('GlMap.vue provide actions running')
         return self.actions;
       }
     };
@@ -90,7 +90,9 @@ export default {
   mounted() {
     console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
+      console.log('inside $_loadMap, map:', map);
       this.map = map;
+      // this.$store.commit('setMap', map);
       if (this.RTLTextPluginUrl !== undefined) {
         this.mapbox.setRTLTextPlugin(
           this.RTLTextPluginUrl,
@@ -103,14 +105,50 @@ export default {
       this.$_bindPropsUpdateEvents();
       this.initial = false;
       this.initialized = true;
+
+      console.log('still inside $_loadMap 2');
+      this.testMethod(map);
+      console.log('still inside $_loadMap 3');
+
       this.$emit("load", { map, component: this });
+
+
+      // console.log('still going, this.$children.length:', this.$children.length);
+      // for (let child of this.$children) {
+      //   console.log('child:', child);
+      //   // REVIEW it seems weird to pass children their own props. trying to
+      //   // remember why this was necessary... binding issue?
+      //   child.parentMounted(this, child.$props);
+      // }
+
     });
+
+
+    // this.$nextTick(() => {
+    //   console.log('end of GlMap mounted, this.$children.length:', this.$children.length);
+    // });
   },
 
   beforeDestroy() {
     this.$nextTick(() => {
       if (this.map) this.map.remove();
     });
+  },
+
+  methods: {
+    testMethod(map) {
+      // const map = this.$store.state.map.map;
+      this.$nextTick(() => {
+        console.log('testMethod, map:', map);
+        console.log('testMethod 2, this.$children.length:', this.$children.length, 'this.$children:', this.$children);
+        for (let child of this.$children) {
+          console.log('child:', child);
+          if (child.parentMounted) {
+            child.parentMounted(this, child.$props);
+          }
+        }
+      });
+    }
   }
 };
 </script>
