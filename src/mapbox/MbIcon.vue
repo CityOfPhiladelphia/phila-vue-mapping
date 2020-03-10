@@ -10,9 +10,9 @@ export default {
     // 'attribution',
   ],
   mounted() {
-    console.log('MbIcon.vue mounted is running');
-    const mapboxElement = this.$mapboxElement = this.createMapboxElement();
-    const map = this.$store.state.map.map;
+    // console.log('MbIcon.vue mounted is running');
+    // const mapboxElement = this.$mapboxElement = this.createMapboxElement();
+    // const map = this.$store.state.map.map;
 
     // REVIEW kind of hacky/not reactive?
     // if (map) {
@@ -20,10 +20,11 @@ export default {
     //   map.attributionControl.removeAttribution('overwrite');
     //   map.attributionControl.removeAttribution('<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:1385px;"></span>');
     // }
+    // this.parentMounted();
   },
   destroyed() {
     // console.log('EsriTiledMapLayer destroyed is running');
-    this.$mapboxElement._map.removeLayer(this.$mapboxElement);
+    // this.$mapboxElement._map.removeLayer(this.$mapboxElement);
   },
   methods: {
     createMapboxElement() {
@@ -35,8 +36,9 @@ export default {
       return layer;
     },
     parentMounted(parent) {
-      const map = parent.$mapboxElement;
-      console.log('MbLayer.vue parentMounted is running, parent:', parent, 'map:', map);
+      const map = parent.map;
+      // const map = this.$store.state.map.map;
+      console.log('MbIcon.vue parentMounted is running, map:', map);//, 'map:', map);
       map.loadImage(
         // '../assets/markers.png',
         this.$props.url,
@@ -44,6 +46,7 @@ export default {
         // 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Cat_silhouette.svg/400px-Cat_silhouette.svg.png',
         function(error, image) {
           if (error) throw error;
+          console.log('in loadImage callback, map:', map);
           map.addImage('markers', image);
           map.addSource('point', {
             'type': 'geojson',
@@ -66,7 +69,7 @@ export default {
           'source': 'point',
           'layout': {
             'icon-image': 'markers',
-            'icon-size': 0.25
+            'icon-size': 0.10
           }
           });
         }

@@ -36,7 +36,7 @@ export default {
 
     $_addLayer() {
       let existed = this.map.getLayer(this.layerId);
-      console.log('RasterLayer.js $_addLayer is running, this:', this, 'this.layerId:', this.layerId, 'this.before:', this.before, 'this.map:', this.map, 'existed:', existed);
+      // console.log('RasterLayer.js $_addLayer is running, this:', this, 'this.layerId:', this.layerId, 'this.before:', this.before, 'this.map:', this.map, 'existed:', existed);
       if (existed) {
         if (this.replace) {
           // console.log('RasterLayer.js if if replace is running')

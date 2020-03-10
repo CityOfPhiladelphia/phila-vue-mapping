@@ -1,5 +1,5 @@
 import mixin from "./layerMixin";
-import layerEvents from "../../lib/layerEvents";
+import layerEvents from "../lib/layerEvents";
 
 export default {
   name: "ImageLayer",
@@ -76,6 +76,8 @@ export default {
         type: "raster",
         ...this.layer
       };
+
+      console.log('$_addLayer, layer:', layer);
 
       this.map.addLayer(layer, this.before);
       this.$_emitEvent("added", { layerId: this.layerId });
