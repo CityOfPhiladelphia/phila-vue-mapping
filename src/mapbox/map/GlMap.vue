@@ -106,9 +106,9 @@ export default {
       this.initial = false;
       this.initialized = true;
 
-      console.log('still inside $_loadMap 2');
+      // console.log('still inside $_loadMap 2');
       this.testMethod(map);
-      console.log('still inside $_loadMap 3');
+      // console.log('still inside $_loadMap 3');
 
       this.$emit("load", { map, component: this });
 
@@ -139,10 +139,10 @@ export default {
     testMethod(map) {
       // const map = this.$store.state.map.map;
       this.$nextTick(() => {
-        console.log('testMethod, map:', map);
-        console.log('testMethod 2, this.$children.length:', this.$children.length, 'this.$children:', this.$children);
+        // console.log('testMethod, map:', map);
+        // console.log('testMethod 2, this.$children.length:', this.$children.length, 'this.$children:', this.$children);
         for (let child of this.$children) {
-          console.log('child:', child);
+          // console.log('child:', child);
           if (child.parentMounted) {
             child.parentMounted(this, child.$props);
           }
