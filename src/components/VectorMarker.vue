@@ -46,7 +46,7 @@ export default {
     },
   },
   mounted() {
-    console.log('VectorMarker mounted is running, this:', this);
+    // console.log('VectorMarker mounted is running, this:', this);
     const leafletElement = this.$leafletElement = this.createLeafletElement();
     const map = this.$store.state.map.map;
 
@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     createLeafletElement() {
-      console.log('createLeafletElement is running');
+      // console.log('createLeafletElement is running');
       const props = this.$props;
       const {
         latlng,
