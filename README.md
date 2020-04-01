@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+# 2.0.9 - 4/1/2020
+
+* fixes css for rendering map and cyclomedia in property data explorer
+
 # 2.0.8 - 2/6/2020
 
 * fixes pictometry popout button
