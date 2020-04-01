@@ -347,11 +347,12 @@ export default {
     height: 100%;
   }
 
-  /* .map-container {
+  .map-container-350 {
     height: 100%;
   }
 
-  .map-container-350 {
+  /* 
+  .map-container {
     height: 100%;
   }
 
