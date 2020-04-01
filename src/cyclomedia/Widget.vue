@@ -73,8 +73,9 @@ export default {
     },
     widgetClass() {
       let value;
+      
       // if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
-      //   value = "medium-24 small-24 height100 fullScreen";
+      //   value = "medium-24 small-24 height100 fullScreen-cyclo";
       // } else if (this.$props.orientation === 'vertical') {
       //   value = "medium-12 small-24 height100";
       // } else {
@@ -88,7 +89,7 @@ export default {
       // if (this.fullScreenTopicsEnabled) {
       //   value += ' full-topics-open';
       // }
-
+      
       if (this.$props.orientation === 'horizontal') {
         value = 'height50';
       } else {
@@ -352,7 +353,7 @@ export default {
 }
 
 @media (max-width: 749px) {
-  .fullScreen {
+  .fullScreen-cyclo {
     height: 100% !important;
   }
 
