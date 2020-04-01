@@ -15,8 +15,10 @@ export default {
   ],
   watch: {
     rotationAngle(nextRotationAngle) {
-      // console.log('pngMarker orientation changed', nextRotationAngle);
-      this.$leafletElement._map.removeLayer(this.$leafletElement);
+      if (this.$leafletElement._map) {
+        console.log('pngMarker orientation changed', nextRotationAngle);
+        this.$leafletElement._map.removeLayer(this.$leafletElement);
+      }
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
 
@@ -27,7 +29,9 @@ export default {
     },
     latlng(nextLatLng) {
       // console.log('pngMarker orientation changed', nextRotationAngle);
-      this.$leafletElement._map.removeLayer(this.$leafletElement);
+      if (this.$leafletElement._map) {
+        this.$leafletElement._map.removeLayer(this.$leafletElement);
+      }
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
 

@@ -46,7 +46,7 @@ const initialState = {
     // this gets set to the parcel layer for the default topic by
     // DataManager.resetGeocode; see note above for activeTopic and
     basemap: '',
-    imagery: 'imagery2018',
+    imagery: 'imagery2019',
     selectedOverlay: null,
     shouldShowOverlaySelectControl: false,
     shouldShowBasemapSelectControl: false,
@@ -55,6 +55,8 @@ const initialState = {
     imageOverlayOpacity: null,
     filters: [],
     watchPositionOn: false,
+    shouldInitialize: true,
+    initialized: null,
   },
 
   cyclomedia: {
@@ -92,6 +94,12 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setShouldInitializeMap(state, payload) {
+      state.map.shouldInitialize = payload;
+    },
+    setInitializedMap(state, payload) {
+      state.map.initialized = payload;
+    },
     setBufferShape(state, payload) {
       state.bufferShape = payload;
     },

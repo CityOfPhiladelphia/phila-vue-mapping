@@ -2,8 +2,8 @@
   <div class="leaflet-bar easy-button-container leaflet-control">
     <button @click="handleBasemapToggleControlClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <img 
-          :src="toggleButtonImgSrc" 
+        <img
+          :src="toggleButtonImgSrc"
           class="button-image"
         >
       </span>
@@ -36,6 +36,7 @@ export default {
   methods: Object.assign(methods, {
     handleBasemapToggleControlClick(e) {
       // document.getElementById('addressSearch').blur();
+      this.$emit('basemap-toggle-clicked');
       const prevShouldShowBasemapSelectControl = this.$store.state.map.shouldShowBasemapSelectControl;
       const nextShouldShowBasemapSelectControl = !prevShouldShowBasemapSelectControl;
       this.$store.commit('setShouldShowBasemapSelectControl', nextShouldShowBasemapSelectControl);

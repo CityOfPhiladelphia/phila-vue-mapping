@@ -1,8 +1,9 @@
 <template>
   <div
-    id="cyclo-container"
+    id="cyclomedia-container"
     :class="widgetClass"
   >
+    <!-- class="cyclo-div" -->
     <div
       v-if="isMobileOrTablet === false && popoutAble === true"
       id="inCycloDiv"
@@ -39,10 +40,6 @@ export default {
       'popoutPosition': 0,
     };
   },
-  mounted() {
-    console.log('cyclomedia widget mounted');
-    this.$emit('cyclomedia-widget-mounted');
-  },
   computed: {
     isMobileOrTablet() {
       return this.$store.state.isMobileOrTablet;
@@ -76,20 +73,27 @@ export default {
     },
     widgetClass() {
       let value;
-      if (this.$props.orientation === 'full-screen') {
-        value = "medium-24 small-24 height100 fullScreen-cyclo";
-      } else if (this.$props.orientation === 'vertical') {
-        value = "medium-12 small-24 height100";
+      
+      // if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
+      //   value = "medium-24 small-24 height100 fullScreen-cyclo";
+      // } else if (this.$props.orientation === 'vertical') {
+      //   value = "medium-12 small-24 height100";
+      // } else {
+      //   if (this.pictometryActive) {
+      //     value = 'medium-16 large-16 height50 columns';
+      //   } else {
+      //     value = 'medium-24 large-24 height50 columns';
+      //   }
+      // }
+      //
+      // if (this.fullScreenTopicsEnabled) {
+      //   value += ' full-topics-open';
+      // }
+      
+      if (this.$props.orientation === 'horizontal') {
+        value = 'height50';
       } else {
-        if (this.pictometryActive) {
-          value = 'medium-16 large-16 height50 columns';
-        } else {
-          value = 'medium-24 large-24 height50 columns';
-        }
-      }
-
-      if (this.fullScreenTopicsEnabled) {
-        value += ' full-topics-open';
+        value = 'cyclo-div';
       }
 
       return value;
@@ -97,7 +101,7 @@ export default {
     locForCyclo() {
       // console.log('computing locForCyclo');
       const geocodeData = this.$store.state.geocode.data;
-      const map = this.$store.state.map.map;
+      // const map = this.$store.state.map.map;
       if (geocodeData) {
         return [ geocodeData.geometry.coordinates[1], geocodeData.geometry.coordinates[0] ];
       }
@@ -169,7 +173,7 @@ export default {
           if (this.$store.state.cyclomedia.latLngFromMap) {
             latLng = this.$store.state.cyclomedia.latLngFromMap;
           } else {
-            latLng = [39.953338, -75.163471];
+            latLng = [ 39.953338, -75.163471 ];
           }
           this.$store.commit('setCyclomediaInitilizationComplete', true);
           this.setNewLocation([ latLng[0], latLng[1] ]);
@@ -187,6 +191,10 @@ export default {
         this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
       }
     },
+  },
+  mounted() {
+    console.log('cyclomedia widget mounted');
+    this.$emit('cyclomedia-widget-mounted');
   },
   updated() {
     // console.log('cyclomedia updated running');
@@ -308,7 +316,7 @@ export default {
     popoutClicked() {
       const map = this.$store.state.map.map;
       const center = map.getCenter();
-      window.open('//cyclomedia.phila.gov/?' + center.lat + '&' + center.lng, '_blank');
+      window.open('//cyclomedia.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setCyclomediaActive', false);
     },
   },
@@ -317,10 +325,12 @@ export default {
 
 <style scoped>
 
+.cyclo-div {
+  height: 100%;
+}
+
 #cyclo-container {
   padding: 0px;
-  /* height: 50%; */
-  /* display: none; */
 }
 
 .full-topics-open {
@@ -332,6 +342,7 @@ export default {
 }
 
 .height50 {
+  /* padding-top: 50%; */
   height: 50%;
 }
 
@@ -341,9 +352,8 @@ export default {
   }
 }
 
-@media screen and (max-width: 749px) {
+@media (max-width: 749px) {
   .fullScreen-cyclo {
-    /* display: block; */
     height: 100% !important;
   }
 

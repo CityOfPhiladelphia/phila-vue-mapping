@@ -1,4 +1,4 @@
-# phila-vue-mapping ([@philly/vue-mapping](https://www.npmjs.com/package/@philly/vue-mapping) in [npmjs.com](https://npmjs.com))
+# phila-vue-mapping ([@phila/vue-mapping](https://www.npmjs.com/package/@phila/vue-mapping) in [npmjs.com](https://npmjs.com))
 
 phila-vue-mapping is a library of Vue components that can be used in mapping apps which use [Vue.js](https://vuejs.org/v2/guide/) and [Vuex](https://vuex.vuejs.org/).  It includes many mapping components such as [Maps](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/Map), [ESRI WebMaps](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/EsriWebMap), and [Cyclomedia Widgets](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/CyclomediaWidget), etc.
 
@@ -7,17 +7,48 @@ phila-vue-mapping is a library of Vue components that can be used in mapping app
 ## To Include The Components In Your App
 * in a bundled app, use npm:
 
-    `npm install @philly/vue-mapping`
+    `npm install @phila/vue-mapping`
 
 * in an html file, use the CDN:
 
-    `<script src="//unpkg.com/@philly/vue-mapping@1.0.19/dist/phila-vue-mapping.js"></script>`
+    `<script src="//unpkg.com/@phila/vue-mapping@2.0.5/dist/phila-vue-mapping.js"></script>`
 
 
 ## Usage
 Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki) for usage documentation.
 
 ## Release Notes
+
+# 2.0.8 - 2/6/2020
+
+* fixes pictometry popout button
+
+# 2.0.7 - 2/6/2020
+
+* lints files for release
+
+# 2.0.6 - 2/6/2020
+
+* fixes for viewerboard basemap toggle
+
+### 2.0.5 - 1/31/2020
+
+* pushes again after linting project
+
+### 2.0.4 - 1/31/2020
+
+* changes to make new destination work
+
+### 2.0.3 - 1/31/2020
+
+* uses major updates to cyclomedia
+* pushes to @phila/vue-mapping instead of @philly/vue-mapping
+
+### 2.0.2 - 12/30/2019
+
+### 2.0.1 - 12/19/2019
+
+### 2.0.0 - 12/17/2019
 
 ### 1.0.47 - 10/23/2019
 
