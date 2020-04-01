@@ -329,6 +329,10 @@ export default {
   height: 100%;
 }
 
+#cycloviewer {
+  position: absolute;
+}
+
 #cyclo-container {
   padding: 0px;
 }
