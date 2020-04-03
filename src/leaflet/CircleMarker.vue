@@ -1,3 +1,9 @@
+<template>
+  <div>
+    <slot />
+  </div>
+</template>
+
 <script>
 import { CircleMarker }  from 'leaflet';
 import bindEvents from './util/bind-events';
@@ -66,8 +72,8 @@ export default {
   },
   // we don't actually render anything, but need to define either a template
   // or a render function
-  render(h) {
-    return;
-  },
+  // render(h) {
+  //   return;
+  // },
 };
 </script>
