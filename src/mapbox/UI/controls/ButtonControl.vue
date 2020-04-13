@@ -39,7 +39,7 @@ export default {
     class ButtonControl {
 
       onAdd(map){
-        console.log('ButtonControl.vue OnAdd is running, props:', props);
+        // console.log('ButtonControl.vue OnAdd is running, props:', props);
         this.container = document.createElement('div');
         this.container.className = 'button-control ' + props.buttonClass;
         this.container.id = props.buttonId;
@@ -47,7 +47,7 @@ export default {
           this.container.textContent = props.buttonText;
         }
         if (props.imageLink) {
-          console.log('there is a props.imageLink');
+          // console.log('there is a props.imageLink');
           let img = document.createElement('img');
           img.id = props.buttonId + '-img';
           img.src = props.imageLink;

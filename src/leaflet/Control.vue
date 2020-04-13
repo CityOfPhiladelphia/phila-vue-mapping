@@ -47,7 +47,7 @@ export default {
       });
     },
     parentMounted(parent, props) {
-      console.log('Control.vue parentMounted is running, parent:', parent, 'props:', props);
+      // console.log('Control.vue parentMounted is running, parent:', parent, 'props:', props);
       if (this.$store.state.map.type === 'leaflet') {
         const leafletElement = this.createLeafletElement(L);
         this.$leafletElement = leafletElement;
