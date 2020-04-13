@@ -16,7 +16,7 @@ export default {
   },
 
   created() {
-    console.log('NavigationControl created, this.mapbox:', this.mapbox);
+    // console.log('NavigationControl created, this.mapbox:', this.mapbox);
     this.control = new this.mapbox.NavigationControl(this.$props);
     this.$_addControl();
   }
