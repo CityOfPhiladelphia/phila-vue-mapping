@@ -53,8 +53,17 @@ export default {
     mapContainerClass() {
       let value;
       if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
-        value = 'height50';
-        // value = this.$config.map.containerClassWCyclo;
+        if (this.$config.map.containerClassWCyclo) {
+          value = this.$config.map.containerClassWCyclo;
+        } else {
+          value = 'height50';
+        }
+      } else if (this.picOrCycloActive) {
+        if (this.$config.map.containerClassWCyclo) {
+          value = this.$config.map.containerClassWCyclo;
+        } else {
+          value = 'height50';
+        }
       } else if (this.$config.map.containerClass) {
         value = this.$config.map.containerClass;
       } else {
@@ -351,7 +360,7 @@ export default {
     height: 100%;
   }
 
-  /* 
+  /*
   .map-container {
     height: 100%;
   }

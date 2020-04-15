@@ -73,28 +73,32 @@ export default {
     },
     widgetClass() {
       let value;
-      
-      // if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
-      //   value = "medium-24 small-24 height100 fullScreen-cyclo";
-      // } else if (this.$props.orientation === 'vertical') {
-      //   value = "medium-12 small-24 height100";
-      // } else {
-      //   if (this.pictometryActive) {
-      //     value = 'medium-16 large-16 height50 columns';
-      //   } else {
-      //     value = 'medium-24 large-24 height50 columns';
-      //   }
-      // }
-      //
-      // if (this.fullScreenTopicsEnabled) {
-      //   value += ' full-topics-open';
-      // }
-      
-      if (this.$props.orientation === 'horizontal') {
-        value = 'height50';
+
+      if (this.$store.state.fullScreenCycloEnabled || this.$props.orientation === 'full-screen') {
+        value = "medium-24 small-24 height100 fullScreen-cyclo";
+      } else if (this.$props.orientation === 'vertical') {
+        if (this.$store.state.leftPanel) {
+          value = "medium-24 small-24 height50";
+        } else {
+          value = "medium-12 small-24 height100";
+        }
       } else {
-        value = 'cyclo-div';
+        if (this.pictometryActive) {
+          value = 'medium-16 large-16 height50 columns';
+        } else {
+          value = 'medium-24 large-24 height50 columns';
+        }
       }
+
+      if (this.fullScreenTopicsEnabled) {
+        value += ' full-topics-open';
+      }
+
+      // if (this.$props.orientation === 'horizontal') {
+      //   value = 'height50';
+      // } else {
+      //   value = 'cyclo-div';
+      // }
 
       return value;
     },
@@ -329,9 +333,9 @@ export default {
   height: 100%;
 }
 
-#cycloviewer {
+/* #cycloviewer {
   position: absolute;
-}
+} */
 
 #cyclo-container {
   padding: 0px;

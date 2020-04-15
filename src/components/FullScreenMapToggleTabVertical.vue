@@ -8,7 +8,7 @@
   >
     <span class="align-span">
       <font-awesome-icon
-        :icon="currentIcon" 
+        :icon="currentIcon"
         class="fa-2x"
       />
     </span>
