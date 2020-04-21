@@ -25,7 +25,7 @@ const markerDOMEvents = {
 };
 
 export default {
-  name: "MapIcon",
+  name: "MapCircleMarker",
   mixins: [withEvents, withSelfEvents],
 
   inject: ["mapbox", "map"],
@@ -84,7 +84,7 @@ export default {
     const markerOptions = {
       ...this.$props
     };
-    console.log('Icon.vue, markerOptions:', markerOptions);
+    // console.log('CircleMarker.vue, markerOptions:', markerOptions);
     if (this.$slots.marker) {
       markerOptions.element = this.$slots.marker[0].elm;
     }
