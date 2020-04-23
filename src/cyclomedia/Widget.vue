@@ -281,7 +281,7 @@ export default {
               if (e.detail.yaw !== widget.$store.state.cyclomedia.orientation.yaw ||
                     viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz
               ) {
-                console.log('on VIEW_CHANGE fired with yaw change, viewer.props.orientation:', viewer.props.orientation);
+                // console.log('on VIEW_CHANGE fired with yaw change, viewer.props.orientation:', viewer.props.orientation);
                 widget.sendOrientationToStore(e.detail, viewer.props.orientation.xyz);
               } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
                 widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
@@ -289,7 +289,7 @@ export default {
             });
 
             viewer.on('VIEW_LOAD_END', function(e) {
-              console.log('on VIEW_LOAD_END fired, type:', e.type, 'e:', e, 'viewer.props.orientation:', viewer.props.orientation);
+              // console.log('on VIEW_LOAD_END fired, type:', e.type, 'e:', e, 'viewer.props.orientation:', viewer.props.orientation);
               if (viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz) {
                 widget.sendOrientationToStore(e, viewer.props.orientation.xyz);
               } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
@@ -315,7 +315,7 @@ export default {
       const xy = [ xyz[0], xyz[1] ];
       // console.log('sendOrientationToStore, e:', e, 'xyz:', xyz, 'xy:', xy);
       const lnglat = proj4(this.projection2272, this.projection4326, xy);
-      console.log('sendOrientationToStore is running, xyz:', xyz, 'lnglat:', lnglat);
+      // console.log('sendOrientationToStore is running, xyz:', xyz, 'lnglat:', lnglat);
       this.$nextTick(() => {
         this.$store.commit('setCyclomediaXyz', lnglat);
       });

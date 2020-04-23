@@ -87,7 +87,7 @@ export default {
   },
 
   created() {
-    console.log('GeojsonLayer.js created is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
+    // console.log('GeojsonLayer.js created is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
     if (this.source) {
       this.$watch(
         "source.data",
@@ -103,7 +103,7 @@ export default {
 
   methods: {
     $_deferredMount() {
-      console.log('GeojsonLayer.js $_deferredMount is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
+      // console.log('GeojsonLayer.js $_deferredMount is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
       // this.map = payload.map;
       this.map.on("dataloading", this.$_watchSourceLoading);
       if (this.source) {
@@ -112,18 +112,18 @@ export default {
           ...this.source
         };
         try {
-          console.log('try map.addSource is starting');
-          if (!Object.keys(this.map.style.imageManager.images).includes('markers')) {
-            console.log('inside if, adding image');
+          // console.log('try map.addSource is starting');
+          if (this.$props.layer.layout['icon-image']) {
             this.map.loadImage(
-              'https://mapboard-images.s3.amazonaws.com/camera.png',
+              this.$attrs.icon,
               function(error, image) {
-                this.map.addImage('markers', image);
+                // console.log('inside loadImage, this.$props.layer.layout[icon-image]:', this.$props.layer.layout['icon-image'], 'image:', image, 'this.$attrs.icon:', this.$attrs.icon);
+                this.map.addImage(this.$props.layer.layout['icon-image'], image);
               }.bind(this)
             );
           }
           this.map.addSource(this.sourceId, source);
-          console.log('try map.addSource is ending');
+          // console.log('try map.addSource is ending');
         } catch (err) {
           console.log('catch err is running, err:', err);
           if (this.replaceSource) {
@@ -132,16 +132,16 @@ export default {
           }
         }
       }
-      console.log('GeojsonLayer.js $_deferredMount, about to $_addLayer');
+      // console.log('GeojsonLayer.js $_deferredMount, about to $_addLayer');
       this.$_addLayer();
-      console.log('GeojsonLayer.js $_deferredMount, after $_addLayer');
+      // console.log('GeojsonLayer.js $_deferredMount, after $_addLayer');
       this.$_bindLayerEvents(layerEvents);
       this.map.off("dataloading", this.$_watchSourceLoading);
       this.initial = false;
     },
 
     $_addLayer() {
-      console.log('GeojsonLayer.js $_addLayer is starting');
+      // console.log('GeojsonLayer.js $_addLayer is starting');
       let existed = this.map.getLayer(this.layerId);
       if (existed) {
         if (this.replace) {
@@ -156,9 +156,9 @@ export default {
         source: this.sourceId,
         ...this.layer
       };
-      console.log('$_addLayer is still running, layer:', layer);
+      // console.log('$_addLayer is still running, layer:', layer);
       this.map.addLayer(layer, this.before);
-      console.log('$_addLayer after map.addLayer');
+      // console.log('$_addLayer after map.addLayer');
       this.$_emitEvent("added", { layerId: this.layerId });
     },
 
