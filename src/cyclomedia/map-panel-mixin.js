@@ -22,7 +22,7 @@ export default {
       } else if (e.marker && e.marker._lngLat) {
         latlng = {
           lat: e.marker._lngLat.lat,
-          lng: e.marker._lngLat.lng
+          lng: e.marker._lngLat.lng,
         };
       }
       console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
