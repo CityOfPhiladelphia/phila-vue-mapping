@@ -19,29 +19,29 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
-# 2.1.1 - 5/5/2020
+### 2.1.1 - 5/5/2020
 
 * fixes problems with pushing to npm
 
-# 2.1.0 - 5/5/2020
+### 2.1.0 - 5/5/2020
 
 * merges changes for use in pinboard and viewerboard
 
-# 2.0.10 - 4/1/2020
+### 2.0.10 - 4/1/2020
 
 * fixes css for rendering map and cyclomedia in property data explorer
 
-# 2.0.9 - 2/6/2020
+### 2.0.9 - 2/6/2020
 
-# 2.0.8 - 2/6/2020
+### 2.0.8 - 2/6/2020
 
 * fixes pictometry popout button
 
-# 2.0.7 - 2/6/2020
+### 2.0.7 - 2/6/2020
 
 * lints files for release
 
-# 2.0.6 - 2/6/2020
+### 2.0.6 - 2/6/2020
 
 * fixes for viewerboard basemap toggle
 
