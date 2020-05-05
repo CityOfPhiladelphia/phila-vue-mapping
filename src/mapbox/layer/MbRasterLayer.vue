@@ -27,11 +27,11 @@ export default {
   },
   methods: {
     createMapboxElement() {
-       let layer = {
+      let layer = {
         'id': 'labels',
         'type': 'raster',
         'source': 'labels',
-      }
+      };
       return layer;
     },
     parentMounted(parent) {
@@ -39,8 +39,8 @@ export default {
       console.log('MbLayer.vue parentMounted is running, parent:', parent, 'map:', map);
       map.addSource('labels', {
         type: 'raster',
-        tiles: [this.$props.url + '/tile/{z}/{y}/{x}'],
-        tileSize: 256
+        tiles: [ this.$props.url + '/tile/{z}/{y}/{x}' ],
+        tileSize: 256,
       });
       map.addLayer(this.$mapboxElement);
       // this.$mapboxElement.addTo(map);

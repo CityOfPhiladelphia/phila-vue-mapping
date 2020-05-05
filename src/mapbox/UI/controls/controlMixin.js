@@ -3,15 +3,15 @@ import withEvents from "../../lib/withEvents";
 import withSelfEvents from "../withSelfEvents";
 
 export default {
-  mixins: [withEvents, withSelfEvents],
+  mixins: [ withEvents, withSelfEvents ],
 
-  inject: ["mapbox", "map", "actions"],
+  inject: [ "mapbox", "map", "actions" ],
 
   props: {
     position: {
       type: String,
-      default: "top-right"
-    }
+      default: "top-right",
+    },
   },
 
   beforeDestroy() {
@@ -29,8 +29,8 @@ export default {
         return;
       }
       this.$_emitEvent("added", { control: this.control });
-    }
+    },
   },
 
-  render() {}
+  render() {},
 };

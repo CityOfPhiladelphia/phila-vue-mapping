@@ -3,7 +3,7 @@ import mixin from "./layerMixin";
 
 export default {
   name: "VectorLayer",
-  mixins: [mixin],
+  mixins: [ mixin ],
 
   computed: {
     getSourceFeatures() {
@@ -11,7 +11,7 @@ export default {
         if (this.map) {
           return this.map.querySourceFeatures(this.sourceId, {
             sourceLayer: this.layer["source-layer"],
-            filter
+            filter,
           });
         }
         return null;
@@ -22,20 +22,22 @@ export default {
       return (geometry, filter) => {
         if (this.map) {
           return this.map.queryRenderedFeatures(geometry, {
-            layers: [this.layerId],
-            filter
+            layers: [ this.layerId ],
+            filter,
           });
         }
         return null;
       };
-    }
+    },
   },
 
   watch: {
     filter(filter) {
-      if (this.initial) return;
+      if (this.initial) {
+        return;
+      }
       this.map.setFilter(this.layerId, filter);
-    }
+    },
   },
 
   created() {
@@ -46,7 +48,7 @@ export default {
     $_deferredMount() {
       let source = {
         type: "vector",
-        ...this.source
+        ...this.source,
       };
 
       this.map.on("dataloading", this.$_watchSourceLoading);
@@ -77,7 +79,7 @@ export default {
       let layer = {
         id: this.layerId,
         source: this.sourceId,
-        ...this.layer
+        ...this.layer,
       };
 
       this.map.addLayer(layer, this.before);
@@ -89,7 +91,7 @@ export default {
         const params = {
           id: featureId,
           source: this.sourceId,
-          "source-layer": this.layer["source-layer"]
+          "source-layer": this.layer["source-layer"],
         };
         return this.map.setFeatureState(params, state);
       }
@@ -100,10 +102,10 @@ export default {
         const params = {
           id: featureId,
           source: this.source,
-          "source-layer": this.layer["source-layer"]
+          "source-layer": this.layer["source-layer"],
         };
         return this.map.getFeatureState(params);
       }
-    }
-  }
+    },
+  },
 };

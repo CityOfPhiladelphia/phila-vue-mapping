@@ -3,7 +3,7 @@ import mixin from "./layerMixin";
 
 export default {
   name: "GeojsonLayer",
-  mixins: [mixin],
+  mixins: [ mixin ],
 
   computed: {
     getSourceFeatures() {
@@ -19,8 +19,8 @@ export default {
       return (geometry, filter) => {
         if (this.map) {
           return this.map.queryRenderedFeatures(geometry, {
-            layers: [this.layerId],
-            filter
+            layers: [ this.layerId ],
+            filter,
           });
         }
         return null;
@@ -39,7 +39,7 @@ export default {
             });
           } else {
             return reject(
-              new Error(`Map source with id ${this.sourceId} not found.`)
+              new Error(`Map source with id ${this.sourceId} not found.`),
             );
           }
         });
@@ -59,7 +59,7 @@ export default {
             });
           } else {
             return reject(
-              new Error(`Map source with id ${this.sourceId} not found.`)
+              new Error(`Map source with id ${this.sourceId} not found.`),
             );
           }
         });
@@ -78,12 +78,12 @@ export default {
             });
           } else {
             return reject(
-              new Error(`Map source with id ${this.sourceId} not found.`)
+              new Error(`Map source with id ${this.sourceId} not found.`),
             );
           }
         });
       };
-    }
+    },
   },
 
   created() {
@@ -92,10 +92,12 @@ export default {
       this.$watch(
         "source.data",
         function(next) {
-          if (this.initial) return;
+          if (this.initial) {
+            return;
+          }
           this.mapSource.setData(next);
         },
-        { deep: true }
+        { deep: true },
       );
     }
     this.$_deferredMount();
@@ -109,7 +111,7 @@ export default {
       if (this.source) {
         const source = {
           type: "geojson",
-          ...this.source
+          ...this.source,
         };
         try {
           // console.log('try map.addSource is starting');
@@ -119,7 +121,7 @@ export default {
               function(error, image) {
                 // console.log('inside loadImage, this.$props.layer.layout[icon-image]:', this.$props.layer.layout['icon-image'], 'image:', image, 'this.$attrs.icon:', this.$attrs.icon);
                 this.map.addImage(this.$props.layer.layout['icon-image'], image);
-              }.bind(this)
+              }.bind(this),
             );
           }
           this.map.addSource(this.sourceId, source);
@@ -154,7 +156,7 @@ export default {
       const layer = {
         id: this.layerId,
         source: this.sourceId,
-        ...this.layer
+        ...this.layer,
       };
       // console.log('$_addLayer is still running, layer:', layer);
       this.map.addLayer(layer, this.before);
@@ -181,10 +183,10 @@ export default {
         const params = {
           id: featureId,
           source: this.source,
-          sourceLayer
+          sourceLayer,
         };
         return this.map.removeFeatureState(params, key);
       }
-    }
-  }
+    },
+  },
 };

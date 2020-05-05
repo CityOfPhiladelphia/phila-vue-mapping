@@ -3,7 +3,7 @@ import layerEvents from "../lib/layerEvents";
 
 export default {
   name: "ImageLayer",
-  mixins: [mixin],
+  mixins: [ mixin ],
 
   created() {
     if (this.source) {
@@ -11,12 +11,14 @@ export default {
         this.$watch(
           "source.coordinates",
           function(next) {
-            if (this.initial) return;
+            if (this.initial) {
+              return;
+            }
             if (next) {
               this.mapSource.setCoordinates(next);
             }
           },
-          { deep: true }
+          { deep: true },
         );
       }
 
@@ -24,15 +26,17 @@ export default {
         this.$watch(
           "source.url",
           function(next) {
-            if (this.initial) return;
+            if (this.initial) {
+              return;
+            }
             if (next) {
               this.mapSource.updateImage({
                 url: next,
-                coordinates: this.source.coordinates
+                coordinates: this.source.coordinates,
               });
             }
           },
-          { deep: true }
+          { deep: true },
         );
       }
     }
@@ -43,7 +47,7 @@ export default {
     $_deferredMount() {
       const source = {
         type: "image",
-        ...this.source
+        ...this.source,
       };
 
       this.map.on("dataloading", this.$_watchSourceLoading);
@@ -74,13 +78,13 @@ export default {
         id: this.layerId,
         source: this.sourceId,
         type: "raster",
-        ...this.layer
+        ...this.layer,
       };
 
       console.log('$_addLayer, layer:', layer);
 
       this.map.addLayer(layer, this.before);
       this.$_emitEvent("added", { layerId: this.layerId });
-    }
-  }
+    },
+  },
 };

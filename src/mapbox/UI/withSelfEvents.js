@@ -16,11 +16,15 @@ export default {
     },
 
     $_unbindSelfEvents(events, emitter) {
-      if (events.length === 0) return;
-      if (!emitter) return;
+      if (events.length === 0) {
+        return;
+      }
+      if (!emitter) {
+        return;
+      }
       events.forEach(eventName => {
         emitter.off(eventName, this.$_emitSelfEvent);
       });
-    }
-  }
+    },
+  },
 };

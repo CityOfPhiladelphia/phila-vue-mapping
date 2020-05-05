@@ -3,18 +3,20 @@ import mixin from "./layerMixin";
 
 export default {
   name: "VideoLayer",
-  mixins: [mixin],
+  mixins: [ mixin ],
 
   computed: {
     video() {
       return this.map.getSource(this.sourceId).getVideo();
-    }
+    },
   },
 
   created() {
     if (this.source && this.source.coordinates) {
       this.$watch("source.coordinates", function(next) {
-        if (this.initial) return;
+        if (this.initial) {
+          return;
+        }
         this.mapSource.setCoordinates(next);
       });
     }
@@ -25,7 +27,7 @@ export default {
     $_deferredMount() {
       const source = {
         type: "video",
-        ...this.source
+        ...this.source,
       };
 
       this.map.on("dataloading", this.$_watchSourceLoading);
@@ -56,11 +58,11 @@ export default {
         id: this.layerId,
         source: this.sourceId,
         type: "background",
-        ...this.layer
+        ...this.layer,
       };
 
       this.map.addLayer(layer, this.before);
       this.$_emitEvent("added", { layerId: this.layerId });
-    }
-  }
+    },
+  },
 };

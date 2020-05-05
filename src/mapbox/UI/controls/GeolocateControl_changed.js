@@ -6,12 +6,12 @@ const geolocationEvents = {
   trackuserlocationstart: "trackuserlocationstart",
   trackuserlocationend: "trackuserlocationend",
   geolocate: "geolocate",
-  error: "error"
+  error: "error",
 };
 
 export default {
   name: "GeolocateControl",
-  mixins: [withEvents, withSelfEvents, controlMixin],
+  mixins: [ withEvents, withSelfEvents, controlMixin ],
 
   props: {
     positionOptions: {
@@ -19,22 +19,22 @@ export default {
       default() {
         return {
           enableHighAccuracy: false,
-          timeout: 6000
+          timeout: 6000,
         };
-      }
+      },
     },
     fitBoundsOptions: {
       type: Object,
-      default: () => ({ maxZoom: 15 })
+      default: () => ({ maxZoom: 15 }),
     },
     trackUserLocation: {
       type: Boolean,
-      default: false
+      default: false,
     },
     showUserLocation: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   created() {
@@ -59,6 +59,6 @@ export default {
       if (this.control) {
         return this.control.trigger();
       }
-    }
-  }
+    },
+  },
 };

@@ -8,8 +8,8 @@
 import controlMixin from "./controlMixin";
 
 export default {
-  name: 'containerControl',
-  mixins: [controlMixin],
+  name: 'ContainerControl',
+  mixins: [ controlMixin ],
 
   props: {
     buttonText: {
@@ -19,7 +19,7 @@ export default {
     buttonId: {
       type: String,
       default: 'button-id',
-    }
+    },
   },
   mounted() {
     class ControlContainer {

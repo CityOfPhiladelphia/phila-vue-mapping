@@ -11,7 +11,7 @@ export default {
       this.$emit(name, {
         map: this.map,
         component: this,
-        ...data
+        ...data,
       });
     },
 
@@ -22,6 +22,6 @@ export default {
      */
     $_emitMapEvent(event, data = {}) {
       this.$_emitEvent(event.type, { mapboxEvent: event, ...data });
-    }
-  }
+    },
+  },
 };

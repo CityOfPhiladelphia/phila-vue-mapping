@@ -11,5 +11,5 @@ export default [
   "contextmenu",
   "touchstart",
   "touchend",
-  "touchcancel"
+  "touchcancel",
 ];

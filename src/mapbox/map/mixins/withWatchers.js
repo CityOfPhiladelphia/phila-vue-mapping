@@ -36,11 +36,13 @@ const watchers = {
   },
   light(next) {
     this.map.setLigh(next);
-  }
+  },
 };
 
 function watcher(prop, callback, next, prev) {
-  if (this.initial) return;
+  if (this.initial) {
+    return;
+  }
   if (this.$listeners[`update:${prop}`]) {
     if (this.propsIsUpdating[prop]) {
       this._watcher.active = false;
@@ -68,5 +70,5 @@ function makeWatchers() {
 }
 
 export default {
-  watch: makeWatchers()
+  watch: makeWatchers(),
 };

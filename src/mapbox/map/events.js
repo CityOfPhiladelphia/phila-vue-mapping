@@ -41,5 +41,5 @@ export default {
   drag: { name: "drag" },
   dragstart: { name: "dragstart" },
   pitch: { name: "pitch" },
-  idle: { name: "idle" }
+  idle: { name: "idle" },
 };

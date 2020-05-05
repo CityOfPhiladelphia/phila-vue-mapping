@@ -2,8 +2,8 @@
 import controlMixin from "./controlMixin";
 
 export default {
-  name: 'buttonControl',
-  mixins: [controlMixin],
+  name: 'ButtonControl',
+  mixins: [ controlMixin ],
 
   props: {
     buttonText: {
@@ -23,6 +23,11 @@ export default {
       default: '',
     },
   },
+  computed: {
+    classTest() {
+      return 'button-control active';
+    },
+  },
   watch: {
     buttonClass(nextButtonClass) {
       let buttonItem = document.getElementById(this.$props.buttonId);
@@ -33,7 +38,7 @@ export default {
       let imageItem = document.getElementById(this.$props.buttonId + '-img');
       console.log('watch imageLink, imageItem:', imageItem, 'nextImageLink:', nextImageLink);
       imageItem.src = nextImageLink;
-    }
+    },
   },
   mounted() {
     class ButtonControl {
@@ -73,11 +78,6 @@ export default {
     }).bind(this);
 
   },
-  computed: {
-    classTest() {
-      return 'button-control active'
-    }
-  },
   methods: {
     buttonClicked() {
       console.log('ButtonControl buttonClicked is running');
@@ -86,7 +86,7 @@ export default {
     // parentMounted() {
     //   console.log('ButtonControl.vue parentMounted is running');
     // }
-  }
+  },
 };
 
 </script>

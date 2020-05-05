@@ -3,16 +3,16 @@ import withEvents from "../../lib/withEvents";
 import withSelfEvents from "../withSelfEvents";
 
 export default {
-  mixins: [withEvents, withSelfEvents],
+  mixins: [ withEvents, withSelfEvents ],
 
   // inject: ["mapbox", "map", "actions"],
-  inject: ["mapbox", "actions"],
+  inject: [ "mapbox", "actions" ],
 
   props: {
     position: {
       type: String,
-      default: "top-right"
-    }
+      default: "top-right",
+    },
   },
 
   beforeDestroy() {
@@ -23,7 +23,7 @@ export default {
   computed: {
     map() {
       return this.$store.state.map.map;
-    }
+    },
   },
   methods: {
     $_addControl() {
@@ -35,8 +35,8 @@ export default {
         return;
       }
       this.$_emitEvent("added", { control: this.control });
-    }
+    },
   },
 
-  render() {}
+  render() {},
 };

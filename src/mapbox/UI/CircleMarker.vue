@@ -15,74 +15,78 @@ import withSelfEvents from "./withSelfEvents";
 const markerEvents = {
   drag: "drag",
   dragstart: "dragstart",
-  dragend: "dragend"
+  dragend: "dragend",
 };
 
 const markerDOMEvents = {
   click: "click",
   mouseenter: "mouseenter",
-  mouseleave: "mouseleave"
+  mouseleave: "mouseleave",
 };
 
 export default {
   name: "MapCircleMarker",
-  mixins: [withEvents, withSelfEvents],
+  mixins: [ withEvents, withSelfEvents ],
 
-  inject: ["mapbox", "map"],
+  inject: [ "mapbox", "map" ],
 
   provide() {
     const self = this;
     return {
       get marker() {
         return self.marker;
-      }
+      },
     };
   },
 
   props: {
     // mapbox marker options
     offset: {
-      type: [Object, Array],
-      default: () => [0, 0]
+      type: [ Object, Array ],
+      default: () => [ 0, 0 ],
     },
     coordinates: {
       type: Array,
-      required: true
+      required: true,
     },
     color: {
-      type: String
+      type: String,
     },
     anchor: {
       type: String,
-      default: "center"
+      default: "center",
     },
     draggable: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data() {
     return {
       initial: true,
-      marker: undefined
+      marker: undefined,
     };
   },
 
   watch: {
     coordinates(lngLat) {
-      if (this.initial) return;
+      if (this.initial) {
+        return;
+      }
       this.marker.setLngLat(lngLat);
     },
     draggable(next) {
-      if (this.initial) return;
+      if (this.initial) {
+        return;
+      }
       this.marker.setDraggable(next);
-    }
+    },
   },
 
   mounted() {
     const markerOptions = {
-      ...this.$props
+      ...this.$props,
     };
     // console.log('CircleMarker.vue, markerOptions:', markerOptions);
     if (this.$slots.marker) {
@@ -99,7 +103,7 @@ export default {
       this.marker.on("dragend", event => {
         let newCoordinates;
         if (this.coordinates instanceof Array) {
-          newCoordinates = [event.target._lngLat.lng, event.target._lngLat.lat];
+          newCoordinates = [ event.target._lngLat.lng, event.target._lngLat.lat ];
         } else {
           newCoordinates = event.target._lngLat;
         }
@@ -148,8 +152,8 @@ export default {
 
     togglePopup() {
       return this.marker.togglePopup();
-    }
-  }
+    },
+  },
 };
 </script>
 

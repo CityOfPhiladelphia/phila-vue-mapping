@@ -11,7 +11,7 @@ import withSelfEvents from "./withSelfEvents";
 
 const popupEvents = {
   open: "open",
-  close: "close"
+  close: "close",
 };
 
 /**
@@ -20,18 +20,18 @@ const popupEvents = {
  */
 export default {
   name: "Popup",
-  mixins: [withEvents, withSelfEvents],
+  mixins: [ withEvents, withSelfEvents ],
 
   inject: {
     mapbox: {
-      default: null
+      default: null,
     },
     map: {
-      default: null
+      default: null,
     },
     marker: {
-      default: null
-    }
+      default: null,
+    },
   },
 
   props: {
@@ -41,7 +41,7 @@ export default {
      */
     closeButton: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /**
      * Mapbox GL popup option.
@@ -49,7 +49,7 @@ export default {
      */
     closeOnClick: {
       type: Boolean,
-      default: true
+      default: true,
     },
     /**
      * Mapbox GL popup option.
@@ -67,11 +67,11 @@ export default {
           "top-left",
           "top-right",
           "bottom-left",
-          "bottom-right"
+          "bottom-right",
         ];
         return typeof value === "string" && allowedValues.includes(value);
       },
-      default: undefined
+      default: undefined,
     },
     /**
      * Mapbox GL popup option.
@@ -81,11 +81,11 @@ export default {
      * an object of Points specifing an offset for each anchor position Negative offsets indicate left and up.
      */
     offset: {
-      type: [Number, Object, Array],
-      default: () => [0, 0]
+      type: [ Number, Object, Array ],
+      default: () => [ 0, 0 ],
     },
     coordinates: {
-      type: Array
+      type: Array,
     },
 
     /**
@@ -94,19 +94,19 @@ export default {
      */
     onlyText: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     showed: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   data() {
     return {
       initial: true,
-      popup: undefined
+      popup: undefined,
     };
   },
 
@@ -126,13 +126,15 @@ export default {
             this.popup.addTo(this.map);
           }
         }
-      }
-    }
+      },
+    },
   },
 
   watch: {
     coordinates(lngLat) {
-      if (this.initial) return;
+      if (this.initial) {
+        return;
+      }
       this.popup.setLngLat(lngLat);
     },
 
@@ -143,7 +145,7 @@ export default {
           this.marker.togglePopup();
         }
       }
-    }
+    },
   },
 
   created() {
@@ -205,7 +207,7 @@ export default {
     remove() {
       this.popup.remove();
       this.$_emitEvent("remove", { popup: this.popup });
-    }
-  }
+    },
+  },
 };
 </script>

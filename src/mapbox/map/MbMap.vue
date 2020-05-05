@@ -13,7 +13,10 @@
         <slot />
       </div>
     </div>
-    <div id="distance" class="distance-container"></div>
+    <div
+      id="distance"
+      class="distance-container"
+    />
   </div>
 </template>
 
@@ -30,7 +33,7 @@ import bindEvents from '../util/bind-events';
 
 export default {
   name: 'MbMap',
-  mixins: [withPrivateMethods],
+  mixins: [ withPrivateMethods ],
   props: [
     'center',
     'zoom',
@@ -39,7 +42,7 @@ export default {
     'minZoom',
     'maxZoom',
     'container',
-    'style_'
+    'style_',
   ],
   provide() {
     const self = this;
@@ -55,7 +58,7 @@ export default {
       },
       get actions() {
         return self.actions;
-      }
+      },
     };
   },
   computed: {
@@ -156,15 +159,15 @@ export default {
 
     // signal children to mount
     map.on('load', function() {
-        console.log('this:', this);
-        for (let child of this.$children) {
-          console.log('MbMap.vue mounted child:', child);
-          // REVIEW it seems weird to pass children their own props. trying to
-          // remember why this was necessary... binding issue?
-          child.parentMounted(this, child.$props);
-        }
-      }.bind(this)
-    )
+      console.log('this:', this);
+      for (let child of this.$children) {
+        console.log('MbMap.vue mounted child:', child);
+        // REVIEW it seems weird to pass children their own props. trying to
+        // remember why this was necessary... binding issue?
+        child.parentMounted(this, child.$props);
+      }
+    }.bind(this),
+    );
 
     // TODO warn if trying to bind an event that doesn't exist
     bindEvents(this, this.$mapboxElement, this._events);
@@ -176,7 +179,7 @@ export default {
   methods: {
     createMapboxElement() {
       const { zoomControlPosition, ...options } = this.$props;
-      options.style=options.style_
+      options.style=options.style_;
       console.log('createMapboxElement is running, options:', options, 'this.$refs.mbmap:', this.$refs.mbmap);
       // return new Map(this.$refs.map, options);
       return new this.mapbox.Map(options);

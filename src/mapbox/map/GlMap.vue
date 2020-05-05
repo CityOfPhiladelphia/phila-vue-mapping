@@ -1,6 +1,10 @@
 <template>
   <div class="mgl-map-wrapper">
-    <div v-once :id="container" ref="container" />
+    <div
+      v-once
+      :id="container"
+      ref="container"
+    />
     <slot v-if="initialized" />
   </div>
 </template>
@@ -16,14 +20,14 @@ import withAsyncActions from "./mixins/withAsyncActions";
 export default {
   name: "GlMap",
 
-  mixins: [withWatchers, withAsyncActions, withPrivateMethods, withEvents],
+  mixins: [ withWatchers, withAsyncActions, withPrivateMethods, withEvents ],
 
   props: {
     mapboxGl: {
       type: Object,
-      default: null
+      default: null,
     },
-    ...options
+    ...options,
   },
 
   provide() {
@@ -41,14 +45,14 @@ export default {
       get actions() {
         // console.log('GlMap.vue provide actions running')
         return self.actions;
-      }
+      },
     };
   },
 
   data() {
     return {
       initial: true,
-      initialized: false
+      initialized: false,
     };
   },
 
@@ -76,7 +80,7 @@ export default {
     },
     images() {
       return this.map ? this.map.listImages() : null;
-    }
+    },
   },
 
   created() {
@@ -96,7 +100,7 @@ export default {
       if (this.RTLTextPluginUrl !== undefined) {
         this.mapbox.setRTLTextPlugin(
           this.RTLTextPluginUrl,
-          this.$_RTLTextPluginError
+          this.$_RTLTextPluginError,
         );
       }
       const eventNames = Object.keys(mapEvents);
@@ -131,7 +135,9 @@ export default {
 
   beforeDestroy() {
     this.$nextTick(() => {
-      if (this.map) this.map.remove();
+      if (this.map) {
+        this.map.remove();
+      }
     });
   },
 
@@ -148,8 +154,8 @@ export default {
           }
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

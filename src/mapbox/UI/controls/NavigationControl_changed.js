@@ -2,17 +2,17 @@ import controlMixin from "./controlMixin";
 
 export default {
   name: "NavigationControl",
-  mixins: [controlMixin],
+  mixins: [ controlMixin ],
 
   props: {
     showCompass: {
       type: Boolean,
-      default: true
+      default: true,
     },
     showZoom: {
       type: Boolean,
-      default: true
-    }
+      default: true,
+    },
   },
 
   created() {
@@ -28,6 +28,6 @@ export default {
       console.log('NavigationControl parentMounted is running, this.$store.state.map:', this.$store.state.map);
       this.control = new this.mapbox.NavigationControl(this.$props);
       this.$_addControl();
-    }
-  }
+    },
+  },
 };

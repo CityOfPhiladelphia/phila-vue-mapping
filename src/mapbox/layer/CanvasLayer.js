@@ -3,32 +3,34 @@ import mixin from "./layerMixin";
 
 export default {
   name: "CanvasLayer",
-  mixins: [mixin],
+  mixins: [ mixin ],
 
-  inject: ["mapbox", "map"],
+  inject: [ "mapbox", "map" ],
 
   props: {
     source: {
       type: Object,
-      required: true
+      required: true,
     },
     layer: {
       type: Object,
-      default: null
-    }
+      default: null,
+    },
   },
 
   computed: {
     canvasElement() {
       return this.mapSource ? this.mapSource.getCanvas() : null;
-    }
+    },
   },
 
   watch: {
     coordinates(val) {
-      if (this.initial) return;
+      if (this.initial) {
+        return;
+      }
       this.mapSource.setCoordinates(val);
-    }
+    },
   },
 
   created() {
@@ -39,7 +41,7 @@ export default {
     $_deferredMount() {
       const source = {
         type: "canvas",
-        ...this.source
+        ...this.source,
       };
 
       this.map.on("dataloading", this.$_watchSourceLoading);
@@ -70,13 +72,13 @@ export default {
         id: this.layerId,
         source: this.sourceId,
         type: "raster",
-        ...this.layer
+        ...this.layer,
       };
       this.map.addLayer(layer, this.before);
       this.$_emitEvent("added", {
         layerId: this.layerId,
-        canvas: this.canvasElement
+        canvas: this.canvasElement,
       });
-    }
-  }
+    },
+  },
 };

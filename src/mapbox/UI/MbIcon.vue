@@ -46,7 +46,7 @@ export default {
   },
   methods: {
     createMapboxElement() {
-      console.log('MbIcon.vue createMapboxElement')
+      console.log('MbIcon.vue createMapboxElement');
 
       // const map = parent.map;
       const map = this.$store.state.map.map;
@@ -54,7 +54,9 @@ export default {
       map.loadImage(
         this.$props.url,
         function(error, image) {
-          if (error) throw error;
+          if (error) {
+            throw error;
+          }
           console.log('in loadImage callback, map:', map);
           if (!Object.keys(map.style.imageManager.images).includes('markers')) {
             map.addImage('markers', image);
@@ -69,11 +71,11 @@ export default {
                     'type': 'Feature',
                     'geometry': {
                       'type': 'Point',
-                      'coordinates': [-75.163471, 39.953338]
-                    }
-                  }
-                ]
-              }
+                      'coordinates': [ -75.163471, 39.953338 ],
+                    },
+                  },
+                ],
+              },
             });
           }
           map.addLayer({
@@ -86,9 +88,9 @@ export default {
               'icon-keep-upright': true,
               'icon-rotation-alignment': 'map',
               // 'symbol-placement': 'line',
-            }
+            },
           });
-        }
+        },
       );
 
 

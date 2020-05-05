@@ -48,9 +48,6 @@ export default {
     'options',
     'items',
   ],
-  mounted() {
-    console.log('LegendControlNoTopic, this.$props.options:', this.$props.options);
-  },
   computed: {
     keys() {
       return Object.keys(this.$props.items);
@@ -82,6 +79,9 @@ export default {
     //   console.log('style string', string);
     //   return string
     // }
+  },
+  mounted() {
+    console.log('LegendControlNoTopic, this.$props.options:', this.$props.options);
   },
   methods: Object.assign(methods),
 };

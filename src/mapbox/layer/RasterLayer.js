@@ -3,7 +3,7 @@ import mixin from "./layerMixin";
 
 export default {
   name: "RasterLayer",
-  mixins: [mixin],
+  mixins: [ mixin ],
 
   created() {
     this.$_deferredMount();
@@ -13,7 +13,7 @@ export default {
     $_deferredMount() {
       let source = {
         type: "raster",
-        ...this.source
+        ...this.source,
       };
 
       // console.log('in RasterLayer.js, source:', source, 'this:', this);
@@ -51,13 +51,13 @@ export default {
         id: this.layerId,
         type: "raster",
         source: this.sourceId,
-        ...this.layer
+        ...this.layer,
       };
 
       // console.log('RasterLayer.js end is running');
 
       this.map.addLayer(layer, this.before);
       this.$_emitEvent("added", { layerId: this.layerId });
-    }
-  }
+    },
+  },
 };
