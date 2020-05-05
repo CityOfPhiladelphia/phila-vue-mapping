@@ -48,11 +48,13 @@ export default {
     },
     parentMounted(parent, props) {
       // console.log('Control.vue parentMounted is running, parent:', parent, 'props:', props);
-      const leafletElement = this.createLeafletElement(L);
-      this.$leafletElement = leafletElement;
-      const map = parent.$leafletElement;
-      // console.log('Control.vue parentMounted is calling addTo(map)');
-      leafletElement.addTo(map);
+      if (this.$store.state.map.type === 'leaflet') {
+        const leafletElement = this.createLeafletElement(L);
+        this.$leafletElement = leafletElement;
+        const map = parent.$leafletElement;
+        // console.log('Control.vue parentMounted is calling addTo(map)');
+        leafletElement.addTo(map);
+      }
     },
   },
 };

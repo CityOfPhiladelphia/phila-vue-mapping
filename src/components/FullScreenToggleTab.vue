@@ -57,13 +57,13 @@ export default {
   },
   watch: {
     fullScreenMapEnabled(nextFullScreenMapEnabled) {
-      console.log('watch fullScreenMapEnabled:', nextFullScreenMapEnabled);
+      // console.log('watch fullScreenMapEnabled:', nextFullScreenMapEnabled);
       if (this.$props.panel === 'map') {
         this.activated = nextFullScreenMapEnabled;
       }
     },
     fullScreenImageryEnabled(nextFullScreenImageryEnabled) {
-      console.log('watch fullScreenImageryEnabled:', nextFullScreenImageryEnabled);
+      // console.log('watch fullScreenImageryEnabled:', nextFullScreenImageryEnabled);
       if (this.$props.panel === 'imagery') {
         this.activated = nextFullScreenImageryEnabled;
       }
@@ -72,10 +72,10 @@ export default {
       this.setDivHeight(nextDim);
     },
     initialActivation(nextInitialActivation) {
-      console.log('watch initialActivation is firing, nextInitialActivation:', nextInitialActivation);
+      // console.log('watch initialActivation is firing, nextInitialActivation:', nextInitialActivation);
     },
     activated(nextActivated) {
-      console.log('watch activated, nextActivated:', nextActivated);
+      // console.log('watch activated, nextActivated:', nextActivated);
       if (nextActivated === false) {
         this.buttonDirection = this.$props.deactivatedDirection;
       } else {
@@ -88,7 +88,7 @@ export default {
     },
   },
   mounted() {
-    console.log('FullScreenToggleTab.vue mounted is running, this.$props.initialActivation:', this.$props.initialActivation);
+    // console.log('FullScreenToggleTab.vue mounted is running, this.$props.initialActivation:', this.$props.initialActivation);
     this.setDivHeight(this.windowDim);
     this.$nextTick(() => {
       if (this.$props.initialActivation) {

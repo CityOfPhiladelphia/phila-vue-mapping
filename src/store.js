@@ -25,6 +25,7 @@ const initialState = {
 
   // the leaflet map object
   map: {
+    type: 'leaflet',
     location: {
       lat: null,
       lng: null,
@@ -94,6 +95,9 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setMapType(state, payload) {
+      state.map.type = payload;
+    },
     setShouldInitializeMap(state, payload) {
       state.map.shouldInitialize = payload;
     },
