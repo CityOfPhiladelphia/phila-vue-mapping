@@ -48,6 +48,7 @@ import FullScreenMapToggleTabVertical from './components/FullScreenMapToggleTabV
 import LocationControl from './components/LocationControl.vue';
 import MeasureControl from './components/MeasureControl.vue';
 import LegendControl from './components/LegendControl.vue';
+import LegendControlNoTopic from './components/LegendControlNoTopic.vue';
 import BasemapTooltip from './components/BasemapTooltip.vue';
 import ModalAbout from './components/ModalAbout.vue';
 
@@ -104,6 +105,7 @@ export {
   LocationControl,
   MeasureControl,
   LegendControl,
+  LegendControlNoTopic,
   BasemapTooltip,
   ModalAbout,
   CyclomediaButton,
