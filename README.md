@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+# 2.1.0 - 5/5/2020
+
+* merges changes for use in pinboard and viewerboard
+
 # 2.0.10 - 4/1/2020
 
 * fixes css for rendering map and cyclomedia in property data explorer
