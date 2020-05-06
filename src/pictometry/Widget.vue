@@ -1,7 +1,7 @@
 <template>
   <div
     id="pict-container"
-    class="pictometry-div"
+    :class="widgetClass"
   >
     <div
       v-if="isMobileOrTablet === false"
@@ -34,6 +34,8 @@ export default {
   name: 'PictometryWidget',
   props: [
     'setLocation',
+    'screenPercent',
+    'orientation',
   ],
   computed: {
     isMobileOrTablet() {
@@ -42,18 +44,49 @@ export default {
     cyclomediaActive() {
       return this.$store.state.cyclomedia.active;
     },
-    pictContainerClass() {
-      if (this.cyclomediaActive) {
-        return 'medium-8 large-8 height50 columns';
-      }
-      return 'medium-24 large-24 height50 columns';
-
-    },
+    // pictContainerClass() {
+    //   if (this.cyclomediaActive) {
+    //     return 'medium-8 large-8 height50 columns';
+    //   }
+    //   return 'medium-24 large-24 height50 columns';
+    //
+    // },
     mapCenter() {
       return this.$store.state.pictometry.map.center;
     },
     mapZoom() {
       return this.$store.state.pictometry.map.zoom;
+    },
+    widgetClass() {
+      let value;
+
+      if (this.$store.state.fullScreenImageryEnabled || this.$props.orientation === 'full-screen') {
+        value = "medium-24 small-24 height100 fullScreen-pict";
+      } else if (this.$props.orientation === 'vertical') {
+        if (this.$store.state.leftPanel) {
+          value = "medium-24 small-24 height50";
+        } else {
+          value = "medium-12 small-24 height100";
+        }
+      } else {
+        if (this.cyclomediaActive) {
+          value = 'medium-16 large-16 height50 columns';
+        } else {
+          value = 'medium-24 large-24 height50 columns';
+        }
+      }
+
+      if (this.fullScreenTopicsEnabled) {
+        value += ' full-topics-open';
+      }
+
+      // if (this.$props.orientation === 'horizontal') {
+      //   value = 'height50';
+      // } else {
+      //   value = 'cyclo-div';
+      // }
+
+      return value;
     },
   },
   watch: {
@@ -222,6 +255,19 @@ export default {
   position: relative;
 }
 
+.full-topics-open {
+  display: none;
+}
+
+.height100 {
+  height: 100%;
+}
+
+.height50 {
+  /* padding-top: 50%; */
+  height: 50%;
+}
+
 /* .resp-container {
   position: relative;
   overflow: hidden;
@@ -269,6 +315,15 @@ export default {
 }
 
 @media (max-width: 749px) {
+  @media (max-width: 749px) {
+    .fullScreen-pict {
+      height: 100% !important;
+    }
+
+    #cyclo-container {
+      height: 200px;
+    }
+  }
   /* #pict-container {
     height: 200px !important;
   } */
