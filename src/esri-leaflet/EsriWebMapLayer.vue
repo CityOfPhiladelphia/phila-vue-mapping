@@ -15,6 +15,7 @@ export default {
     'layerDefinition',
     'opacity',
     'type',
+    'layerOptions',
   ],
   data() {
     return {
@@ -187,7 +188,11 @@ export default {
         ids[i] = layer + '_' + intersectingFeatures[i].feature.id;
       }
       if (!ids.includes(layer + '_' + feature.feature.id)) {
-        intersectingFeatures.push(feature);
+        if (this.$props.layerOptions && this.$props.layerOptions.popupFirst) {
+          intersectingFeatures.unshift(feature);
+        } else {
+          intersectingFeatures.push(feature);
+        }
       }
     },
   },
