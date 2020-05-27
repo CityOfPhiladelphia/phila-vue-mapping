@@ -19,6 +19,18 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.4 - 5/27/2020
+
+* upgrades packages
+
+### 2.1.3 - 5/7/2020
+
+* changes for popup order in layerboard
+
+### 2.1.2 - 5/6/2020
+
+* changes to pictometry widget
+
 ### 2.1.1 - 5/5/2020
 
 * fixes problems with pushing to npm
