@@ -1,5 +1,9 @@
 <template>
-  <div class="mgl-map-wrapper">
+  <!-- class="mgl-map-wrapper" -->
+  <div
+    id="map-container"
+    :class="mapContainerClass + ' mgl-map-wrapper'"
+  >
     <div
       v-once
       :id="container"
@@ -57,6 +61,15 @@ export default {
   },
 
   computed: {
+    mapContainerClass() {
+      let value;
+      if (this.$config.map.containerClass) {
+        value = this.$config.map.containerClass;
+      } else {
+        value = 'map-container';
+      }
+      return value;
+    },
     loaded() {
       return this.map ? this.map.loaded() : false;
     },
