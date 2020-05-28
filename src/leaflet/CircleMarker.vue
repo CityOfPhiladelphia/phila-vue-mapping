@@ -23,7 +23,7 @@ export default {
   ],
   watch: {
     latlng(nextLatlng) {
-      // alert('watch circleMarker props latlng is running nextLatlng:', nextLatlng);
+      console.log('watch circleMarker props latlng is running nextLatlng:', nextLatlng);
       this.$leafletElement._map.removeLayer(this.$leafletElement);
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
@@ -34,7 +34,7 @@ export default {
     },
   },
   mounted() {
-    // console.log('CircleMarker mounted is running');
+    console.log('CircleMarker mounted is running');
     const leafletElement = this.$leafletElement = this.createLeafletElement();
     const map = this.$store.state.map.map;
     if (map) {
@@ -50,7 +50,7 @@ export default {
   //   console.log('CircleMarker updated is running');
   // },
   destroyed() {
-    // console.log('CircleMarker.vue destroyed is running');
+    console.log('CircleMarker.vue destroyed is running');
     this.$leafletElement._map.removeLayer(this.$leafletElement);
   },
   methods: {

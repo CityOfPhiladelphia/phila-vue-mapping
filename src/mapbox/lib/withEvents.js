@@ -21,6 +21,7 @@ export default {
      * @param {Object} event
      */
     $_emitMapEvent(event, data = {}) {
+      // console.log('withEvents.js, $_emitMapEvent is running');
       this.$_emitEvent(event.type, { mapboxEvent: event, ...data });
     },
   },
