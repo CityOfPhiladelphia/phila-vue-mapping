@@ -94,6 +94,7 @@ export default {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   position: absolute;
   width: 25%;
+  min-width: 200px;
   bottom: 0;
   left: 0;
   padding: 10px;
