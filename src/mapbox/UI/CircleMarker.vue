@@ -75,7 +75,11 @@ export default {
     markerId: {
       type: String,
       default: null,
-    }
+    },
+    // selected: {
+    //   type: Boolean,
+    //   default: false,
+    // },
   },
 
   data() {
@@ -124,6 +128,11 @@ export default {
       console.log('CircleMarker.vue createCircleMaker is running'); //, markerOptions:', markerOptions);
 
       var el = document.createElement('div');
+
+      el.addEventListener('click', function(e) {
+        e.stopPropagation();
+      })
+
       el.className = 'circle-div';
       el.style.color = markerOptions.color;
       el.style['background-color'] = markerOptions.fillColor;
@@ -152,6 +161,11 @@ export default {
         });
       }
 
+      // if (this.$props.selected) {
+      //   console.log('CircleMarker.vue createCircleMarker, this.$props.selected is true');
+      //   this.togglePopup();
+      // }
+
       const eventNames = Object.keys(markerEvents);
       this.$_bindSelfEvents(eventNames, this.marker);
 
@@ -166,7 +180,7 @@ export default {
     },
 
     $_emitSelfEvent(event) {
-      console.log('CircleMarker.vue, $_emitSelfEvent is running');
+      // console.log('CircleMarker.vue, $_emitSelfEvent is running');
       this.$_emitMapEvent(event, { marker: this.marker });
     },
 
@@ -186,6 +200,7 @@ export default {
     },
 
     togglePopup() {
+      // console.log('CircleMarker togglePopup is running');
       return this.marker.togglePopup();
     },
   },
