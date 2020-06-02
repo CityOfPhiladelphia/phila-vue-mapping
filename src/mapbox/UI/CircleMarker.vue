@@ -131,7 +131,7 @@ export default {
 
       el.addEventListener('click', function(e) {
         e.stopPropagation();
-      })
+      });
 
       el.className = 'circle-div';
       el.style.color = markerOptions.color;
