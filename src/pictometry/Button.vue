@@ -35,7 +35,8 @@ export default {
   },
   methods: {
     handleButtonClick(e) {
-      this.$store.commit('setPictometryActive', !this.$store.state.pictometry.active);
+      this.$emit('handle-pictometry-button-click', e);
+      // this.$store.commit('setPictometryActive', !this.$store.state.pictometry.active);
     },
   },
 };

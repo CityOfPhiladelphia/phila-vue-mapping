@@ -4,6 +4,12 @@ export default {
     cyclomediaActive() {
       return this.$store.state.cyclomedia.active;
     },
+    cyclomediaInitializationBegun() {
+      return this.$store.state.cyclomedia.initializationBegun;
+    },
+    cyclomediaInitializationComplete() {
+      return this.$store.state.cyclomedia.initializationComplete;
+    },
     cyclomediaRecordings() {
       return this.$store.state.cyclomedia.recordings;
     },

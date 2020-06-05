@@ -51,12 +51,15 @@ export default {
   },
   methods: {
     handleButtonClick(e) {
-      if (!this.cyclomediaInitializationBegun) {
-        this.$store.commit('setCyclomediaInitializationBegun', true);
-      }
-      const willBeActive = !this.$store.state.cyclomedia.active;
+      console.log('cyclomedia handleButtonClick running');
+      this.$emit('handle-cyclomedia-button-click', e);
+      // if (!this.cyclomediaInitializationBegun) {
+      //   this.$store.commit('setCyclomediaInitializationBegun', true);
+      // }
+      // const willBeActive = !this.$store.state.cyclomedia.active;
+      //
+      // this.$store.commit('setCyclomediaActive', willBeActive);
 
-      this.$store.commit('setCyclomediaActive', willBeActive);
 
       // if the cyclo viewer is off screen when it loads imagery, it won't
       // show anything even once it's on screen. use this to trigger an
