@@ -30,21 +30,27 @@ export default {
   watch: {
     rotationAngle(nextRotationAngle) {
       // console.log('pngMarker orientation changed', nextRotationAngle);
-      if (this.$leafletElement._map) {
-        this.$leafletElement._map.removeLayer(this.$leafletElement);
-      }
-      const leafletElement = this.$leafletElement = this.createLeafletElement();
-      const map = this.$store.state.map.map;
+      if (this.latlng) {
+        if (this.$leafletElement) {
+          if (this.$leafletElement._map) {
+            this.$leafletElement._map.removeLayer(this.$leafletElement);
+          }
+        }
+        const leafletElement = this.$leafletElement = this.createLeafletElement();
+        const map = this.$store.state.map.map;
 
-      // REVIEW kind of hacky/not reactive?
-      if (map) {
-        leafletElement.addTo(map);
+        // REVIEW kind of hacky/not reactive?
+        if (map) {
+          leafletElement.addTo(map);
+        }
       }
     },
     latlng(nextLatLng) {
       // console.log('pngMarker orientation changed', nextRotationAngle);
-      if (this.$leafletElement._map) {
-        this.$leafletElement._map.removeLayer(this.$leafletElement);
+      if (this.$leafletElement) {
+        if (this.$leafletElement._map) {
+          this.$leafletElement._map.removeLayer(this.$leafletElement);
+        }
       }
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
@@ -57,13 +63,15 @@ export default {
   },
   mounted() {
     // console.log('SvgViewConeMarker, this.$props.rotationAngle:', this.$props.rotationAngle);
-    const leafletElement = this.$leafletElement = this.createLeafletElement();
-    // console.log('WHO IT IS', leafletElement);
-    const map = this.$store.state.map.map;
+    if (this.latlng) {
+      const leafletElement = this.$leafletElement = this.createLeafletElement();
+      // console.log('WHO IT IS', leafletElement);
+      const map = this.$store.state.map.map;
 
-    // REVIEW kind of hacky/not reactive?
-    if (map) {
-      leafletElement.addTo(map);
+      // REVIEW kind of hacky/not reactive?
+      if (map) {
+        leafletElement.addTo(map);
+      }
     }
   },
   destroyed() {
@@ -72,6 +80,7 @@ export default {
   },
   methods: {
     createLeafletElement() {
+      console.log('SvgViewConeMarker createLeafletElement, this.latlng:', this.latlng);
       const coneCoords = this.coneCoords;
       const icon = new TriangleIcon({
         iconSize: L.point(this.coneCoords[0], this.coneCoords[1]),

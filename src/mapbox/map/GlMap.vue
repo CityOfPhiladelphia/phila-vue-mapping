@@ -1,5 +1,9 @@
 <template>
-  <div class="mgl-map-wrapper">
+  <!-- class="mgl-map-wrapper" -->
+  <div
+    id="map-container"
+    :class="mapContainerClass + ' mgl-map-wrapper'"
+  >
     <div
       v-once
       :id="container"
@@ -57,6 +61,39 @@ export default {
   },
 
   computed: {
+    cyclomediaActive() {
+      return this.$store.state.cyclomedia.active;
+    },
+    pictometryActive() {
+      return this.$store.state.pictometry.active;
+    },
+    picOrCycloActive() {
+      if (this.cyclomediaActive || this.pictometryActive) {
+        return true;
+      }
+      return false;
+    },
+    mapContainerClass() {
+      let value;
+      if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
+        if (this.$config.map.containerClassWCyclo) {
+          value = this.$config.map.containerClassWCyclo;
+        } else {
+          value = 'height50';
+        }
+      } else if (this.picOrCycloActive) {
+        if (this.$config.map.containerClassWCyclo) {
+          value = this.$config.map.containerClassWCyclo;
+        } else {
+          value = 'height50';
+        }
+      } else if (this.$config.map.containerClass) {
+        value = this.$config.map.containerClass;
+      } else {
+        value = 'map-container';
+      }
+      return value;
+    },
     loaded() {
       return this.map ? this.map.loaded() : false;
     },
@@ -160,8 +197,17 @@ export default {
 </script>
 
 <style>
-.mgl-map-wrapper {
+
+.map-container {
   height: 100%;
+}
+
+.height50 {
+  height: 50%;
+}
+
+.mgl-map-wrapper {
+  /* height: 100%; */
   position: relative;
   width: 100%;
 }

@@ -12,7 +12,7 @@ class RecordingsClient {
   // this takes leaflet map bonds and an EPSG coordinate system id, e.g. 3857
   // and returns an array of cyclomedia recording points
   getRecordings(bounds, callback) {
-    // console.log('get recordings', bounds);
+    console.log('recordings-client.js, getRecordings is running, bounds:', bounds);
 
     const swCoord = bounds.getSouthWest();
     const neCoord = bounds.getNorthEast();
@@ -44,6 +44,7 @@ class RecordingsClient {
     };
 
     axios.post(url, data, { headers: headers }).then(response => {
+      console.log('getRecordings axios ran');
       let data = response.data;
 
       function parseXml(xmlStr) {

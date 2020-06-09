@@ -70,7 +70,7 @@ export default {
         }
       } else {
         if (this.cyclomediaActive) {
-          value = 'medium-16 large-16 height50 columns';
+          value = 'medium-8 large-8 height50 columns';
         } else {
           value = 'medium-24 large-24 height50 columns';
         }
@@ -289,7 +289,7 @@ export default {
 
 #in-pict-div {
   position: absolute;
-  top: 0px;
+  /* top: 0px; */
   right: 0px;
   background-color: white;
   border: 0px solid;

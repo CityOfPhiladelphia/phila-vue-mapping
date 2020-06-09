@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     createLeafletElement() {
+      console.log('Circle.vue createLeafletElement is running');
       return new Circle(this.latlng, this.size, {
         color: this.color,
         weight: this.weight,

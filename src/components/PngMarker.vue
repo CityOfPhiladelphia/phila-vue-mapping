@@ -15,22 +15,28 @@ export default {
   ],
   watch: {
     rotationAngle(nextRotationAngle) {
-      if (this.$leafletElement._map) {
-        console.log('pngMarker orientation changed', nextRotationAngle);
-        this.$leafletElement._map.removeLayer(this.$leafletElement);
-      }
-      const leafletElement = this.$leafletElement = this.createLeafletElement();
-      const map = this.$store.state.map.map;
+      if (this.latlng) {
+        if (this.$leafletElement) {
+          if (this.$leafletElement._map) {
+            console.log('pngMarker orientation changed', nextRotationAngle);
+            this.$leafletElement._map.removeLayer(this.$leafletElement);
+          }
+        }
+        const leafletElement = this.$leafletElement = this.createLeafletElement();
+        const map = this.$store.state.map.map;
 
-      // REVIEW kind of hacky/not reactive?
-      if (map) {
-        leafletElement.addTo(map);
+        // REVIEW kind of hacky/not reactive?
+        if (map) {
+          leafletElement.addTo(map);
+        }
       }
     },
     latlng(nextLatLng) {
       // console.log('pngMarker orientation changed', nextRotationAngle);
-      if (this.$leafletElement._map) {
-        this.$leafletElement._map.removeLayer(this.$leafletElement);
+      if (this.$leafletElement) {
+        if (this.$leafletElement._map) {
+          this.$leafletElement._map.removeLayer(this.$leafletElement);
+        }
       }
       const leafletElement = this.$leafletElement = this.createLeafletElement();
       const map = this.$store.state.map.map;
@@ -110,13 +116,15 @@ export default {
       },
     });
 
-    const leafletElement = this.$leafletElement = this.createLeafletElement();
-    const map = this.$store.state.map.map;
+    if (this.latlng) {
+      const leafletElement = this.$leafletElement = this.createLeafletElement();
+      const map = this.$store.state.map.map;
 
-    // REVIEW kind of hacky/not reactive?
-    if (map) {
-      leafletElement.addTo(map);
-      // console.log('leafletElement:', leafletElement);
+      // REVIEW kind of hacky/not reactive?
+      if (map) {
+        leafletElement.addTo(map);
+        // console.log('leafletElement:', leafletElement);
+      }
     }
   },
   destroyed() {

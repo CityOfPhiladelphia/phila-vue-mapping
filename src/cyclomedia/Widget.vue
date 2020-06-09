@@ -132,7 +132,7 @@ export default {
   },
   watch: {
     fullScreenMapEnabled() {
-      // this.setDivWidth();
+      this.setDivWidth();
     },
     locForCyclo(newCoords) {
       // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
@@ -186,11 +186,11 @@ export default {
           console.log('Api: init: failed. Error: ', err);
         },
       );
-      // window.addEventListener('resize', this.setDivWidth);
+      window.addEventListener('resize', this.setDivWidth);
     },
     cyclomediaActive(newActiveStatus) {
       // console.log('cyclomediaActive watch is firing');
-      // this.setDivWidth();
+      this.setDivWidth();
       if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
         this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
       }
@@ -209,13 +209,14 @@ export default {
         window.panoramaViewer.rotateRight(0.0000001);
       }
     }
-    // this.setDivWidth();
+    this.setDivWidth();
   },
   methods: {
     setDivWidth() {
+      console.log('Cyclomedia Widget setDivWidth is running');
       const docWidth = document.body.clientWidth;
       this.docWidth = docWidth;
-      const el = document.getElementById('cyclo-container');
+      const el = document.getElementById('cyclomedia-container');
       const divStyle = window.getComputedStyle(el);
       const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
       this.divWidth = divWidth;
@@ -340,7 +341,7 @@ export default {
   position: absolute;
 } */
 
-#cyclo-container {
+#cyclomedia-container {
   padding: 0px;
 }
 
@@ -377,7 +378,7 @@ export default {
   /* position: absolute; */
   position: absolute;
   /* top: 0px; */
-  right: 0px;
+  right: 40px;
   /* float: right; */
   background-color: white;
   border: 0px solid;

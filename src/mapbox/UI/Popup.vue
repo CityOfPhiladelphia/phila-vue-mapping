@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import withEvents from "../../lib/withEvents";
+import withEvents from "../lib/withEvents";
 import withSelfEvents from "./withSelfEvents";
 
 const popupEvents = {
@@ -113,18 +113,22 @@ export default {
   computed: {
     open: {
       get() {
+        // console.log('Popup.vue computed open GET is running, this.popup:', this.popup, 'this.popup.isOpen():', this.popup.isOpen());
         if (this.popup !== undefined) {
           return this.popup.isOpen();
         }
         return false;
       },
       set(value) {
+        // console.log('Popup.vue computed open SET is running, this.popup:', this.popup, 'this.popup.isOpen():', this.popup.isOpen(), 'this.value:', this.value);
         if (this.map && this.popup) {
+
           if (!value) {
             this.popup.remove();
           } else {
             this.popup.addTo(this.map);
           }
+
         }
       },
     },
@@ -139,9 +143,11 @@ export default {
     },
 
     showed(next, prev) {
+      // console.log('Popup.vue watch showed is firing, next:', next);
       if (next !== prev) {
         this.open = next;
         if (this.marker) {
+          // console.log('Popup.vue watch showed, if this.marker is true, this.marker.togglePopup():', this.marker.togglePopup);
           this.marker.togglePopup();
         }
       }
@@ -150,9 +156,12 @@ export default {
 
   created() {
     this.popup = new this.mapbox.Popup(this.$props);
+    // console.log('Popup.vue created is running, this.popup:', this.popup);
+    // this.marker.togglePopup();
   },
 
   mounted() {
+    // console.log('popup mounted');
     this.$_addPopup();
     this.initial = false;
   },
@@ -189,13 +198,16 @@ export default {
       this.$_emitEvent("added", { popup: this.popup });
 
       if (this.marker) {
+        // console.log('Popup.vue, there is a this.marker:', this.marker);
         this.marker.setPopup(this.popup);
       }
       if (this.showed) {
-        this.open = true;
+        // console.log('Popup.vue $_addPopup is running and if this.showed is true, this.popup.isOpen():', this.popup.isOpen());
 
         if (this.marker) {
+
           this.marker.togglePopup();
+          // console.log('there is a marker, this.popup.isOpen():', this.popup.isOpen());
         }
       }
     },
@@ -205,6 +217,7 @@ export default {
     },
 
     remove() {
+      // console.log('Popup.vue remove is running');
       this.popup.remove();
       this.$_emitEvent("remove", { popup: this.popup });
     },
