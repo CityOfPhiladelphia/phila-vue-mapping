@@ -58,6 +58,9 @@ export default {
     opacity: {
       type: Number,
     },
+    fillOpacity: {
+      type: Number,
+    },
     weight: {
       type: Number,
     },
@@ -76,6 +79,21 @@ export default {
       type: String,
       default: null,
     },
+    data: {
+      type: Object,
+      default: function() {
+        return {
+          featureId: null,
+          tableId: null,
+        };
+        // featureId: {
+        //   type: String,
+        // },
+        // tableId: {
+        //   String,
+        // },
+      },
+    },
     // selected: {
     //   type: Boolean,
     //   default: false,
@@ -88,18 +106,31 @@ export default {
       marker: undefined,
     };
   },
-
+  computed: {
+    featureId() {
+      return this.$props.data.featureId;
+    },
+  },
   watch: {
-    coordinates(lngLat) {
+    featureId() {
+      console.log('CircleMarker.vue watch featureId is firing');
       if (this.initial) {
         return;
       }
-      // this.marker.setLngLat(lngLat);
       if (this.map !== undefined && this.marker !== undefined) {
         this.marker.remove();
       }
       this.createCircleMarker();
-
+    },
+    fillColor() {
+      console.log('CircleMarker.vue watch markerId is firing');
+      if (this.initial) {
+        return;
+      }
+      if (this.map !== undefined && this.marker !== undefined) {
+        this.marker.remove();
+      }
+      this.createCircleMarker();
     },
     draggable(next) {
       if (this.initial) {
@@ -108,18 +139,15 @@ export default {
       this.marker.setDraggable(next);
     },
   },
-
   mounted() {
-
     this.createCircleMarker();
   },
-
   beforeDestroy() {
+    // console.log('CircleMarker.vue beforeDestroy() is running');
     if (this.map !== undefined && this.marker !== undefined) {
       this.marker.remove();
     }
   },
-
   methods: {
     createCircleMarker() {
       const markerOptions = {
@@ -137,6 +165,7 @@ export default {
       el.style.color = markerOptions.color;
       el.style['background-color'] = markerOptions.fillColor;
       el.style['border-width'] = markerOptions.weight;
+      el.style['opacity'] = markerOptions.opacity;
       el.style.height = markerOptions.size + 'px';
       el.style.width = markerOptions.size + 'px';
 

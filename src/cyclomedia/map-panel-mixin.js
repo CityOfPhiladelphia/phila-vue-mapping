@@ -37,6 +37,7 @@ export default {
       // viewer.openByCoordinate([latlng.lng, latlng.lat]);
     },
     updateCyclomediaRecordings() {
+      console.log('updateCyclomediaRecordings is running');
       const map = this.$store.state.map.map;
       const zoom = map.getZoom();
       // console.log('updateCyclomediaRecordings is running, zoom:', zoom);
