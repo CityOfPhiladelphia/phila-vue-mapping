@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.5 - 6/9/2020
+
+* improvements in mapbox files for basemaps, circlemarkers, etc.
+
 ### 2.1.4 - 5/27/2020
 
 * upgrades packages
