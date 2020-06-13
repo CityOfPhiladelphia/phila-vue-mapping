@@ -222,6 +222,7 @@ const pvmStore = {
       state.pictometry.zoom = payload;
     },
     setMap(state, payload) {
+      console.log('store.js setMap running, payload:', payload);
       state.map.map = payload.map;
     },
     setBasemap(state, payload) {
