@@ -43,23 +43,24 @@ export default {
     },
 
     $_loadMap() {
-      console.log('$_loadMap is running');
+      // console.log('$_loadMap is running');
       return this.mapboxPromise.then(mapbox => {
-        console.log('inside $_loadMap then');
+        // console.log('inside $_loadMap then');
         this.mapbox = mapbox.default ? mapbox.default : mapbox;
         return new Promise(resolve => {
           if (this.accessToken) {
             this.mapbox.accessToken = this.accessToken;
           }
-          console.log('inside $_loadMap, about to create map, this.$refs.container:', this.$refs.container);
+          // console.log('inside $_loadMap, about to create map, this.$refs.container:', this.$refs.container);
           const map = new this.mapbox.Map({
             ...this._props,
             container: this.$refs.container,
             style: this.mapStyle,
           });
-          console.log('inside $_loadMap, map:', map);
+          // console.log('inside $_loadMap, map:', map);
+          this.$emit("preload", { map, component: this });
           map.on("load", function() {
-            console.log('inside map.on("load")');
+            // console.log('inside map.on("load")');
             resolve(map);
           });
         });

@@ -59,7 +59,6 @@ export default {
       initialized: false,
     };
   },
-
   computed: {
     cyclomediaActive() {
       let value;
@@ -105,12 +104,14 @@ export default {
       return value;
     },
     loaded() {
+      // console.log('computed loaded, this.map:', this.map);
       return this.map ? this.map.loaded() : false;
     },
     version() {
       return this.map ? this.map.version : null;
     },
     isStyleLoaded() {
+      // console.log('computed isStyleLoaded, this.map:', this.map);
       return this.map ? this.map.isStyleLoaded() : false;
     },
     areTilesLoaded() {
@@ -136,14 +137,14 @@ export default {
     this.mapboxPromise = this.mapboxGl
       ? Promise.resolve(this.mapboxGl)
       : import("mapbox-gl");
-    console.log('end of GlMap.vue created');
+    // console.log('end of GlMap.vue created');
   },
 
   mounted() {
     // this.$props.accessToken = process.env.VUE_APP_MAPBOX_ACCESSTOKEN;
     console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
-      console.log('inside $_loadMap then, map:', map);
+      // console.log('inside $_loadMap then, map:', map);
       this.map = map;
       // this.$store.commit('setMap', map);
       if (this.RTLTextPluginUrl !== undefined) {

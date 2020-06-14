@@ -113,7 +113,7 @@ export default {
   },
   watch: {
     featureId() {
-      console.log('CircleMarker.vue watch featureId is firing');
+      // console.log('CircleMarker.vue watch featureId is firing');
       if (this.initial) {
         return;
       }
@@ -123,7 +123,7 @@ export default {
       this.createCircleMarker();
     },
     fillColor() {
-      console.log('CircleMarker.vue watch markerId is firing');
+      // console.log('CircleMarker.vue watch markerId is firing');
       if (this.initial) {
         return;
       }
@@ -153,7 +153,7 @@ export default {
       const markerOptions = {
         ...this.$props,
       };
-      console.log('CircleMarker.vue createCircleMaker is running'); //, markerOptions:', markerOptions);
+      // console.log('CircleMarker.vue createCircleMaker is running'); //, markerOptions:', markerOptions);
 
       var el = document.createElement('div');
 
