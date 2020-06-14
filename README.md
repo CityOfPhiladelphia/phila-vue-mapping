@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.6 - 6/14/2020
+
+* improvements in mapbox files for making vue work better, adding more diverse mapbox styles.
+
 ### 2.1.5 - 6/9/2020
 
 * improvements in mapbox files for basemaps, circlemarkers, etc.
