@@ -59,13 +59,20 @@ export default {
       initialized: false,
     };
   },
-
   computed: {
     cyclomediaActive() {
-      return this.$store.state.cyclomedia.active;
+      let value;
+      if (this.$store.state.cyclomedia) {
+        value = this.$store.state.cyclomedia.active;
+      }
+      return value;
     },
     pictometryActive() {
-      return this.$store.state.pictometry.active;
+      let value;
+      if (this.$store.state.pictometry) {
+        value = this.$store.state.pictometry.active;
+      }
+      return value;
     },
     picOrCycloActive() {
       if (this.cyclomediaActive || this.pictometryActive) {
@@ -75,32 +82,36 @@ export default {
     },
     mapContainerClass() {
       let value;
-      if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
-        if (this.$config.map.containerClassWCyclo) {
-          value = this.$config.map.containerClassWCyclo;
+      if (this.$config) {
+        if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
+          if (this.$config.map.containerClassWCyclo) {
+            value = this.$config.map.containerClassWCyclo;
+          } else {
+            value = 'height50';
+          }
+        } else if (this.picOrCycloActive) {
+          if (this.$config.map.containerClassWCyclo) {
+            value = this.$config.map.containerClassWCyclo;
+          } else {
+            value = 'height50';
+          }
+        } else if (this.$config.map.containerClass) {
+          value = this.$config.map.containerClass;
         } else {
-          value = 'height50';
+          value = 'map-container';
         }
-      } else if (this.picOrCycloActive) {
-        if (this.$config.map.containerClassWCyclo) {
-          value = this.$config.map.containerClassWCyclo;
-        } else {
-          value = 'height50';
-        }
-      } else if (this.$config.map.containerClass) {
-        value = this.$config.map.containerClass;
-      } else {
-        value = 'map-container';
       }
       return value;
     },
     loaded() {
+      // console.log('computed loaded, this.map:', this.map);
       return this.map ? this.map.loaded() : false;
     },
     version() {
       return this.map ? this.map.version : null;
     },
     isStyleLoaded() {
+      // console.log('computed isStyleLoaded, this.map:', this.map);
       return this.map ? this.map.isStyleLoaded() : false;
     },
     areTilesLoaded() {
@@ -126,12 +137,14 @@ export default {
     this.mapboxPromise = this.mapboxGl
       ? Promise.resolve(this.mapboxGl)
       : import("mapbox-gl");
+    // console.log('end of GlMap.vue created');
   },
 
   mounted() {
+    // this.$props.accessToken = process.env.VUE_APP_MAPBOX_ACCESSTOKEN;
     console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
-      console.log('inside $_loadMap, map:', map);
+      // console.log('inside $_loadMap then, map:', map);
       this.map = map;
       // this.$store.commit('setMap', map);
       if (this.RTLTextPluginUrl !== undefined) {

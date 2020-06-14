@@ -82,7 +82,7 @@ export default {
     // }
   },
   mounted() {
-    console.log('LegendControlNoTopic, this.$props.options:', this.$props.options);
+    // console.log('LegendControlNoTopic, this.$props.options:', this.$props.options);
   },
   // methods: Object.assign(methods),
 };
@@ -98,6 +98,7 @@ export default {
   bottom: 0;
   left: 0;
   padding: 10px;
+  /* margin-bottom: 24px; */
 }
 
 .legend-overlay .legend-overlay-inner {
@@ -128,49 +129,5 @@ export default {
   margin: 0;
   cursor: ew-resize;
 }
-
-/* .legend {
-  display: inline-block;
-  padding: 6px 8px;
-  font: 14px/16px Arial, Helvetica, sans-serif;
-  background: white;
-  background: rgba(255,255,255,1);
-  box-shadow: 0 0 15px rgba(0,0,0,0.2);
-  border-radius: 5px;
-  line-height: 18px;
-  color: #555;
-}
-
-.legend-box {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  opacity: 1;
-  vertical-align: middle;
-  margin-right: 4px;
-}
-
-.legend-circle {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  opacity: 1;
-  vertical-align: middle;
-  margin-right: 4px;
-  border-radius: 50%;
-}
-
-.list-text {
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.legend-list {
-  list-style: none;
-  padding-top: 2px;
-  padding-left: 2px;
-  margin-left: 0px;
-  margin-bottom: 0;
-} */
 
 </style>
