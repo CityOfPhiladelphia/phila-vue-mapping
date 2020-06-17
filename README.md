@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.8 - 6/17/2020
+
+* fixes bug with font awesome marker placement in mapbox map
+
 ### 2.1.7 - 6/16/2020
 
 * adds FontAwesomeMarker.vue to mapbox section

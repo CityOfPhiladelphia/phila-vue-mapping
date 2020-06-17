@@ -238,16 +238,6 @@ export default {
 
 <style>
 
-/* .mapboxgl-marker { */
-.markertest {
-  icon-image: url('https://mapboard-images.s3.amazonaws.com/camera.png');
-  background-size: cover;
-  width: 30px;
-  height: 21.5px;
-  /* border-radius: 20%; */
-  cursor: pointer;
-}
-
 .circle-div {
   /* width: 14px;
   height: 14px; */

@@ -76,14 +76,8 @@ export default {
   },
 
   watch: {
-    // coordinates(lngLat) {
-    //   if (this.initial) {
-    //     return;
-    //   }
-    //   this.marker.setLngLat(lngLat);
-    // },
     featureId() {
-      // console.log('CircleMarker.vue watch featureId is firing');
+      // console.log('FontAwesomeMarker.vue watch featureId is firing');
       if (this.initial) {
         return;
       }
@@ -93,7 +87,7 @@ export default {
       this.createFontAwesomeMarker();
     },
     icon() {
-      // console.log('CircleMarker.vue watch markerId is firing');
+      // console.log('FontAwesomeMarker.vue watch markerId is firing');
       if (this.initial) {
         return;
       }
@@ -144,7 +138,7 @@ export default {
 
       holderDiv.appendChild(faIcon);
 
-      this.marker = new this.mapbox.Marker(holderDiv);
+      this.marker = new this.mapbox.Marker(holderDiv, markerOptions);
 
       if (this.$listeners["update:coordinates"]) {
         this.marker.on("dragend", event => {
@@ -207,17 +201,6 @@ export default {
 .marker-icon {
   /* color: blue; */
 }
-
-/* .mapboxgl-marker { */
-.markertest {
-  background-image: url('https://mapboard-images.s3.amazonaws.com/camera.png');
-  background-size: cover;
-  width: 30px;
-  height: 21.5px;
-  opacity: 1;
-  cursor: pointer;
-}
-/* border-radius: 20%; */
 
 .test-div {
   width: 14px;

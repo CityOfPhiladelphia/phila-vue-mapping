@@ -197,7 +197,7 @@ export default {
     },
   },
   mounted() {
-    console.log('cyclomedia widget mounted');
+    // console.log('cyclomedia widget mounted');
     this.$emit('cyclomedia-widget-mounted');
   },
   updated() {
@@ -213,7 +213,7 @@ export default {
   },
   methods: {
     setDivWidth() {
-      console.log('Cyclomedia Widget setDivWidth is running');
+      // console.log('Cyclomedia Widget setDivWidth is running');
       const docWidth = document.body.clientWidth;
       this.docWidth = docWidth;
       const el = document.getElementById('cyclomedia-container');
