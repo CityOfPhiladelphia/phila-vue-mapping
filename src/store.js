@@ -26,6 +26,7 @@ const initialState = {
   // the leaflet map object
   map: {
     type: 'leaflet',
+    vectorLayerMouseover: null,
     location: {
       lat: null,
       lng: null,
@@ -95,6 +96,9 @@ const initialState = {
 const pvmStore = {
   state: initialState,
   mutations: {
+    setVectorLayerMouseover(state, payload) {
+      state.map.vectorLayerMouseover = payload;
+    },
     setMapType(state, payload) {
       state.map.type = payload;
     },
