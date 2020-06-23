@@ -6,6 +6,7 @@ export default {
   mixins: [ mixin ],
 
   created() {
+    console.log('RasterLayer created is running');
     this.$_deferredMount();
   },
 

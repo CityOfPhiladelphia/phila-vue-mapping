@@ -21,7 +21,7 @@ export default {
 
     },
     handleCyclomediaRecordingClick(e) {
-      console.log('handleCyclomediaRecordingClick is running, e:', e);
+      // console.log('handleCyclomediaRecordingClick is running, e:', e);
       let latlng;
       if (e.latlng) {
         latlng = e.latlng;
@@ -31,13 +31,13 @@ export default {
           lng: e.marker._lngLat.lng,
         };
       }
-      console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
+      // console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
       this.$store.commit('setCyclomediaLatLngFromMap', latlng);
       // const viewer = this.$store.state.cyclomedia.viewer;
       // viewer.openByCoordinate([latlng.lng, latlng.lat]);
     },
     updateCyclomediaRecordings() {
-      console.log('updateCyclomediaRecordings is running');
+      // console.log('updateCyclomediaRecordings is running');
       const map = this.$store.map;
       const zoom = map.getZoom();
       // console.log('updateCyclomediaRecordings is running, zoom:', zoom);
