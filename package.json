@@ -30,6 +30,7 @@
     "leaflet-measure": "https://github.com/CityOfPhiladelphia/leaflet-measure#1dd982b2f9c78be2af5f497d9415e66cd3df6216",
     "leaflet-omnivore": "https://github.com/CityOfPhiladelphia/leaflet-omnivore#f072195b03f7930690d9cbccb9375f0eda50fd41",
     "leaflet-rotatedmarker": "^0.2.0",
+    "leaflet-shape-markers": "^1.0.6",
     "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5",
     "lodash-es": "^4.17.14",
     "map-promisified": "^0.4.0",

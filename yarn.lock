@@ -6652,7 +6652,7 @@ leaflet-rotatedmarker@^0.2.0:
   resolved "https://registry.yarnpkg.com/leaflet-rotatedmarker/-/leaflet-rotatedmarker-0.2.0.tgz#4467f49f98d1bfd56959bd9c6705203dd2601277"
   integrity sha1-RGf0n5jRv9VpWb2cZwUgPdJgEnc=
 
-leaflet-shape-markers@^1.0.4:
+leaflet-shape-markers@^1.0.4, leaflet-shape-markers@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/leaflet-shape-markers/-/leaflet-shape-markers-1.0.6.tgz#d54056a4e533828120107a71a237b1efc1a07649"
   integrity sha1-1UBWpOUzgoEgEHpxojex78Ggdkk=
