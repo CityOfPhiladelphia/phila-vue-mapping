@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.9 - 6/23/2020
+
+* adds dependency leaflet-shape-markers
+
 ### 2.1.8 - 6/17/2020
 
 * fixes bug with font awesome marker placement in mapbox map
