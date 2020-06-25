@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.11 - 6/25/2020
+
+* fixes yarn lock for release
+
 ### 2.1.10 - 6/25/2020
 
 * fixes circlemarkers size in pinboard
