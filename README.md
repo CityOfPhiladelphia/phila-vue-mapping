@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.10 - 6/25/2020
+
+* fixes circlemarkers size in pinboard
+
 ### 2.1.9 - 6/23/2020
 
 * adds dependency leaflet-shape-markers
