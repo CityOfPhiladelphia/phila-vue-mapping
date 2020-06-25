@@ -122,6 +122,15 @@ export default {
       }
       this.createCircleMarker();
     },
+    size() {
+      if (this.initial) {
+        return;
+      }
+      if (this.map !== undefined && this.marker !== undefined) {
+        this.marker.remove();
+      }
+      this.createCircleMarker();
+    },
     fillColor() {
       // console.log('CircleMarker.vue watch markerId is firing');
       if (this.initial) {

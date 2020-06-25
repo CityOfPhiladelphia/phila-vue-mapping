@@ -6,6 +6,7 @@ export default {
   mixins: [ mixin ],
 
   created() {
+    console.log('imageLayer created is running, this.source:', this.source, 'this.$store.map.getBounds():', this.$store.map.getBounds());
     if (this.source) {
       if (this.source.coordinates) {
         this.$watch(
