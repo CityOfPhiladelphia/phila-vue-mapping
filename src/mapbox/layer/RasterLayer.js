@@ -56,8 +56,20 @@ export default {
       };
 
       // console.log('RasterLayer.js end is running');
+      let before = this.before;
+      let beforeExists = this.map.getStyle().layers.filter(function(layer) {
+        console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
+        return layer.id === before;//[0].id;
+      });
 
-      this.map.addLayer(layer, this.before);
+      console.log('RasterLayer.js beforeExists:', beforeExists);
+
+      if (beforeExists.length) {
+        this.map.addLayer(layer, this.before);
+      } else {
+        this.map.addLayer(layer);
+      }
+
       this.$_emitEvent("added", { layerId: this.layerId });
     },
   },

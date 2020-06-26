@@ -169,7 +169,7 @@ export default {
     this.$IFRAME_ID = 'pictometry-ipa';
   },
   mounted() {
-    console.log('pictometry widget mounted');
+    // console.log('pictometry widget mounted');
     this.$emit('pictometry-widget-mounted');
     // fetch pictometry ipa script
     const scriptUrl = 'https://pol.pictometry.com/ipa/v1/embed/host.php' + '?apikey=' + this.$config.pictometry.apiKey;
@@ -205,7 +205,7 @@ export default {
       this.$store.commit('setPictometryActive', false);
     },
     init() {
-      console.log('Pict Widget init is running');
+      // console.log('Pict Widget init is running');
       // construct signed url
       const d = new Date();
       const t = Math.floor(d.getTime() / 1000);
