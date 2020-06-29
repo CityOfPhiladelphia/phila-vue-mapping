@@ -162,11 +162,12 @@ export default {
       const markerOptions = {
         ...this.$props,
       };
-      // console.log('CircleMarker.vue createCircleMaker is running'); //, markerOptions:', markerOptions);
+      // console.log('CircleMarker.vue createCircleMaker is running, markerOptions:', markerOptions);
 
       var el = document.createElement('div');
 
       el.addEventListener('click', function(e) {
+        // console.log('click');
         e.stopPropagation();
       });
 
@@ -177,6 +178,10 @@ export default {
       el.style['opacity'] = markerOptions.opacity;
       el.style.height = markerOptions.size + 'px';
       el.style.width = markerOptions.size + 'px';
+      if (markerOptions.data && markerOptions.data.featureId) {
+        el.setAttribute('feature', markerOptions.data.featureId);
+      }
+      // console.log('el:', el);
 
       if (this.$slots.marker) {
         markerOptions.element = this.$slots.marker[0].elm;
@@ -224,8 +229,11 @@ export default {
 
     $_bindMarkerDOMEvents() {
       Object.keys(this.$listeners).forEach(key => {
+        // console.log('$_bindMarkerDOMEvents is running, key:', key);
         if (Object.values(markerDOMEvents).includes(key)) {
+          // console.log('if includes key is running:', key);
           this.marker._element.addEventListener(key, event => {
+
             this.$_emitSelfEvent(event);
           });
         }
