@@ -12,7 +12,18 @@ const watchers = {
     this.map.setStyle(next);
   },
   // TODO: make 'bounds' synced prop
-  // bounds (next) { this.map.fitBounds(next, { linear: true, duration: 0 }) },
+
+  bounds(next) {
+    // this.map.fitBounds(next, { linear: true, duration: 2, padding: 50 });
+    console.log('watch bounds is running, next:', next);
+    if (this.$props.activeTopicConfig) {
+      if (this.$props.activeTopicConfig.zoomToShape) {
+        // console.log('watch center, this.$props.activeTopicConfig:', activeTopicConfig);
+        this.map.fitBounds(next, { padding: 100 });
+      }
+    }
+  },
+
   collisionBoxes(next) {
     this.map.showCollisionBoxes = next;
   },
@@ -26,7 +37,15 @@ const watchers = {
     this.map.setZoom(next);
   },
   center(next) {
-    this.map.setCenter(next);
+    console.log('watch center is running');
+    if (this.$props.activeTopicConfig) {
+      if (!this.$props.activeTopicConfig.zoomToShape) {
+        // console.log('watch center, this.$props.activeTopicConfig:', activeTopicConfig);
+        this.map.setCenter(next);
+      }
+    } else {
+      this.map.setCenter(next);
+    }
   },
   bearing(next) {
     this.map.setBearing(next);

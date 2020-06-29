@@ -31,6 +31,10 @@ export default {
       type: Object,
       default: null,
     },
+    activeTopicConfig: {
+      type: Object,
+      default: null,
+    },
     ...options,
   },
 
@@ -60,6 +64,9 @@ export default {
     };
   },
   computed: {
+    mapBounds() {
+      return this.$store.state.map.bounds;
+    },
     cyclomediaActive() {
       let value;
       if (this.$store.state.cyclomedia) {
@@ -145,7 +152,7 @@ export default {
     // this.$props.accessToken = process.env.VUE_APP_MAPBOX_ACCESSTOKEN;
     console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
-      // console.log('inside $_loadMap then, map:', map);
+      console.log('inside $_loadMap then, map:', map, 'map.getBounds():', map.getBounds());
       this.map = map;
       // this.$store.commit('setMap', map);
       if (this.RTLTextPluginUrl !== undefined) {
