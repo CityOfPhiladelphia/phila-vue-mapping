@@ -10,6 +10,10 @@
       ref="container"
     />
     <slot v-if="initialized" />
+    <div
+      id="distance"
+      class="distance-container"
+    />
   </div>
 </template>
 

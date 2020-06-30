@@ -9,10 +9,10 @@ export default {
     const mapboxElement = this.$mapboxElement = this.createMapboxElement();
     const map = this.$store.state.map.map;
   },
-  destroyed() {
-    // console.log('EsriTiledMapLayer destroyed is running');
-    this.$mapboxElement._map.removeLayer(this.$mapboxElement);
-  },
+  // destroyed() {
+  //   // console.log('EsriTiledMapLayer destroyed is running');
+  //   this.$mapboxElement._map.removeLayer(this.$mapboxElement);
+  // },
   methods: {
     createMapboxElement() {
       let layer = {
@@ -23,7 +23,8 @@ export default {
       return layer;
     },
     parentMounted(parent) {
-      const map = parent.$mapboxElement;
+      // const map = parent.$mapboxElement;
+      const map = this.$store.map;
       console.log('MbMeasureTool.vue parentMounted is running, parent:', parent, 'map:', map);
 
       var distanceContainer = document.getElementById('distance');

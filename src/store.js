@@ -19,6 +19,7 @@ const initialState = {
   shouldShowAddressCandidateList: false,
   drawStart: null,
   drawShape: null,
+  draw: null,
   bufferMode: false,
   editableLayers: null,
   bufferShape: null,
@@ -114,6 +115,9 @@ const pvmStore = {
     setBufferMode(state, payload) {
       // console.log('setBufferMode is running, payload:', payload);
       state.bufferMode = payload;
+    },
+    setDraw(state, payload) {
+      state.draw = payload;
     },
     setDrawStart(state, payload) {
       state.drawStart = payload;
