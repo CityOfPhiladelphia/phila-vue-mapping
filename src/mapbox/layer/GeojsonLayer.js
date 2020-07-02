@@ -87,7 +87,7 @@ export default {
   },
 
   created() {
-    console.log('GeojsonLayer.js created is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
+    console.log('GeojsonLayer.js created is running, this.sourceId:', this.sourceId, 'this.source:', this.source, 'this.$store.map:', this.$store.map);
     if (this.source) {
       this.$watch(
         "source.data",
@@ -95,7 +95,13 @@ export default {
           if (this.initial) {
             return;
           }
-          this.mapSource.setData(next);
+          console.log('GeojsonLayer watch source.data is firing, next:', next);
+          // this.mapSource.setData(next);
+          let test = this.$store.map.getSource(this.$props.sourceId);//.setData(next);
+          console.log('GeojsonLayer watch source2, this.$store.map:', this.$store.map, 'test:', test);
+          test.setData(next);
+          console.log('GeojsonLayer watch source3, this.$store.map:', this.$store.map, 'test:', test);
+          // this.$store.map.update();
         },
         { deep: true },
       );
@@ -105,7 +111,7 @@ export default {
 
   methods: {
     $_deferredMount() {
-      // console.log('GeojsonLayer.js $_deferredMount is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
+      console.log('GeojsonLayer.js $_deferredMount is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
       // this.map = payload.map;
       this.map.on("dataloading", this.$_watchSourceLoading);
       if (this.source) {
@@ -114,7 +120,7 @@ export default {
           ...this.source,
         };
         try {
-          console.log('try map.addSource is starting');
+          // console.log('try map.addSource is starting');
           if (this.$props.layer.layout['icon-image']) {
             this.map.loadImage(
               this.$attrs.icon,
@@ -158,7 +164,7 @@ export default {
         source: this.sourceId,
         ...this.layer,
       };
-      console.log('$_addLayer is still running, layer:', layer);
+      // console.log('$_addLayer is still running, layer:', layer);
       this.map.addLayer(layer, this.before);
       // console.log('$_addLayer after map.addLayer');
       this.$_emitEvent("added", { layerId: this.layerId });

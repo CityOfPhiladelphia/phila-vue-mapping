@@ -20,6 +20,7 @@ const initialState = {
   drawStart: null,
   drawShape: null,
   draw: null,
+  drawDistances: [],
   bufferMode: false,
   editableLayers: null,
   bufferShape: null,
@@ -124,6 +125,9 @@ const pvmStore = {
     },
     setDrawShape(state, payload) {
       state.drawShape = payload;
+    },
+    setDrawDistances(state, payload) {
+      state.drawDistances = payload;
     },
     setEditableLayers(state, payload) {
       state.editableLayers = payload;

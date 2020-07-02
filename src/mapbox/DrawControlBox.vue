@@ -4,6 +4,22 @@
     id="calculated-area"
     class="calculated-area"
   >
+    <table>
+      <tr>
+        <th>lat</th>
+        <th>lng</th>
+        <th>distance</th>
+      </tr>
+      <tr
+        v-for="(entry, index) of drawDistances"
+        :key="index"
+      >
+      <!-- <tr> -->
+        <td>{{ entry.firstPoint[1] }}</td>
+        <td>{{ entry.firstPoint[0] }}</td>
+        <td>{{ entry.distance }}</td>
+      </tr>
+    </table>
   </div>
 
 </template>
@@ -18,36 +34,9 @@ export default {
     'items',
   ],
   computed: {
-    keys() {
-      return Object.keys(this.$props.items);
+    drawDistances() {
+      return this.$store.state.drawDistances;
     },
-    shape() {
-      return this.$props.options.shape;
-    },
-    // activeTopic() {
-    //   return this.$store.state.activeTopic;
-    // },
-    shouldShowBasemapSelectControl() {
-      return this.$store.state.map.shouldShowBasemapSelectControl;
-    },
-    shouldShowLegend() {
-      let result = true;
-      // if (!this.$props.options.topics.includes(this.activeTopic)) {
-      //   result = false;
-      // }
-      if (this.$props.options.showWithBaseMapOnly) {
-        if (this.shouldShowBasemapSelectControl) {
-          result = false;
-        }
-      }
-      return result;
-    },
-    // style() {
-    //   // const string = "background: " + this.$props.items[key].background + " color: " + this.$props.items[key].color
-    //   const string = this.$props.items[]
-    //   console.log('style string', string);
-    //   return string
-    // }
   },
   mounted() {
     // console.log('LegendControlNoTopic, this.$props.options:', this.$props.options);

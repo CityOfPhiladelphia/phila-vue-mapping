@@ -6,7 +6,7 @@ export default {
   mixins: [ mixin ],
 
   created() {
-    console.log('RasterLayer created is running');
+    // console.log('RasterLayer created is running');
     this.$_deferredMount();
   },
 
@@ -37,7 +37,7 @@ export default {
 
     $_addLayer() {
       let existed = this.map.getLayer(this.layerId);
-      console.log('RasterLayer.js $_addLayer is running, this:', this, 'this.layerId:', this.layerId, 'this.before:', this.before, 'this.map:', this.map, 'existed:', existed);
+      // console.log('RasterLayer.js $_addLayer is running, this:', this, 'this.layerId:', this.layerId, 'this.before:', this.before, 'this.map:', this.map, 'existed:', existed);
       if (existed) {
         if (this.replace) {
           // console.log('RasterLayer.js if if replace is running')
@@ -58,11 +58,11 @@ export default {
       // console.log('RasterLayer.js end is running');
       let before = this.before;
       let beforeExists = this.map.getStyle().layers.filter(function(layer) {
-        console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
+        // console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
         return layer.id === before;//[0].id;
       });
 
-      console.log('RasterLayer.js beforeExists:', beforeExists);
+      // console.log('RasterLayer.js beforeExists:', beforeExists);
 
       if (beforeExists.length) {
         this.map.addLayer(layer, this.before);
