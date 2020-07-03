@@ -1,8 +1,7 @@
 <template>
   <div>
-    <!-- id="calculated-area" -->
-    <!-- v-if= -->
     <div
+      v-if="shouldShowDistanceBox"
       class="calculated-area"
     >
       <table>
@@ -12,7 +11,7 @@
           <th>distance</th>
         </tr>
         <tr
-          v-for="(entry, index) of distances"
+          v-for="(entry, index) of currentDistances"
           :key="index"
         >
           <td>{{ entry.firstPoint[1] }}</td>
@@ -43,16 +42,53 @@ export default {
       type: String,
       default: 'bottom-left',
     },
-    distances: {
+    labelLayers: {
       type: Array,
-      // default: function() {
-      //   return [],
-      // },
+    },
+    currentShape: {
+      type: String,
+      default: null,
     },
   },
+  data() {
+    const data = {
+      mode: 'simple_select',
+      selected: null,
+    };
+    return data;
+  },
   computed: {
-    drawDistances() {
-      return this.$store.state.drawDistances;
+    currentOrSelectedShape() {
+      let id;
+      if (this.$data.selected) {
+        id = this.$data.selected;
+      } else if (this.$props.currentShape) {
+        id = this.$props.currentShape;
+      }
+      return id;
+    },
+    currentDistances() {
+      let shape = this.$props.labelLayers.filter(layer => layer.id = this.currentOrSelectedShape);
+      let set;
+      if (shape[0]) {
+        set = shape[0].distances;
+      }
+      return set;
+    },
+    // drawDistances() {
+    //   return this.$store.state.drawDistances;
+    // },
+    shouldShowDistanceBox() {
+      let booleanMode = this.$data.mode !== 'simple_select';
+      let booleanSelected = this.$data.selected !== null;
+      let booleanTotal;
+      if (booleanMode || booleanSelected) {
+        booleanTotal = true;
+      } else {
+        booleanTotal = false;
+      }
+      console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanTotal:', booleanTotal);
+      return booleanTotal;
     },
   },
   created() {
@@ -68,13 +104,27 @@ export default {
 
     map.addControl(draw, this.$props.position);
 
-    map.on('draw.selectionchange', e => this.$emit('drawSelectionChange', e));
-    map.on('draw.modechange', e => this.$emit('drawModeChange', e));
     map.on('draw.create', e => this.$emit('drawCreate', e));
     map.on('draw.delete', e => this.$emit('drawDelete', e));
     map.on('draw.update', e => this.$emit('drawUpdate', e));
     map.on('draw.actionable', e => this.$emit('drawActionable', e));
-    // map.on('draw.render', e => this.$emit('drawRender', e));
+
+    let $this = this;
+    map.on('draw.selectionchange', function(e){
+      console.log('draw.selectionchange, e:', e, 'e.features[0]:', e.features[0]);
+      if (e.features[0]) {
+        $this.$data.selected = e.features[0].id;
+      } else {
+        $this.$data.selected = null;
+      }
+      $this.$emit('drawSelectionChange', e);
+    });
+
+    map.on('draw.modechange', function(e){
+      // console.log('draw.modechange, e:', e);
+      $this.$data.mode = e.mode;
+      $this.$emit('drawModeChange', e);
+    });
   },
 
 };
