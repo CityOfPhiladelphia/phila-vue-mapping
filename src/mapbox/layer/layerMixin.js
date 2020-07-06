@@ -97,8 +97,16 @@ export default {
             return;
           }
           if (next) {
+            console.log('layerMixin.js, in watch layer.paint, next:', next, 'this.layerId:', this.layerId, 'this.$store.map.getStyle().layers:', this.$store.map.getStyle().layers);
+            let ids = [];
+            for (let layer of this.$store.map.getStyle().layers) {
+              ids.push(layer.id);
+            }
             for (let prop of Object.keys(next)) {
-              this.map.setPaintProperty(this.layerId, prop, next[prop]);
+              console.log('in loop, prop:', prop, 'ids:', ids, 'this.layerId:', this.layerId);
+              if (ids.includes(this.layerId)) {
+                this.map.setPaintProperty(this.layerId, prop, next[prop]);
+              }
             }
           }
         },
@@ -114,8 +122,14 @@ export default {
             return;
           }
           if (next) {
+            let ids = [];
+            for (let layer of this.$store.map.getStyle().layers) {
+              ids.push(layer.id);
+            }
             for (let prop of Object.keys(next)) {
-              this.map.setLayoutProperty(this.layerId, prop, next[prop]);
+              if (ids.includes(this.layerId)) {
+                this.map.setLayoutProperty(this.layerId, prop, next[prop]);
+              }
             }
           }
         },
@@ -208,6 +222,7 @@ export default {
     },
 
     move(beforeId) {
+      console.log('layerMixin.js move is running');
       this.map.moveLayer(this.layerId, beforeId);
       this.$_emitEvent("layer-moved", {
         layerId: this.layerId,
@@ -216,6 +231,7 @@ export default {
     },
 
     remove() {
+      console.log('layerMixin.js remove() is running');
       this.map.removeLayer(this.layerId);
       this.map.removeSource(this.sourceId);
       this.$_emitEvent("layer-removed", { layerId: this.layerId });

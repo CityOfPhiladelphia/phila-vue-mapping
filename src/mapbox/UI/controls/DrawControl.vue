@@ -68,16 +68,13 @@ export default {
       return id;
     },
     currentDistances() {
-      let shape = this.$props.labelLayers.filter(layer => layer.id = this.currentOrSelectedShape);
+      let shape = this.$props.labelLayers.filter(layer => layer.id === this.currentOrSelectedShape);
       let set;
       if (shape[0]) {
         set = shape[0].distances;
       }
       return set;
     },
-    // drawDistances() {
-    //   return this.$store.state.drawDistances;
-    // },
     shouldShowDistanceBox() {
       let booleanMode = this.$data.mode !== 'simple_select';
       let booleanSelected = this.$data.selected !== null;
@@ -87,7 +84,7 @@ export default {
       } else {
         booleanTotal = false;
       }
-      console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanTotal:', booleanTotal);
+      // console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanTotal:', booleanTotal);
       return booleanTotal;
     },
   },
@@ -105,13 +102,17 @@ export default {
     map.addControl(draw, this.$props.position);
 
     map.on('draw.create', e => this.$emit('drawCreate', e));
-    map.on('draw.delete', e => this.$emit('drawDelete', e));
     map.on('draw.update', e => this.$emit('drawUpdate', e));
     map.on('draw.actionable', e => this.$emit('drawActionable', e));
 
     let $this = this;
+    map.on('draw.delete', function(e) {
+      $this.selected = null;
+      $this.$emit('drawDelete', e);
+    });
+
     map.on('draw.selectionchange', function(e){
-      console.log('draw.selectionchange, e:', e, 'e.features[0]:', e.features[0]);
+      // console.log('draw.selectionchange, e:', e, 'e.features[0]:', e.features[0]);
       if (e.features[0]) {
         $this.$data.selected = e.features[0].id;
       } else {
