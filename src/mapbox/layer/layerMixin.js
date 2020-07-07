@@ -215,7 +215,7 @@ export default {
     },
 
     $_watchSourceLoading(data) {
-      console.log('$_watchSourceLoading is running, data:', data, 'data.sourceId:', data.sourceId);
+      // console.log('$_watchSourceLoading is running, data:', data, 'data.sourceId:', data.sourceId);
       if (data.dataType === "source" && data.sourceId === this.sourceId) {
         this.$_emitEvent("layer-source-loading", { sourceId: this.sourceId });
         this.map.off("dataloading", this.$_watchSourceLoading);
@@ -223,7 +223,7 @@ export default {
     },
 
     move(beforeId) {
-      console.log('layerMixin.js move is running');
+      // console.log('layerMixin.js move is running');
       this.map.moveLayer(this.layerId, beforeId);
       this.$_emitEvent("layer-moved", {
         layerId: this.layerId,
@@ -232,7 +232,7 @@ export default {
     },
 
     remove() {
-      console.log('layerMixin.js remove() is running');
+      // console.log('layerMixin.js remove() is running');
       this.map.removeLayer(this.layerId);
       this.map.removeSource(this.sourceId);
       this.$_emitEvent("layer-removed", { layerId: this.layerId });

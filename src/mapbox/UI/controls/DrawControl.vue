@@ -2,23 +2,92 @@
   <div>
     <div
       v-if="shouldShowDistanceBox"
-      class="calculated-area"
+      class="measure-tool-popup"
     >
-      <table>
-        <tr>
-          <th>lat</th>
-          <th>lng</th>
-          <th>distance</th>
-        </tr>
-        <tr
-          v-for="(entry, index) of currentDistances"
-          :key="index"
-        >
-          <td>{{ entry.firstPoint[1] }}</td>
-          <td>{{ entry.firstPoint[0] }}</td>
-          <td>{{ entry.distance }}</td>
-        </tr>
-      </table>
+      <div
+        v-if="!currentDistances"
+      >
+       <div class="measure-tool-header">
+         Measure distances and areas
+       </div>
+       <div>
+         Start creating a measurement by adding points to the map.
+       </div>
+       <hr class="popup-line">
+       <div>
+         <img
+           :src="sitePath + '/images/cancel.png'"
+           class="img-class"
+           alt="cancel"
+           @click="handleCancelClick"
+         />
+         <div
+           class="inline-block-div"
+           @click="handleCancelClick"
+         >
+           Cancel
+         </div>
+       </div>
+      </div>
+
+      <div
+        v-if="currentDistances"
+      >
+        <table>
+          <tr>
+            <th>lat</th>
+            <th>lng</th>
+            <th>distance</th>
+          </tr>
+          <tr
+            v-for="(entry, index) of currentDistances"
+            :key="index"
+          >
+            <td>{{ entry.firstPoint[1] }}</td>
+            <td>{{ entry.firstPoint[0] }}</td>
+            <td>{{ entry.distance }}</td>
+          </tr>
+        </table>
+        <hr class="popup-line">
+        <div>
+          <img
+            :src="sitePath + '/images/cancel.png'"
+            class="img-class"
+            alt="cancel"
+            @click="handleCancelClick"
+          />
+          <div
+            class="inline-block-div"
+            @click="handleCancelClick"
+          >
+            Cancel
+          </div>
+          <img
+            :src="sitePath + '/images/undo.png'"
+            class="img-class"
+            alt="undo"
+            @click="handleUndoClick"
+          />
+          <div
+            class="inline-block-div"
+            @click="handleUndoClick"
+          >
+            Undo
+          </div>
+          <img
+            :src="sitePath + '/images/check.png'"
+            class="img-class"
+            alt="finish"
+            @click="handleFinishClick"
+          />
+          <div
+          class="inline-block-div"
+            @click="handleFinishClick"
+          >
+            Finish Measurement
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -54,10 +123,17 @@ export default {
     const data = {
       mode: 'simple_select',
       selected: null,
+      toggledOn: false,
     };
     return data;
   },
   computed: {
+    sitePath() {
+      if (process.env.VUE_APP_PUBLICPATH) {
+        return window.location.origin + process.env.VUE_APP_PUBLICPATH;
+      }
+      return '';
+    },
     currentOrSelectedShape() {
       let id;
       if (this.$data.selected) {
@@ -78,13 +154,14 @@ export default {
     shouldShowDistanceBox() {
       let booleanMode = this.$data.mode !== 'simple_select';
       let booleanSelected = this.$data.selected !== null;
+      let booleanToggledOn = this.$data.toggledOn;
       let booleanTotal;
-      if (booleanMode || booleanSelected) {
+      if (booleanMode && booleanToggledOn || booleanSelected && booleanToggledOn) {
         booleanTotal = true;
       } else {
         booleanTotal = false;
       }
-      // console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanTotal:', booleanTotal);
+      console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanToggledOn:', booleanToggledOn, 'booleanTotal:', booleanTotal);
       return booleanTotal;
     },
   },
@@ -122,10 +199,33 @@ export default {
     });
 
     map.on('draw.modechange', function(e){
-      // console.log('draw.modechange, e:', e);
+      console.log('draw.modechange, e:', e);
+      if (e.mode !== 'simple_select') {
+        $this.$data.toggledOn = true;
+      }
       $this.$data.mode = e.mode;
       $this.$emit('drawModeChange', e);
     });
+  },
+  methods: {
+    handleCancelClick(e) {
+      console.log('handleCancelClick is running');
+      this.$data.toggledOn = false;
+      // this.$data.mode = 'simple_select';
+      this.$mapboxElement.changeMode('simple_select');
+      this.$emit('drawCancel', e);
+      if (this.$props.currentShape) {
+        this.$mapboxElement.trash();
+      }
+    },
+    handleUndoClick(e) {
+      console.log('handleUndoClick is running');
+      this.$emit('drawUndo', e);
+    },
+    handleFinishClick(e) {
+      // console.log('handleFinishClick is running e:', e, 'this.$mapboxElement.getSelectedPoints():', this.$mapboxElement.getSelectedPoints());
+      this.$emit('drawFinish', e);
+    },
   },
 
 };
@@ -134,10 +234,10 @@ export default {
 
 <style>
 
-.calculated-area {
-  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+.measure-tool-popup {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
   position: absolute;
-  /* height: 100px; */
   width: 300px;
   min-width: 200px;
   bottom: 0;
@@ -146,10 +246,37 @@ export default {
   background-color: #fff;
   margin-bottom: 24px;
   margin-left: 50px;
+  border-radius: 10px;
+}
+
+.measure-tool-header {
+  font-size: 14px;
+}
+
+table {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 td {
   text-align: center;
+}
+
+.img-class {
+  margin: 2px;
+  cursor: pointer;
+}
+
+.inline-block-div {
+  display: inline-block;
+  margin: 2px;
+  margin-right: 8px;
+  cursor: pointer;
+}
+
+.popup-line {
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 </style>
