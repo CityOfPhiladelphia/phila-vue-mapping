@@ -212,11 +212,11 @@ export default {
       console.log('handleCancelClick is running');
       this.$data.toggledOn = false;
       // this.$data.mode = 'simple_select';
-      this.$mapboxElement.changeMode('simple_select');
+      // this.$mapboxElement.changeMode('simple_select');
       this.$emit('drawCancel', e);
-      if (this.$props.currentShape) {
-        this.$mapboxElement.trash();
-      }
+      // if (this.$props.currentShape) {
+      //   this.$mapboxElement.trash();
+      // }
     },
     handleUndoClick(e) {
       console.log('handleUndoClick is running');
