@@ -215,6 +215,7 @@ export default {
     },
 
     $_watchSourceLoading(data) {
+      console.log('$_watchSourceLoading is running, data:', data, 'data.sourceId:', data.sourceId);
       if (data.dataType === "source" && data.sourceId === this.sourceId) {
         this.$_emitEvent("layer-source-loading", { sourceId: this.sourceId });
         this.map.off("dataloading", this.$_watchSourceLoading);
