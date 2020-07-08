@@ -10,7 +10,7 @@
        <div class="measure-tool-header">
          Measure distances and areas
        </div>
-       <div>
+       <div class="measure-tool-description">
          Start creating a measurement by adding points to the map.
        </div>
        <hr class="popup-line">
@@ -49,7 +49,28 @@
           </tr>
         </table>
         <hr class="popup-line">
-        <div>
+        <div
+          v-if="mode === 'simple_select'"
+          class="drawn-shape-actions"
+        >
+          <img
+            :src="sitePath + '/images/trash.png'"
+            class="img-class"
+            alt="cancel"
+            @click="handleDeleteClick"
+          />
+          <div
+            class="inline-block-div"
+            @click="handleDeleteClick"
+          >
+            Delete
+          </div>
+        </div>
+
+        <div
+          v-if="mode !== 'simple_select'"
+          class="draw-actions"
+        >
           <img
             :src="sitePath + '/images/cancel.png'"
             class="img-class"
@@ -62,7 +83,7 @@
           >
             Cancel
           </div>
-          <img
+          <!-- <img
             :src="sitePath + '/images/undo.png'"
             class="img-class"
             alt="undo"
@@ -73,7 +94,7 @@
             @click="handleUndoClick"
           >
             Undo
-          </div>
+          </div> -->
           <img
             :src="sitePath + '/images/check.png'"
             class="img-class"
@@ -161,7 +182,7 @@ export default {
       } else {
         booleanTotal = false;
       }
-      console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanToggledOn:', booleanToggledOn, 'booleanTotal:', booleanTotal);
+      // console.log('booleanMode:', booleanMode, 'booleanSelected:', booleanSelected, 'booleanToggledOn:', booleanToggledOn, 'booleanTotal:', booleanTotal);
       return booleanTotal;
     },
   },
@@ -170,7 +191,8 @@ export default {
       displayControlsDefault: false,
       controls: {
         polygon: true,
-        trash: true,
+        // trash: true,
+        // line_string: true,
       },
     });
     this.$store.commit('setDraw', draw);
@@ -184,6 +206,7 @@ export default {
 
     let $this = this;
     map.on('draw.delete', function(e) {
+      console.log('map.on draw.delete is running');
       $this.selected = null;
       $this.$emit('drawDelete', e);
     });
@@ -208,6 +231,12 @@ export default {
     });
   },
   methods: {
+    handleDeleteClick(e) {
+      console.log('handleDeleteClick is running');
+      this.$mapboxElement.delete(this.$data.selected);
+      this.$emit('drawDelete', this.$data.selected);
+      this.selected = null;
+    },
     handleCancelClick(e) {
       console.log('handleCancelClick is running');
       this.$data.toggledOn = false;
@@ -218,13 +247,14 @@ export default {
       //   this.$mapboxElement.trash();
       // }
     },
-    handleUndoClick(e) {
-      console.log('handleUndoClick is running');
-      this.$emit('drawUndo', e);
-    },
+    // handleUndoClick(e) {
+    //   console.log('handleUndoClick is running');
+    //   this.$emit('drawUndo', e);
+    // },
     handleFinishClick(e) {
       // console.log('handleFinishClick is running e:', e, 'this.$mapboxElement.getSelectedPoints():', this.$mapboxElement.getSelectedPoints());
       this.$emit('drawFinish', e);
+      this.$data.mode = 'simple_select';
     },
   },
 
@@ -247,10 +277,15 @@ export default {
   margin-bottom: 24px;
   margin-left: 50px;
   border-radius: 10px;
+  z-index: 3000;
 }
 
 .measure-tool-header {
   font-size: 14px;
+}
+
+.measure-tool-description {
+  font-size: 10px;
 }
 
 table {
