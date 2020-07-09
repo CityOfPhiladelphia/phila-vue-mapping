@@ -81,12 +81,9 @@ export default {
   },
   methods: {
     buttonClicked() {
-      console.log('ButtonControl buttonClicked is running');
+      // console.log('ButtonControl buttonClicked is running');
       this.$emit('click');
     },
-    // parentMounted() {
-    //   console.log('ButtonControl.vue parentMounted is running');
-    // }
   },
 };
 
@@ -113,6 +110,8 @@ export default {
   line-height: 30px;
   text-align: center;
   pointer-events: auto;
+  z-index: 9;
+  cursor: pointer;
 }
 
 .button-image {

@@ -7,27 +7,27 @@
       <div
         v-if="!currentDistances"
       >
-       <div class="measure-tool-header">
-         Measure distances and areas
-       </div>
-       <div class="measure-tool-description">
-         Start creating a measurement by adding points to the map.
-       </div>
-       <hr class="popup-line">
-       <div>
-         <img
-           :src="sitePath + '/images/cancel.png'"
-           class="img-class"
-           alt="cancel"
-           @click="handleCancelClick"
-         />
-         <div
-           class="inline-block-div"
-           @click="handleCancelClick"
-         >
-           Cancel
-         </div>
-       </div>
+        <div class="measure-tool-header">
+          Measure distances and areas
+        </div>
+        <div class="measure-tool-description">
+          Start creating a measurement by adding points to the map.
+        </div>
+        <hr class="popup-line">
+        <div>
+          <img
+            :src="sitePath + '/images/cancel.png'"
+            class="img-class"
+            alt="cancel"
+            @click="handleCancelClick"
+          >
+          <div
+            class="inline-block-div"
+            @click="handleCancelClick"
+          >
+            Cancel
+          </div>
+        </div>
       </div>
 
       <div
@@ -58,7 +58,7 @@
             class="img-class"
             alt="cancel"
             @click="handleDeleteClick"
-          />
+          >
           <div
             class="inline-block-div"
             @click="handleDeleteClick"
@@ -76,33 +76,21 @@
             class="img-class"
             alt="cancel"
             @click="handleCancelClick"
-          />
+          >
           <div
             class="inline-block-div"
             @click="handleCancelClick"
           >
             Cancel
           </div>
-          <!-- <img
-            :src="sitePath + '/images/undo.png'"
-            class="img-class"
-            alt="undo"
-            @click="handleUndoClick"
-          />
-          <div
-            class="inline-block-div"
-            @click="handleUndoClick"
-          >
-            Undo
-          </div> -->
           <img
             :src="sitePath + '/images/check.png'"
             class="img-class"
             alt="finish"
             @click="handleFinishClick"
-          />
+          >
           <div
-          class="inline-block-div"
+            class="inline-block-div"
             @click="handleFinishClick"
           >
             Finish Measurement
@@ -191,8 +179,6 @@ export default {
       displayControlsDefault: false,
       controls: {
         polygon: true,
-        // trash: true,
-        // line_string: true,
       },
     });
     this.$store.commit('setDraw', draw);
@@ -240,24 +226,14 @@ export default {
     handleCancelClick(e) {
       console.log('handleCancelClick is running');
       this.$data.toggledOn = false;
-      // this.$data.mode = 'simple_select';
-      // this.$mapboxElement.changeMode('simple_select');
       this.$emit('drawCancel', e);
-      // if (this.$props.currentShape) {
-      //   this.$mapboxElement.trash();
-      // }
     },
-    // handleUndoClick(e) {
-    //   console.log('handleUndoClick is running');
-    //   this.$emit('drawUndo', e);
-    // },
     handleFinishClick(e) {
       // console.log('handleFinishClick is running e:', e, 'this.$mapboxElement.getSelectedPoints():', this.$mapboxElement.getSelectedPoints());
       this.$emit('drawFinish', e);
       this.$data.mode = 'simple_select';
     },
   },
-
 };
 
 </script>
@@ -277,7 +253,7 @@ export default {
   margin-bottom: 24px;
   margin-left: 50px;
   border-radius: 10px;
-  z-index: 3000;
+  z-index: 9;
 }
 
 .measure-tool-header {

@@ -153,7 +153,7 @@ export default {
 <style>
 
 .mapboxgl-marker {
-  z-index: 2000;
+  z-index: 5;
 }
 
 </style>
