@@ -253,7 +253,7 @@ export default {
   margin-bottom: 24px;
   margin-left: 50px;
   border-radius: 10px;
-  z-index: 9;
+  z-index: 12;
 }
 
 .measure-tool-header {

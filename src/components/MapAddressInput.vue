@@ -270,7 +270,7 @@ export default {
   display: flex;
   border-radius: 2px;
   width: 305px;
-  z-index: 9;
+  z-index: 12;
 }
 
 .pvm-container-non-mobile {

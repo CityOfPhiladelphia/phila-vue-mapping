@@ -110,7 +110,7 @@ export default {
   line-height: 30px;
   text-align: center;
   pointer-events: auto;
-  z-index: 9;
+  z-index: 12;
   cursor: pointer;
 }
 

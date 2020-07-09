@@ -265,7 +265,7 @@ export default {
   /* border-color: black; */
   border-style: solid;
   cursor: pointer;
-  z-index: 9;
+  z-index: 1;
 }
 
 </style>
