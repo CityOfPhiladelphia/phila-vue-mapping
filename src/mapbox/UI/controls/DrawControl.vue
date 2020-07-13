@@ -290,4 +290,13 @@ td {
   margin-bottom: 4px;
 }
 
+.mapbox-gl-draw_polygon {
+  background-image: url('/images/rulers.png') !important;
+}
+
+.mapbox-gl-draw_ctrl-draw-btn {
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+}
+
 </style>
