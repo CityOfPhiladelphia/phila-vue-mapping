@@ -37,7 +37,7 @@
           <tr>
             <th>lat</th>
             <th>lng</th>
-            <th>distance</th>
+            <th>distance (ft)</th>
           </tr>
           <tr
             v-for="(entry, index) of currentDistances"
@@ -49,6 +49,21 @@
           </tr>
         </table>
         <hr class="popup-line">
+
+        <div
+          v-if="currentDistances.length >= 2"
+        >
+          Total Length: {{ currentTotalLength }}
+          <hr class="popup-line">
+        </div>
+
+        <div
+          v-if="currentDistances.length >= 3"
+        >
+          Total Area: {{ currentArea }}
+          <hr class="popup-line">
+        </div>
+
         <div
           v-if="mode === 'simple_select'"
           class="drawn-shape-actions"
@@ -112,7 +127,7 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import area from '@turf/area';
 
 export default {
-  name: 'DrawControl',
+  name: 'DistanceMeasureControl',
   mixins: [ withEvents, withSelfEvents, controlMixin ],
 
   props: {
@@ -126,6 +141,10 @@ export default {
     currentShape: {
       type: String,
       default: null,
+    },
+    currentArea: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
@@ -159,6 +178,14 @@ export default {
         set = shape[0].distances;
       }
       return set;
+    },
+    currentTotalLength() {
+      let total = 0;
+      for (let distance of this.currentDistances) {
+        total = total + distance.distance;
+      }
+      return total.toFixed(2) + ' Ft';
+      // return 4.453;
     },
     shouldShowDistanceBox() {
       let booleanMode = this.$data.mode !== 'simple_select';
