@@ -149,3 +149,11 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.mapboxgl-marker {
+  z-index: 2;
+}
+
+</style>

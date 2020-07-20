@@ -258,7 +258,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 .pvm-search-control-form {
   display: inline-block;
@@ -270,6 +270,7 @@ export default {
   display: flex;
   border-radius: 2px;
   width: 305px;
+  z-index: 12;
 }
 
 .pvm-container-non-mobile {

@@ -2,6 +2,7 @@
   <div
     v-show="shouldShowLegend"
     class="legend-overlay"
+    :style="'margin-bottom:' + options.marginBottom"
   >
     <div class="legend">
       <ul class="legend-list">

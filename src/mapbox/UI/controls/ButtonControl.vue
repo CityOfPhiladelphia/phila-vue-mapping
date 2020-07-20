@@ -55,6 +55,7 @@ export default {
           // console.log('there is a props.imageLink');
           let img = document.createElement('img');
           img.id = props.buttonId + '-img';
+          img.className = 'button-image';
           img.src = props.imageLink;
           this.container.appendChild(img);
           // down.innerHTML = "Image Element Added.";
@@ -80,12 +81,9 @@ export default {
   },
   methods: {
     buttonClicked() {
-      console.log('ButtonControl buttonClicked is running');
+      // console.log('ButtonControl buttonClicked is running');
       this.$emit('click');
     },
-    // parentMounted() {
-    //   console.log('ButtonControl.vue parentMounted is running');
-    // }
   },
 };
 
@@ -112,6 +110,12 @@ export default {
   line-height: 30px;
   text-align: center;
   pointer-events: auto;
+  z-index: 12;
+  cursor: pointer;
+}
+
+.button-image {
+  vertical-align: top !important;
 }
 
 .twin-button {

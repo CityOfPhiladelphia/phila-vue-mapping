@@ -16,6 +16,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.7.2",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
     "@fortawesome/vue-fontawesome": "^0.1.5",
+    "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@turf/turf": "^5.1.6",
     "Leaflet-PointInPolygon": "https://github.com/CityOfPhiladelphia/Leaflet.PointInPolygon#a0d410f69aacf5f9165c4d01ccffeed824ccaed8",
     "arcgis-to-geojson-utils": "^1.0.1",
@@ -38,8 +39,8 @@
     "phila-standards": "^1.0.2",
     "proj4": "^2.6.0",
     "sdleafletdraw": "https://github.com/CityOfPhiladelphia/SDLeafletDraw#a3e8e8a860e75d370e533247bd31dfd55e865a62",
-    "vue": "^2.6.10",
-    "vuex": "^3.1.2"
+    "vue": "^2.6.11",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.1.1",
@@ -50,7 +51,7 @@
     "babel-runtime": "^6.26.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.0.1",
-    "vue-template-compiler": "^2.6.10",
+    "vue-template-compiler": "^2.6.11",
     "webpack-visualizer-plugin": "^0.1.11"
   },
   "postcss": {

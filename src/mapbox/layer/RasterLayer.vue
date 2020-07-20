@@ -1,16 +1,59 @@
-import layerEvents from "../lib/layerEvents";
-import mixin from "./layerMixin";
+<template>
+    <opacity-slider
+      v-if="initialOpacity != null"
+      :position="'topleft'"
+      :initial-opacity="opacity"
+      @opacityChange="handleOpacityChange"
+    />
+</template>
+
+<script>
+
+import OpacitySlider from '../OpacitySlider.vue';
+import layerEvents from '../lib/layerEvents';
+import mixin from './layerMixin';
 
 export default {
-  name: "RasterLayer",
+  name: 'RasterLayer',
+  components: {
+    OpacitySlider,
+  },
   mixins: [ mixin ],
+  props: {
+    initialOpacity: {
+      default: null,
+    },
+  },
+  data() {
+    let data = {
+      opacity: null,
+    };
+    return data;
+  },
 
   created() {
     // console.log('RasterLayer created is running');
     this.$_deferredMount();
+    if (this.$props.initialOpacity) {
+      const opacity= this.$props.initialOpacity;
+      // console.log('RasterLayer.vue mounted, opacityFraction:', opacity);
+      this.handleOpacityChange(opacity);
+    }
   },
-
+  // mounted() {
+  // },
   methods: {
+    handleOpacityChange(opacity) {
+      // console.log('RasterLayer.vue handleOpacityChange is running, e:', opacity);
+      this.$data.opacity = opacity;
+
+      let map = this.$store.map;
+      map.setPaintProperty(
+        this.$props.layer.id,
+        'raster-opacity',
+        parseFloat(opacity/100),
+      );
+    },
     $_deferredMount() {
       let source = {
         type: "raster",
@@ -83,3 +126,5 @@ export default {
     },
   },
 };
+
+</script>

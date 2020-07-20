@@ -22,6 +22,7 @@ export default {
 
   methods: {
     $_addControl() {
+      // console.log('controlMixin.js $_addControl is running, this.control:', this.control);
       try {
         this.map.addControl(this.control, this.position);
       } catch (err) {
