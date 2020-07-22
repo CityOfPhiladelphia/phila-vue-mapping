@@ -22,6 +22,10 @@ export default {
       type: String,
       default: '',
     },
+    imageAlign: {
+      type: String,
+      default: 'middle',
+    },
   },
   computed: {
     classTest() {
@@ -55,7 +59,11 @@ export default {
           // console.log('there is a props.imageLink');
           let img = document.createElement('img');
           img.id = props.buttonId + '-img';
-          img.className = 'button-image';
+          if (props.imageAlign === 'top') {
+            img.className = 'button-image-top';
+          } else {
+            img.className = 'button-image-middle';
+          }
           img.src = props.imageLink;
           this.container.appendChild(img);
           // down.innerHTML = "Image Element Added.";
@@ -114,7 +122,7 @@ export default {
   cursor: pointer;
 }
 
-.button-image {
+.button-image-top {
   vertical-align: top !important;
 }
 
