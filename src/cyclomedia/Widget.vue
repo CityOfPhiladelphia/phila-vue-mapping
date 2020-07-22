@@ -136,7 +136,7 @@ export default {
     },
     locForCyclo(newCoords) {
       // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
-      if (newCoords && this.cyclomediaInitializationComplete) {
+      if (newCoords.length && this.cyclomediaInitializationComplete) {
         this.setNewLocation(newCoords);
       }
     },

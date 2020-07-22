@@ -41,7 +41,7 @@ export default {
       const map = this.$store.map;
       const zoom = map.getZoom();
       console.log('updateCyclomediaRecordings is running, zoom:', zoom);
-      if (!this.$store.state.cyclomedia.active || zoom < 18) {
+      if (!this.$store.state.cyclomedia.active || zoom < 17.99) {
         this.$store.commit('setCyclomediaRecordings', []);
         return;
       }
