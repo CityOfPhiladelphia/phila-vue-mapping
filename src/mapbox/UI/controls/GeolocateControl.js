@@ -27,6 +27,10 @@ export default {
       type: Object,
       default: () => ({ maxZoom: 15 }),
     },
+    showAccuracyCircle: {
+      type: Boolean,
+      default: false,
+    },
     trackUserLocation: {
       type: Boolean,
       default: false,

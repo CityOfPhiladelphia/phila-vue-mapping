@@ -300,6 +300,10 @@ td {
   text-align: center;
 }
 
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
 .img-class {
   margin: 2px;
   cursor: pointer;
