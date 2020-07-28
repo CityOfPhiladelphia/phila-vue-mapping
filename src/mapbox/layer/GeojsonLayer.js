@@ -87,7 +87,7 @@ export default {
   },
 
   created() {
-    // console.log('GeojsonLayer.js created is running, this.sourceId:', this.sourceId, 'this.source:', this.source, 'this.$store.map:', this.$store.map);
+    console.log('GeojsonLayer.js created is running, this.sourceId:', this.sourceId, 'this.source:', this.source, 'this.$store.map:', this.$store.map);
     if (this.source) {
       this.$watch(
         "source.data",
@@ -109,8 +109,9 @@ export default {
 
   methods: {
     $_deferredMount() {
-      // console.log('GeojsonLayer.js $_deferredMount is running, this.sourceId:', this.sourceId, 'this.source:', this.source);
+      console.log('GeojsonLayer.js $_deferredMount is running, this.map:', this.map, 'this.sourceId:', this.sourceId, 'this.source:', this.source);
       // this.map = payload.map;
+      // console.log('$_deferredMount, this.map:', this.map);
       this.map.on("dataloading", this.$_watchSourceLoading);
       if (this.source) {
         const source = {
@@ -128,7 +129,10 @@ export default {
               }.bind(this),
             );
           }
-          this.map.addSource(this.sourceId, source);
+          let sourcesAlreadyThere = Object.keys(this.map.style.sourceCaches);
+          if (!sourcesAlreadyThere.includes(this.sourceId)) {
+            this.map.addSource(this.sourceId, source);
+          }
           // console.log('try map.addSource is ending');
         } catch (err) {
           console.log('catch err is running, err:', err);
@@ -147,10 +151,12 @@ export default {
     },
 
     $_addLayer() {
-      // console.log('GeojsonLayer.js $_addLayer is starting');
+      console.log('GeojsonLayer.js $_addLayer is starting, this.layerId:', this.layerId);
       let existed = this.map.getLayer(this.layerId);
       if (existed) {
+        console.log('GeojsonLayer.js $_addLayer if existed is running');
         if (this.replace) {
+          console.log('if this.replace is true');
           this.map.removeLayer(this.layerId);
         } else {
           this.$_emitEvent("layer-exists", { layerId: this.layerId });
@@ -162,7 +168,7 @@ export default {
         source: this.sourceId,
         ...this.layer,
       };
-      // console.log('$_addLayer is still running, layer:', layer);
+      console.log('$_addLayer is still running, layer:', layer);
       this.map.addLayer(layer, this.before);
       // console.log('$_addLayer after map.addLayer');
       this.$_emitEvent("added", { layerId: this.layerId });

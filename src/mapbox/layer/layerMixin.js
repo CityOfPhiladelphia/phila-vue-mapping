@@ -166,7 +166,7 @@ export default {
   },
 
   beforeDestroy() {
-    // console.log('layerMixin beforeDestroy is running, this.layerId:', this.layerId, 'this.clearSource:', this.clearSource, 'this.map:', this.map, 'this.map.loaded():', this.map.loaded());
+    console.log('layerMixin beforeDestroy is running, this.layerId:', this.layerId, 'this.clearSource:', this.clearSource, 'this.map:', this.map, 'this.map.loaded():', this.map.loaded());
     // if (this.map && this.map.loaded()) {
     try {
       // console.log('layerMixin beforeDestroy if map and maploaded try is running')
@@ -182,7 +182,9 @@ export default {
       // console.log('layerMixin beforeDestroy if clearSource is running')
       try {
         // console.log('layerMixin beforeDestroy if clearSource try is running');
-        this.map.removeSource(this.sourceId);
+        if (Object.keys(this.map.style.sourceCaches).includes(this.sourceId)) {
+          this.map.removeSource(this.sourceId);
+        }
       } catch (err) {
         this.$_emitEvent("source-does-not-exist", {
           sourceId: this.sourceId,
