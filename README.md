@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.4 - 7/29/2020
+
+* small fix for year dropdown in mapbox
+
 ### 2.1.13 - 7/29/2020
 
 * fixes more small bugs for releasing mapboard with a mapbox map

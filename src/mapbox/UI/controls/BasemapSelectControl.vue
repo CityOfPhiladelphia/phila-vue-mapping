@@ -100,7 +100,7 @@ export default {
 .basemap-select-control {
   position: absolute;
   right: 50px;
-  top: 100px;
+  top: 10px;
 }
 
 .mobile {
