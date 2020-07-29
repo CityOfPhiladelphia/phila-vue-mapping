@@ -1,7 +1,7 @@
 <template>
   <div
     v-show="shouldShowBasemapSelectControl"
-    class="basemap-select-control"
+    :class="'basemap-select-control ' + isMobile"
   >
     <select
       id="year-select"
@@ -43,6 +43,13 @@ export default {
     },
     currentImagery() {
       return this.$store.state.map.imagery;
+    },
+    isMobile() {
+      let value;
+      if (this.$store.state.isMobileOrTablet) {
+        value = 'mobile';
+      }
+      return value;
     },
   },
   // watch: {
@@ -93,7 +100,11 @@ export default {
 .basemap-select-control {
   position: absolute;
   right: 50px;
-  top: 10px;
+  top: 100px;
+}
+
+.mobile {
+  top: 70px;
 }
 
 </style>

@@ -143,8 +143,8 @@ export default {
       default: null,
     },
     currentArea: {
-      type: Number,
-      default: 0,
+      type: String,
+      default: null,
     },
   },
   data() {

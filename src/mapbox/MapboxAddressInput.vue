@@ -246,11 +246,13 @@ export default {
           this.inputStyle.width = this.$props.widthFromConfig - 208 + 'px';
         }
       } else {
-        this.containerStyle.width = '300px';
+        this.containerStyle.width = '280px';
         if (addressEntered === '' || addressEntered === null) {
-          this.inputStyle.width = '245px';
+          // this.inputStyle.width = '245px';
+          this.inputStyle.width = '225px';
         } else {
-          this.inputStyle.width = '192px';
+          // this.inputStyle.width = '192px';
+          this.inputStyle.width = '172px';
         }
       }
     },

@@ -1,10 +1,10 @@
 <template>
-    <opacity-slider
-      v-if="initialOpacity != null"
-      :position="'topleft'"
-      :initial-opacity="opacity"
-      @opacityChange="handleOpacityChange"
-    />
+  <opacity-slider
+    v-if="initialOpacity != null"
+    :position="'topleft'"
+    :initial-opacity="opacity"
+    @opacityChange="handleOpacityChange"
+  />
 </template>
 
 <script>
@@ -73,12 +73,12 @@ export default {
         }
       }
 
-      let before = this.before;
-      // console.log('RasterLayer.js end is running, layerId:', this.layerId, 'before:', before);
-      let beforeExists = this.map.getStyle().layers.filter(function(layer) {
-        // console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
-        return layer.id === before;//[0].id;
-      });
+      // let before = this.before;
+      // // console.log('RasterLayer.js end is running, layerId:', this.layerId, 'before:', before);
+      // let beforeExists = this.map.getStyle().layers.filter(function(layer) {
+      //   // console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
+      //   return layer.id === before;//[0].id;
+      // });
 
       this.$_addLayer();
       this.$_bindLayerEvents(layerEvents);
@@ -107,16 +107,25 @@ export default {
       };
 
       let before = this.before;
-      // console.log('RasterLayer.js end is running, layerId:', this.layerId, 'before:', before);
-      let beforeExists = this.map.getStyle().layers.filter(function(layer) {
-        // console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
-        return layer.id === before;//[0].id;
-      });
+      console.log('RasterLayer.js end is running, layerId:', this.layerId, 'before:', before);
+      let layers = this.map.getStyle().layers;
+      let beforeExists = [];
+      for (let layer of layers) {
+        console.log('in loop, layer:', layer, 'layer.id:', layer.id);
+        if (before.includes(layer.id)) {
+          beforeExists.push(layer.id);
+          break;
+        }
+      }
+      // let beforeExists = this.map.getStyle().layers.filter(function(layer) {
+      //   // console.log('RasterLayer.js, layer.id:', layer.id, 'before:', before);
+      //   return layer.id === before;//[0].id;
+      // });
 
       // console.log('RasterLayer.js, layerId:', this.layerId, 'beforeExists:', beforeExists, 'this.$store.map.getStyle().layers:', this.$store.map.getStyle().layers);
 
       if (beforeExists.length) {
-        this.map.addLayer(layer, this.before);
+        this.map.addLayer(layer, beforeExists[0]);
       } else {
         this.map.addLayer(layer);
       }
