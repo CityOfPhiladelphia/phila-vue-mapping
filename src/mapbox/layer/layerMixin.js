@@ -22,7 +22,7 @@ const mapboxLayerStyleProps = {
     required: true,
   },
   before: {
-    type: String,
+    // type: String,
     default: undefined,
   },
 };
