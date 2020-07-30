@@ -23,15 +23,19 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 * changes css for moving measure tool to bottom right corner
 
-### 2.1.6 - 7/30/2020
+### 2.1.17 - 7/30/2020
 
-* allows moves legends to right side
+* allows moving legends to right side
 
-### 2.1.5 - 7/30/2020
+### 2.1.16 - 7/30/2020
+
+* allows moving distance measure tool to right side
+
+### 2.1.15 - 7/30/2020
 
 * uses mapbox-gl-draw.min.js from https://gist.github.com/godismyjudge95/a4ea43263db53b90b05511c911cd0034 to fix map clicking on mobile.  This was suggested by a comment here: https://github.com/mapbox/mapbox-gl-js/issues/9114.
 
-### 2.1.4 - 7/29/2020
+### 2.1.14 - 7/29/2020
 
 * small fix for year dropdown in mapbox
 
