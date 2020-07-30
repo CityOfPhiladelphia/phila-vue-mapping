@@ -2,7 +2,7 @@
   <div>
     <div
       v-if="shouldShowDistanceBox"
-      class="measure-tool-popup"
+      :class="'measure-tool-popup-' + position"
     >
       <div
         v-if="!currentDistances"
@@ -271,7 +271,23 @@ export default {
 
 <style>
 
-.measure-tool-popup {
+.measure-tool-popup-bottom-right {
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  position: absolute;
+  width: 300px;
+  min-width: 200px;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #fff;
+  margin-bottom: 24px;
+  margin-right: 50px;
+  border-radius: 10px;
+  z-index: 12;
+}
+
+.measure-tool-popup-bottom-left {
   font-family: Montserrat, sans-serif;
   font-size: 12px;
   position: absolute;
