@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.1.7 - 7/30/2020
+
+* fixes bug in mapbox/RasterLayer.vue for viewerboard
+
 ### 2.1.6 - 7/30/2020
 
 * changes css for moving measure tool to bottom right corner
