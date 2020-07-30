@@ -122,7 +122,11 @@ import controlMixin from "./controlMixin";
 import withEvents from "../../lib/withEvents";
 import withSelfEvents from "../withSelfEvents";
 
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
+// import MapboxDraw from '@mapbox/mapbox-gl-draw';
+// import mapbox-gl-draw-min.js, cloned from https://gist.github.com/godismyjudge95/a4ea43263db53b90b05511c911cd0034
+// this was recommended by a comment in https://github.com/mapbox/mapbox-gl-js/issues/9114
+// the official mapbox-gl-draw was blocking map clicks
+import MapboxDraw from '../../mapbox-gl-draw.min.js';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 import area from '@turf/area';
 
