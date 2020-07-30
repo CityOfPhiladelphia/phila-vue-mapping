@@ -1,8 +1,8 @@
 <template>
   <div
     v-show="shouldShowLegend"
-    class="legend-overlay"
-    :style="'margin-bottom:' + options.marginBottom"
+    :class="'legend-overlay ' + position"
+    :style="'margin-bottom:' + options.marginBottom + '; margin-right:' + options.marginRight"
   >
     <div class="legend">
       <ul class="legend-list">
@@ -94,12 +94,21 @@ export default {
 .legend-overlay {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   position: absolute;
-  width: 25%;
-  min-width: 200px;
+  /* width: 25%; */
+  /* min-width: 200px; */
   bottom: 0;
-  left: 0;
+  /* left: 0; */
   padding: 10px;
+  z-index: 12;
   /* margin-bottom: 24px; */
+}
+
+.bottom-right {
+  right: 0;
+}
+
+.bottom-left {
+  left: 0;
 }
 
 .legend-overlay .legend-overlay-inner {

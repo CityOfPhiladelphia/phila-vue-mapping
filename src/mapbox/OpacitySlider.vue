@@ -60,6 +60,7 @@ export default {
   padding: 10px;
   margin-top: 74px;
   margin-left: 20px;
+  z-index: 12;
 }
 
 .map-overlay .map-overlay-inner {
