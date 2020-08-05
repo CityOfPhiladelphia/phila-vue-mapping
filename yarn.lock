@@ -6880,6 +6880,11 @@ leaflet-shape-markers@^1.0.4, leaflet-shape-markers@^1.0.6:
   version "1.0.0"
   resolved "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5"
 
+leaflet-vector-tile-layer@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/leaflet-vector-tile-layer/-/leaflet-vector-tile-layer-0.4.0.tgz#11ed2855d643ba4b6215a73ed9155950015d12b7"
+  integrity sha512-3j7AWc4wz7WPat0clXFE1NfxT/Jc345IyDpXnR9xcZ8zlXi2ksdPSwFo2sK8g4138aGIi7zrC+RFwOh8FkMwNA==
+
 leaflet@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.5.1.tgz#9afb9d963d66c870066b1342e7a06f92840f46bf"

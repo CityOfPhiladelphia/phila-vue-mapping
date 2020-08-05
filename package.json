@@ -33,6 +33,7 @@
     "leaflet-rotatedmarker": "^0.2.0",
     "leaflet-shape-markers": "^1.0.6",
     "leaflet-vector-icon": "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5",
+    "leaflet-vector-tile-layer": "^0.4.0",
     "lodash-es": "^4.17.14",
     "map-promisified": "^0.4.0",
     "mapbox-gl": "^1.6.1",
