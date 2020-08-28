@@ -4,7 +4,7 @@
     :class="'legend-overlay ' + position"
     :style="'margin-bottom:' + options.marginBottom + '; margin-right:' + options.marginRight"
   >
-    <div class="legend">
+    <div class="legend legend-overlay-inner">
       <ul class="legend-list">
         <li
           v-for="key in keys"
@@ -57,17 +57,11 @@ export default {
     shape() {
       return this.$props.options.shape;
     },
-    // activeTopic() {
-    //   return this.$store.state.activeTopic;
-    // },
     shouldShowBasemapSelectControl() {
       return this.$store.state.map.shouldShowBasemapSelectControl;
     },
     shouldShowLegend() {
       let result = true;
-      // if (!this.$props.options.topics.includes(this.activeTopic)) {
-      //   result = false;
-      // }
       if (this.$props.options.showWithBaseMapOnly) {
         if (this.shouldShowBasemapSelectControl) {
           result = false;
@@ -75,17 +69,7 @@ export default {
       }
       return result;
     },
-    // style() {
-    //   // const string = "background: " + this.$props.items[key].background + " color: " + this.$props.items[key].color
-    //   const string = this.$props.items[]
-    //   console.log('style string', string);
-    //   return string
-    // }
   },
-  mounted() {
-    // console.log('LegendControlNoTopic, this.$props.options:', this.$props.options);
-  },
-  // methods: Object.assign(methods),
 };
 </script>
 
@@ -94,29 +78,17 @@ export default {
 .legend-overlay {
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
   position: absolute;
-  /* width: 25%; */
-  /* min-width: 200px; */
   bottom: 0;
-  /* left: 0; */
   padding: 10px;
   z-index: 12;
-  /* margin-bottom: 24px; */
-}
-
-.bottom-right {
-  right: 0;
-}
-
-.bottom-left {
-  left: 0;
 }
 
 .legend-overlay .legend-overlay-inner {
+  display: inline-block;
   background-color: #fff;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 6px 8px;
 }
 
 .legend-overlay h2 {
@@ -138,6 +110,36 @@ export default {
   position: relative;
   margin: 0;
   cursor: ew-resize;
+}
+
+.legend-box {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.bottom-right {
+  right: 0;
+}
+
+.bottom-left {
+  left: 0;
+}
+
+.legend-list {
+  list-style: none;
+  padding-top: 2px;
+  padding-left: 2px;
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+.list-text {
+  display: inline-block;
+  vertical-align: middle;
 }
 
 </style>
