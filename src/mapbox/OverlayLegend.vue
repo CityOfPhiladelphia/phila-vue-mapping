@@ -121,6 +121,16 @@ export default {
   margin-right: 4px;
 }
 
+.legend-circle {
+  border-radius: 50%;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  opacity: 1;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
 .bottom-right {
   right: 0;
 }

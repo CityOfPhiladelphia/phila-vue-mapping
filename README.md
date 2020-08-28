@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.1 - 8/28/2020
+
+* fixes overlay legends for showing circles
+
 ### 2.2.0 - 8/28/2020
 
 * works with pvd that removes all leaflet imports
