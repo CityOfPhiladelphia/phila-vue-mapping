@@ -52,6 +52,7 @@ export default {
         this.container = document.createElement('div');
         this.container.className = 'button-control ' + props.buttonClass;
         this.container.id = props.buttonId;
+
         if (props.buttonText) {
           this.container.textContent = props.buttonText;
         }
@@ -65,6 +66,9 @@ export default {
             img.className = 'button-image-middle';
           }
           img.src = props.imageLink;
+          
+          img.setAttribute('alt', props.buttonId);
+
           this.container.appendChild(img);
           // down.innerHTML = "Image Element Added.";
         }

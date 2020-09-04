@@ -3,12 +3,23 @@
     :class="'pvm-search-control-container ' + containerClass"
     :style="containerStyle"
   >
+
     <form
       id="search-form"
       autocomplete="off"
       class="pvm-search-control-form"
+      alt="test test"
+      aria-label="button"
+      title="addressform"
       @submit.prevent="handleSearchFormSubmit"
     >
+      <label
+        :for="inputID"
+        title="search form"
+        class="accessible"
+      >
+        search form
+      </label>
       <input
         :id="inputID"
         :class="'pvm-search-control-input ' + inputClass"
@@ -16,12 +27,16 @@
         :placeholder="this.$props.placeholder || 'Search the map'"
         :value="addressEntered"
         tabindex="0"
+        title="inputform"
         @keyup="didType"
       >
+
     </form>
     <button
       v-if="addressEntered != '' && addressEntered != null"
       :class="'pvm-search-control-button ' + buttonClass"
+      aria-label="delete button"
+      title="delete button"
       @click="handleFormX"
     >
       <font-awesome-icon icon="times" />
@@ -30,9 +45,11 @@
       :class="'pvm-search-control-button ' + buttonClass"
       name="pvm-search-control-button"
       tabindex="-1"
+      aria-label="search button"
+      title="search button"
       @click="handleSearchFormSubmit"
     >
-      <font-awesome-icon icon="search" />
+      <font-awesome-icon icon="search" aria-hidden="true" />
     </button>
     <slot name="address-candidates-slot" />
   </div>
@@ -261,6 +278,7 @@ export default {
 </script>
 
 <style scoped>
+
 
 .pvm-search-control-form {
   display: inline-block;
