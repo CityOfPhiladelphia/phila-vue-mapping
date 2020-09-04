@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.2 - 9/4/2020
+
+* changes for WAVE for atlas.phila.gov
+
 ### 2.2.1 - 8/28/2020
 
 * fixes overlay legends for showing circles
