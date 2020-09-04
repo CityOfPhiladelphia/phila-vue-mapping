@@ -1,7 +1,9 @@
 <template>
   <div v-show="shouldShowBasemapSelectControl">
+    <label for="year-select" class="year-label">Select Year: </label>
     <select
       id="year-select"
+      name="year-select"
       @change="handleImageryChange"
     >
       <optgroup
@@ -85,5 +87,9 @@ export default {
 </script>
 
 <style scoped>
+
+.year-label {
+  display: none;
+}
 
 </style>

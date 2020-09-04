@@ -1,11 +1,12 @@
 <template>
   <div
     class="leaflet-bar easy-button-container leaflet-control"
-    title="Search by Radius"
     :style="{ 'color': 'red', 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
   >
     <button
       :class="bufferToolActive"
+      aria-label="Search by Radius"
+      title="Search by Radius"
       :style="{ 'color': 'red', 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }"
       @click="handleBufferButtonClick"
     >
@@ -16,7 +17,9 @@
         />
       </span>
     </button>
-    <div :class="bufferClassActive">
+    <div 
+      :class="bufferClassActive"
+    >
       <ul>
         <li>Click to search by buffer.</li>
         <li class="cancel">

@@ -6,7 +6,7 @@
           :icon="computedIcon" 
           class="fa-lg"
         />
-      </span>
+      </span>Locate Me
     </button>
   </div>
 </template>

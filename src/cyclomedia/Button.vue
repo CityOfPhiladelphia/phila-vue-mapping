@@ -1,16 +1,18 @@
 <template>
-  <div class="leaflet-bar easy-button-container leaflet-control">
+  <div class="leaflet-bar easy-button-container leaflet-control testing-class-in-control">
     <button
       :class="cyclomediaActive"
-      class="cyclomedia-button"
+      value="satellite imagery"
+      class="cyclomedia-button testing-class-in-control"
       @click.prevent="handleButtonClick"
     >
       <span class="button-state">
         <img
           :src="imgSrc"
+          alt="Cyclomedia Imagery"
           class="button-image"
         >
-      </span>
+      </span>Cyclomedia Imagery
     </button>
   </div>
 </template>

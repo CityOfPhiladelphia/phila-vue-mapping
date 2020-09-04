@@ -5,8 +5,10 @@
         <img
           :src="toggleButtonImgSrc"
           class="button-image"
+          alt="Satellite Imagery"
         >
       </span>
+      Satellite Imagery
     </button>
   </div>
 </template>
