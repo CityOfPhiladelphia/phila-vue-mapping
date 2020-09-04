@@ -35,6 +35,8 @@
     <button
       v-if="addressEntered != '' && addressEntered != null"
       :class="'pvm-search-control-button ' + buttonClass"
+      aria-label="delete button"
+      title="delete button"
       @click="handleFormX"
     >
       <font-awesome-icon icon="times" />
@@ -43,8 +45,8 @@
       :class="'pvm-search-control-button ' + buttonClass"
       name="pvm-search-control-button"
       tabindex="-1"
-      aria-label="button"
-      title="button"
+      aria-label="search button"
+      title="search button"
       @click="handleSearchFormSubmit"
     >
       <font-awesome-icon icon="search" aria-hidden="true" />

@@ -217,6 +217,10 @@ export default {
 
     map.addControl(draw, this.$props.position);
 
+    let element = document.getElementsByClassName('mapbox-gl-draw_polygon')[0];
+    element.innerHTML='measure tool';
+    // console.log('DistanceMeasureControl.vue mounted, element:', element);
+
     map.on('draw.create', e => this.$emit('drawCreate', e));
     map.on('draw.update', e => this.$emit('drawUpdate', e));
     map.on('draw.actionable', e => this.$emit('drawActionable', e));
@@ -246,6 +250,9 @@ export default {
       $this.$data.mode = e.mode;
       $this.$emit('drawModeChange', e);
     });
+  },
+  mounted() {
+
   },
   methods: {
     handleDeleteClick(e) {
@@ -343,6 +350,9 @@ tr:nth-child(even) {
 
 .mapbox-gl-draw_polygon {
   background-image: url('/images/rulers.png') !important;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .mapbox-gl-draw_ctrl-draw-btn {
