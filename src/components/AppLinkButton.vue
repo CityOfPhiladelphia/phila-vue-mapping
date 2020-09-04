@@ -4,7 +4,7 @@
       class="easy-button-button leaflet-bar-part leaflet-interactive unnamed-state-active"
       @click="handleButtonClick(link)"
     >
-      <span class="button-state state-unnamed-state unnamed-state-active">
+      <span class="button-state state-unnamed-state unnamed-state-active testing-class-in-control">
         <img 
           :src="imgSrc" 
           class="button-image"

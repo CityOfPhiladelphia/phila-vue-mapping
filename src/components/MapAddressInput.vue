@@ -13,6 +13,7 @@
         :id="inputID"
         :class="'pvm-search-control-input ' + inputClass"
         :style="inputStyle"
+        aria-label="Address Input"
         :placeholder="this.$props.placeholder || 'Search the map'"
         :value="addressEntered"
         tabindex="0"
@@ -29,6 +30,7 @@
     <button
       :class="'pvm-search-control-button ' + buttonClass"
       name="pvm-search-control-button"
+      aria-label="Search"
       tabindex="-1"
       @click="handleSearchFormSubmit"
     >
