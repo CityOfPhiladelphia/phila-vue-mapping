@@ -293,6 +293,7 @@ export default {
   top: 20px;
   border-radius: 2px;
   width: 305px;
+  z-index: 1;
 }
 
 .pvm-container-non-mobile {
