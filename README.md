@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.4 - 9/16/2020
+
+* removes nextTick from leaflet/Map.vue to make layerboard work
+
 ### 2.2.3 - 9/15/2020
 
 * fixes z-index of map address input for mapboard
