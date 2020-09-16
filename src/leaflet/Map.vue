@@ -89,7 +89,7 @@ export default {
   },
   watch: {
     center(nextCenter) {
-      console.log('Map.vue watch center is firing, nextCenter:', nextCenter)
+      // console.log('Map.vue watch center is firing, nextCenter:', nextCenter);
       if (typeof nextCenter[0] == 'number') {
         // let center = L.latLng(nextCenter[1], nextCenter[0]);
         this.setMapView(nextCenter);
@@ -255,7 +255,7 @@ export default {
       child.addTo(this.$leafletElement);
     },
     setMapView(xy = [], zoom = this.zoom) {
-      console.log('Map.vue setMapView is running, xy:', xy)
+      // console.log('Map.vue setMapView is running, xy:', xy);
       if (xy.length === 0) {
         return;
       }
@@ -265,7 +265,7 @@ export default {
       // we used "setView" here because when you refreshed the app with an address in the url,
       // "panTo" was getting stepped on by "setZoom" and it was not happening
       // this.$nextTick(() => {
-        // console.log('Map.vue this.$leafletElement.setView is running, latLng:', latLng);
+      // console.log('Map.vue this.$leafletElement.setView is running, latLng:', latLng);
       if (this.$leafletElement) {
         this.$leafletElement.setView(latLng, zoom);
       }
