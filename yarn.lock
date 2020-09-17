@@ -5082,9 +5082,9 @@ esrecurse@^4.1.0:
   dependencies:
     estraverse "^4.1.0"
 
-"esri-leaflet-legend@https://github.com/CityOfPhiladelphia/esri-leaflet-legend#8d42cbc1ed71c630fd8f9c6795877b5f7498b49f":
+"esri-leaflet-legend@https://github.com/CityOfPhiladelphia/esri-leaflet-legend#1dae0f8e728fddd249563c20ecbd9b3b71f94da3":
   version "2.0.1"
-  resolved "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#8d42cbc1ed71c630fd8f9c6795877b5f7498b49f"
+  resolved "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#1dae0f8e728fddd249563c20ecbd9b3b71f94da3"
   dependencies:
     esri-leaflet "^2.2.3"
     leaflet "^1.4.0"

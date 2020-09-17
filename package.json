@@ -24,7 +24,7 @@
     "blueimp-md5": "^2.10.0",
     "date-fns": "^2.8.1",
     "esri-leaflet": "^2.3.1",
-    "esri-leaflet-legend": "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#8d42cbc1ed71c630fd8f9c6795877b5f7498b49f",
+    "esri-leaflet-legend": "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#1dae0f8e728fddd249563c20ecbd9b3b71f94da3",
     "esri-leaflet-renderers": "2.0.6",
     "leaflet": "1.5.1",
     "leaflet-easybutton": "^2.3.0",
