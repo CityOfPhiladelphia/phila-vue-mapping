@@ -67,6 +67,14 @@ export default {
     z-index: 500;
   }
 
+  .leaflet-furtherleft {
+    position: absolute;
+    bottom: -24px;
+    left: 60px;
+    padding-bottom: 10px;
+    z-index: 500;
+  }
+
   .leaflet-almostleft .leaflet-control {
     margin-bottom: 0px;
   }
