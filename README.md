@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.6 - 9/18/2020
+
+* Adds control corner for bottom left for layerboard
+
 ### 2.2.5 - 9/17/2020
 
 * uses new commit of esri-leaflet-legend that adds space between symbols and labels
