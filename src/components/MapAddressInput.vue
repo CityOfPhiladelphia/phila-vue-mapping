@@ -24,7 +24,10 @@
       :class="'pvm-search-control-button ' + buttonClass"
       @click="handleFormX"
     >
-      <font-awesome-icon icon="times" />
+      <font-awesome-icon
+        icon="times"
+        class="fa-2x"
+      />
     </button>
     <button
       :class="'pvm-search-control-button ' + buttonClass"
@@ -32,7 +35,10 @@
       tabindex="-1"
       @click="handleSearchFormSubmit"
     >
-      <font-awesome-icon icon="search" />
+      <font-awesome-icon
+        icon="search"
+        class="fa-2x"
+      />
     </button>
     <slot name="address-candidates-slot" />
   </div>
@@ -292,7 +298,8 @@ export default {
   font-size: 16px;
   width: 250px;
   border-style: solid;
-  border-color: #2176d2;
+  border-color: #0f4d90;
+  /* border-color: #2176d2; */
   border-width: 2px;
 }
 
@@ -310,8 +317,10 @@ export default {
 .pvm-search-control-button {
   display: inline-block;
   color: #fff;
-  background: #2176d2;
+  background: #0f4d90;
+  /* background: #2176d2; */
   padding: 0px;
+  padding-top: 5px;
   width: 50px;
   margin-right: 1.5px;
 }

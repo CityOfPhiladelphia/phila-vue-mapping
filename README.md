@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.7 - 9/18/2020
+
+* makes changes to map address input
+
 ### 2.2.6 - 9/18/2020
 
 * Adds control corner for bottom left for layerboard
