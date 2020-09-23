@@ -14,7 +14,7 @@ export var LabelIcon = L.DivIcon.extend({
     div.innerHTML = '<div style="position: relative; left: -50%; text-shadow: 1px 1px 0px #fff, -1px 1px 0px #fff, 1px -1px 0px #fff, -1px -1px 0px #fff;">' + options.text + '</div>';
 
     // label.css
-    div.style.fontSize = '1em';
+    div.style.fontSize = '2em';
     div.style.fontWeight = 'bold';
     div.style.textTransform = 'uppercase';
     div.style.textAlign = 'center';

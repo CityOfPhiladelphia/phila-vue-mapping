@@ -23,12 +23,14 @@ export var WebMap = L.Evented.extend({
     token: null,
     // server domain name (default= 'www.arcgis.com')
     server: 'www.arcgis.com',
+    config: {},
   },
 
   initialize: function (webmapId, options) {
     L.setOptions(this, options);
 
     this._map = this.options.map;
+    this._config = this.options.config;
     this._token = this.options.token;
     this._server = this.options.server;
     this._webmapId = webmapId;
@@ -56,8 +58,9 @@ export var WebMap = L.Evented.extend({
     }
   },
 
-  _operationalLayer: function (layer, layers, map, params, paneName) {
-    var lyr = operationalLayer(layer, layers, map, params, paneName);
+  _operationalLayer: function (layer, layers, map, params, paneName, config) {
+    console.log('WebMapLoader _operationalLayer is running, layer:', layer, 'params:', params, 'config:', config);
+    var lyr = operationalLayer(layer, layers, map, params, paneName, config);
     if (lyr !== undefined && layer.visibility === true) {
       lyr.addTo(map);
     }
@@ -88,7 +91,9 @@ export var WebMap = L.Evented.extend({
   },
 
   _loadWebMap: function (id) {
+    console.log('_loadWebMap is running, this._config:', this._config);
     var map = this._map;
+    var config = this._config;
     var layers = this.layers;
     var server = this._server;
     var params = {};
@@ -116,16 +121,16 @@ export var WebMap = L.Evented.extend({
                 console.log(res.access);
                 if (res.access !== 'public') {
                   // console.log('in _loadWebMap public')
-                  this._operationalLayer(baseMapLayer, layers, map, params);
+                  this._operationalLayer(baseMapLayer, layers, map, params, config);
                 } else {
                   // console.log('in _loadWebMap NOT public')
-                  this._operationalLayer(baseMapLayer, layers, map, {});
+                  this._operationalLayer(baseMapLayer, layers, map, {}, config);
                 }
               }
               this._checkLoaded();
             }, this);
           } else {
-            this._operationalLayer(baseMapLayer, layers, map, {});
+            this._operationalLayer(baseMapLayer, layers, map, {}, config);
             this._checkLoaded();
           }
         }.bind(this));
@@ -145,16 +150,16 @@ export var WebMap = L.Evented.extend({
                 console.log(res.access);
                 if (res.access !== 'public') {
                   // console.log('inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
-                  this._operationalLayer(layer, layers, map, params, paneName);
+                  this._operationalLayer(layer, layers, map, params, paneName, config);
                 } else {
                   // console.log('NOT inside public, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
-                  this._operationalLayer(layer, layers, map, {}, paneName);
+                  this._operationalLayer(layer, layers, map, {}, paneName, config);
                 }
               }
               this._checkLoaded();
             }, this);
           } else {
-            this._operationalLayer(layer, layers, map, {}, paneName);
+            this._operationalLayer(layer, layers, map, {}, paneName, config);
             this._checkLoaded();
           }
         }.bind(this));

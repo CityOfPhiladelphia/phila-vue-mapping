@@ -8,13 +8,15 @@ import { polylineLabelPos } from './Label/PolylineLabel';
 import { polygonLabelPos } from './Label/PolygonLabel';
 import { createPopupContent } from './Popup/Popup';
 
-export function operationalLayer (layer, layers, map, params, paneName) {
-  // console.log('operationalLayer, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
-  return _generateEsriLayer(layer, layers, map, params, paneName);
+// console.log('OperationalLayer.js, this.$config:', this.$config);
+
+export function operationalLayer (layer, layers, map, params, paneName, config) {
+  console.log('operationalLayer, layer:', layer, 'layers:', layers, 'map:', map, 'params:', params, 'paneName:', paneName);
+  return _generateEsriLayer(layer, layers, map, params, paneName, config);
 }
 
-export function _generateEsriLayer (layer, layers, map, params, paneName) {
-  // console.log('generateEsriLayer: ', layer.title, 'paneName:', paneName, 'layer:', layer);
+export function _generateEsriLayer (layer, layers, map, params, paneName, config) {
+  console.log('generateEsriLayer:', layer.title, 'paneName:', paneName, 'layer:', layer);
   var lyr;
   var labels = [];
   var labelsLayer;
@@ -46,6 +48,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       opacity: layer.opacity,
       pane: paneName,
       onEachFeature: function (geojson, l) {
+        console.log('onEachFeature is running, geojson:', geojson, 'l:', l, 'fc:', fc);
         l.feature.layerName = layer.title.split('_')[1];
         if (fc !== undefined) {
           popupInfo = fc.popupInfo;
@@ -116,8 +119,8 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
         layers.push({ type: 'HL', title: layer.title || '', layer: lyr });
 
         return lyr;
-      } 
-      // console.log('create ArcGISFeatureLayer (with layerDefinition.drawingInfo)');
+      }
+      console.log('create ArcGISFeatureLayer (with layerDefinition.drawingInfo), config:', config);
       var drawingInfo = layer.layerDefinition.drawingInfo;
       drawingInfo.transparency = 100 - (layer.opacity * 100);
       // console.log(drawingInfo.transparency);
@@ -137,6 +140,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
         drawingInfo: drawingInfo,
         pane: paneName,
         onEachFeature: function (geojson, l) {
+          // console.log('onEachFeature is running, geojson:', geojson, 'l:', l, 'layer:', layer, 'config:', config);
           l.feature.layerName = layer.title.split('_')[1];
           if (layer.popupInfo !== undefined) {
             var popupContent = createPopupContent(layer.popupInfo, geojson.properties);
@@ -145,6 +149,21 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
           }
           if (layer.layerDefinition.drawingInfo.labelingInfo !== undefined && layer.layerDefinition.drawingInfo.labelingInfo !== null) {
             var labelingInfo = layer.layerDefinition.drawingInfo.labelingInfo;
+
+            let labelField;
+            let labelValue;
+            // if (labelingInfo[0].labelExpression == null) {
+
+            if (config.labelFields && Object.keys(config.labelFields).includes(layer.title.split('_')[1])) {
+              labelField = config.labelFields[layer.title.split('_')[1]];
+              labelingInfo[0].labelExpression = geojson.properties[labelField];
+              // labelValue = geojson.properties[labelField];
+            }
+
+            console.log('middle of onEachFeature, layer.title:', layer.title, 'labelingInfo', labelingInfo, 'geojson:', geojson);
+            // }
+
+
             var coordinates = l.feature.geometry.coordinates;
             var labelPos;
 
@@ -176,8 +195,8 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
       layers.push({ type: 'FL', title: layer.title || '', layer: lyr });
 
       return lyr;
-      
-    } 
+
+    }
     // console.log('create ArcGISFeatureLayer (without layerDefinition.drawingInfo)');
 
     if (layer.layerDefinition.definitionExpression !== undefined) {
@@ -202,7 +221,7 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
     layers.push({ type: 'FL', title: layer.title || '', layer: lyr });
 
     return lyr;
-    
+
   } else if (layer.layerType === 'ArcGISFeatureLayer') {
     // console.log('create ArcGISFeatureLayer');
     lyr = L.esri.featureLayer({
@@ -438,11 +457,11 @@ export function _generateEsriLayer (layer, layers, map, params, paneName) {
     layers.push({ type: 'WMS', title: layer.title || layer.id || '', layer: lyr });
 
     return lyr;
-  } 
+  }
   lyr = L.featureGroup([]);
   console.log('Unsupported Layer: ', layer);
   return lyr;
-  
+
 }
 
 export function _esriWTLUrlTemplateToLeaflet (url) {

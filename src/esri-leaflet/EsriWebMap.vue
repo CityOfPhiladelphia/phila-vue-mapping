@@ -26,6 +26,8 @@ export default {
   },
   methods: {
     parentMounted(parent) {
+      console.log('EsriWebMap parentMounted, this.$config:', this.$config);
+      const config = this.$config;
       const self = this;
       const map = this.$store.state.map.map;
 
@@ -36,14 +38,17 @@ export default {
       };
       let webMapLayersAndRest = [];
 
+
       axios.get(esriUrl, { params }).then(response => {
         const restData = response.data;
-        let webMap = this.$webMap = esriWebMap.EsriLeafletWebMap.webMap(this.webmapId, { map: map });
+        let webMap = this.$webMap = esriWebMap.EsriLeafletWebMap.webMap(this.webmapId, { map: map, config: config });
 
-        // console.log('WEBMAP', webMap, 'restData', restData);
+        // console.log('config:', config, 'webMap', webMap, 'restData', restData);
         self.$store.commit('setWebMap', webMap);
 
+
         webMap.on('load', function() {
+          // console.log('config:', config);
 
           map.attributionControl.setPrefix('<a target="_blank" href="//www.phila.gov/it/aboutus/units/Pages/GISServicesGroup.aspx">City of Philadelphia | CityGeo</a>');
 
@@ -52,7 +57,7 @@ export default {
           // create layerUrls - object mapping layerName to url
           let layerUrls = {};
           for (let layer of webMap.layers) {
-            // console.log('layer.title:', layer.title);
+            // console.log('for loop of layers, layer:', layer);
             const title = layer.title;
             if (!ignore.includes(title)) {
               if (title.includes('_')) {
@@ -91,10 +96,15 @@ export default {
               }
             }
 
-            // console.log('cupOpLayer:', curOpLayer);
+            let labelField;
+            if (config.labelFields && Object.keys(config.labelFields).includes(layer.title.split('_')[1])) {
+              labelField = config.labelFields[layer.title.split('_')[1]];
+            }
+            console.log('config:', config, 'labelField:', labelField, 'layer:', layer, 'curOpLayer:', curOpLayer);
             const webmapMetaDataRequestUrl = 'https://www.arcgis.com/sharing/rest/content/items/' + curOpLayer.itemId;
             const id = generateUniqueId();
             let layerObj = {
+              'labelField': labelField,
               'category': layer.title.split('_')[0],
               'title': layer.title.split('_')[1],
               'layer': layer.layer,

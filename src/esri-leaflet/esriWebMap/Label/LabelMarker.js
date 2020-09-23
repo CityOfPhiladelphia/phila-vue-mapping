@@ -9,6 +9,7 @@ export var LabelMarker = L.Marker.extend({
   },
 
   initialize: function (latlng, options) {
+    console.log('initialize is running, options:', options);
     L.setOptions(this, options);
     this._latlng = L.latLng(latlng);
 
@@ -17,13 +18,16 @@ export var LabelMarker = L.Marker.extend({
   },
 
   _createLabelText: function (properties, labelingInfo) {
+    console.log('in _createLabelText, properties:', properties, 'labelingInfo:', labelingInfo);
     var r = /\[([^\]]*)\]/g;
     var labelText = labelingInfo[0].labelExpression;
 
-    labelText = labelText.replace(r, function (s) {
-      var m = r.exec(s);
-      return properties[m[1]];
-    });
+    if (labelText) {
+      labelText = labelText.replace(r, function (s) {
+        var m = r.exec(s);
+        return properties[m[1]];
+      });
+    }
 
     return labelText;
   },
