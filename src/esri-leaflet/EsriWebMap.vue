@@ -80,6 +80,7 @@ export default {
           for (let layer of webMap.layers) {
             // for (let [index, layer] of webMap.layers.splice(1).entries()) {
             if (layer.title === 'CityBasemap' || layer.title === 'CityBasemap_Labels' || layer.title === 'CityBasemap_World' || layer.title === 'CityBasemap_Labels_World') {
+            // if (layer.title === 'PickupPHL_CollectionDayBoundaries_Raster' || layer.title === 'CityBasemap' || layer.title === 'CityBasemap_Labels' || layer.title === 'CityBasemap_World' || layer.title === 'CityBasemap_Labels_World') {
               continue;
             }
             // console.log('in EsriWebMap loop, layer.title.split("_")[1]:', layer.title.split('_')[1], 'self.defaultLayers:', self.defaultLayers);
