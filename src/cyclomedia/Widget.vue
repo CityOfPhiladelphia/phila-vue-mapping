@@ -322,7 +322,13 @@ export default {
       });
     },
     popoutClicked() {
-      const map = this.$store.state.map.map;
+      console.log('popoutClicked');
+      let map;
+      if (this.$store.map) {
+        map = this.$store.map;
+      } else {
+        map = this.$store.state.map.map;
+      }
       const center = map.getCenter();
       window.open('//cyclomedia.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setCyclomediaActive', false);

@@ -199,7 +199,12 @@ export default {
       prior.parentNode.insertBefore(script, prior);
     },
     popoutClicked() {
-      const map = this.$store.state.map.map;
+      let map;
+      if (this.$store.map) {
+        map = this.$store.map;
+      } else {
+        map = this.$store.state.map.map;
+      }
       const center = map.getCenter();
       window.open('//pictometry.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setPictometryActive', false);
