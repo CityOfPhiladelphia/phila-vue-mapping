@@ -174,6 +174,7 @@ export default {
         () => {
           // get map center and set location
           let latLng;
+          // console.log('in cyclomediaInitializationBegun, this.$store.state.cyclomedia.latLngFromMap:', this.$store.state.cyclomedia.latLngFromMap);
           if (this.$store.state.cyclomedia.latLngFromMap) {
             latLng = this.$store.state.cyclomedia.latLngFromMap;
           } else {
@@ -282,18 +283,22 @@ export default {
               if (e.detail.yaw !== widget.$store.state.cyclomedia.orientation.yaw ||
                     viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz
               ) {
+                // console.log('VIEW_CHANGE first if, widget.$store.state.cyclomedia.orientation.xyz:', widget.$store.state.cyclomedia.orientation.xyz);
                 // console.log('on VIEW_CHANGE fired with yaw change, viewer.props.orientation:', viewer.props.orientation);
                 widget.sendOrientationToStore(e.detail, viewer.props.orientation.xyz);
               } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
+                // console.log('VIEW_CHANGE second if');
                 widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
               }
             });
 
             viewer.on('VIEW_LOAD_END', function(e) {
-              // console.log('on VIEW_LOAD_END fired, type:', e.type, 'e:', e, 'viewer.props.orientation:', viewer.props.orientation);
+              // console.log('on VIEW_LOAD_END fired, type:', e.type, 'e:', e, 'viewer.props.orientation:', viewer.props.orientation, 'widget.$store.state.cyclomedia.orientation.xyz:', widget.$store.state.cyclomedia.orientation.xyz);
               if (viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz) {
+                // console.log('VIEW_LOAD_END first if');
                 widget.sendOrientationToStore(e, viewer.props.orientation.xyz);
               } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
+                // console.log('VIEW_LOAD_END second if');
                 widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
               }
             });
@@ -309,6 +314,7 @@ export default {
       // viewer.openByCoordinate(coords);
     },
     sendOrientationToStore(e, xyz) {
+      // console.log('sendOrientationToStore is running, xyz:', xyz);
       if (e.yaw) {
         this.$store.commit('setCyclomediaYaw', e.yaw);
         this.$store.commit('setCyclomediaHFov', e.hFov);
@@ -316,13 +322,13 @@ export default {
       const xy = [ xyz[0], xyz[1] ];
       // console.log('sendOrientationToStore, e:', e, 'xyz:', xyz, 'xy:', xy);
       const lnglat = proj4(this.projection2272, this.projection4326, xy);
-      // console.log('sendOrientationToStore is running, xyz:', xyz, 'lnglat:', lnglat);
+      // console.log('VIEW_ sendOrientationToStore is running, xyz:', xyz, 'lnglat:', lnglat);
       this.$nextTick(() => {
         this.$store.commit('setCyclomediaXyz', lnglat);
       });
     },
     popoutClicked() {
-      console.log('popoutClicked');
+      // console.log('popoutClicked');
       let map;
       if (this.$store.map) {
         map = this.$store.map;
