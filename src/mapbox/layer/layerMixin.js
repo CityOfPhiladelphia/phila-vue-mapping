@@ -166,7 +166,7 @@ export default {
   },
 
   beforeDestroy() {
-    console.log('layerMixin beforeDestroy is running, this.layerId:', this.layerId, 'this.clearSource:', this.clearSource, 'this.map:', this.map, 'this.map.loaded():', this.map.loaded());
+    // console.log('layerMixin beforeDestroy is running, this.layerId:', this.layerId, 'this.clearSource:', this.clearSource, 'this.map:', this.map, 'this.map.loaded():', this.map.loaded());
     // if (this.map && this.map.loaded()) {
     try {
       // console.log('layerMixin beforeDestroy if map and maploaded try is running')

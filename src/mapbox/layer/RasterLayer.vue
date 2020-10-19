@@ -107,12 +107,12 @@ export default {
       };
 
       let before = this.before;
-      console.log('RasterLayer.js end is running, layerId:', this.layerId, 'before:', before);
+      // console.log('RasterLayer.js end is running, layerId:', this.layerId, 'before:', before);
       let layers = this.map.getStyle().layers;
       let beforeExists = [];
       if (before != null) {
         for (let layer of layers) {
-          console.log('in loop, layer:', layer, 'layer.id:', layer.id);
+          // console.log('in loop, layer:', layer, 'layer.id:', layer.id);
           if (before.includes(layer.id)) {
             beforeExists.push(layer.id);
             break;
