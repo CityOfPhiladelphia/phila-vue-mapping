@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.10 - 10/27/2020
+
+* uses github actions to push to npmjs
+
 ### 2.2.9 - 10/6/2020
 
 * ran yarn upgrades

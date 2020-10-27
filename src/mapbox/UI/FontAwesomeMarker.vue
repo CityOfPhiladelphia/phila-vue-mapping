@@ -105,7 +105,7 @@ export default {
   },
 
   mounted() {
-    console.log('FontAwesomeMarker mounted running');
+    // console.log('FontAwesomeMarker mounted running');
     this.createFontAwesomeMarker();
   },
 
@@ -120,7 +120,7 @@ export default {
       const markerOptions = {
         ...this.$props,
       };
-      console.log('FontAwesomeMarker.vue, markerOptions:', markerOptions, 'this.$props.icon:', this.$props.icon, 'this.$props.icon.icon:', this.$props.icon.icon);
+      // console.log('FontAwesomeMarker.vue, markerOptions:', markerOptions, 'this.$props.icon:', this.$props.icon, 'this.$props.icon.icon:', this.$props.icon.icon);
       if (this.$slots.marker) {
         markerOptions.element = this.$slots.marker[0].elm;
       }
@@ -141,7 +141,7 @@ export default {
 
       this.marker = new this.mapbox.Marker(holderDiv, markerOptions);
 
-      console.log('FontAwesomeMarker.vue still running, this.marker:', this.marker, 'faIcon.className:', faIcon.className);
+      // console.log('FontAwesomeMarker.vue still running, this.marker:', this.marker, 'faIcon.className:', faIcon.className);
 
       if (this.$listeners["update:coordinates"]) {
         this.marker.on("dragend", event => {
