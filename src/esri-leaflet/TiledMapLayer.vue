@@ -23,8 +23,8 @@ export default {
       map.attributionControl.removeAttribution('<span class="esri-attributions" style="line-height:14px; vertical-align: -3px; text-overflow:ellipsis; white-space:nowrap; overflow:hidden; display:inline-block; max-width:1385px;"></span>');
     }
   },
-  destroyed() {
-    // console.log('EsriTiledMapLayer destroyed is running');
+  beforeDestroy() {
+    console.log('EsriTiledMapLayer destroyed is running, this.$leafletElement:', this.$leafletElement, 'this.$leafletElement._map:', this.$leafletElement._map);
     this.$leafletElement._map.removeLayer(this.$leafletElement);
   },
   methods: {
