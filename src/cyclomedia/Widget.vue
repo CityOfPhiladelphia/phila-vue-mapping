@@ -221,9 +221,10 @@ export default {
       const divStyle = window.getComputedStyle(el);
       const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
       this.divWidth = divWidth;
-      // console.log('setDivWidth is running, docWidth:', docWidth, 'divWidth', divWidth);
+      let appName = this.$store.state.appName;
+      // console.log('setDivWidth is running, appName:', appName, 'docWidth:', docWidth, 'divWidth', divWidth);
       let answer;
-      if (this.fullScreenMapEnabled || docWidth < 750) {
+      if (appName !== 'pde' && this.fullScreenMapEnabled || appName !== 'pde' && docWidth < 750) {
         // console.log('setDivWidth is running, first option')
         answer = docWidth - divWidth + 'px';
       } else {
