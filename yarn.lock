@@ -861,6 +861,11 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
+"@esri/arcgis-to-geojson-utils@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@esri/arcgis-to-geojson-utils/-/arcgis-to-geojson-utils-1.3.0.tgz#79ab65bf3e40c039dbdebceff4b3b0ec088b189c"
+  integrity sha512-8yPorlHeU63U6aT7RJbgSfXGKTZtnQz7Os8Qw96PW2lXJ+g1CRe5L/G8h5qtYHqt5VM4yCUGIhzHHYxdGzanLQ==
+
 "@fortawesome/fontawesome-common-types@^0.2.32":
   version "0.2.32"
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-0.2.32.tgz#3436795d5684f22742989bfa08f46f50f516f259"
@@ -5319,7 +5324,16 @@ esri-leaflet-renderers@2.0.6:
     leaflet "^1.0.0-rc.3"
     leaflet-shape-markers "^1.0.4"
 
-esri-leaflet@^2.0.0, esri-leaflet@^2.2.3, esri-leaflet@^2.3.1:
+esri-leaflet@2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.3.1.tgz#f1b1724525e92260e4e71edf8abf1c4d62793cf3"
+  integrity sha512-KboDAAsoEonyYlkW1keOov1XndDyM/qQwWlLdP26WhTMPH/S5QvYsKP9ueKsc73m90YmvXZqC5Qp4wv1m3Xtrw==
+  dependencies:
+    "@esri/arcgis-to-geojson-utils" "^1.3.0"
+    leaflet-virtual-grid "^1.0.7"
+    tiny-binary-search "^1.0.3"
+
+esri-leaflet@^2.0.0, esri-leaflet@^2.2.3:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/esri-leaflet/-/esri-leaflet-2.5.1.tgz#b473785d0459960a91934c4f8ea8e5512dd9145e"
   integrity sha512-AW20oUuH4Co5qv+4rRtueHLczeqgYnJblv1KY1PLQgJrzeusT9ZgDXPi/esMeb3yN2PC2JL5BZIhlfzRegVDXA==
@@ -7098,6 +7112,13 @@ leaflet-shape-markers@^1.0.4, leaflet-shape-markers@^1.0.6:
 "leaflet-vector-icon@https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5":
   version "1.0.0"
   resolved "https://github.com/CityOfPhiladelphia/leaflet-vector-icon#c37571e92c66ce0003f22058f2d246b31d3941a5"
+
+leaflet-virtual-grid@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/leaflet-virtual-grid/-/leaflet-virtual-grid-1.0.7.tgz#0dbb0dacd506b6e6d291314da5022d348729f8ad"
+  integrity sha512-sJxWYPcIKwMTewE+z8OFzfZHsbZcniQgTcreVdIQnxSRf+1XpMp+c4QKAWRKTBRmWOhEGyQO0Z90CLANJ9jRUQ==
+  dependencies:
+    leaflet "^1.0.0"
 
 leaflet@1.5.1:
   version "1.5.1"
