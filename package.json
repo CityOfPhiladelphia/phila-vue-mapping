@@ -23,7 +23,7 @@
     "axios": "^0.19.0",
     "blueimp-md5": "^2.10.0",
     "date-fns": "^2.8.1",
-    "esri-leaflet": "^2.3.1",
+    "esri-leaflet": "2.3.1",
     "esri-leaflet-legend": "https://github.com/CityOfPhiladelphia/esri-leaflet-legend#8fc0a7949b1ce80340261167a1aa4302177bb380",
     "esri-leaflet-renderers": "2.0.6",
     "leaflet": "1.5.1",

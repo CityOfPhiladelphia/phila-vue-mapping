@@ -24,8 +24,9 @@ export default {
     }
   },
   destroyed() {
-    // console.log('EsriTiledMapLayer destroyed is running');
-    this.$leafletElement._map.removeLayer(this.$leafletElement);
+    let map = this.$leafletElement._map;
+    console.log('EsriTiledMapLayer destroyed is running, map:', map);
+    map.removeLayer(this.$leafletElement);
   },
   methods: {
     createLeafletElement() {
