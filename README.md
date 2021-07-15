@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 2.2.12 - 7/15/2021
+
+* locks esri-leaflet version on 2.3.1
+
 ### 2.2.11 - 7/12/2021
 
 * fixes a bug with the position of the cyclomedia popout button for property-data-explorer
