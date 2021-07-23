@@ -39,7 +39,7 @@
     "maplibre-gl": "1.15.2",
     "phila-standards": "^1.0.2",
     "proj4": "^2.7.5",
-    "sdleafletdraw": "git+https://github.com/CityOfPhiladelphia/SDLeafletDraw.git#a3e8e8a860e75d370e533247bd31dfd55e865a62",
+    "sdleafletdraw": "git+https://github.com/CityOfPhiladelphia/SDLeafletDraw.git#b829efb8979a942dec04e4a2849af6b06434c9cf",
     "vue": "^2.6.11",
     "vuex": "^3.5.1"
   },
