@@ -127,7 +127,8 @@ import withSelfEvents from "../withSelfEvents";
 // this was recommended by a comment in https://github.com/mapbox/mapbox-gl-js/issues/9114
 // the official mapbox-gl-draw was blocking map clicks
 import MapboxDraw from '../../mapbox-gl-draw.min.js';
-import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+// import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
+import '../../mapbox-gl-draw.css';
 import area from '@turf/area';
 
 export default {
