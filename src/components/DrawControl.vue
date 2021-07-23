@@ -45,7 +45,7 @@ export default {
       this.$store.commit('setEditableLayers', editableLayers);
     },
     createLeafletElement() {
-      console.log('DrawControl createLeafletElement is running, L:', L);
+      console.log('DrawControl createLeafletElement is running, L:', L, 'Control:', Control);
       const { position } = this.$props;
       const { control } = this.$props;
       const editableLayers = new L.FeatureGroup();
