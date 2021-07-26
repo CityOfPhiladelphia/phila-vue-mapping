@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.0.0 - 7/26/2021
+
+* requires using npm for all package commands
+
 ### 2.2.12 - 7/15/2021
 
 * locks esri-leaflet version on 2.3.1
