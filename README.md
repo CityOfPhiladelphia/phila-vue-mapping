@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.0.1 - 8/18/2021
+
+* includes both mapbox and maplibre
+
 ### 3.0.0 - 7/26/2021
 
 * requires using npm for all package commands
