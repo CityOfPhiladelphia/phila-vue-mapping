@@ -36,6 +36,7 @@
     "leaflet.pointinpolygon": "git+https://github.com/CityOfPhiladelphia/Leaflet.PointInPolygon.git#a0d410f69aacf5f9165c4d01ccffeed824ccaed8",
     "lodash-es": "^4.17.14",
     "map-promisified": "^0.4.0",
+    "mapbox-gl": "1.6.1",
     "maplibre-gl": "1.15.2",
     "phila-standards": "^1.0.2",
     "proj4": "^2.7.5",
