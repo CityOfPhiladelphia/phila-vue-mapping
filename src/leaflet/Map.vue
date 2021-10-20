@@ -245,7 +245,11 @@ export default {
     },
     drawStopChange() {
       // console.log("DrawStart is working");
-      this.$store.commit('setDrawStart', null);
+      let store = this.$store;
+      const myMethod = (function() {
+        store.commit('setDrawStart', null);
+      }).bind(store);
+      setTimeout(myMethod, 250);
     },
     createLeafletElement() {
       const { zoomControlPosition, ...options } = this.$props;
