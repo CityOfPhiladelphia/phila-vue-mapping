@@ -139,14 +139,14 @@ export default {
     },
   },
   mounted() {
-    console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
+    // console.log('Map.vue mounted, this.center:', this.center, 'this.$props.zoom:', this.$props.zoom);
     if (this.$store.state.map.shouldInitialize) {
       this.initializeMap();
     }
   },
   methods: {
     initializeMap() {
-      console.log('Map.vue initializeMap is running');
+      // console.log('Map.vue initializeMap is running');
       const map = this.$leafletElement = this.createLeafletElement();
 
       // move attribution and zoom controls
@@ -245,7 +245,11 @@ export default {
     },
     drawStopChange() {
       // console.log("DrawStart is working");
-      this.$store.commit('setDrawStart', null);
+      let store = this.$store;
+      const myMethod = (function() {
+        store.commit('setDrawStart', null);
+      }).bind(store);
+      setTimeout(myMethod, 250);
     },
     createLeafletElement() {
       const { zoomControlPosition, ...options } = this.$props;
