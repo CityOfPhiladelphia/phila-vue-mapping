@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.0 - 10/27/2021
+
+* changes for releasing Property Data Explorer
+
 ### 3.0.1 - 8/18/2021
 
 * includes both mapbox and maplibre
