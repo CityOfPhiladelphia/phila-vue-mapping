@@ -109,7 +109,7 @@ export default {
 
   methods: {
     $_deferredMount() {
-      // console.log('GeojsonLayer.js $_deferredMount is running, this.map:', this.map, 'this.sourceId:', this.sourceId, 'this.source:', this.source);
+      console.log('GeojsonLayer.js $_deferredMount is running, this.map:', this.map, 'this.sourceId:', this.sourceId, 'this.source:', this.source);
       // this.map = payload.map;
       // console.log('$_deferredMount, this.map:', this.map);
       this.map.on("dataloading", this.$_watchSourceLoading);
@@ -151,7 +151,7 @@ export default {
     },
 
     $_addLayer() {
-      // console.log('GeojsonLayer.js $_addLayer is starting, this.layerId:', this.layerId);
+      console.log('GeojsonLayer.js $_addLayer is starting, this.layerId:', this.layerId);
       let existed = this.map.getLayer(this.layerId);
       if (existed) {
         // console.log('GeojsonLayer.js $_addLayer if existed is running');
@@ -163,12 +163,14 @@ export default {
           return existed;
         }
       }
+      console.log('GeojsonLayer.js $_addLayer is still running, this.layerId:', this.layerId);
       const layer = {
-        id: this.layerId,
+        // id: this.layerId,
         source: this.sourceId,
         ...this.layer,
       };
-      // console.log('$_addLayer is still running, layer:', layer);
+      layer.id = this.layerId;
+      console.log('$_addLayer is still running, layer:', layer, 'this.before:', this.before);
       this.map.addLayer(layer, this.before);
       // console.log('$_addLayer after map.addLayer');
       this.$_emitEvent("added", { layerId: this.layerId });
