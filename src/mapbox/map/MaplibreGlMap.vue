@@ -196,13 +196,13 @@ export default {
     // });
   },
 
-  beforeDestroy() {
-    this.$nextTick(() => {
-      if (this.map) {
-        this.map.remove();
-      }
-    });
-  },
+  // beforeDestroy() {
+  //   this.$nextTick(() => {
+  //     if (this.map) {
+  //       this.map.remove();
+  //     }
+  //   });
+  // },
 
   methods: {
     testMethod(map) {

@@ -143,7 +143,7 @@ export default {
   },
 
   created() {
-    // console.log('GlMap.vue created is running, this.$props.mapStyle:', this.$props.mapStyle, 'this.$props.mapStyle.version:', this.$props.mapStyle.version);
+    console.log('GlMap.vue created is running, this.$props.mapStyle:', this.$props.mapStyle, 'this.$props.mapStyle.version:', this.$props.mapStyle.version);
     this.map = null;
     this.propsIsUpdating = {};
     this.mapboxPromise = this.mapboxGl

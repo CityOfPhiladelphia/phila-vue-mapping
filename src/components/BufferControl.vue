@@ -2,7 +2,7 @@
   <div
     class="leaflet-bar easy-button-container leaflet-control"
     title="Search by Radius"
-    :style="{ 'color': 'red', 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
+    :style="{ 'top': top, 'left': left, 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
   >
     <button
       :class="bufferToolActive"
@@ -34,6 +34,8 @@ const { props, methods } = Control;
 
 export default {
   props: [
+    'top',
+    'left',
     'position',
     'barHeight',
     'barWidth',
