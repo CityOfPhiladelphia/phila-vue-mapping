@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import Control from '../leaflet/Control.vue';
-
-const { props, methods } = Control;
+// import Control from '../leaflet/Control.vue';
+//
+// const { props, methods } = Control;
 
 export default {
   props: [
@@ -52,7 +52,7 @@ export default {
       return this.$store.state.bufferMode ? 'leaflet-buffer-actions' : 'leaflet-buffer-actions tool-inactive';
     },
   },
-  methods: Object.assign(methods, {
+  methods: { //Object.assign(methods, {
     handleBufferButtonClick(e) {
       // console.log('handleBufferButtonClick is running, Object.keys(this.$store.state):', Object.keys(this.$store.state));
       const bufferMode = this.$store.state.bufferMode;
@@ -65,7 +65,8 @@ export default {
         }
       }
     },
-  }),
+  // }),
+  },
 };
 </script>
 
