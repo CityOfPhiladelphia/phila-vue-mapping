@@ -85,7 +85,125 @@ export default {
       controls: {
         polygon: true,
       },
+      styles: [
+        {
+          "id": "gl-draw-line",
+          "type": "line",
+          "filter": ["all", ["==", "$type", "LineString"], ["!=", "mode", "simple_select"]],
+          "layout": {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+          "paint": {
+            "line-color": "#D20C0C",
+            "line-dasharray": [0.2, 2],
+            "line-width": 2
+          }
+        },
+        // polygon fill
+        {
+          "id": "gl-draw-polygon-fill",
+          "type": "fill",
+          "filter": ["all", ["==", "$type", "Polygon"], ["!=", "mode", "simple_select"]],
+          "paint": {
+            "fill-color": "#D20C0C",
+            "fill-outline-color": "#D20C0C",
+            "fill-opacity": 0.1
+          }
+        },
+        // polygon mid points
+        {
+          'id': 'gl-draw-polygon-midpoint',
+          'type': 'circle',
+          'filter': ['all',
+            ['==', '$type', 'Point'],
+            ['==', 'meta', 'midpoint']],
+          'paint': {
+            'circle-radius': 3,
+            'circle-color': '#fbb03b'
+          },
+        },
+        // polygon outline stroke
+        // This doesn't style the first edge of the polygon, which uses the line stroke styling instead
+        {
+          "id": "gl-draw-polygon-stroke-active",
+          "type": "line",
+          "filter": ["all", ["==", "$type", "Polygon"], ["!=", "mode", "simple_select"]],
+          "layout": {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+          "paint": {
+            "line-color": "#D20C0C",
+            "line-dasharray": [0.2, 2],
+            "line-width": 2
+          }
+        },
+        // vertex point halos
+        {
+          "id": "gl-draw-polygon-and-line-vertex-halo-active",
+          "type": "circle",
+          "filter": ["all", ["==", "meta", "vertex"], ["==", "$type", "Point"], ["!=", "mode", "simple_select"]],
+          "paint": {
+            "circle-radius": 5,
+            "circle-color": "#FFF"
+          }
+        },
+        // vertex points
+        {
+          "id": "gl-draw-polygon-and-line-vertex-active",
+          "type": "circle",
+          "filter": ["all", ["==", "meta", "vertex"], ["==", "$type", "Point"], ["!=", "mode", "simple_select"]],
+          "paint": {
+            "circle-radius": 3,
+            "circle-color": "#D20C0C",
+          }
+        },
+
+        // INACTIVE (simple_select, already drawn)
+        // line stroke
+        {
+            "id": "gl-draw-line-static",
+            "type": "line",
+            "filter": ["all", ["==", "$type", "LineString"], ["==", "mode", "simple_select"]],
+            "layout": {
+              "line-cap": "round",
+              "line-join": "round"
+            },
+            "paint": {
+              "line-color": "#000",
+              "line-width": 3
+            }
+        },
+        // polygon fill
+        {
+          "id": "gl-draw-polygon-fill-static",
+          "type": "fill",
+          "filter": ["all", ["==", "$type", "Polygon"], ["==", "mode", "simple_select"]],
+          "paint": {
+            "fill-color": "#000",
+            "fill-outline-color": "#000",
+            "fill-opacity": 0.1
+          }
+        },
+        // polygon outline
+        {
+          "id": "gl-draw-polygon-stroke-static",
+          "type": "line",
+          "filter": ["all", ["==", "$type", "Polygon"], ["==", "mode", "simple_select"]],
+          "layout": {
+            "line-cap": "round",
+            "line-join": "round"
+          },
+          "paint": {
+            "line-color": "#000",
+            "line-width": 3
+          }
+        }
+      ]
     });
+
+
     this.draw = draw;
     this.$store.commit('setDraw', draw);
     let map = this.$store.map;
@@ -130,19 +248,13 @@ export default {
 
   },
   methods: {
-    handleDrawButtonClick() {
-      // let map = this.$store.map;
+    handleDrawButtonClick(e) {
       this.draw.changeMode('draw_polygon');
-      let mode = this.draw.getMode();
-      console.log('MbDrawControl.vue handleDrawButtonClick, mode:', mode);
-      // this.$emit('drawButtonClicked');
-      // this.mode = 'draw_polygon';
-
+      this.$emit('drawModeChange', {mode: 'draw_polygon'});
+      // let mode = this.draw.getMode();
+      console.log('MbDrawControl.vue handleDrawButtonClick');//, mode:', mode);
     },
   },
-  // render(h) {
-  //   return;
-  // },
 };
 </script>
 
