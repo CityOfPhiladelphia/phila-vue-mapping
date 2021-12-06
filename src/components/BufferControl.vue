@@ -15,6 +15,9 @@
           class="fa-3x icon-padding"
         />
       </span>
+      <span class="button-text">
+        SELECT RADIUS
+      </span>
     </button>
     <div :class="bufferClassActive">
       <ul>
@@ -75,6 +78,14 @@ export default {
   .icon-padding {
     padding-top: 8px;
     color: #4f4f4f;
+  }
+
+  .button-text {
+    font-weight: normal;
+    padding: 3px 10px 0 10px;
+    position: relative;
+    color: white;
+    align-items: center;
   }
 
   @media screen and (max-width: 750px) {
