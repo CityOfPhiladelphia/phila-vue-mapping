@@ -243,6 +243,8 @@ export default {
       $this.$data.mode = e.mode;
       $this.$emit('drawModeChange', e);
     });
+
+    map.on('draw.create', this.drawShapeChange);
   },
   mounted() {
 
@@ -254,6 +256,12 @@ export default {
       // let mode = this.draw.getMode();
       console.log('MbDrawControl.vue handleDrawButtonClick');//, mode:', mode);
     },
+    drawShapeChange(shape) {
+      console.log('MbDrawControl, drawShapeChange, shape:', shape);
+      // this.$store.commit('setDrawShape', shape.layer);
+      // this.$store.commit('setShapeSearchInput', shape.layer._latlngs[0]);
+      this.$store.commit('setShapeSearchInput', shape.features[0].geometry.coordinates[0]);
+    },
   },
 };
 </script>
@@ -261,7 +269,7 @@ export default {
 <style>
 
 .mapboxgl-ctrl-group, mapboxgl-ctrl-group:not(:empty) {
-  /* display: none; */
+  display: none;
   /* width: 210px;
   height: 50px;
   background-color: #0f4d90;
