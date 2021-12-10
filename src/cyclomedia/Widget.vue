@@ -82,6 +82,8 @@ export default {
         } else {
           value = "medium-12 small-24 height100";
         }
+      } else if (this.$props.orientation === 'horizontal') {
+        value = 'small-24 medium-12 height100';
       } else {
         if (this.pictometryActive) {
           value = 'medium-16 large-16 height50 columns';
