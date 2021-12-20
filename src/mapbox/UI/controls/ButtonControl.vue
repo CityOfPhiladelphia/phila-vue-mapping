@@ -45,6 +45,7 @@ export default {
     },
   },
   mounted() {
+    console.log('ButtonControl.vue mounted');
     class ButtonControl {
 
       onAdd(map){
@@ -66,7 +67,7 @@ export default {
             img.className = 'button-image-middle';
           }
           img.src = props.imageLink;
-          
+
           img.setAttribute('alt', props.buttonId);
 
           this.container.appendChild(img);

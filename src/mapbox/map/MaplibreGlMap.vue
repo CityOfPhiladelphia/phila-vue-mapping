@@ -39,6 +39,10 @@ export default {
       type: Object,
       default: null,
     },
+    cycloOrientation: {
+      type: String,
+      default: null,
+    },
     ...options,
   },
 
@@ -93,6 +97,14 @@ export default {
     },
     mapContainerClass() {
       let value;
+      // if (this.cycloOrientation) {
+      //   if (this.picOrCycloActive && this.cycloOrientation === 'vertical') {
+      //     value = 'map-container';
+      //     // value = 'height50';
+      //   } else {
+      //     value = 'map-container';
+      //   }
+      // } else if (this.$config) {
       if (this.$config) {
         if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
           if (this.$config.map.containerClassWCyclo) {

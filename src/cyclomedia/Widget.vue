@@ -224,17 +224,17 @@ export default {
       const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
       this.divWidth = divWidth;
       let appName = this.$store.state.appName;
-      console.log('setDivWidth is running, appName:', appName, 'docWidth:', docWidth, 'divWidth', divWidth, 'this.$props.screenPercent:', this.$props.screenPercent);
+      // console.log('setDivWidth is running, appName:', appName, 'docWidth:', docWidth, 'divWidth', divWidth, 'this.$props.screenPercent:', this.$props.screenPercent);
       let answer;
       if (appName !== 'pde' && this.fullScreenMapEnabled || appName !== 'pde' && docWidth < 750) {
-        console.log('setDivWidth is running, first option')
+        // console.log('setDivWidth is running, first option');
         answer = docWidth - divWidth + 'px';
       } else {
-        console.log('setDivWidth is running, second option')
+        // console.log('setDivWidth is running, second option');
         // answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
         answer = 0;
       }
-      console.log('setDivWidth, answer:', answer);
+      // console.log('setDivWidth, answer:', answer);
       this.popoutPosition = answer;
       // return width;
     },
