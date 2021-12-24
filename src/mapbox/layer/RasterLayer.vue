@@ -32,7 +32,7 @@ export default {
   },
 
   created() {
-    console.log('RasterLayer created is running');
+    // console.log('RasterLayer created is running');
     this.$_deferredMount();
     if (this.$props.initialOpacity) {
       const opacity= this.$props.initialOpacity;
@@ -60,7 +60,7 @@ export default {
         ...this.source,
       };
 
-      console.log('in RasterLayer.js $_deferredMount, source:', source, 'this:', this);
+      // console.log('in RasterLayer.js $_deferredMount, source:', source, 'this:', this);
       this.map.on("dataloading", this.$_watchSourceLoading);
 
       try {
@@ -88,7 +88,7 @@ export default {
 
     $_addLayer() {
       let existed = this.map.getLayer(this.layerId);
-      console.log('RasterLayer.js $_addLayer is running, this:', this, 'this.layerId:', this.layerId, 'this.before:', this.before, 'this.map:', this.map, 'existed:', existed);
+      // console.log('RasterLayer.js $_addLayer is running, this:', this, 'this.layerId:', this.layerId, 'this.before:', this.before, 'this.map:', this.map, 'existed:', existed);
       if (existed) {
         if (this.replace) {
           // console.log('RasterLayer.js if if replace is running')

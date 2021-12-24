@@ -77,12 +77,16 @@ export default {
 
   .icon-padding {
     padding-top: 8px;
+    padding-bottom: 6px;
     color: #4f4f4f;
   }
 
   .button-text {
     font-weight: normal;
-    padding: 3px 10px 0 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 10px;
     position: relative;
     color: white;
     align-items: center;

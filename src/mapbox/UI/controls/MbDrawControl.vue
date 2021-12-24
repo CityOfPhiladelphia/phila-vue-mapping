@@ -1,7 +1,7 @@
 <template>
   <div
     class="leaflet-bar easy-button-container leaflet-control"
-    title="Search by Radius"
+    title="Search by Drawing"
     :style="{ 'top': top, 'left': left, 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
   >
     <button
@@ -11,7 +11,7 @@
     >
       <span class="button-state state-unnamed-state unnamed-state-active">
         <font-awesome-icon
-          :icon="'circle'"
+          :icon="'hexagon'"
           class="fa-3x icon-padding"
         />
       </span>
@@ -292,13 +292,16 @@ export default {
 
 .icon-padding {
   padding-top: 8px;
+  padding-bottom: 6px;
   color: #4f4f4f;
 }
 
 .button-text {
   font-weight: normal;
-  padding: 3px 10px 0 10px;
-  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  padding-right: 10px;
   color: white;
   align-items: center;
 }
@@ -316,8 +319,6 @@ export default {
     top: 4px;
     position: absolute;
   }
-
-
 }
 
 
