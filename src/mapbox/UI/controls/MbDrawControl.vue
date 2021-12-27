@@ -1,33 +1,44 @@
 <template>
-  <div
-    class="leaflet-bar easy-button-container leaflet-control"
-    title="Search by Drawing"
-    :style="{ 'top': top, 'left': left, 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
-  >
-    <button
-      :class="drawToolActive"
-      :style="{ 'color': 'red', 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }"
-      @click="handleDrawButtonClick"
+    <div
+      :class="'leaflet-bar easy-button-container leaflet-control'"
+      title="Search by Drawing"
     >
-      <span class="button-state state-unnamed-state unnamed-state-active">
+      <button
+        v-if="isLarge"
+        :class="drawToolActive"
+        :style="{ 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }"
+        @click="handleDrawButtonClick"
+      >
+        <span class="button-state state-unnamed-state unnamed-state-active">
+          <font-awesome-icon
+            :icon="'hexagon'"
+            class="fa-3x icon-padding"
+          />
+        </span>
+        <span class="button-text">
+          DRAW BOUNDARIES
+        </span>
+      </button>
+      <button
+        v-if="!isLarge"
+        @click="handleDrawButtonClick"
+        class="small-button"
+      >
         <font-awesome-icon
           :icon="'hexagon'"
-          class="fa-3x icon-padding"
+          class="fa-3x"
         />
-      </span>
-      <span class="button-text">
-        DRAW BOUNDARIES
-      </span>
-    </button>
-    <div :class="drawClassActive">
-      <ul>
-        <li>Click to search by draw.</li>
-        <li class="cancel">
-          <a @click="handleDrawButtonClick">Cancel</a>
-        </li>
-      </ul>
+      </button>
+      <div :class="drawClassActive">
+        <ul>
+          <li>Click to search by draw.</li>
+          <li class="cancel">
+            <a @click="handleDrawButtonClick">Cancel</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
+  <!-- </div> -->
 </template>
 
 <script>
@@ -43,7 +54,7 @@ import withSelfEvents from "../withSelfEvents";
 import MapboxDraw from '../../mapbox-gl-draw.min.js';
 // import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
 // import '../../mapbox-gl-draw.css';
-import area from '@turf/area';
+// import area from '@turf/area';
 
 
 export default {
@@ -61,6 +72,7 @@ export default {
     'buttonHeight',
     'buttonWidth',
     'buttonLineHeight',
+    'isLarge',
   ],
   data() {
     const data = {
@@ -72,6 +84,15 @@ export default {
     return data;
   },
   computed: {
+    isLargeClass() {
+      let value;
+      if (isLarge) {
+        value = 'is-large';
+      } else {
+        value = 'is-small';
+      }
+      return value;
+    },
     drawToolActive() {
       return this.$store.state.drawStart ? 'active pointer' : 'inactive pointer';
     },
@@ -267,6 +288,49 @@ export default {
 </script>
 
 <style>
+
+.is-large {
+  top: 94px;
+  left: 30px;
+  height: 45px;
+  /* width: 180px; */
+}
+/* line-height: barLineHeight; */
+
+.small-button {
+  height: 32px !important;
+  width: 32px !important;
+  padding-top: 5px;
+  /* padding-left: 4px; */
+}
+
+.is-small {
+  top: 154px;
+  right: 30px;
+  padding: 0px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 0px;
+  border: solid;
+  border-width: 2px;
+  border-color: #a1a1a1;
+  border-radius: 4px;
+  background-color: white;
+  font-family: arial;
+  font-weight: bold;
+  /* font-size: 11px; */
+  color: black;
+  width: 36px;
+  height: 36px;
+  line-height: 30px;
+  /* text-align: center; */
+  pointer-events: auto;
+  /* z-index: 12; */
+  cursor: pointer;
+  box-shadow: 0 0 0;
+}
+
+
 
 .mapboxgl-ctrl-group, mapboxgl-ctrl-group:not(:empty) {
   display: none;
