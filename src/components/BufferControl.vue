@@ -92,6 +92,10 @@ export default {
     align-items: center;
   }
 
+  .active .button-text {
+    color: #0f4d90;
+  }
+
   @media screen and (max-width: 750px) {
 
     .fa-3x {

@@ -31,9 +31,10 @@
       </button>
       <div :class="drawClassActive">
         <ul>
-          <li>Click to search by draw.</li>
+          <li>Finish</li>
+          <li>Delete last point</li>
           <li class="cancel">
-            <a @click="handleDrawButtonClick">Cancel</a>
+            <a @click="cancelButtonClick">Cancel</a>
           </li>
         </ul>
       </div>
@@ -271,11 +272,14 @@ export default {
 
   },
   methods: {
+    cancelButtonClick() {
+      console.log('cancelButtonClick');
+    },
     handleDrawButtonClick(e) {
+      console.log('MbDrawControl.vue handleDrawButtonClick');
+      this.$store.commit('setDrawStart', true);
       this.draw.changeMode('draw_polygon');
       this.$emit('drawModeChange', {mode: 'draw_polygon'});
-      // let mode = this.draw.getMode();
-      console.log('MbDrawControl.vue handleDrawButtonClick');//, mode:', mode);
     },
     drawShapeChange(shape) {
       console.log('MbDrawControl, drawShapeChange, shape:', shape);
@@ -288,6 +292,10 @@ export default {
 </script>
 
 <style>
+
+.leaflet-bar a:hover {
+  background-color: rgb(211, 211, 211);
+}
 
 .is-large {
   top: 94px;
@@ -318,14 +326,11 @@ export default {
   background-color: white;
   font-family: arial;
   font-weight: bold;
-  /* font-size: 11px; */
   color: black;
   width: 36px;
   height: 36px;
   line-height: 30px;
-  /* text-align: center; */
   pointer-events: auto;
-  /* z-index: 12; */
   cursor: pointer;
   box-shadow: 0 0 0;
 }
@@ -370,6 +375,10 @@ export default {
   align-items: center;
 }
 
+.active .button-text {
+  color: #0f4d90;
+}
+
 @media screen and (max-width: 750px) {
 
   .fa-3x {
@@ -400,18 +409,15 @@ export default {
 }
 
 .leaflet-draw-actions {
-  height: 30px;
   width: 217px;
   background-color: #919187;
   color: #FFF;
   display: block;
   top: -1px;
-  left: 113px;
+  left: 138px;
   position: absolute;
-  /* padding-left: 10px; */
   font: 11px/19px "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 12px;
-  /* line-height: 2.5; */
   border-radius: 0 4px 4px 0;
 }
 
@@ -424,36 +430,32 @@ export default {
 
 .leaflet-draw-actions ul {
   line-height: 2.5;
-  margin-left: 5px;
+  margin-left: 0px;
 }
 
 .leaflet-draw-actions li:first-child {
-  /* margin-left: 9px; */
   border-left: none;
 }
 
-.cancel {
+/* .cancel {
   margin-left: 13px;
-}
+} */
 
 .tool-inactive {
   display: none;
 }
 
 .leaflet-draw-actions a {
-  padding-left: 5px;
-    width: 100%;
-    color: #FFF;
-    font: "Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-size: 12px;
-    background-color: #919187;
+  /* padding-left: 5px; */
+  /* width: 100%; */
+  /* color: #FFF; */
+  font: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  /* background-color: #919187; */
 }
 
 .pointer {
   cursor: pointer;
 }
-
-
-
 
 </style>
