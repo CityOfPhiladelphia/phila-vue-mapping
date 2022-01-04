@@ -31,15 +31,19 @@
       </button>
       <div :class="drawClassActive">
         <ul>
-          <li>Finish</li>
-          <li>Delete last point</li>
-          <li class="cancel">
-            <a @click="cancelButtonClick">Cancel</a>
+          <li class="finish-button">
+            <a @click="handleFinishButtonClick">Finish</a>
+          </li>
+          <li class="delete-point-button">
+            <a @click="handleDeletePointButtonClick">Delete last point</a>
+          </li>
+          <li class="cancel-button">
+            <a @click="handleCancelButtonClick">Cancel</a>
           </li>
         </ul>
       </div>
     </div>
-  <!-- </div> -->
+
 </template>
 
 <script>
@@ -267,7 +271,7 @@ export default {
       $this.$emit('drawModeChange', e);
     });
 
-    map.on('draw.create', this.drawShapeChange);
+    // map.on('draw.create', this.drawShapeChange);
 
     let state = this.$store.state;
 
@@ -276,8 +280,17 @@ export default {
 
   },
   methods: {
-    cancelButtonClick() {
-      console.log('cancelButtonClick');
+    handleFinishButtonClick(e) {
+      console.log('finishButtonClick is running, e:', e);
+      this.$emit('drawFinish', e);
+      this.draw.changeMode('simple_select');
+    },
+    handleDeletePointButtonClick() {
+      console.log('deletePointButtonClick');
+    },
+    handleCancelButtonClick() {
+      // console.log('cancelButtonClick');
+      this.draw.trash();
       this.draw.changeMode('simple_select');
       this.$store.commit('setDrawStart', false);
     },
@@ -287,12 +300,13 @@ export default {
       this.draw.changeMode('draw_polygon');
       this.$emit('drawModeChange', {mode: 'draw_polygon'});
     },
-    drawShapeChange(shape) {
-      console.log('MbDrawControl, drawShapeChange, shape:', shape);
-      // this.$store.commit('setDrawShape', shape.layer);
-      // this.$store.commit('setShapeSearchInput', shape.layer._latlngs[0]);
-      this.$store.commit('setShapeSearchInput', shape.features[0].geometry.coordinates[0]);
-    },
+    // drawShapeChange(shape) {
+    //   console.log('MbDrawControl, drawShapeChange, shape:', shape);
+    //   // this.$store.commit('setDrawShape', shape.layer);
+    //   // this.$store.commit('setShapeSearchInput', shape.layer._latlngs[0]);
+    //   // setShapeSearchInput is in @phila/vue-datafetch store.js
+    //   // this.$store.commit('setShapeSearchInput', shape.features[0].geometry.coordinates[0]);
+    // },
   },
 };
 </script>
@@ -341,8 +355,6 @@ export default {
   box-shadow: 0 0 0;
 }
 
-
-
 .mapboxgl-ctrl-group, mapboxgl-ctrl-group:not(:empty) {
   display: none;
   /* width: 210px;
@@ -386,7 +398,6 @@ export default {
 }
 
 @media screen and (max-width: 750px) {
-
   .fa-3x {
     font-size: 1.5em;
   }
@@ -399,7 +410,6 @@ export default {
     position: absolute;
   }
 }
-
 
 .inactive {
   background-color: #ffffff;
@@ -443,9 +453,22 @@ export default {
   border-left: none;
 }
 
-/* .cancel {
-  margin-left: 13px;
-} */
+.leaflet-bar a,
+.leaflet-bar a:hover {
+  width: 100%;
+}
+
+.finish-button {
+  width: 50px;
+}
+
+.delete-point-button {
+  width: 110px;
+}
+
+.cancel-button {
+  width: 50px;
+}
 
 .tool-inactive {
   display: none;
