@@ -54,7 +54,7 @@ import withSelfEvents from "../withSelfEvents";
 // the official mapbox-gl-draw was blocking map clicks
 import MapboxDraw from '../../mapbox-gl-draw.min.js';
 // import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css';
-// import '../../mapbox-gl-draw.css';
+import '../../maplibre-gl-draw.css';
 // import area from '@turf/area';
 
 
@@ -95,7 +95,8 @@ export default {
       return value;
     },
     drawToolActive() {
-      return this.$store.state.drawStart ? 'active pointer' : 'inactive pointer';
+      return this.$store.state.drawStart ? 'active mouse-add' : 'inactive pointer';
+      // return this.$store.state.drawStart ? 'active pointer' : 'inactive pointer';
     },
     drawClassActive() {
       return this.$store.state.drawStart ? 'leaflet-draw-actions' : 'leaflet-draw-actions tool-inactive';
@@ -267,6 +268,9 @@ export default {
     });
 
     map.on('draw.create', this.drawShapeChange);
+
+    let state = this.$store.state;
+
   },
   mounted() {
 
@@ -274,9 +278,11 @@ export default {
   methods: {
     cancelButtonClick() {
       console.log('cancelButtonClick');
+      this.draw.changeMode('simple_select');
+      this.$store.commit('setDrawStart', false);
     },
     handleDrawButtonClick(e) {
-      console.log('MbDrawControl.vue handleDrawButtonClick');
+      console.log('MbDrawControl.vue handleDrawButtonClick wawa');
       this.$store.commit('setDrawStart', true);
       this.draw.changeMode('draw_polygon');
       this.$emit('drawModeChange', {mode: 'draw_polygon'});
