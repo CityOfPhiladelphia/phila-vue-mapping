@@ -6,9 +6,10 @@
       <button
         v-if="isLarge"
         :class="drawToolActive"
-        :style="{ 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }"
+        :style="{ 'height': buttonHeight, 'width': '240px', 'line-height': buttonLineHeight }"
         @click="handleDrawButtonClick"
       >
+      <!-- :style="{ 'height': buttonHeight, 'width': buttonWidth, 'line-height': buttonLineHeight }" -->
         <span class="button-state state-unnamed-state unnamed-state-active">
           <font-awesome-icon
             :icon="'hexagon'"
@@ -34,9 +35,9 @@
           <li class="finish-button">
             <a @click="handleFinishButtonClick">Finish</a>
           </li>
-          <li class="delete-point-button">
+          <!-- <li class="delete-point-button">
             <a @click="handleDeletePointButtonClick">Delete last point</a>
-          </li>
+          </li> -->
           <li class="cancel-button">
             <a @click="handleCancelButtonClick">Cancel</a>
           </li>
@@ -425,7 +426,8 @@ export default {
 }
 
 .leaflet-draw-actions {
-  width: 217px;
+  /* width: 217px; */
+  width: 110px;
   background-color: #919187;
   color: #FFF;
   display: block;
