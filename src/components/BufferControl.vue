@@ -58,9 +58,12 @@ export default {
   methods: { //Object.assign(methods, {
     handleBufferButtonClick(e) {
       // console.log('handleBufferButtonClick is running, Object.keys(this.$store.state):', Object.keys(this.$store.state));
+      // this.$emit('bufferButtonClick');
       const bufferMode = this.$store.state.bufferMode;
       this.$store.commit('setBufferMode', !bufferMode);
       if (Object.keys(this.$store.state).includes('drawStart')) {
+        this.$store.state.draw.trash();
+        this.$store.state.draw.changeMode('simple_select');
         this.$store.commit('setDrawStart', null);
         const cancelButton = document.querySelector('[title="Cancel drawing"]');
         if (cancelButton) {

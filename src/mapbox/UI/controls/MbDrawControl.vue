@@ -296,7 +296,7 @@ export default {
       this.$store.commit('setDrawStart', false);
     },
     handleDrawButtonClick(e) {
-      console.log('MbDrawControl.vue handleDrawButtonClick wawa');
+      console.log('MbDrawControl.vue handleDrawButtonClick');
       this.$store.commit('setDrawStart', true);
       this.draw.changeMode('draw_polygon');
       this.$emit('drawModeChange', {mode: 'draw_polygon'});
