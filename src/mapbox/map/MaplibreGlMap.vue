@@ -39,6 +39,10 @@ export default {
       type: Object,
       default: null,
     },
+    cycloOrientation: {
+      type: String,
+      default: null,
+    },
     ...options,
   },
 
@@ -93,6 +97,14 @@ export default {
     },
     mapContainerClass() {
       let value;
+      // if (this.cycloOrientation) {
+      //   if (this.picOrCycloActive && this.cycloOrientation === 'vertical') {
+      //     value = 'map-container';
+      //     // value = 'height50';
+      //   } else {
+      //     value = 'map-container';
+      //   }
+      // } else if (this.$config) {
       if (this.$config) {
         if (this.picOrCycloActive && (this.$config.cyclomedia.orientation === 'horizontal' || this.$config.pictometry.orientation === 'horizontal')) {
           if (this.$config.map.containerClassWCyclo) {
@@ -157,7 +169,7 @@ export default {
     // this.$props.accessToken = process.env.VUE_APP_MAPBOX_ACCESSTOKEN;
     // console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
-      // console.log('inside $_loadMap then, map:', map, 'map.getStyle():', map.getStyle(), 'map.getBounds():', map.getBounds());
+      console.log('inside $_loadMap then, map:', map, 'this.$store.state.map.center:', this.$store.state.map.center, 'map.getStyle():', map.getStyle(), 'map.getBounds():', map.getBounds());
       this.map = map;
       // this.$store.commit('setMap', map);
       if (this.RTLTextPluginUrl !== undefined) {
@@ -179,7 +191,9 @@ export default {
 
       this.$emit("load", { map, component: this });
 
-
+      if (this.$store.state.map.center) {
+        map.setCenter(this.$store.state.map.center);
+      }
       // console.log('still going, this.$children.length:', this.$children.length);
       // for (let child of this.$children) {
       //   console.log('child:', child);
@@ -196,13 +210,13 @@ export default {
     // });
   },
 
-  beforeDestroy() {
-    this.$nextTick(() => {
-      if (this.map) {
-        this.map.remove();
-      }
-    });
-  },
+  // beforeDestroy() {
+  //   this.$nextTick(() => {
+  //     if (this.map) {
+  //       this.map.remove();
+  //     }
+  //   });
+  // },
 
   methods: {
     testMethod(map) {

@@ -82,6 +82,8 @@ export default {
         } else {
           value = "medium-12 small-24 height100";
         }
+      } else if (this.$props.orientation === 'horizontal') {
+        value = 'small-24 medium-12 height100';
       } else {
         if (this.pictometryActive) {
           value = 'medium-16 large-16 height50 columns';
@@ -190,7 +192,7 @@ export default {
       window.addEventListener('resize', this.setDivWidth);
     },
     cyclomediaActive(newActiveStatus) {
-      // console.log('cyclomediaActive watch is firing');
+      console.log('cyclomediaActive watch is firing');
       this.setDivWidth();
       if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
         this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
@@ -222,14 +224,15 @@ export default {
       const divWidth = parseFloat(divStyle.getPropertyValue('width').replace('px', ''));
       this.divWidth = divWidth;
       let appName = this.$store.state.appName;
-      // console.log('setDivWidth is running, appName:', appName, 'docWidth:', docWidth, 'divWidth', divWidth);
+      // console.log('setDivWidth is running, appName:', appName, 'docWidth:', docWidth, 'divWidth', divWidth, 'this.$props.screenPercent:', this.$props.screenPercent);
       let answer;
       if (appName !== 'pde' && this.fullScreenMapEnabled || appName !== 'pde' && docWidth < 750) {
-        // console.log('setDivWidth is running, first option')
+        // console.log('setDivWidth is running, first option');
         answer = docWidth - divWidth + 'px';
       } else {
-        // console.log('setDivWidth is running, second option')
-        answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
+        // console.log('setDivWidth is running, second option');
+        // answer = docWidth - (docWidth/this.$props.screenPercent + divWidth) + 'px';
+        answer = 0;
       }
       // console.log('setDivWidth, answer:', answer);
       this.popoutPosition = answer;

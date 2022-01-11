@@ -2,7 +2,7 @@
   <div
     class="leaflet-bar easy-button-container leaflet-control"
     title="Search by Radius"
-    :style="{ 'color': 'red', 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
+    :style="{ 'top': top, 'left': left, 'height': barHeight, 'width': barWidth, 'line-height': barLineHeight }"
   >
     <button
       :class="bufferToolActive"
@@ -14,6 +14,9 @@
           :icon="'circle'"
           class="fa-3x icon-padding"
         />
+      </span>
+      <span class="button-text">
+        SELECT RADIUS
       </span>
     </button>
     <div :class="bufferClassActive">
@@ -28,12 +31,14 @@
 </template>
 
 <script>
-import Control from '../leaflet/Control.vue';
-
-const { props, methods } = Control;
+// import Control from '../leaflet/Control.vue';
+//
+// const { props, methods } = Control;
 
 export default {
   props: [
+    'top',
+    'left',
     'position',
     'barHeight',
     'barWidth',
@@ -50,12 +55,15 @@ export default {
       return this.$store.state.bufferMode ? 'leaflet-buffer-actions' : 'leaflet-buffer-actions tool-inactive';
     },
   },
-  methods: Object.assign(methods, {
+  methods: { //Object.assign(methods, {
     handleBufferButtonClick(e) {
       // console.log('handleBufferButtonClick is running, Object.keys(this.$store.state):', Object.keys(this.$store.state));
+      // this.$emit('bufferButtonClick');
       const bufferMode = this.$store.state.bufferMode;
       this.$store.commit('setBufferMode', !bufferMode);
       if (Object.keys(this.$store.state).includes('drawStart')) {
+        this.$store.state.draw.trash();
+        this.$store.state.draw.changeMode('simple_select');
         this.$store.commit('setDrawStart', null);
         const cancelButton = document.querySelector('[title="Cancel drawing"]');
         if (cancelButton) {
@@ -63,7 +71,8 @@ export default {
         }
       }
     },
-  }),
+  // }),
+  },
 };
 </script>
 
@@ -71,7 +80,23 @@ export default {
 
   .icon-padding {
     padding-top: 8px;
+    padding-bottom: 6px;
     color: #4f4f4f;
+  }
+
+  .button-text {
+    font-weight: normal;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 0px;
+    padding-right: 10px;
+    position: relative;
+    color: white;
+    align-items: center;
+  }
+
+  .active .button-text {
+    color: #0f4d90;
   }
 
   @media screen and (max-width: 750px) {

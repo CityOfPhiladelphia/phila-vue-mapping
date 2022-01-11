@@ -1,6 +1,12 @@
 import layerEvents from "../lib/layerEvents";
 import mixin from "./layerMixin";
 
+// const markerDOMEvents = {
+//   click: "click",
+//   mouseenter: "mouseenter",
+//   mouseleave: "mouseleave",
+// };
+
 export default {
   name: "GeojsonLayer",
   mixins: [ mixin ],
@@ -151,6 +157,8 @@ export default {
     },
 
     $_addLayer() {
+
+      // this.$_bindMarkerDOMEvents();
       // console.log('GeojsonLayer.js $_addLayer is starting, this.layerId:', this.layerId);
       let existed = this.map.getLayer(this.layerId);
       if (existed) {
@@ -163,16 +171,32 @@ export default {
           return existed;
         }
       }
+      // console.log('GeojsonLayer.js $_addLayer is still running, this.layerId:', this.layerId);
       const layer = {
-        id: this.layerId,
+        // id: this.layerId,
         source: this.sourceId,
         ...this.layer,
       };
-      // console.log('$_addLayer is still running, layer:', layer);
+      layer.id = this.layerId;
+      // console.log('$_addLayer is still running, layer:', layer, 'this.before:', this.before);
       this.map.addLayer(layer, this.before);
       // console.log('$_addLayer after map.addLayer');
       this.$_emitEvent("added", { layerId: this.layerId });
     },
+
+    // $_emitSelfEvent(event) {
+    //   this.$_emitMapEvent(event, { marker: this.marker });
+    // },
+    //
+    // $_bindMarkerDOMEvents() {
+    //   Object.keys(this.$listeners).forEach(key => {
+    //     if (Object.values(markerDOMEvents).includes(key)) {
+    //       this.marker._element.addEventListener(key, event => {
+    //         this.$_emitSelfEvent(event);
+    //       });
+    //     }
+    //   });
+    // },
 
     setFeatureState(featureId, state) {
       if (this.map) {
