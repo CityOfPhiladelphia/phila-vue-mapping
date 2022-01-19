@@ -231,6 +231,7 @@ export default {
   height: 30px;
   width: 30px;
   font-size: 24px;
+  line-height: 0px;
 }
 
 </style>
