@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.2 - 11/19/2022
+
+* small changes to mapbox circle markers and popups for pinboard
+
 ### 3.1.1 - 1/11/2022
 
 * changes for allowing property-data-explorer to use maplibre

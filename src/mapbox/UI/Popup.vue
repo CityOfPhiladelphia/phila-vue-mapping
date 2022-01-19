@@ -224,3 +224,13 @@ export default {
   },
 };
 </script>
+
+<style>
+
+.mapboxgl-popup-close-button {
+  height: 30px;
+  width: 30px;
+  font-size: 24px;
+}
+
+</style>
