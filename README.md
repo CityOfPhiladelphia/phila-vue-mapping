@@ -19,11 +19,15 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
-### 3.1.3 - 11/19/2022
+### 3.1.4 - 1/20/2022
+
+* fixes z-index issue with mapbox popup
+
+### 3.1.3 - 1/19/2022
 
 * fixes text placement in mapbox popups
 
-### 3.1.2 - 11/19/2022
+### 3.1.2 - 1/19/2022
 
 * small changes to mapbox circle markers and popups for pinboard
 

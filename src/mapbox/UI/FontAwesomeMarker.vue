@@ -197,25 +197,7 @@ export default {
 <style>
 
 .marker-div {
-  /* color: purple; */
   cursor: pointer;
-}
-
-.marker-icon {
-  /* color: blue; */
-}
-
-.test-div {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border-width: 1px;
-  background-color: #03a5fc;
-  opacity: 0.6;
-  border-color: black;
-  border-style: solid;
-  cursor: pointer;
-  /* z-index: 20000; */
 }
 
 </style>

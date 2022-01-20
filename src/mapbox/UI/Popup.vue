@@ -227,6 +227,10 @@ export default {
 
 <style>
 
+.mapboxgl-popup {
+  z-index: 11;
+}
+
 .mapboxgl-popup-close-button {
   height: 30px;
   width: 30px;
