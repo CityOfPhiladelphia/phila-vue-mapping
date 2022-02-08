@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.5 - 2/8/2022
+
+* fixes bug where adding the maplibre drawing tool was introducing css that masked the zoom buttons
+
 ### 3.1.4 - 1/20/2022
 
 * fixes z-index issue with mapbox popup

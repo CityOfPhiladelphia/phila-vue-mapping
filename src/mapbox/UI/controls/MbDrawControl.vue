@@ -356,8 +356,12 @@ export default {
   box-shadow: 0 0 0;
 }
 
+.mapbox-gl-draw_ctrl-draw-btn {
+  display: none !important;
+}
+
 .mapboxgl-ctrl-group, mapboxgl-ctrl-group:not(:empty) {
-  display: none;
+  /* display: none; */
   /* width: 210px;
   height: 50px;
   background-color: #0f4d90;
