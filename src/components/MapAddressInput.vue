@@ -25,7 +25,7 @@
       @click="handleFormX"
     >
       <font-awesome-icon
-        icon="times"
+        icon="xmark"
         class="fa-2x"
       />
     </button>
@@ -36,9 +36,10 @@
       @click="handleSearchFormSubmit"
     >
       <font-awesome-icon
-        icon="search"
+        icon="magnifying-glass"
         class="fa-2x"
       />
+      wawa
     </button>
     <slot name="address-candidates-slot" />
   </div>
