@@ -19,6 +19,11 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.6 - 3/10/2022
+
+* upgrades to fontawesome 6.0.0, updates icons.
+* uses fontawesome-svg-core 1.2.36, because 1.3.0 causes errors
+
 ### 3.1.5 - 2/8/2022
 
 * fixes bug where adding the maplibre drawing tool was introducing css that masked the zoom buttons
