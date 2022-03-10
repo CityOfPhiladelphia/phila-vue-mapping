@@ -1,17 +1,17 @@
 <template>
   <!-- <section :class="['openmaps-about' ,'openmaps-modal', {'openmaps-modal--open': modals.about.open}]" -->
-  <section 
+  <section
     v-show="modals.open === 'help'"
     :class="['openmaps-about' ,'openmaps-modal']"
   >
-    <div 
-      class="openmaps-modal-close" 
+    <div
+      class="openmaps-modal-close"
       @click="closeModal"
     >
       <span class="button-state state-unnamed-state unnamed-state-active">
-        <font-awesome-icon 
-          icon="times" 
-          class="fa-lg" 
+        <font-awesome-icon
+          icon="xmark" 
+          class="fa-lg"
           aria-hidden="true"
         />
       </span>
@@ -21,16 +21,16 @@
     </h2>
     <div class="openmaps-modal-content">
       <!-- <p>Turn on a layer</p> -->
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.openmaps-category-card')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.openmaps-category-card')"
         @mouseleave="removeHighlight('.openmaps-category-card')"
       >
         <div class="icon-div">
           <span>
-            <font-awesome-icon 
-              icon="filter" 
-              class="fa-3x" 
+            <font-awesome-icon
+              icon="filter"
+              class="fa-3x"
               aria-hidden="true"
             />
           </span>
@@ -45,16 +45,16 @@
         </div>
       </div>
 
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.label-text')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.label-text')"
         @mouseleave="removeHighlight('.label-text')"
       >
         <div class="icon-div">
           <span>
-            <font-awesome-icon 
-              icon="check-square" 
-              class="fa-3x" 
+            <font-awesome-icon
+              icon="check-square"
+              class="fa-3x"
               aria-hidden="true"
             />
           </span>
@@ -69,16 +69,16 @@
         </div>
       </div>
 
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.label-text')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.label-text')"
         @mouseleave="removeHighlight('.label-text')"
       >
         <div class="icon-div">
           <span>
-            <font-awesome-icon 
-              :icon="['fal', 'square']" 
-              class="fa-3x" 
+            <font-awesome-icon
+              :icon="['fal', 'square']"
+              class="fa-3x"
               aria-hidden="true"
             />
           </span>
@@ -93,16 +93,16 @@
         </div>
       </div>
 
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.label-text')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.label-text')"
         @mouseleave="removeHighlight('.label-text')"
       >
         <div class="icon-div">
           <span>
-            <font-awesome-icon 
-              icon="map-marker-alt" 
-              class="fa-3x" 
+            <font-awesome-icon
+              icon="map-marker-alt"
+              class="fa-3x"
               aria-hidden="true"
             />
           </span>
@@ -117,16 +117,16 @@
         </div>
       </div>
 
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.openmaps-category-card')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.openmaps-category-card')"
         @mouseleave="removeHighlight('.openmaps-category-card')"
       >
         <div class="icon-div">
           <span>
-            <font-awesome-icon 
-              icon="search" 
-              class="fa-3x" 
+            <font-awesome-icon
+              icon="search"
+              class="fa-3x"
               aria-hidden="true"
             />
           </span>
@@ -141,15 +141,15 @@
         </div>
       </div>
 
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.openmaps-category-card')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.openmaps-category-card')"
         @mouseleave="removeHighlight('.openmaps-category-card')"
       >
         <div class="icon-div">
           <span>
-            <img 
-              :src="'images/cyclomedia_blue.png'" 
+            <img
+              :src="'images/cyclomedia_blue.png'"
               class="street-view-image"
             >
           </span>
@@ -164,16 +164,16 @@
         </div>
       </div>
 
-      <div 
-        class="tour-tip" 
-        @mouseover="highlight('.openmaps-category-card')" 
+      <div
+        class="tour-tip"
+        @mouseover="highlight('.openmaps-category-card')"
         @mouseleave="removeHighlight('.openmaps-category-card')"
       >
         <div class="icon-div">
           <span>
-            <font-awesome-icon 
-              icon="info-circle" 
-              class="fa-3x" 
+            <font-awesome-icon
+              icon="info-circle"
+              class="fa-3x"
               aria-hidden="true"
             />
           </span>
@@ -199,9 +199,9 @@ export default {
     shouldBeOpen() {
       if (this.route === 'help') {
         return true;
-      } 
+      }
       return false;
-      
+
     },
     modals() {
       return this.$store.state.modals;

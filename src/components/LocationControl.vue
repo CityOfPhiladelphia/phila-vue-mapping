@@ -3,7 +3,7 @@
     <button @click="handleLocationButtonClick">
       <span class="button-state state-unnamed-state unnamed-state-active">
         <font-awesome-icon
-          :icon="computedIcon" 
+          :icon="computedIcon"
           class="fa-lg"
         />
       </span>
@@ -31,10 +31,10 @@ export default {
         if (this.$config.geolocation.icon) {
           return this.$config.geolocation.icon;
         }
-        return 'dot-circle';
+        return 'circle-dot';
 
       }
-      return 'dot-circle';
+      return 'circle-dot';
 
     },
   },
