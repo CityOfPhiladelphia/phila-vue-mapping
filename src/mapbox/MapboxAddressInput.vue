@@ -39,7 +39,7 @@
       title="delete button"
       @click="handleFormX"
     >
-      <font-awesome-icon icon="xmark" />
+      <font-awesome-icon icon="times" />
     </button>
     <button
       :class="'pvm-search-control-button ' + buttonClass"
@@ -49,7 +49,7 @@
       title="search button"
       @click="handleSearchFormSubmit"
     >
-      <font-awesome-icon icon="magnifying-glass" aria-hidden="true" />
+      <font-awesome-icon icon="search" aria-hidden="true" />
     </button>
     <slot name="address-candidates-slot" />
   </div>
