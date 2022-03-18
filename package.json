@@ -12,10 +12,10 @@
     "lintFix": "vue-cli-service lint --fix"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "1.2.15",
-    "@fortawesome/free-regular-svg-icons": "5.7.2",
-    "@fortawesome/free-solid-svg-icons": "5.7.2",
-    "@fortawesome/vue-fontawesome": "0.1.5",
+    "@fortawesome/fontawesome-svg-core": "1.2.36",
+    "@fortawesome/free-regular-svg-icons": "5.15.4",
+    "@fortawesome/free-solid-svg-icons": "5.15.4",
+    "@fortawesome/vue-fontawesome": "2.0.5",
     "@mapbox/mapbox-gl-draw": "^1.2.0",
     "@turf/turf": "^5.1.6",
     "Leaflet-PointInPolygon": "https://github.com/CityOfPhiladelphia/Leaflet.PointInPolygon#a0d410f69aacf5f9165c4d01ccffeed824ccaed8",
