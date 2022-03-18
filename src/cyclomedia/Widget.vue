@@ -11,7 +11,7 @@
       @click="popoutClicked"
     >
       <font-awesome-icon
-        icon="arrow-up-right-from-square"
+        icon="external-link-alt"
         class="popout-icon"
       />
     </div>
