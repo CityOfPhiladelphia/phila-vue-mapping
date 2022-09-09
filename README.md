@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.9 - 9/9/2022
+
+* ran package updates
+
 ### 3.1.8 - 3/18/2022
 
 * rolls back to fontawesome 5.15.4 so that it is not ahead of phila-ui
