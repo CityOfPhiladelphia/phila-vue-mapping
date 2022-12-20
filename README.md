@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.10 - 12/20/2022
+
+* adds back ability to pass mapbox access token to map component
+
 ### 3.1.9 - 9/9/2022
 
 * ran package updates
