@@ -166,7 +166,7 @@ export default {
   },
 
   mounted() {
-    // this.$props.accessToken = process.env.VUE_APP_MAPBOX_ACCESSTOKEN;
+    this.$props.accessToken = process.env.VUE_APP_MAPBOX_ACCESSTOKEN;
     // console.log('GlMap.vue mounted, this:', this);
     this.$_loadMap().then(map => {
       console.log('inside $_loadMap then, map:', map, 'this.$store.state.map.center:', this.$store.state.map.center, 'map.getStyle():', map.getStyle(), 'map.getBounds():', map.getBounds());
