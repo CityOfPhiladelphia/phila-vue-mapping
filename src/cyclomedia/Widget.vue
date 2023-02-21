@@ -136,25 +136,25 @@ export default {
     fullScreenMapEnabled() {
       this.setDivWidth();
     },
-    locForCyclo(newCoords) {
-      // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
-      if (newCoords.length && this.cyclomediaInitializationComplete) {
-        this.setNewLocation(newCoords);
-      }
-    },
-    latLngFromMap(newCoords) {
-      // console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
-      if (this.cyclomediaInitializationComplete) {
+    // locForCyclo(newCoords) {
+    //   // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
+    //   if (newCoords.length && this.cyclomediaInitializationComplete) {
+    //     this.setNewLocation(newCoords);
+    //   }
+    // },
+    // latLngFromMap(newCoords) {
+    //   // console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
+    //   if (this.cyclomediaInitializationComplete) {
 
-        if (Array.isArray(newCoords)) {
-          // console.log('it is an array');
-          this.setNewLocation([ newCoords[1], newCoords[0] ]);
-        } else {
-          // console.log('it is not an array');
-          this.setNewLocation([ newCoords.lat, newCoords.lng ]);
-        }
-      }
-    },
+    //     if (Array.isArray(newCoords)) {
+    //       // console.log('it is an array');
+    //       this.setNewLocation([ newCoords[1], newCoords[0] ]);
+    //     } else {
+    //       // console.log('it is not an array');
+    //       this.setNewLocation([ newCoords.lat, newCoords.lng ]);
+    //     }
+    //   }
+    // },
     // docWidthComp() {
     //   console.log('docWidth changed');
     // }
@@ -191,16 +191,16 @@ export default {
       );
       window.addEventListener('resize', this.setDivWidth);
     },
-    cyclomediaActive(newActiveStatus) {
-      console.log('cyclomediaActive watch is firing');
-      this.setDivWidth();
-      if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
-        this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
-      }
-    },
+    // cyclomediaActive(newActiveStatus) {
+    //   console.log('cyclomediaActive watch is firing');
+    //   this.setDivWidth();
+    //   if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
+    //     this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
+    //   }
+    // },
   },
   mounted() {
-    // console.log('cyclomedia widget mounted');
+    console.log('cyclomedia widget mounted');
     this.$emit('cyclomedia-widget-mounted');
   },
   updated() {
@@ -239,7 +239,7 @@ export default {
       // return width;
     },
     setNewLocation(coords) {
-      // console.log('cyclomedia setNewLocation is running using', coords);
+      console.log('cyclomedia setNewLocation is running using', coords);
       if (!coords) {
         return;
       }
