@@ -116,6 +116,9 @@ export default {
     latLngFromMap() {
       return this.$store.state.cyclomedia.latLngFromMap;
     },
+    latLngFromRecordingClick() {
+      return this.$store.state.cyclomedia.latLngFromRecordingClick;
+    },
     mapCenter() {
       return this.$store.state.map.center;
     },
@@ -136,25 +139,36 @@ export default {
     fullScreenMapEnabled() {
       this.setDivWidth();
     },
-    // locForCyclo(newCoords) {
-    //   // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
-    //   if (newCoords.length && this.cyclomediaInitializationComplete) {
-    //     this.setNewLocation(newCoords);
-    //   }
-    // },
-    // latLngFromMap(newCoords) {
-    //   // console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
-    //   if (this.cyclomediaInitializationComplete) {
+    locForCyclo(newCoords) {
+      console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
+      if (newCoords.length && this.cyclomediaInitializationComplete) {
+        this.setNewLocation(newCoords);
+      }
+    },
+    latLngFromRecordingClick(newCoords) {
+      if (this.cyclomediaInitializationComplete) {
+        if (Array.isArray(newCoords)) {
+          // console.log('it is an array');
+          this.setNewLocation([ newCoords[0], newCoords[1] ]);
+        } else {
+          // console.log('it is not an array');
+          this.setNewLocation([ newCoords.lat, newCoords.lng ]);
+        }
+      }
+    },
+    latLngFromMap(newCoords) {
+      console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
+      if (!this.cyclomediaActive && this.cyclomediaInitializationComplete) {
 
-    //     if (Array.isArray(newCoords)) {
-    //       // console.log('it is an array');
-    //       this.setNewLocation([ newCoords[1], newCoords[0] ]);
-    //     } else {
-    //       // console.log('it is not an array');
-    //       this.setNewLocation([ newCoords.lat, newCoords.lng ]);
-    //     }
-    //   }
-    // },
+        if (Array.isArray(newCoords)) {
+          // console.log('it is an array');
+          this.setNewLocation([ newCoords[0], newCoords[1] ]);
+        } else {
+          // console.log('it is not an array');
+          this.setNewLocation([ newCoords.lat, newCoords.lng ]);
+        }
+      }
+    },
     // docWidthComp() {
     //   console.log('docWidth changed');
     // }
@@ -191,13 +205,13 @@ export default {
       );
       window.addEventListener('resize', this.setDivWidth);
     },
-    // cyclomediaActive(newActiveStatus) {
-    //   console.log('cyclomediaActive watch is firing');
-    //   this.setDivWidth();
-    //   if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
-    //     this.setNewLocation([ this.latLngFromMap[1], this.latLngFromMap[0] ]);
-    //   }
-    // },
+    cyclomediaActive(newActiveStatus) {
+      console.log('cyclomediaActive watch is firing');
+      this.setDivWidth();
+      if (newActiveStatus === true && this.cyclomediaInitializationComplete) {
+        this.setNewLocation([ this.latLngFromMap[0], this.latLngFromMap[1] ]);
+      }
+    },
   },
   mounted() {
     console.log('cyclomedia widget mounted');
@@ -245,6 +259,7 @@ export default {
       }
       const viewerType = StreetSmartApi.ViewerType.PANORAMA;
       const coords2272 = proj4(this.projection4326, this.projection2272, [ coords[1], coords[0] ]);
+      console.log('cyclomedia setNewLocation is running using', coords, 'coords2272:', coords2272);
       // StreetSmartApi.open(center.lng + ',' + center.lat, {
       // StreetSmartApi.open(coords[1] + ',' + coords[0], {
       // if (this.cyclomediaInitializationBegun) {

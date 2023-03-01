@@ -69,6 +69,7 @@ const initialState = {
     navBarOpen: false,
     // surfaceCursorOn: true,
     latLngFromMap: null,
+    latLngFromRecordingClick: null,
     orientation: {
       yaw: null,
       hFov: null,
@@ -206,6 +207,9 @@ const pvmStore = {
       // const { lat, lng } = payload || {};
       // state.cyclomedia.latLngFromMap[0] = lat;
       // state.cyclomedia.latLngFromMap[1] = lng;
+    },
+    setCyclomediaLatLngFromRecordingClick(state, payload) {
+      state.cyclomedia.latLngFromRecordingClick = payload;
     },
     setCyclomediaNavBarOpen(state, payload) {
       state.cyclomedia.navBarOpen = payload;
