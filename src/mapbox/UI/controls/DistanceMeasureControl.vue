@@ -349,8 +349,8 @@ tr:nth-child(even) {
   margin-bottom: 4px;
 }
 
-/* background-image: url('/images/rulers.png') !important; */
 .mapbox-gl-draw_polygon {
+  background-image: url('/public/images/rulers.png') !important;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
