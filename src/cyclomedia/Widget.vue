@@ -355,7 +355,7 @@ export default {
         map = this.$store.state.map.map;
       }
       const center = map.getCenter();
-      window.open('//cyclomedia.phila.gov/#/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
+      window.open('//cyclomedia.phila.gov/?lat=' + center.lat + '&lng=' + center.lng, '_blank');
       this.$store.commit('setCyclomediaActive', false);
     },
   },
