@@ -19,6 +19,14 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.13 - 3/15/2023
+
+* fixes popouts of cyclomedia and pictometry
+
+### 3.1.12 - 3/13/2023
+
+* includes all changes for upgrading cyclomedia to 23.2
+
 ### 3.1.11 - 2/8/2023
 
 * ran package updates

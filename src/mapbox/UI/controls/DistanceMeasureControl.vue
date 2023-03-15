@@ -350,7 +350,7 @@ tr:nth-child(even) {
 }
 
 .mapbox-gl-draw_polygon {
-  background-image: url('/images/rulers.png') !important;
+  background-image: url('/public/images/rulers.png') !important;
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;

@@ -32,7 +32,8 @@ export default {
         };
       }
       console.log('handleCyclomediaRecordingClick is running, latlng:', latlng);
-      this.$store.commit('setCyclomediaLatLngFromMap', latlng);
+      this.$store.commit('setCyclomediaLatLngFromRecordingClick', latlng);
+      // this.$store.commit('setCyclomediaLatLngFromMap', latlng);
       // const viewer = this.$store.state.cyclomedia.viewer;
       // viewer.openByCoordinate([latlng.lng, latlng.lat]);
     },
