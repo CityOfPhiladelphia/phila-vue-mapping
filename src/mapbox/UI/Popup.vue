@@ -231,6 +231,10 @@ export default {
   z-index: 11;
 }
 
+.mapboxgl-popup-content {
+  padding-right: 16px;
+}
+
 .mapboxgl-popup-close-button {
   height: 30px;
   width: 30px;
