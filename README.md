@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.14 - 3/21/2023
+
+* uses maplibre 2.4.0 and turf 6.5.0
+
 ### 3.1.13 - 3/15/2023
 
 * fixes popouts of cyclomedia and pictometry
