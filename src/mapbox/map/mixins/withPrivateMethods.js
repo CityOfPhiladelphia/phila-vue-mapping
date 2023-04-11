@@ -1,4 +1,4 @@
-import { isMapboxURL, transformMapboxUrl } from '../../../../node_modules/maplibregl-mapbox-request-transformer';
+import { isMapboxURL, transformMapboxUrl } from 'maplibregl-mapbox-request-transformer';
 // console.log('isMapboxURL:', isMapboxURL);
 
 export default {
