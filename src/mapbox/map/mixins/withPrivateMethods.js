@@ -1,3 +1,6 @@
+import { isMapboxURL, transformMapboxUrl } from '../../../../node_modules/maplibregl-mapbox-request-transformer';
+// console.log('isMapboxURL:', isMapboxURL);
+
 export default {
   methods: {
     $_updateSyncedPropsFabric(prop, data) {
@@ -51,11 +54,22 @@ export default {
           if (this.accessToken) {
             this.mapbox.accessToken = this.accessToken;
           }
-          // console.log('inside $_loadMap, about to create map, this.$refs.container:', this.$refs.container);
+          // console.log('inside $_loadMap, about to create map, this.$refs.container:', this.$refs.container, 'this.$config.mapboxKey:', this.$config.mapboxKey);
+          
+          const transformRequest = (url, resourceType) => {
+            if (isMapboxURL(url)) {
+              return transformMapboxUrl(url, resourceType, this.$config.mapboxKey)
+            }
+            
+            // Do any other transforms you want
+            return {url}
+          }
+          
           const map = new this.mapbox.Map({
             ...this._props,
             container: this.$refs.container,
             style: this.mapStyle,
+            transformRequest,
           });
           // console.log('inside $_loadMap, map:', map);
           this.$emit("preload", { map, component: this });
