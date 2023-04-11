@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.16 - 4/11/2023
+
+* fixes bug with path to package
+
 ### 3.1.15 - 4/11/2023
 
 * adds maplibregl-mapbox-request-transformer package
