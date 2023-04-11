@@ -37,6 +37,7 @@
     "lodash-es": "^4.17.14",
     "map-promisified": "^0.4.0",
     "maplibre-gl": "2.4.0",
+    "maplibregl-mapbox-request-transformer": "0.0.2",
     "phila-standards": "^1.0.2",
     "proj4": "^2.8.0",
     "sdleafletdraw": "git+https://github.com/CityOfPhiladelphia/SDLeafletDraw.git#b829efb8979a942dec04e4a2849af6b06434c9cf",
