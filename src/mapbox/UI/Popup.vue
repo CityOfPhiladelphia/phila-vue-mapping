@@ -242,4 +242,8 @@ export default {
   line-height: 0px;
 }
 
+.mapboxgl-popup-close-button:focus-visible {
+  outline: none;
+}
+
 </style>

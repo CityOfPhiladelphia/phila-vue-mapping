@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.17 - 5/15/2023
+
+* fixes outline in mapbox popups
+
 ### 3.1.16 - 4/11/2023
 
 * fixes bug with path to package
