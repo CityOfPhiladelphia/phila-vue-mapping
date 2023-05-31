@@ -1,3 +1,5 @@
+<script>
+
 import controlMixin from "./controlMixin";
 import withEvents from "../../lib/withEvents";
 import withSelfEvents from "../withSelfEvents";
@@ -46,13 +48,33 @@ export default {
     this.control = new GeolocateControl(this.$props);
     this.$_addControl();
     this.$_bindSelfEvents(Object.keys(geolocationEvents), this.control);
+
+    this.control.on('geolocate', this.emitGeolocate);
+    // this.control.on('geolocate', function(e) {
+    //   console.log('e' , e, 'e.coords.latitude:', e.coords.latitude);//, 'this.testMethod():', this.testMethod());
+    //   // this.$emit('geolocate-control-fire', e);
+    //   // this.trigger();
+    // });
+
   },
+  // mounted() {
+  //   this.trigger();
+  // },
 
   methods: {
-    trigger() {
-      if (this.control) {
-        return this.control.trigger();
-      }
+    emitGeolocate(e) {
+      console.log('GeolocateControl emitGeolocate is running, e:', e);
+      this.$emit('geolocate-control-fire', e);
     },
+    // trigger() {
+    //   console.log('GeolocateControl trigger is running');
+    //   if (this.control) {
+    //     this.control.on('geolocate', function(e) {
+    //       console.log('e' , e, 'e.coords.latitude:', e.coords.latitude);
+    //     });
+    //   }
+    // },
   },
 };
+
+</script>

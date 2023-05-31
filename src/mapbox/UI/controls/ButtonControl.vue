@@ -57,7 +57,7 @@ export default {
         if (props.buttonText) {
           this.container.textContent = props.buttonText;
         }
-        if (props.imageLink) {
+        if (props.imageLink && props.imageLink !== '') {
           // console.log('there is a props.imageLink');
           let img = document.createElement('img');
           img.id = props.buttonId + '-img';
@@ -103,6 +103,10 @@ export default {
 </script>
 
 <style>
+
+.padding-5 {
+  padding: 5px !important;
+}
 
 .button-control {
   padding: 0px;
