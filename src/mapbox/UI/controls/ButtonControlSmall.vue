@@ -36,7 +36,7 @@ export default {
     buttonClass(nextButtonClass) {
       let buttonItem = document.getElementById(this.$props.buttonId);
       // console.log('watch ButtonControl, buttonItem:', buttonItem, 'nextButtonClass:', nextButtonClass);
-      buttonItem.className = 'button-control ' + nextButtonClass;
+      buttonItem.className = 'button-control ' + nextButtonClass + ' has-tooltip-hidden-mobile has-tooltip-arrow has-tooltip-left';
     },
     imageLink(nextImageLink) {
       let imageItem = document.getElementById(this.$props.buttonId + '-img');
@@ -51,8 +51,10 @@ export default {
       onAdd(map){
         // console.log('ButtonControl.vue OnAdd is running, props:', props);
         this.container = document.createElement('div');
-        this.container.className = 'button-control ' + props.buttonClass;
+        // this.container.className = 'button-control ' + props.buttonClass;
+        this.container.className = 'button-control ' + props.buttonClass + ' has-tooltip-hidden-mobile has-tooltip-arrow has-tooltip-left';
         this.container.id = props.buttonId;
+        this.container.setAttribute('data-tooltip', 'Use current location');
 
         if (props.buttonText) {
           this.container.textContent = props.buttonText;
@@ -110,18 +112,16 @@ export default {
 
 .button-control {
   padding: 0px;
-  margin-top: -40px;
+  margin-bottom: 6px;
   margin-right: 7px;
   margin-left: 0px;
   border: solid;
-  /* border-width: 0px; */
   border-width: 2.2px;
   filter: drop-shadow(0px 0px 2px #D2D2D2);
   border-color: #D2D2D2;
   border-radius: 5px;
   background-color: white;
   font-family: arial;
-  font-weight: bold;
   font-size: 11px;
   color: black;
   width: 33.5px;
@@ -157,6 +157,11 @@ export default {
 .right {
   position: absolute;
   right: 0;
+}
+
+[data-tooltip]:not(.is-disabled).has-tooltip-active:after, [data-tooltip]:not(.is-disabled).has-tooltip-active:before, [data-tooltip]:not(.is-disabled):hover:after, [data-tooltip]:not(.is-disabled):hover:before, [data-tooltip]:not(.is-loading).has-tooltip-active:after, [data-tooltip]:not(.is-loading).has-tooltip-active:before, [data-tooltip]:not(.is-loading):hover:after, [data-tooltip]:not(.is-loading):hover:before, [data-tooltip]:not([disabled]).has-tooltip-active:after, [data-tooltip]:not([disabled]).has-tooltip-active:before, [data-tooltip]:not([disabled]):hover:after, [data-tooltip]:not([disabled]):hover:before {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 </style>
