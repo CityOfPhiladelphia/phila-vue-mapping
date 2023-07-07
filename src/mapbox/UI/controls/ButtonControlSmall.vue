@@ -26,6 +26,10 @@ export default {
       type: String,
       default: 'middle',
     },
+    tooltipText: {
+      type: String,
+      default: '',
+    },
   },
   computed: {
     classTest() {
@@ -43,6 +47,11 @@ export default {
       console.log('watch imageLink, imageItem:', imageItem, 'nextImageLink:', nextImageLink);
       imageItem.src = nextImageLink;
     },
+    tooltipText(nextTooltipText) {
+      let buttonItem = document.getElementById(this.$props.buttonId);
+      // console.log('watch tooltipText, buttonItem:', buttonItem, 'nextTooltipText:', nextTooltipText);
+      buttonItem.setAttribute('data-tooltip', nextTooltipText);
+    },
   },
   mounted() {
     console.log('ButtonControl.vue mounted');
@@ -51,10 +60,9 @@ export default {
       onAdd(map){
         // console.log('ButtonControl.vue OnAdd is running, props:', props);
         this.container = document.createElement('div');
-        // this.container.className = 'button-control ' + props.buttonClass;
         this.container.className = 'button-control ' + props.buttonClass + ' has-tooltip-hidden-mobile has-tooltip-arrow has-tooltip-left';
         this.container.id = props.buttonId;
-        this.container.setAttribute('data-tooltip', 'Use current location');
+        this.container.setAttribute('data-tooltip', props.tooltipText);
 
         if (props.buttonText) {
           this.container.textContent = props.buttonText;
