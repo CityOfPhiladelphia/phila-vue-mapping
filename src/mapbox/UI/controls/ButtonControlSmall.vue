@@ -50,7 +50,8 @@ export default {
     tooltipText(nextTooltipText) {
       let buttonItem = document.getElementById(this.$props.buttonId);
       // console.log('watch tooltipText, buttonItem:', buttonItem, 'nextTooltipText:', nextTooltipText);
-      buttonItem.setAttribute('data-tooltip', nextTooltipText);
+      // buttonItem.setAttribute('data-tooltip', nextTooltipText);
+      buttonItem.setAttribute('title', nextTooltipText);
     },
   },
   mounted() {
@@ -62,7 +63,8 @@ export default {
         this.container = document.createElement('div');
         this.container.className = 'button-control ' + props.buttonClass + ' has-tooltip-hidden-mobile has-tooltip-arrow has-tooltip-left';
         this.container.id = props.buttonId;
-        this.container.setAttribute('data-tooltip', props.tooltipText);
+        // this.container.setAttribute('data-tooltip', props.tooltipText);
+        this.container.setAttribute('title', props.tooltipText);
 
         if (props.buttonText) {
           this.container.textContent = props.buttonText;
@@ -120,8 +122,9 @@ export default {
 
 .button-control {
   padding: 0px;
-  margin-bottom: 6px;
-  margin-right: 7px;
+  margin-top: -40px;
+  /* margin-bottom: 6px; */
+  margin-right: 8px;
   margin-left: 0px;
   border: solid;
   border-width: 2.2px;

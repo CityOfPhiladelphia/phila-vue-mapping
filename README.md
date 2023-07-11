@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.19 - 7/11/2023
+
+* fixes geolocation tooltip
+
 ### 3.1.18 - 7/10/2023
 
 * adds geolocation that works with pinboard
