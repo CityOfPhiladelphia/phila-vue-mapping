@@ -140,7 +140,7 @@ export default {
       this.setDivWidth();
     },
     locForCyclo(newCoords) {
-      console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
+      // console.log('watch locForCyclo is firing, setNewLocation running with newCoords:', newCoords);
       if (newCoords.length && this.cyclomediaInitializationComplete) {
         this.setNewLocation(newCoords);
       }
@@ -157,7 +157,7 @@ export default {
       }
     },
     latLngFromMap(newCoords) {
-      console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
+      // console.log('watch latLngFromMap is firing, setNewLocation running with newCoords:', newCoords);
       if (!this.cyclomediaActive && this.cyclomediaInitializationComplete) {
 
         if (Array.isArray(newCoords)) {
