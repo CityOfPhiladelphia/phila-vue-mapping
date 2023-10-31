@@ -178,8 +178,28 @@ export default {
         ...this.layer,
       };
       layer.id = this.layerId;
+
+      let before = this.before;
+      console.log('GeojsonLayer.js end is running, layerId:', this.layerId, 'before:', before);
+      let layers = this.map.getStyle().layers;
+      let beforeExists = []
+      for (let layer of layers) {
+        console.log('in loop, layer:', layer, 'layer.id:', layer.id);
+        if (before && before.includes(layer.id)) {
+          beforeExists.push(layer.id);
+          break;
+        }
+      }
+
       // console.log('$_addLayer is still running, layer:', layer, 'this.before:', this.before);
-      this.map.addLayer(layer, this.before);
+      // this.map.addLayer(layer, this.before);
+      
+      if (beforeExists.length) {
+        this.map.addLayer(layer, beforeExists[0]);
+      } else {
+        this.map.addLayer(layer);
+      }
+      
       // console.log('$_addLayer after map.addLayer');
       this.$_emitEvent("added", { layerId: this.layerId });
     },
