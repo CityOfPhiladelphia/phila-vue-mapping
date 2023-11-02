@@ -45,7 +45,7 @@ export default {
     },
   },
   mounted() {
-    console.log('ButtonControl.vue mounted');
+    // console.log('ButtonControl.vue mounted');
     class ButtonControl {
 
       onAdd(map){
