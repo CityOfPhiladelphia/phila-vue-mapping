@@ -180,11 +180,11 @@ export default {
       layer.id = this.layerId;
 
       let before = this.before;
-      console.log('GeojsonLayer.js end is running, layerId:', this.layerId, 'before:', before);
+      // console.log('GeojsonLayer.js end is running, layerId:', this.layerId, 'before:', before);
       let layers = this.map.getStyle().layers;
       let beforeExists = []
       for (let layer of layers) {
-        console.log('in loop, layer:', layer, 'layer.id:', layer.id);
+        // console.log('in loop, layer:', layer, 'layer.id:', layer.id);
         if (before && before.includes(layer.id)) {
           beforeExists.push(layer.id);
           break;
