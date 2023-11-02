@@ -2,6 +2,7 @@ const Visualizer = require('webpack-visualizer-plugin');
 const ExtractTextPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
+  mode: 'production',
   configureWebpack: {
     plugins: [
       new Visualizer({ filename: './statistics.html' }),
