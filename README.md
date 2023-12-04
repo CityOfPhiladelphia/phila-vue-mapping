@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.21 - 12/4/2023
+
+* updates .yml file to use node 16 for pushing to npm
+
 ### 3.1.20 - 11/10/2023
 
 * all changes to get building certs into atlas.phila.gov
