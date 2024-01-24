@@ -2,7 +2,7 @@
 import controlMixin from "./controlMixin";
 
 export default {
-  name: 'ButtonControl',
+  name: 'ImageryButtonControl',
   mixins: [ controlMixin ],
 
   props: {
@@ -40,10 +40,10 @@ export default {
     },
   },
   mounted() {
-    // console.log('ButtonControl.vue mounted');
+    // console.log('ImageryButtonControl.vue mounted');
     class ButtonControl {
 
-      onAdd(map){
+      onAdd(){
         // console.log('ButtonControl.vue OnAdd is running, props:', props);
         this.container = document.createElement('div');
         this.container.className = 'button-control ' + props.buttonClass;
@@ -71,7 +71,7 @@ export default {
         return this.container;
       }
 
-      onRemove(map){
+      onRemove(){
         this.container.parentNode.removeChild(this.container);
       }
 
@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     buttonClicked() {
-      console.log('ButtonControl buttonClicked is running');
+      // console.log('ImageryButtonControl buttonClicked is running');
       this.$emit('click');
     },
   },
