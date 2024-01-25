@@ -19,6 +19,10 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.22 - 1/25/2024
+
+* splits ButtonControl into multiple ButtonControls to fix bug with buttons mixing up onclick events
+
 ### 3.1.21 - 12/4/2023
 
 * updates .yml file to use node 16 for pushing to npm
