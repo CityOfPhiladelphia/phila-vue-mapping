@@ -41,7 +41,7 @@
     "phila-standards": "^1.0.2",
     "proj4": "^2.8.0",
     "sdleafletdraw": "git+https://github.com/CityOfPhiladelphia/SDLeafletDraw.git#b829efb8979a942dec04e4a2849af6b06434c9cf",
-    "vue": "^2.7.10",
+    "vue": "^3.0.0",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
