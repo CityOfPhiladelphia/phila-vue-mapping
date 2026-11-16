@@ -270,6 +270,7 @@ export default {
         panoramaViewer: {
           closable: false,
           maximizable: false,
+          navbarVisible: false,
         },
       }).then (
         function(result) {
@@ -278,9 +279,6 @@ export default {
           const widget = this;
           // console.log('Created component through API:', result, 'widget:', widget, 'viewer:', viewer);
           if (viewer) {
-            const expanded = viewer.getNavbarExpanded();
-            // console.log('expanded:', expanded);
-            viewer.toggleNavbarExpanded(widget.navBarOpen);
             viewer.toggleButtonEnabled('panorama.elevation', false);
             viewer.toggleButtonEnabled('panorama.reportBlurring', false);
 
@@ -293,39 +291,32 @@ export default {
             }
 
             if (!this.$config.cyclomedia.measurementAllowed || this.$config.cyclomedia.measurementAllowed === 'false') {
-              StreetSmartApi.removeOverlay('measurementLayer');
               viewer.toggleButtonEnabled('panorama.measure', false);
             }
 
             viewer.on('VIEW_CHANGE', function(e) {
               // console.log('on VIEW_CHANGE fired, type:', e.type, 'detail:', e.detail);
               if (e.detail.yaw !== widget.$store.state.cyclomedia.orientation.yaw ||
-                    viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz
+                    viewer.props.recording.xyz !== widget.$store.state.cyclomedia.orientation.xyz
               ) {
                 // console.log('VIEW_CHANGE first if, widget.$store.state.cyclomedia.orientation.xyz:', widget.$store.state.cyclomedia.orientation.xyz);
                 // console.log('on VIEW_CHANGE fired with yaw change, viewer.props.orientation:', viewer.props.orientation);
-                widget.sendOrientationToStore(e.detail, viewer.props.orientation.xyz);
-              } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
-                // console.log('VIEW_CHANGE second if');
-                widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
+                widget.sendOrientationToStore(e.detail, viewer.props.recording.xyz);
               }
             });
 
             viewer.on('VIEW_LOAD_END', function(e) {
               // console.log('on VIEW_LOAD_END fired, type:', e.type, 'e:', e, 'viewer.props.orientation:', viewer.props.orientation, 'widget.$store.state.cyclomedia.orientation.xyz:', widget.$store.state.cyclomedia.orientation.xyz);
-              if (viewer.props.orientation.xyz !== widget.$store.state.cyclomedia.orientation.xyz) {
+              if (viewer.props.recording.xyz !== widget.$store.state.cyclomedia.orientation.xyz) {
                 // console.log('VIEW_LOAD_END first if');
-                widget.sendOrientationToStore(e, viewer.props.orientation.xyz);
-              } else if (viewer.getNavbarExpanded() !== this.navBarOpen) {
-                // console.log('VIEW_LOAD_END second if');
-                widget.$store.commit('setCyclomediaNavBarOpen', viewer.getNavbarExpanded());
+                widget.sendOrientationToStore(e, viewer.props.recording.xyz);
               }
             });
           }
         }.bind(this),
       ).catch(
         function(reason) {
-          // console.log('Failed to create component(s) through API: ' + reason);
+          console.error('Failed to create component(s) through API:', reason);
         },
       );
 

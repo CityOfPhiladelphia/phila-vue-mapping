@@ -1,5 +1,11 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# Publishes @phila/vue-mapping to npm via OIDC trusted publishing when a tag is pushed.
+#
+# npmjs.com (package Settings > Trusted Publisher) trusts THIS repository and
+# THIS workflow filename; the job exchanges a GitHub OIDC token for a
+# short-lived npm credential at publish time. No npm token is stored anywhere.
+#
+# The package ships its src/ files as-is (apps compile them with their own
+# toolchain), so this Node version only affects the npm CLI doing the upload.
 
 name: Publish to npmjs
 
@@ -12,13 +18,21 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: '24.x'
           registry-url: https://registry.npmjs.org/
+
+      # Trusted publishing needs npm 11.5.1+; pin the floor so a runner image
+      # change can't regress it.
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest && npm --version
+
+      # Provenance is attached automatically under trusted publishing.
       - run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
