@@ -19,6 +19,11 @@ Check out [the wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wik
 
 ## Release Notes
 
+### 3.1.23 - 11/16/2026
+
+* updates the Cyclomedia widget to work with StreetSmart API v26.4 (load `https://streetsmart.cyclomedia.com/api/v26.4/StreetSmartApi.js` after React 18.3.1 and ReactDOM 18.3.1; StreetSmart no longer needs OpenLayers or lodash on the page)
+* publishes to npm with OIDC trusted publishing instead of a stored token
+
 ### 3.1.22 - 1/25/2024
 
 * splits ButtonControl into multiple ButtonControls to fix bug with buttons mixing up onclick events
